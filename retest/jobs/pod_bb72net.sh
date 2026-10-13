@@ -3,8 +3,12 @@
 # (bb/bb72/.../stage3/pod/s3_reads.sh: --gpu names the H100), in stage 3's environment (pod_s3venv.sh). MODE=check: on
 # the original test sets (regenerated on Alpine), against the published reads; MODE=run (or dry): the re-test sets.
 source <pod-home>/rt/env.sh
-set -uo pipefail
+set -euo pipefail
 MODE=$1; D=$W/$MODE; GPU="NVIDIA H100 80GB HBM3"
+G=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+[ "$G" = "$GPU" ] || { echo "GPU_REFUSED $G"; exit 1; }
+L3=$W/code/bb/bb72/ising_compare/data/bb/stage3/pod/pod_pip_freeze.txt
+[ "$(uv pip freeze -p $PY3 | sort)" = "$(grep -v '^#' $L3 | grep -v '^-e \|@ file' | sort)" ] || { echo "LOCK_REFUSED $PY3"; exit 1; }
 export BB_SHOTS=$D/shots BB_PREDS=$D/preds; mkdir -p $D/preds
 cd $W/code/bb/bb72/ising_compare && export PYTHONPATH=.:../qldpc_neural RT_MANIFEST=$D/manifest_bb72.csv
 POL=data/bb/policies; K=$W/code/weights/bb

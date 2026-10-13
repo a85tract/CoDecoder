@@ -14,7 +14,7 @@ predictions and outputs live in their own directories (BB_SHOTS, BB_PREDS). With
 only launches the command (the replays of RETEST.md section 6).
     python retest/shim/rt_bb.py MODULE ARGS...       e.g. rt_bb.py bb.shots --code bb72 --p 0.003 --split test ...
     python retest/shim/rt_bb.py SCRIPT.py ARGS...    e.g. the pack scripts, bb/scripts/stage3_pack.py
-    python retest/shim/rt_bb.py --prepare OUT [--gpu NAME]   the re-test's CPU-term rows and frozen-parameter copies"""
+    python retest/shim/rt_bb.py --prepare OUT [--gpu NAME|auto]   the re-test's CPU-term rows and frozen-parameter copies"""
 import csv
 import importlib
 import json
@@ -22,6 +22,7 @@ import os
 import sys
 
 RT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+VERIFIED_GPUS = ("NVIDIA RTX PRO 6000 Blackwell Server Edition", "NVIDIA H100 80GB HBM3")     # RETEST.md section 6
 SETS = {("test", "bb72", 0.003): "BB72-3", ("test", "bb72", 0.002): "BB72-2", ("test4", "bb144", 0.004): "gross"}
 
 
@@ -111,11 +112,52 @@ def cputerm_rows(out):
     return files, report
 
 
+def read_gpu():
+    """The GPU of BB72's network reads, from their own engine signatures: every read and chunk of the cells must name
+    the same GPU, one of the two platforms checked in RETEST.md section 6."""
+    from bb import route, shots
+    c = json.load(open(os.path.join(shots.HERE, "data", "bb", "stage3", "cells.json")))
+    reads = {(x["split"], x["tag"]) for x in c["cells"].values()}
+    gpus = {route._load_net(c["splits"][sp]["code"], c["splits"][sp]["p"], "test",
+                            shots.parse_range(c["splits"][sp]["chunks"]), tag)[2]["gpu"] for sp, tag in sorted(reads)}
+    if len(gpus) != 1 or not gpus <= set(VERIFIED_GPUS):
+        raise SystemExit(f"--gpu auto: BB72's network reads ran on {sorted(gpus)}")
+    return gpus.pop()
+
+
+def verify_copies():
+    """The parameter copies of RT_STAGE differ from the tree's frozen files only where --prepare changes them: the
+    CPU-term rows (a file in RT_STAGE) and, in bb72's cells.json, the GPU field (one of VERIFIED_GPUS, the frozen value
+    kept as gpu_frozen)."""
+    from bb import shots
+    d, st = os.path.join(shots.HERE, "data", "bb"), os.environ["RT_STAGE"]
+    if os.path.exists(os.path.join(d, "stage4_gross", "cell.json")):
+        pairs = [("stage4_gross/cell.json", os.environ["RT_CELLS"])]
+    else:
+        pairs = [("stage3/cells.json", os.environ["RT_CELLS"]), ("stage3/amendment_S.json", os.path.join(st, "amendment_S.json"))]
+    for rel, cp in pairs:
+        f, c = json.load(open(os.path.join(d, rel))), json.load(open(cp))
+        rows = c["rows"]["cpu"] if "rows" in f else c["rows_cpu"]
+        if os.path.dirname(os.path.abspath(rows)) != os.path.abspath(st):
+            raise SystemExit(f"{cp}: its CPU-term rows {rows} are not the derived rows in {st}")
+        if "rows" in f:
+            c["rows"] = dict(c["rows"], cpu=f["rows"]["cpu"])
+        else:
+            c["rows_cpu"] = f["rows_cpu"]
+        if "gpu_frozen" in c:
+            if c.pop("gpu_frozen") != f["gpu"] or c["gpu"] not in VERIFIED_GPUS:
+                raise SystemExit(f"{cp}: the GPU field is not a checked platform with the frozen value kept")
+            c["gpu"] = f["gpu"]
+        if c != f:
+            raise SystemExit(f"{cp} differs from the frozen {rel} beyond the CPU-term rows and the GPU field")
+
+
 def prepare(out, gpu=""):
     """The re-test's frozen-parameter copies in OUT: the tree's cells.json and amendment_S.json (bb72) or cell.json
     (gross_stage4) with exactly two changes: the CPU-term rows file -> the derived rows (cputerm_rows), and, with --gpu,
     the field the analysis compares with every read's engine signature ("gpu", bb72's cells.json) -> the re-test's
-    read GPU, the frozen value kept as gpu_frozen. Run once, after the network reads, before the analysis."""
+    read GPU, the frozen value kept as gpu_frozen (--gpu auto: the GPU the reads' own signatures name, read_gpu; the
+    frozen GPU leaves the field as it is). Run once, after the network reads, before the analysis."""
     os.makedirs(out, exist_ok=True)
     files, report = cputerm_rows(out)
     from bb import shots
@@ -130,6 +172,9 @@ def prepare(out, gpu=""):
         c = json.load(open(os.path.join(d, "stage3", "cells.json")))
         am = json.load(open(os.path.join(d, "stage3", "amendment_S.json")))
         c["rows"]["cpu"], am["rows_cpu"] = files[c["rows"]["cpu"]], files[am["rows_cpu"]]
+        if gpu == "auto":
+            gpu = read_gpu()
+            gpu = "" if gpu == c["gpu"] else gpu
         if gpu:
             c["gpu_frozen"], c["gpu"] = c["gpu"], gpu
         json.dump(c, open(os.path.join(out, "cells.json"), "w"), indent=1)
@@ -141,6 +186,8 @@ def main():
     if sys.argv[1] == "--prepare":
         return prepare(sys.argv[2], sys.argv[4] if len(sys.argv) > 4 and sys.argv[3] == "--gpu" else "")
     setup()
+    if os.environ.get("RT_STAGE"):
+        verify_copies()
     if sys.argv[1].endswith(".py"):                        # a script (the pack scripts of bb/scripts/), no pools
         import runpy
         sys.argv = sys.argv[1:]

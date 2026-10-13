@@ -3,6 +3,7 @@
 #SBATCH -o <cluster-scratch>/retest/logs/%x_%j.out
 # Historical seeds on Alpine (RETEST.md section 2): every 19-digit integer in [2^62, 2^63) of every manifest, seeds or
 # beacon file of this account's Alpine records (venvs, site-packages and .git excluded), for retest/historical_seeds.txt.
+# The re-test's own dry-run and replay records were scanned with the same rule apart (retest/replay/hist/dry.files).
 set -uo pipefail
 O=<cluster-scratch>/retest/replay/hist_alpine
 find <cluster-scratch> <cluster-projects> -maxdepth 7 \( -name "*manifest*" -o -name "*seeds*" -o -name "beacon*.json" \) \

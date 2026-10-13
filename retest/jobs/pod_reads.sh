@@ -3,10 +3,16 @@
 # the original test4 chunks (regenerated on Alpine from stage 4's beacon, its replay manifest) against the published
 # predictions and margins, bit for bit. MODE=run (or dry): the gross network's test4 read (stage 4's command), then
 # cudaq-qec's reads, one whole read each: gross test4 0-14 (gross_stage4 tree, as stage 4) and BB72 test 0-19 at
-# p 0.003 and 0-29 at p 0.002 (bb72 tree, as stage 3). Shots and manifests: Alpine's draw, copied to $W/$MODE.
+# p 0.003 and 0-29 at p 0.002 (bb72 tree and stage 3's environment, PY3, as stage 3). Shots and manifests: Alpine's
+# draw, copied to $W/$MODE. Nothing is read unless the GPU is an H100 80GB HBM3 and every environment equals its record.
 source <pod-home>/rt/env.sh
-set -uo pipefail
+set -euo pipefail
 MODE=$1; D=$W/$MODE
+G=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
+[ "$G" = "NVIDIA H100 80GB HBM3" ] || { echo "GPU_REFUSED $G"; exit 1; }
+L4=$W/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod; L3=$W/code/bb/bb72/ising_compare/data/bb/stage3/pod
+lock() { [ "$(uv pip freeze -p $1 | sort)" = "$(grep -v '^#' $2 | grep -v '^-e \|@ file' | sort)" ] || { echo "LOCK_REFUSED $1 $2"; exit 1; }; }
+lock $PY $L4/env.lock; lock $PYQ $L4/cqvenv.lock; lock $PY3 $L3/pod_pip_freeze.txt; echo "LOCKS_OK"
 export BB_SHOTS=$D/shots BB_PREDS=$D/preds
 mkdir -p $D/preds $D/rows
 CK=$W/code/weights/bb/g2_D12k113c10_final_ema.pt
@@ -17,6 +23,6 @@ echo "NETREAD_END $(date +%T)"
 if [ "$MODE" = check ]; then $PY $X platform g2_D12k113c10_fusedt_s4 $D/platform_gross.json; exit $?; fi
 $PYQ $S bb.gpu_bposd read --code bb144 --p 0.004 --split test4 --chunks 0-14 --out $D/rows/gpu_bposd_gross.csv 2>&1 | tail -1 | cut -c1-160
 cd $W/code/bb/bb72/ising_compare && export PYTHONPATH=.:../qldpc_neural RT_MANIFEST=$D/manifest_bb72.csv
-$PYQ $S bb.gpu_bposd read --code bb72 --p 0.003 --split test --chunks 0-19 --out $D/rows/gpu_bposd_bb72.csv 2>&1 | tail -1 | cut -c1-160
-$PYQ $S bb.gpu_bposd read --code bb72 --p 0.002 --split test --chunks 0-29 --out $D/rows/gpu_bposd_bb72.csv 2>&1 | tail -1 | cut -c1-160
+$PY3 $S bb.gpu_bposd read --code bb72 --p 0.003 --split test --chunks 0-19 --out $D/rows/gpu_bposd_bb72.csv 2>&1 | tail -1 | cut -c1-160
+$PY3 $S bb.gpu_bposd read --code bb72 --p 0.002 --split test --chunks 0-29 --out $D/rows/gpu_bposd_bb72.csv 2>&1 | tail -1 | cut -c1-160
 echo "READS_END $(date +%T)"

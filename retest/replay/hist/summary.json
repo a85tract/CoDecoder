@@ -1,0 +1,32 @@
+{
+ "rule": "every 19-digit integer in [2^62, 2^63) of every manifest, seeds or beacon file (file names *manifest*, *seeds*, beacon*.json)",
+ "sources": {
+  "hub": {
+   "scan": "retest/replay/hist/hist_scan_git.sh (every branch of the research hub)",
+   "files": 1994,
+   "seeds": 919
+  },
+  "release": {
+   "scan": "retest/replay/hist/hist_scan_git.sh (the release tree)",
+   "files": 34,
+   "seeds": 95
+  },
+  "alpine": {
+   "scan": "retest/jobs/hist_scan.sbatch (this account's Alpine records, the re-test's directory excluded)",
+   "files": 5941,
+   "file_list_sha256": "2a416f2278a87fc1c3859d7b421667beb79e0ee5a6ce39ce034a375691237c0f (kept on the cluster: the paths of the account's other studies)",
+   "seeds": 919
+  },
+  "dry": {
+   "scan": "the same rule over the re-test's own dry-run and replay records (dry/, replay/)",
+   "files": 29,
+   "seeds": 6115
+  }
+ },
+ "hub_release_alpine_union": 919,
+ "historical_seeds": {
+  "file": "retest/historical_seeds.txt",
+  "seeds": 7034,
+  "sha256": "f2c7eb444b6b418edbe95ee58b6a5f3ad31865880bdcd85a0b1ac75f824f4b22"
+ }
+}

@@ -8,3 +8,4 @@ mkdir -p $RUN && cd $T
 /usr/bin/python3 retest/beacon.py --push-time "$1" --commit "$2" --out $RUN/beacon.json
 /usr/bin/python3 retest/seeds.py $RUN/beacon.json $RUN/seeds.json
 chmod a-w $RUN/beacon.json $RUN/seeds.json
+/usr/bin/python3 retest/seeds.py --verify $RUN/beacon.json $RUN/seeds.json | tee $RUN/seeds_verify.json   # before commit 1

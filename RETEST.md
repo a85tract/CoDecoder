@@ -39,7 +39,10 @@ historical result; its 0.5 % hybrid is reported on the re-test's gross shots as 
    the first drand mainnet round (chain 8990e7a9..., 30 s period) whose time is at least 600 s after T, fetched from
    at least two of four endpoints that agree on round, signature and previous signature; R = SHA-256(signature).
    Stage 3's code does the fetch and the checks (`bb/bb72/ising_compare/icmp/t2.py`).
-3. Seeds: `python retest/seeds.py retest/run/beacon.json retest/run/seeds.json` (section 2).
+3. Seeds: `python retest/seeds.py retest/run/beacon.json retest/run/seeds.json` (section 2), then
+   `python retest/seeds.py --verify retest/run/beacon.json retest/run/seeds.json`, which recomputes the whole file
+   from the beacon, the TAG table and the historical seeds and must report it equal (`retest/jobs/run_beacon.sh`
+   runs both; the report goes into commit 1).
 4. Draws: the BB sets on Alpine (`retest/jobs/bb_draw.sbatch`, after a host check) and the head sets
    (`retest/jobs/head_draw.sh`); the Cascade reads draw their shots inside the read from the seeds file, as their
    originals did.
@@ -60,7 +63,7 @@ takes each:
 | 3 | no acceptance rule for CUDA-Q BP-OSD on another GPU | section 3.1: cudaq-qec runs on an H100 80GB HBM3, the original platform, in the original environment |
 | 4 | D1's read guard must not be dropped whole | section 3.2: every check kept except the obsolete kind-14 freshness test |
 | 5 | beacon indices are not native chunk indices | sections 2, 3.2, 3.4: head BB72 keeps native chunks 0-49 (beacon indices 20-69); D1 maps c0 + j to j |
-| 6 | different TAGs can still give equal seeds; the freeze time must be checkable | section 2: the collision rule and the check against 919 historical seeds; section 1: GitHub's push record |
+| 6 | different TAGs can still give equal seeds; the freeze time must be checkable | section 2: the collision rule and the check against 7,034 historical seeds; section 1: GitHub's push record |
 | 7 | X2 hard-codes the original inputs and counts | section 3.2: an adapter reads them from the committed re-test records; reported apart, exploratory |
 | 8 | freeze the verdict-to-paper mapping | section 5 and each test's mapping in sections 3.2-3.4 |
 | 9 | say what the study is | section 0: a fresh-shot confirmation of the frozen networks, thresholds and analyses, timing inherited |
@@ -90,7 +93,9 @@ takes each:
   smallest index no earlier chunk took; an index whose seed equals a seed already taken or a historical seed is
   dropped (recorded in `seeds.json`) and the next index is tried. Historical seeds (`retest/historical_seeds.txt`):
   every 19-digit integer in [2^62, 2^63) found in any manifest, seeds or beacon file on every branch of the research
-  hub, in the release, and in this account's records on Alpine. Seeds from a TAG lie in [2^62, 2^63); the arithmetic
+  hub, in the release, in this account's records on Alpine (919 seeds, the same in the hub and on Alpine) and in the
+  re-test's own dry-run and replay records (6,115 more): 7,034 seeds, sha256 f2c7eb444b6b418e... (the scans and their
+  counts: `retest/replay/hist/`). Seeds from a TAG lie in [2^62, 2^63); the arithmetic
   seed rules of D1, d = 13 and A1 give seeds below 2^57, so they cannot collide with these.
 - TAGs used before, all different from these: `ising_compare study 2 T2`, `study 3 T3`, `study 4 T4`,
   `ising_compare bb test BB72-3`, `bb test BB72-2`, `bb test G-4`, `bb test4 G-4R G-4F`.
@@ -127,7 +132,7 @@ Reads (each once, blind):
 | draw of BB72-3, BB72-2, gross | Alpine CPU node (`bb/venv`, Stim 1.16.0), after a host check: the original test sets regenerated on the node from their published beacons equal the published arrays (stage 3 and 4's host check) | Alpine produced every calibration and development chunk |
 | r11, r12 | Alpine, one full RTX PRO 6000 (`bb/venv_cu128`: torch 2.11.0+cu128, cuDNN 91900); fallback: the rented H100 in stage 3's environment with stage 3's commands (`pod_bb72net.sh`) | the GPU of the policies' own engine signature; stage 3 read on an H100 as a disclosed substitute (H100 = RTX on all 800,000 calibration shots, bit for bit) |
 | g2_D12k113c10 on fusedt | a rented H100 80GB HBM3, stage 4's environment rebuilt from `stage4_gross/pod/env.lock` | the frozen engine signature names this GPU and environment exactly |
-| cudaq-qec, both codes | the same H100, stage 4's `cqvenv.lock` (cudaq-qec 0.8.0, cuda-quantum 0.16.0.post1, numpy 2.2.6, Stim 1.16.0, the versions of stage 3's pod too) | the original platform (cudaq-qec's decisions vary between processes, so no cross-GPU check is possible) |
+| cudaq-qec | the same H100; gross: stage 4's environment from `cqvenv.lock`; BB72: stage 3's environment (`s3venv`, rebuilt by `pod_s3venv.sh` from stage 3's pod record, the environment BB72's original cudaq-qec reads ran in). Both hold cudaq-qec 0.8.0, cuda-quantum 0.16.0.post1, numpy 2.2.6 and Stim 1.16.0; their CUDA libraries are 12.9 (stage 4) and 12.8 (stage 3) | each code's original platform and environment (cudaq-qec's decisions vary between processes, so no cross-GPU check is possible); `pod_reads.sh` reads only on an NVIDIA H100 80GB HBM3 and only after each environment equals its record package for package |
 | sector Relay-BP, BP-OSD, full-DEM Relay-BP, BB72 | Alpine CPU nodes, `bb/venv` (relay-bp 0.2.2, ldpc 2.4.1) | stage 3 read on an Apple M4 and a Ryzen workstation; accuracy does not depend on the host |
 | sector Relay-BP, BP-OSD, full-DEM Relay-BP, gross | Derecho, regular main queue (stage 4: the develop queue), the qldpc venv (relay-bp 0.2.2, ldpc 2.4.1) | stage 4's platform |
 
@@ -140,13 +145,15 @@ Run book (every command in `retest/jobs/`, as run):
 |---|---|---|
 | draw and BB72 reads | `bash retest/jobs/bb_submit.sh` (`bb_draw.sbatch`, then `bb72_net.sbatch` and two `bb_cpu.sbatch` jobs after it) | Alpine |
 | gross full-DEM, sector and BP-OSD | the code (this commit's `bb/gross_stage4/` and `retest/`) and the draw's gross shots with their manifest copied to Derecho; three `gross_full_derecho.pbs` jobs (chunks 0-4 with sector Relay-BP and BP-OSD on all 15 chunks first, 5-9, 10-14); the per-chunk predictions copied back to Alpine | Derecho |
-| gross network, cudaq-qec | the code (`bb/bb72/`, `bb/gross_stage4/`, `weights/bb/`, `retest/`) and the draw's BB72 and gross shots with their manifests copied to the pod; `bash pod_setup.sh` (unless the pod's environments were built from the same locks and checked), `bash pod_reads.sh run`; the predictions copied back to Alpine | rented H100 |
+| gross network, cudaq-qec | the code (`bb/bb72/`, `bb/gross_stage4/`, `weights/bb/`, `retest/`) and the draw's BB72 and gross shots with their manifests copied to the pod; `bash pod_setup.sh` and `bash pod_s3venv.sh` (unless the pod's environments were built from the same records and checked), `bash pod_reads.sh run`; the predictions copied back to Alpine | rented H100 |
 | analyses | `sbatch --export=ALL,WHICH=bb72 retest/jobs/bb_analysis.sbatch`, then `WHICH=gross`, each once its reads are complete | Alpine |
 
 Fallback (frozen, decided on start times only, never on any output): a Derecho job that has not started 90 minutes
-after its submission is deleted (`qdel` by its id, outside 00:35-01:00 PDT) and its chunk range is read on Alpine
+after its submission is deleted (`qdel` by its id) and its chunk range is read on Alpine
 with the same command (`gross_full_alpine.sbatch`); a read is never run twice on one chunk range. A GPU read whose
-job has not started within an hour moves to a rented H100 where its frozen engine allows that GPU.
+job has not started within an hour moves to a rented H100 where its frozen engine allows that GPU. Nothing is
+submitted to Derecho and nothing is deleted there between 00:35 and 01:00 PDT: no `qsub` (also not of a cut read
+submitted again) and no `qdel`.
 
 Analysis, once per tree, after every read of the tree: `retest/jobs/bb_analysis.sbatch` (WHICH=bb72, WHICH=gross):
 
@@ -194,10 +201,16 @@ repeat the timing session.
 
 #### What is frozen
 
-Tree: `<cluster-scratch>/cascade_d1/code.20261011_152939` (466 files; `DEPLOYED` = `net 64b2e25d d1
-310ce8e0f8bfb9d3b97b27186547a836d29fc9ca`, `DEPLOYED_SHA` = F = 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, D1's freeze commit).
-Every read, compiled read and timing row binds that tag, and `d1_confirm.py` refuses another one, so no file of the tree
-is edited. The re-test runs from it and writes nothing into it (`PYTHONDONTWRITEBYTECODE=1`); its own files live outside.
+Tree: `<cluster-scratch>/cascade_d1/code.20261011_152939` (436 files besides Python's byte-code caches;
+`DEPLOYED` = `net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca`, `DEPLOYED_SHA` = F =
+310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, D1's freeze commit). Every read, compiled read and timing row binds that tag,
+and `d1_confirm.py` refuses another one. The tag names a commit, not bytes, so the re-test pins the bytes too:
+`retest/pins/d1_tree.sha256` lists every file of the tree but the byte-code caches with its sha256. The list on the
+cluster, `<cluster-scratch>/retest/pins/d1_tree.sha256`, has sha256 46329005461cf149951e411d4594bedb66f5f74ea2abf93011b33799741ca07c; the copy here differs from it only
+in masked names (the job ids of 33 job logs are `<job>`, the tool name in five review notes' names is `<review>`).
+`retest/jobs/tree_pin.sh` checks the tree against that list before each D1 job is submitted (commands below): the
+list's sha256, every file's sha256, and no file added or missing. The re-test runs from the tree and writes nothing
+into it (`PYTHONDONTWRITEBYTECODE=1`); its own files live outside.
 
 | item | file (under the tree unless absolute) | sha256 |
 |---|---|---|
@@ -307,11 +320,17 @@ export RT_BEACON=<cluster-scratch>/retest/run/beacon.json
 export RT_SEEDS=<cluster-scratch>/retest/run/seeds.json
 export RT_OUT=<cluster-scratch>/retest/out               # the root of all tests, also the default; D1 writes $RT_OUT/d1
 cd $RT/retest/jobs
-R1=$(sbatch --parsable d1_R1.sbatch)                            # p = 0.2 %, 11,000,000 shots
-R2=$(sbatch --parsable d1_R2.sbatch)                            # p = 0.3 %, 17,000,000 shots
-A1=$(sbatch --parsable --dependency=afterok:$R1:$R2 d1_confirm.sbatch)
-X2=$(sbatch --parsable --dependency=afterok:$A1 d1_x2.sbatch)   # exploratory, after the confirmatory analysis
+PIN="bash $RT/retest/jobs/tree_pin.sh <cluster-scratch>/cascade_d1/code.20261011_152939 \
+     <cluster-scratch>/retest/pins/d1_tree.sha256 46329005461cf149951e411d4594bedb66f5f74ea2abf93011b33799741ca07c"
+$PIN && R1=$(sbatch --parsable d1_R1.sbatch)                    # p = 0.2 %, 11,000,000 shots
+$PIN && R2=$(sbatch --parsable d1_R2.sbatch)                    # p = 0.3 %, 17,000,000 shots
+$PIN && A1=$(sbatch --parsable --dependency=afterok:$R1:$R2 d1_confirm.sbatch)
+$PIN && X2=$(sbatch --parsable --dependency=afterok:$A1 d1_x2.sbatch)   # exploratory, after the confirmatory analysis
 ```
+
+`$PIN` runs before each submission and again once R1 and R2 have ended, before the analysis starts. If it does not
+print `PIN_OK`, nothing more is submitted and the pending D1 jobs are cancelled by their ids. Its output lines go into
+the next commit (the first ones into commit 1).
 
 The sbatch files carry `--nice=1000` and D1's resources. R1 and R2: `-p artxpro6000 --qos=gpu-normal --gres=gpu:rtx_pro_6000:1
 -N 1 -c 16 --mem=96G` (one full RTX PRO 6000 each, as D1's R1 and R2), `-t 2:00:00` and `-t 3:00:00` (1.5 times D1's wall times
@@ -515,9 +534,12 @@ therefore a fresh-shot confirmation of accuracy with inherited timing; the timin
 #### What is frozen
 
 Tree: `<cluster-scratch>/cascade_w5/code.20261012_060258` (`DEPLOYED`: commit
-a43103277aca60e82d959255fd8e514d28f20cc8, release 8d65844a1dae1530ed158eac2cf1f75c1dcc955a, clean; 86 files, code digest
-`b15af28f3e162378`). Every record binds this digest and `sv_read` / `sv_route` refuse another one, so no file in the tree
-is edited. The re-test's own files live outside it.
+a43103277aca60e82d959255fd8e514d28f20cc8, release 8d65844a1dae1530ed158eac2cf1f75c1dcc955a, clean; 87 files besides
+Python's byte-code caches, code digest `b15af28f3e162378`). Every record binds this digest and `sv_read` / `sv_route`
+refuse another one. The re-test also pins every file of the tree but the byte-code caches: `retest/pins/d13_tree.sha256`
+(the list on the cluster, `<cluster-scratch>/retest/pins/d13_tree.sha256`, has sha256 a4abb5b0cb09791e338f7cedb5956b7fe6418b958036c1b988aaf1c6c94ca227; the copy here masks
+one job log's job id as `<job>`), checked by `retest/jobs/tree_pin.sh` before each d = 13 job is submitted (commands
+below). The re-test's own files live outside the tree.
 
 | item | file | sha256 |
 |---|---|---|
@@ -577,7 +599,7 @@ and 2:10:00 (e6), 1.5 times the originals' 2:06:48 and 1:22:03 (limits 4:00:00 a
 | file in `retest/` | sha256 (first 16) |
 |---|---|
 | `shim/rt_surface.py` | a63015155daa232f |
-| `seeds.py` | 9fafc141cadf5fc0 |
+| `seeds.py` | 828c5c3d53232419 |
 | `tags.json` | a6ef241680ccf9dc |
 | `jobs/d13_env.sh` | 426a5bbe83abc203 |
 | `jobs/d13_read.sh` | f54c80e628180a34 |
@@ -596,10 +618,15 @@ export RT_BEACON=<cluster-scratch>/retest/run/beacon.json
 export RT_SEEDS=<cluster-scratch>/retest/run/seeds.json
 export RT_OUT=<cluster-scratch>/retest/out
 module load slurm/alpine
-E5=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e5.sbatch)
-E6=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e6.sbatch)
-sbatch --parsable --nice=1000 --dependency=afterok:$E5:$E6 $RT/retest/jobs/d13_analysis.sh
+PIN="bash $RT/retest/jobs/tree_pin.sh <cluster-scratch>/cascade_w5/code.20261012_060258 \
+     <cluster-scratch>/retest/pins/d13_tree.sha256 a4abb5b0cb09791e338f7cedb5956b7fe6418b958036c1b988aaf1c6c94ca227"
+$PIN && E5=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e5.sbatch)
+$PIN && E6=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e6.sbatch)
+$PIN && sbatch --parsable --nice=1000 --dependency=afterok:$E5:$E6 $RT/retest/jobs/d13_analysis.sh
 ```
+`$PIN` runs before each submission and again once e5 and e6 have ended, before the analysis starts; without `PIN_OK`
+nothing more is submitted and the pending d = 13 jobs are cancelled by their ids. Its output lines go into the next
+commit (the first ones into commit 1).
 
 Each read job runs, per p, the original command through the shim (shown for e5; `$PY` is the container with the staged
 venv; `$E` is `<cluster-scratch>/cascade_w5/eval`, `$LOCK` and `$GATE` are its `locked_d13.json` and `gate_d13.json`):
@@ -1128,22 +1155,29 @@ analysis table, end to end.
 Each change below leaves the frozen computation as it was; the checks that show it are in section 6.
 
 1. BB72's networks are read on Alpine's full RTX PRO 6000, the GPU of the policies' own engine signature; stage 3
-   read them on an H100 as a disclosed substitute. The re-test's `cells.json` copy names the RTX in the field the
-   analysis compares (the frozen H100 kept as "gpu_frozen"). Checked: the RTX reads of the original test sets equal
+   read them on an H100 as a disclosed substitute. The re-test's `cells.json` copy names, in the field the analysis
+   compares, the GPU that the network reads' own signatures name (`rt_bb.py --prepare --gpu auto`: the RTX, or the
+   frozen H100 after the fallback, which leaves the field as it is), the frozen H100 kept as "gpu_frozen"; the shim
+   refuses any copy that differs from the frozen file elsewhere than in this field and the CPU-term rows. Checked: the RTX reads of the original test sets equal
    the published H100 reads, every decision and every margin bit.
 2. The gross network and cudaq-qec run on a rented H100 80GB HBM3, as in stages 3 and 4, in environments rebuilt from
-   stage 4's locks (`env.lock`, `cqvenv.lock`; both freezes compared equal). BB72's cudaq-qec reads use stage 4's
-   cudaq environment, which has the versions of stage 3's pod (cudaq-qec 0.8.0, cuda-quantum 0.16.0.post1, numpy
-   2.2.6, Stim 1.16.0); stage 3's single pod environment also held torch, which cudaq-qec does not load.
+   the original records: the gross reads in stage 4's (`env.lock`, `cqvenv.lock`), BB72's cudaq-qec reads in stage
+   3's (`stage3/pod/pod_pip_freeze.txt`, the environment BB72's original cudaq-qec reads ran in). The two hold the
+   same cudaq-qec 0.8.0, cuda-quantum 0.16.0.post1, numpy 2.2.6 and Stim 1.16.0 but different CUDA libraries (12.9
+   in stage 4's, 12.8 in stage 3's), so each code keeps its own. Every rebuilt environment equals its record package
+   for package, checked when the pod is set up and again by `pod_reads.sh` before its reads.
 3. The BB test sets are drawn on an Alpine CPU node (stage 3 and 4 drew on their pods), after a host check on the
    node: the original test sets regenerated there equal the published arrays.
 4. BB72's CPU decoders run on Alpine (stage 3: an Apple M4 and a Ryzen workstation) and gross's on Derecho's regular
    main queue (stage 4: Derecho's develop queue), with the same package versions; their process layout differs.
 5. No time is measured; the timing records are inherited (section 4).
-6. The Cascade and head tests run from their original deployed trees on Alpine, whose bytes their records bind (D1's
-   DEPLOYED tag, d = 13's code digest, A1's PINSUMS), not from this repository's copies, which were assembled from
-   those trees for publication with absolute paths, host and account names and some wording replaced
-   (`retest/replay/tree_compare.json`, every file at the same relative path, with the first changed lines of each):
+6. The Cascade and head tests run from their original deployed trees on Alpine, not from this repository's copies,
+   which were assembled from those trees for publication with absolute paths, host and account names and some wording
+   replaced. The trees' bytes are bound by their records (D1's DEPLOYED tag, d = 13's code digest, A1's PINSUMS) and,
+   for D1 and d = 13, by the re-test's pin lists (`retest/pins/`, checked before every job).
+   `retest/replay/tree_compare.json` compares every file at the same relative path; it records the counts and, for
+   each changed file, its sha256 on both sides and the number of changed lines, not the lines themselves
+   (the original lines hold the replaced strings):
    D1's tree 436 files, of which the copy `cascade/bb72/` holds 143 (38 byte-identical, 105 changed, 64 of them JSON
    records); d = 13's 87 files, `cascade/d13/` holds 27 (17 identical, 10 changed: paths in 5 Python files and 5 job
    scripts); A1's 2,019 files, `head/` holds 61 (45 identical, 16 changed: default paths and docstrings in 12 Python
@@ -1172,4 +1206,6 @@ code and shots between the hosts are not included (as `SANITIZE.md` says of the 
   (head comparison), and the X2 adapter.
 - `retest/jobs/`: every job and argument file, as run.
 - `retest/replay/`: the replay, seed and platform checks and their results.
+- `retest/pins/`: the content pins of D1's and d = 13's deployed trees (checked by `retest/jobs/tree_pin.sh`;
+  its checks in `retest/replay/pins/pin_check.log`).
 - `retest/run/` (after the beacon): `beacon.json`, `seeds.json`, the draw manifests; then each test's results.

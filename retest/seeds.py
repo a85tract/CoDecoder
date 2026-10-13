@@ -93,6 +93,16 @@ def main():
                != int(r["seed"])]
         print(f"stage 3 seeds recomputed: {len(rows) - len(bad)} of {len(rows)} equal", flush=True)
         sys.exit(1 if bad else 0)
+    if sys.argv[1] == "--verify":                          # the seeds file against the rule, recomputed whole
+        b, f, hist = json.load(open(sys.argv[2])), json.load(open(sys.argv[3])), historical()
+        with open(HISTORICAL, "rb") as fh:
+            hsha = hashlib.sha256(fh.read()).hexdigest()
+        want = {"beacon_round": b["round"], "randomness": b["randomness"], "rule": TAGS["rule"],
+                "historical": {"file": "retest/historical_seeds.txt", "sha256": hsha, "seeds": len(hist)},
+                "sets": assign(b, hist)}
+        bad = sorted(k for k in set(want) | set(f) if want.get(k) != f.get(k))
+        print(json.dumps({"verify": sys.argv[3], "beacon_round": b["round"], "equal": not bad, "differ": bad}), flush=True)
+        sys.exit(1 if bad else 0)
     if os.path.exists(sys.argv[2]):
         raise SystemExit(f"{sys.argv[2]} exists: the seeds are written once")
     b, hist = json.load(open(sys.argv[1])), historical()
