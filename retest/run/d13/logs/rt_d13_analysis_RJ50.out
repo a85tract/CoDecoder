@@ -1,0 +1,47 @@
+node rt-cpu-node-09 cpus 13 job RJ50 tree a43103277aca60e82d959255fd8e514d28f20cc8 release 8d65844a1dae1530ed158eac2cf1f75c1dcc955a venv <cluster-scratch>/bb/venv_cu128 RT=<cluster-scratch>/retest/code/freeze
+analysis of <cluster-scratch>/retest/out/d13/conf -> <cluster-scratch>/retest/out/d13/route
+== 23:38:39 apptainer exec -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/bb/venv_cu128/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_surface.py surface.sv_route confirm --lock <cluster-scratch>/cascade_w5/eval/locked_d13.json --gate <cluster-scratch>/cascade_w5/eval/gate_d13.json --conf <cluster-scratch>/retest/out/d13/conf --out <cluster-scratch>/retest/out/d13/route/confirm_d13.json
+rt_surface: patch ON for kind 11 (d = 13): {"d13-0.006": "c328f19371ab8c1a", "d13-0.0035": "27749948ee661002"} chunks {"d13-0.006": 100, "d13-0.0035": 3000} first seeds 7815521111815348102 7389520888820503977; RT_SEEDS <cluster-scratch>/retest/run/seeds.json (dry: False)
+{"comparison": "0.006|single|C1-C2", "label": "better"}
+{"comparison": "0.006|single|C5-C2", "label": "non-inferior"}
+{"comparison": "0.006|single|C4-C2", "label": "worse"}
+{"comparison": "0.006|single|C3-C2", "label": "worse"}
+{"comparison": "0.006|single|C1-C4", "label": "better"}
+{"comparison": "0.006|single|C5-C4", "label": "better"}
+{"comparison": "0.006|single|C1-C5", "label": "better"}
+{"comparison": "0.006|single|C4-C3", "label": "better"}
+{"comparison": "0.006|batched|C1-C2", "label": "better"}
+{"comparison": "0.006|batched|C5-C2", "label": "non-inferior"}
+{"comparison": "0.006|batched|C4-C2", "label": "worse"}
+{"comparison": "0.006|batched|C3-C2", "label": "worse"}
+{"comparison": "0.006|batched|C1-C4", "label": "better"}
+{"comparison": "0.006|batched|C5-C4", "label": "better"}
+{"comparison": "0.006|batched|C1-C5", "label": "better"}
+{"comparison": "0.006|batched|C4-C3", "label": "better"}
+{"comparison": "0.0035|single|C1-C2", "label": "worse"}
+{"comparison": "0.0035|single|C5-C2", "label": "better"}
+{"comparison": "0.0035|single|C4-C2", "label": "worse"}
+{"comparison": "0.0035|single|C3-C2", "label": "worse"}
+{"comparison": "0.0035|single|C1-C4", "label": "level"}
+{"comparison": "0.0035|single|C5-C4", "label": "better"}
+{"comparison": "0.0035|single|C1-C5", "label": "worse"}
+{"comparison": "0.0035|single|C4-C3", "label": "better"}
+{"comparison": "0.0035|batched|C1-C2", "label": "worse"}
+{"comparison": "0.0035|batched|C5-C2", "label": "better"}
+{"comparison": "0.0035|batched|C4-C2", "label": "worse"}
+{"comparison": "0.0035|batched|C3-C2", "label": "worse"}
+{"comparison": "0.0035|batched|C1-C4", "label": "level"}
+{"comparison": "0.0035|batched|C5-C4", "label": "better"}
+{"comparison": "0.0035|batched|C1-C5", "label": "worse"}
+{"comparison": "0.0035|batched|C4-C3", "label": "better"}
+{"p": 0.006, "mode": "single", "fail": {"C1": 4351, "C2": 4936, "C3": 6226, "C4": 5341, "C5": 4917}, "agree": {"S1_SB_logits_differ": 0, "MS_MB_differ": 0, "B1_Bb_decisions_differ": 65, "BQ1_Bb_logits_differ": 0, "BQ5_Bb_logits_differ": 0}}
+{"p": 0.006, "mode": "batched", "fail": {"C1": 4353, "C2": 4947, "C3": 6226, "C4": 5341, "C5": 4927}, "agree": {"S1_SB_logits_differ": 0, "MS_MB_differ": 0, "B1_Bb_decisions_differ": 65, "BQ1_Bb_logits_differ": 0, "BQ5_Bb_logits_differ": 0}}
+{"p": 0.0035, "mode": "single", "fail": {"C1": 2632, "C2": 2354, "C3": 3057, "C4": 2537, "C5": 2325}, "agree": {"S1_SB_logits_differ": 0, "MS_MB_differ": 0, "B1_Bb_decisions_differ": 30, "BQ1_Bb_logits_differ": 0, "BQ5_Bb_logits_differ": 0}}
+{"p": 0.0035, "mode": "batched", "fail": {"C1": 2628, "C2": 2352, "C3": 3057, "C4": 2537, "C5": 2322}, "agree": {"S1_SB_logits_differ": 0, "MS_MB_differ": 0, "B1_Bb_decisions_differ": 30, "BQ1_Bb_logits_differ": 0, "BQ5_Bb_logits_differ": 0}}
+== rc 0 23:39:38
+== 23:39:38 apptainer exec -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/bb/venv_cu128/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_surface.py surface.sv_route report --lock <cluster-scratch>/cascade_w5/eval/locked_d13.json --confirm <cluster-scratch>/retest/out/d13/route/confirm_d13.json --speed <cluster-scratch>/cascade_w5/eval/speed.json --pipes <cluster-scratch>/cascade_w5/eval/pipes.jsonl --bitwise <cluster-scratch>/cascade_w5/eval/bitwise_c7.json --out <cluster-scratch>/retest/out/d13/route/SURFACE_RESULT_retest.md
+rt_surface: patch ON for kind 11 (d = 13): {"d13-0.006": "c328f19371ab8c1a", "d13-0.0035": "27749948ee661002"} chunks {"d13-0.006": 100, "d13-0.0035": 3000} first seeds 7815521111815348102 7389520888820503977; RT_SEEDS <cluster-scratch>/retest/run/seeds.json (dry: False)
+{"headline_chains": ["C5"], "headline_more_accurate": [], "P1": true, "P2_chains": ["C5"], "d17": "propose"}
+== rc 0 23:39:41
+Mon Oct 12 23:39:41 MDT 2026
+JOBDONE
