@@ -1,0 +1,122 @@
+{
+ "plan": "ising_compare/bb/STAGE4_GROSS_PLAN.md",
+ "code": "bb144",
+ "p": 0.004,
+ "split": "test4",
+ "chunks": "0-14",
+ "shots": 150000,
+ "tag": "g2_D12k113c10_fusedt_s4",
+ "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+ "engine": {
+  "batch": 1,
+  "cuda": "12.6",
+  "cudnn": 91002,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "kind": "fusedt",
+  "launch": {
+   "pdl": false,
+   "stages": 4,
+   "tpi": 16
+  },
+  "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+  "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+  "src": {
+   "engine.py": "ca6c91f3b6c29c97",
+   "fast.py": "1c85d789b619d5c8",
+   "fused.py": "195afee3087c0ee4",
+   "net.py": "36e2b562e3acad8c"
+  },
+  "torch": "2.11.0+cu126",
+  "triton": "3.6.0"
+ },
+ "gpu_name": "fusedt:eb380295a6ec",
+ "cells": {
+  "G-4R": {
+   "q": 0.01,
+   "fallback": "relay",
+   "vs": [
+    "relay",
+    "bposd",
+    "gpu_bposd"
+   ],
+   "bar": "gating",
+   "first_routed": 1000,
+   "tau": 2.2055678367614746
+  },
+  "G-4F": {
+   "q": 0.02,
+   "fallback": "relay_full",
+   "vs": [
+    "relay_full",
+    "relay",
+    "bposd",
+    "gpu_bposd"
+   ],
+   "bar": "relay_full",
+   "first_routed": 100,
+   "tau": 6.272581100463867
+  }
+ },
+ "beside": {
+  "G-4 (q 0.5 %)": {
+   "q": 0.005,
+   "fallback": "relay",
+   "tau": 0.5653958916664124
+  }
+ },
+ "alpha": 0.016666666666666666,
+ "cal": {
+  "shots": 100000,
+  "network_alone": 717,
+  "sector_relay_alone": 490,
+  "q": {
+   "0.005": {
+    "tau": 0.5653958916664124,
+    "routed": 500,
+    "hybrid_sector_relay": 406,
+    "hybrid_full_dem": 353
+   },
+   "0.01": {
+    "tau": 2.2055678367614746,
+    "routed": 1000,
+    "hybrid_sector_relay": 259,
+    "hybrid_full_dem": 165
+   },
+   "0.02": {
+    "tau": 6.272581100463867,
+    "routed": 2000,
+    "hybrid_sector_relay": 282,
+    "hybrid_full_dem": 156
+   }
+  }
+ },
+ "cal_read_vs": {
+  "g2_D12k113c10_fusedt_h100": {
+   "kind": "fusedt",
+   "decisions_differ": 0,
+   "margins_bitwise_equal": 100000,
+   "margin_absdiff_max": 0.0
+  },
+  "g2_D12k113c10": {
+   "kind": "graph32",
+   "decisions_differ": 3,
+   "margins_bitwise_equal": 9,
+   "margin_absdiff_max": 7.060894012451172
+  }
+ },
+ "cal_pack": "ising_compare/data/bb/stage4_gross/cal_fusedt.npz",
+ "cal_pack_sha256": "637701af2990b5b208f3c2cf853d0942af7ced211c954c266c92e36f589bcd92",
+ "opponents_first": 1000,
+ "full_dem_first": 300,
+ "cpu_processes": 3,
+ "gpu_processes": 3,
+ "sessions": {
+  "gpu": "H100 session s4",
+  "cpu": "M4 session s4"
+ },
+ "rows": {
+  "gpu": "data/bb/stage4_gross/rows_gpu.csv",
+  "cpu": "<cluster-scratch>/retest/dry/bb/stage4/rows_cpu_retest.csv"
+ },
+ "analysis_command": "python -m bb.stage4_gross analyze --out data/bb/stage4_gross"
+}

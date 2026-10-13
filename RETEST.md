@@ -1109,7 +1109,8 @@ G-4R unless more than about 1.45 %).
 ## 6. Checks before this commit (results in `retest/replay/`)
 
 Replay checks (patch off, the original inputs through the shims):
-- Table I (`retest/jobs/bb_replay.sbatch`, records `retest/replay/bb/`): the original test sets regenerated on an
+- Table I (`retest/jobs/bb_replay.sbatch`, records `retest/replay/bb/`, and the same job run on this commit's
+  deployed tree, `retest/replay/bb_freeze/`): the original test sets regenerated on an
   Alpine CPU node from the published beacons equal the published arrays (BB72 50 of 50 chunks, gross test4 15 of 15);
   the published per-shot outputs, unpacked into per-chunk reads, through `--prepare` give CPU-term rows equal to the
   registered rows (`rows_cpu.csv`, `rows_cpu_S.csv`, gross `rows_cpu.csv`: every row, every column); stage 3's and
@@ -1129,14 +1130,17 @@ Platform checks:
 - BB72's networks on Alpine's RTX PRO 6000 (`retest/jobs/bb72_platform.sbatch`): r11 and r12 at p = 0.3 % and r12
   at 0.2 % on the original test sets, 700,000 shot-reads: 0 decisions and 0 margins differ from the published H100
   reads (bit for bit).
-- The gross network on the rented H100 80GB HBM3 (`pod_reads.sh check`), in stage 4's environment rebuilt from its
-  lock (the rebuilt environments' package lists equal `env.lock` and `cqvenv.lock`): 150,000 shot-reads on the
-  original test4 set, 0 decisions and 0 margins differ from the published read.
+- The rented H100 80GB HBM3, every pod script run from this commit's tree (records `retest/replay/bb/pod/`, one log
+  per script and `fixcheck.status`): `pod_setup.sh` and `pod_s3venv.sh` rebuilt the three environments, each equal
+  to its record package for package (LOCK_OK, CQLOCK_OK, S3LOCK_OK; `freeze_*.txt`); `pod_reads.sh` and
+  `pod_bb72net.sh` checked the GPU model and the three environments again before reading (LOCKS_OK).
+- The gross network on that H100 (`pod_reads.sh check`, stage 4's environment): 150,000 shot-reads on the original
+  test4 set, 0 decisions and 0 margins differ from the published read (`check/platform_gross.json`).
 - Every network file a read loads against this repository's copy (`retest/replay/weights_check.py`, 30 files): 5
   byte-identical, 25 in another container with equal tensors (the public copy equals the checkpoint's "ema" entry for C14' and CS13 and its "state" entry for the 23 others).
-- BB72's networks on the rented H100 in stage 3's environment rebuilt from its record (`pod_s3venv.sh`; package list
-  equal to `stage3/pod/pod_pip_freeze.txt`; the fallback of the run book): the same 700,000 shot-reads, 0 decisions
-  and 0 margins differ from the published H100 reads.
+- BB72's networks on that H100 in stage 3's environment (`pod_bb72net.sh check`, the fallback of the run book): the
+  same 700,000 shot-reads, 0 decisions and 0 margins differ from the published H100 reads
+  (`check/platform_bb72_h100.json`).
 - The Cascade and head reads run on the GPU models of their originals (full RTX PRO 6000; H200 2g.35gb and RTX PRO
   6000 1g.24gb slices), checked by their own frozen guards (lock identity, kernel-cache digest, batch-1 agreement).
 
@@ -1147,7 +1151,13 @@ analysis table, end to end.
   H100; BB72's CPU opponents on Alpine; gross's sector Relay-BP, BP-OSD and full-DEM Relay-BP on Derecho's main queue
   (job RJ16: 128 processes, 8.3 s per full-DEM shot) and with the Alpine fallback; every transfer; then `--prepare`,
   stage 3's, Amendment S's and stage 4's analyses and the pack scripts ran to their outputs (no engine refusal: the
-  RTX reads match the policies' signature, the H100 read the frozen fusedt signature).
+  RTX reads match the policies' signature, the H100 read the frozen fusedt signature). Logs and small records:
+  `retest/replay/bb/dry/` (the Alpine jobs, the Derecho job, the analyses' outputs). After the review the pod's dry
+  reads ran again from this commit's tree (`retest/replay/bb/pod/reads_dry.log`: the gross network, then cudaq-qec on
+  gross in stage 4's environment and on BB72 in stage 3's), and the two analyses ran again from it on the dry run's
+  reads with the GPU field taken from the reads' signatures (`--gpu auto`): every result and report byte-identical
+  to the first dry run's. `retest/replay/bb/copycheck_test.log`: the analysis refuses a parameter copy changed in a
+  threshold, in its rows path, in the GPU fields or in Amendment S, and runs on the unchanged copy.
 - Cascade BB72, Cascade d = 13, head comparison: sections 3.2, 3.3 and 3.4.
 
 ## 7. Differences from the original runs

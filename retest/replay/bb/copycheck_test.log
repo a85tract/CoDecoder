@@ -1,0 +1,6 @@
+case baseline_unchanged: exit 0: 
+case threshold_changed: exit 1: <cluster-scratch>/retest/dry/copycheck/cells.json differs from the frozen stage3/cells.json beyond the CPU-term rows and the GPU field
+case rows_outside_stage: exit 1: <cluster-scratch>/retest/dry/copycheck/cells.json: its CPU-term rows /tmp/rows_cpu_retest.csv are not the derived rows in <cluster-scratch>/retest/dry/copycheck
+case gpu_not_checked: exit 1: <cluster-scratch>/retest/dry/copycheck/cells.json: the GPU field is not a checked platform with the frozen value kept
+case gpu_frozen_wrong: exit 1: <cluster-scratch>/retest/dry/copycheck/cells.json: the GPU field is not a checked platform with the frozen value kept
+case amendment_changed: exit 1: <cluster-scratch>/retest/dry/copycheck/amendment_S.json differs from the frozen stage3/amendment_S.json beyond the CPU-term rows and the GPU field

@@ -1,0 +1,313 @@
+{
+ "plan": "ising_compare/bb/STAGE3_PLAN.md (revision 1, 151bebab; review: PROCEED)",
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "networks": {
+  "r11": "58e60897c3f9302c2014e82257d0d08f80a6e8386d2dd5216a093230990b252f",
+  "r12": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96"
+ },
+ "splits": {
+  "BB72-3": {
+   "code": "bb72",
+   "p": 0.003,
+   "chunks": "0-19",
+   "shots": 200000
+  },
+  "BB72-2": {
+   "code": "bb72",
+   "p": 0.002,
+   "chunks": "0-29",
+   "shots": 300000
+  }
+ },
+ "cells": {
+  "BB72-3": {
+   "split": "BB72-3",
+   "p": 0.003,
+   "policy": "bb72_p0.003_rep1.json",
+   "tag": "r11",
+   "net_sha256": "58e60897c3f9302c2014e82257d0d08f80a6e8386d2dd5216a093230990b252f",
+   "tau": null,
+   "fallback": null,
+   "vs": [
+    "relay",
+    "bposd",
+    "gpu_bposd"
+   ],
+   "speed": "fastest_gating",
+   "status": "tested"
+  },
+  "BB72-2": {
+   "split": "BB72-2",
+   "p": 0.002,
+   "policy": "bb72_p0.002_rep2.json",
+   "tag": "r12",
+   "net_sha256": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96",
+   "tau": null,
+   "fallback": null,
+   "vs": [
+    "relay",
+    "bposd",
+    "gpu_bposd"
+   ],
+   "speed": "fastest_gating",
+   "status": "tested"
+  },
+  "BB72-2F": {
+   "split": "BB72-2",
+   "p": 0.002,
+   "policy": "bb72_p0.002_rep2.json",
+   "tag": "r12",
+   "net_sha256": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96",
+   "tau": 2.979396343231201,
+   "q_cal": 0.0025,
+   "fallback": "relay_full",
+   "vs": [
+    "relay_full",
+    "relay",
+    "bposd",
+    "gpu_bposd"
+   ],
+   "speed": "fastest_gating",
+   "first_timed": 5000,
+   "status": "tested"
+  },
+  "BB72-3F": {
+   "split": "BB72-3",
+   "p": 0.003,
+   "policy": "bb72_p0.003_rep2.json",
+   "tag": "r12",
+   "net_sha256": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96",
+   "tau": 3.6329734325408936,
+   "q_cal": 0.02,
+   "fallback": "relay_full",
+   "vs": [
+    "relay_full"
+   ],
+   "speed": "relay_full_own",
+   "first_timed": 1000,
+   "bar_first": 2000,
+   "status": "tested"
+  }
+ },
+ "alpha": 0.016666666666666666,
+ "rows": {
+  "gpu": "data/bb/stage3/rows_gpu.csv",
+  "cpu": "<cluster-scratch>/retest/dry/bb/stage3/rows_cpu_retest.csv"
+ },
+ "post": {
+  "gpu_session_pre": "H100 session pre",
+  "gpu_session_post": "H100 session post",
+  "cpu_session": "M4 session B"
+ },
+ "versions": {
+  "pod": {
+   "host": "RunPod (1x H100 80GB HBM3, Intel Xeon Platinum 8480+)",
+   "python": "3.12.14",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "cudnn": 91900,
+   "triton": "3.6.0",
+   "cudaq-qec-cu12": "0.8.0",
+   "cuda-quantum-cu12": "0.16.0.post1",
+   "stim": "1.16.0 (loads its SSE2 module here)",
+   "numpy": "2.2.6",
+   "scipy": "1.18.1",
+   "relay-bp": "0.2.2",
+   "beliefmatching": "0.2.0",
+   "pymatching": "2.4.0",
+   "sinter": "1.16.0",
+   "relay_testdata": "relay d185194 tests/testdata (basis filter and the two bb72 X circuits)"
+  },
+  "apple_m4": {
+   "cpu": "Apple M4 (4 performance + 6 efficiency cores)",
+   "python": "3.12.14",
+   "relay-bp": "0.2.2",
+   "ldpc": "2.4.1",
+   "stim": "1.16.0",
+   "numpy": "2.2.6",
+   "relay": "d185194"
+  }
+ },
+ "prefreeze": {
+  "gpu_session": "H100 session pre",
+  "cpu_session": "M4 session A",
+  "networks": {
+   "r11": {
+    "gpu_term": {
+     "value_ms": 0.07942355155944825,
+     "n": 5,
+     "all_ms": [
+      0.07883865451812744,
+      0.07837504005432129,
+      0.07873996829986572,
+      0.07887174415588379,
+      0.07942355155944825
+     ]
+    },
+    "handoff": {
+     "value_ms": 0.022445183247327805,
+     "n": 5,
+     "all_ms": [
+      0.020323948934674263,
+      0.019419442862272263,
+      0.019736185669898987,
+      0.022445183247327805,
+      0.020272161811590195
+     ]
+    }
+   },
+   "r12": {
+    "gpu_term": {
+     "value_ms": 0.0793244171142578,
+     "n": 5,
+     "all_ms": [
+      0.07907967948913575,
+      0.07928416061401367,
+      0.0793244171142578,
+      0.07930175971984864,
+      0.07918060779571533
+     ]
+    },
+    "handoff": {
+     "value_ms": 0.02271701581776142,
+     "n": 5,
+     "all_ms": [
+      0.022362805902957916,
+      0.019696302711963654,
+      0.020522067323327065,
+      0.02271701581776142,
+      0.019730888307094574
+     ]
+    }
+   }
+  },
+  "opponents": {
+   "0.003": {
+    "relay": {
+     "value_ms": 1.5980983308894794,
+     "n": 3,
+     "all_ms": [
+      1.5980983308894794,
+      1.6030099584604613,
+      1.6121560513944133
+     ]
+    },
+    "bposd": {
+     "value_ms": 1.266340044789831,
+     "n": 3,
+     "all_ms": [
+      1.266340044789831,
+      1.2716566765389872,
+      1.2773742473335004
+     ]
+    },
+    "gpu_bposd": {
+     "value_ms": 0.9648691800733407,
+     "n": 3,
+     "all_ms": [
+      0.9751141630113125,
+      0.9667330918212731,
+      0.9648691800733407
+     ]
+    }
+   },
+   "0.002": {
+    "relay": {
+     "value_ms": 1.0022143308451632,
+     "n": 3,
+     "all_ms": [
+      1.0022143308451632,
+      1.002284836466424,
+      1.0027055155835114
+     ]
+    },
+    "bposd": {
+     "value_ms": 0.511115530738607,
+     "n": 3,
+     "all_ms": [
+      0.511115530738607,
+      0.5112458479474299,
+      0.5140125322010135
+     ]
+    },
+    "gpu_bposd": {
+     "value_ms": 0.47439947103460633,
+     "n": 3,
+     "all_ms": [
+      0.47439947103460633,
+      0.47512835512558615,
+      0.48233771075805026
+     ]
+    }
+   }
+  },
+  "stage2_speed": {
+   "BB72-3": {
+    "rtx": {
+     "composite_ms": 0.0858,
+     "bar_ms": 1.266340044789831,
+     "pass": true,
+     "src": {
+      "gpu_term_ms": 0.0733,
+      "handoff_ms": 0.0125,
+      "gpu_bposd_ms": {
+       "0.003": 2.362,
+       "0.002": 1.075
+      },
+      "session": "Alpine (CU Boulder Research Computing)"
+     }
+    },
+    "h100": {
+     "composite_ms": 0.10186873480677605,
+     "bar_ms": 0.9648691800733407,
+     "pass": true
+    }
+   },
+   "BB72-2": {
+    "rtx": {
+     "composite_ms": 0.0858,
+     "bar_ms": 0.511115530738607,
+     "pass": true,
+     "src": {
+      "gpu_term_ms": 0.0733,
+      "handoff_ms": 0.0125,
+      "gpu_bposd_ms": {
+       "0.003": 2.362,
+       "0.002": 1.075
+      },
+      "session": "Alpine (CU Boulder Research Computing)"
+     }
+    },
+    "h100": {
+     "composite_ms": 0.10204143293201923,
+     "bar_ms": 0.47439947103460633,
+     "pass": true
+    }
+   }
+  },
+  "BB72-2F_screen": {
+   "cpu_term": {
+    "value_ms": 0.22469317172188313,
+    "n": 3,
+    "all_ms": [
+     0.22440996542412905,
+     0.22305722915072693,
+     0.22469317172188313
+    ]
+   },
+   "composite_ms": 0.32673460465390236,
+   "bar_ms": 0.47439947103460633,
+   "bar_from": "gpu_bposd",
+   "pass": true
+  }
+ },
+ "code_commit_prefreeze": "006a8070",
+ "analysis_command": "cd ising_compare && PYTHONPATH=.:../qldpc_neural BB_SHOTS=<the test chunks> BB_PREDS=<every read's predictions> python -m bb.stage3 analyze --out data/bb/stage3",
+ "execution_notes": [
+  "Host check (section 2): cal chunks 0 and 19 at both p regenerated on the pod equal the stored chunks array for array (file sha256 = the manifest); np.savez stamps the write time into each file, so regenerated dev or monitor chunks cannot be compared by file hash. Stim 1.16.0 loads its SSE2 module on the pod by its own dispatch (the plan said AVX2); the bit-for-bit equality is the check.",
+  "Engine validation (2.4) on the H100 ran on cal chunk 0 (validate check --split cal; the monitor chunk is stored only on Alpine): 4 / 4 pass (bitwise, agreement 1.0 with fp32). r11 and r12 on all 800,000 cal shots: 0 decisions and 0 margins differ from the RTX reads; the routed sets at both taus are the same (500 and 4,000 shots).",
+  "Q8 opponents and cudaq-qec's pre-freeze batch-1 rows used the first 10,000 cal shots (cal chunk 0) in place of dev chunk 0, for the same reason. The GPU preflight passed both arms under the unchanged rule (ours: 1 clock sample in the window, ratio 1.0; cudaq-qec: 2 samples, 1.0).",
+  "The pod also needed relay-bp 0.2.2, beliefmatching 0.2.0 and pymatching 2.4.0 for relay's basis filter (cudaq-qec's sector)."
+ ],
+ "gpu_frozen": "NVIDIA H100 80GB HBM3"
+}
