@@ -1,0 +1,54 @@
+node gpu-node-03 gpu 'NVIDIA H200 NVL' mig '0' tree <cluster-scratch>/rev_a1/code_at/2e69738e74be71c5cfbcb6661ecfa28a54048877 PIN 2e69738e74be71c5cfbcb6661ecfa28a54048877 PINSUMS 0098f4b42c153b69d34d7594c85898da96ab1c89285d0442c767a458a5d4b94e: checked; venv <cluster-scratch>/ising/venv_gpu cmd head_reads.sh cpus 8 dry ''
+shim sha256 f590fe89b4f1cc967ecbbfec5c1fff8ee71fc8b122b69b64354602676ebbef72 RT <cluster-scratch>/retest/code/freeze RT_OUT <cluster-scratch>/retest/out
+GPU 0: NVIDIA H200 NVL (UUID: GPU-afc1a4fb-442b-74db-28fb-eb4cf6d5df82)
+  MIG 2g.35gb     Device  0: (UUID: MIG-cde748bf-7729-589b-8425-fcc205170062)
+GPU 1: NVIDIA H200 NVL (UUID: GPU-117c864d-1244-b84f-11f7-ff8b975be105)
+GPU 2: NVIDIA H200 NVL (UUID: GPU-b2fe1c25-a2e6-9606-acba-0b1357d642eb)
+GPU 3: NVIDIA H200 NVL (UUID: GPU-7a60ff60-58da-3d46-07fa-8a28191b9fd7)
+++ R=<cluster-scratch>/retest/out/head/reads/surface
+++ cal_check
++++ ls <cluster-scratch>/retest/out/head/sets
++++ grep -c -E '^a1_(surface_cal|bb72_a1cal)_[0-9]{3}\.npz$'
+++ '[' 40 = 40 ']'
+++ awk -F, 'NR > 1 {print $2 "  " $1}' <cluster-scratch>/retest/code/freeze/retest/head/cal_chunks.csv
+++ cd <cluster-scratch>/retest/out/head/sets
+++ sha256sum --quiet --strict -c -
+++ cd <cluster-scratch>/retest/out/head/reads
+++ sha256sum --quiet --strict -c <cluster-scratch>/retest/code/freeze/retest/head/cal_reads.sha256
+++ echo 'CAL CHECK: 40 calibration chunks and 23 calibration reads equal the original sha256'
+CAL CHECK: 40 calibration chunks and 23 calibration reads equal the original sha256
+++ net_check
+++ sha256sum --quiet --strict -c <cluster-scratch>/retest/code/freeze/retest/head/networks.sha256
+++ echo 'NET CHECK: 23 networks equal the freeze'\''s sha256'
+NET CHECK: 23 networks equal the freeze's sha256
++++ '[' surface = surface ']'
++++ echo <cluster-scratch>/rev_a1/ckpt/surface
+++ C=<cluster-scratch>/rev_a1/ckpt/surface
+++ P=_p1
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.preflight --code surface --decisions <cluster-scratch>/rev_a1/rule --ckpt-root <cluster-scratch>/rev_a1/ckpt/surface --reads <cluster-scratch>/retest/out/head/reads/surface --out <cluster-scratch>/retest/out/head/reads/surface/reads_p1.json
+PREFLIGHT OK surface: decision CONTINUE, 10 runs, 3 ramp runs, 14 reads pending, 14 kept
+++ part <cluster-scratch>/retest/out/head/reads/surface/reads_p1.json
+++ '[' -z 2 ']'
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python -c 'import json, os, sys; f, i, k = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]); rec = json.load(open(f + '\''.preflight.json'\'')); key = lambda o: os.path.basename(o).rsplit('\''_'\'', 1)[0]; nets = sorted({key(o) for o in rec['\''pending'\''] + rec['\''kept'\'']}); mine = set(nets[i::k]); jobs = [j for j in json.load(open(f)) if key(j['\''out'\'']) in mine]; json.dump(jobs, open(f, '\''w'\''), indent=1); print('\''PART'\'', i, '\''of'\'', k, sorted(mine), len(jobs), '\''reads pending'\'')' <cluster-scratch>/retest/out/head/reads/surface/reads_p1.json 1 2
+PART 1 of 2 ['S-L_s2', 'S-PA_s2', 'S-P_s2', 'S-VA_s2', 'S-V_s2', 'ramp_S-P_s1', 'ref_r764'] 7 reads pending
+++ set +x
++ 21:30:12 a1.read --code surface --many <cluster-scratch>/retest/out/head/reads/surface/reads_p1.json
+21:32:42 READ {"arm": "S-VA", "seed": 2, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 13981, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 7.62939453125e-06}, "params": 389395, "readout_macs": 16394841}
+21:35:04 READ {"arm": "S-V", "seed": 2, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 10822, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 7.62939453125e-06}, "params": 389395, "readout_macs": 16394841}
+21:37:24 READ {"arm": "S-L", "seed": 2, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 15088, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 2.956390380859375e-05}, "params": 388235, "readout_macs": 12307409}
+21:39:48 READ {"arm": "S-P", "seed": 2, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 13684, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 5.14984130859375e-05}, "params": 507115, "readout_macs": 16388361}
+21:42:12 READ {"arm": "S-PA", "seed": 2, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 15859, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 1.9073486328125e-05}, "params": 507115, "readout_macs": 16388361}
+21:44:35 READ {"arm": "S-P", "seed": 1, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 16306, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 2.3365020751953125e-05}, "params": 507115, "readout_macs": 16388361}
+21:46:57 READ {"arm": "r764", "seed": 0, "kind": "test", "chunks": "0-99", "shots": 1000000, "failures": 12336, "b1_check": {"shots": 2000, "decisions_differ": 0, "max_abs_conf_diff": 1.52587890625e-05}, "params": 389395, "readout_macs": 16394841}
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.preflight --code surface --decisions <cluster-scratch>/rev_a1/rule --ckpt-root <cluster-scratch>/rev_a1/ckpt/surface --reads <cluster-scratch>/retest/out/head/reads/surface --out <cluster-scratch>/retest/out/head/reads/surface/reads_again_p1.json
+PREFLIGHT OK surface: decision CONTINUE, 10 runs, 3 ramp runs, 0 reads pending, 28 kept
+++ part <cluster-scratch>/retest/out/head/reads/surface/reads_again_p1.json
+++ '[' -z 2 ']'
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python -c 'import json, os, sys; f, i, k = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]); rec = json.load(open(f + '\''.preflight.json'\'')); key = lambda o: os.path.basename(o).rsplit('\''_'\'', 1)[0]; nets = sorted({key(o) for o in rec['\''pending'\''] + rec['\''kept'\'']}); mine = set(nets[i::k]); jobs = [j for j in json.load(open(f)) if key(j['\''out'\'']) in mine]; json.dump(jobs, open(f, '\''w'\''), indent=1); print('\''PART'\'', i, '\''of'\'', k, sorted(mine), len(jobs), '\''reads pending'\'')' <cluster-scratch>/retest/out/head/reads/surface/reads_again_p1.json 1 2
+PART 1 of 2 ['S-L_s2', 'S-PA_s2', 'S-P_s2', 'S-VA_s2', 'S-V_s2', 'ramp_S-P_s1', 'ref_r764'] 0 reads pending
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python -c 'import json, sys; j = json.load(open('\''<cluster-scratch>/retest/out/head/reads/surface/reads_again_p1.json'\'')); print('\''READS'\'', len(j), '\''pending after the reads'\''); sys.exit(len(j) != 0)'
+READS 0 pending after the reads
++ date
+Mon Oct 12 21:47:00 MDT 2026
++ echo JOBDONE
+JOBDONE

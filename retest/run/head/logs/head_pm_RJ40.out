@@ -1,0 +1,12 @@
+node rt-cpu-node-08 gpu 'NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.' mig '' tree <cluster-scratch>/rev_a1/code_at/2e69738e74be71c5cfbcb6661ecfa28a54048877 PIN 2e69738e74be71c5cfbcb6661ecfa28a54048877 PINSUMS 0098f4b42c153b69d34d7594c85898da96ab1c89285d0442c767a458a5d4b94e: checked; venv <cluster-scratch>/ising/venv_gpu cmd head_fallback_pm.sh cpus 32 dry ''
+shim sha256 f590fe89b4f1cc967ecbbfec5c1fff8ee71fc8b122b69b64354602676ebbef72 RT <cluster-scratch>/retest/code/freeze RT_OUT <cluster-scratch>/retest/out
+NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+
+++ R=<cluster-scratch>/retest/out/head/reads/surface
+++ '[' -e <cluster-scratch>/retest/out/head/reads/surface/fallback_test.npz ']'
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.fallback pm --kind test --chunks 0-99 --out <cluster-scratch>/retest/out/head/reads/surface/fallback_test.npz --workers 32
+FALLBACK {"decoder": "correlated PyMatching (icmp.pm), verdict DEM", "single_vs_batch_differ": 0, "code": "surface", "kind": "test", "chunks": "0-99", "shots": 1000000, "set_digest": "bcaf80a215bb010c59fff1164f8aea92df9189909913e6e054d005958cae672b", "failures": 12989, "mean_secs": 0.00010274979402829194, "host": "rt-cpu-node-08", "wall_s": 59.51989722251892}
++ date
+Mon Oct 12 21:51:14 MDT 2026
++ echo JOBDONE
+JOBDONE

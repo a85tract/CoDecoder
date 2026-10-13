@@ -1,0 +1,245 @@
++ export UV_CACHE_DIR=<pod-home>/uvcache
++ UV_CACHE_DIR=<pod-home>/uvcache
++ W=<pod-home>/rt
++ V=<pod-home>/g2venv
++ Q=<pod-home>/cqvenv
++ L=<pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod
++ '[' -d <pod-home>/rt/code/bb/gross_stage4 ']'
++ '[' -d <pod-home>/rt/code/bb/bb72 ']'
++ '[' -d <pod-home>/rt/code/retest ']'
++ '[' -d <pod-home>/rt/relay/tests/testdata ']'
++ command -v uv
++ pip install -q uv
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 24.2 -> 26.2.1
+[notice] To update, run: python -m pip install --upgrade pip
++ command -v gcc
++ uv python install 3.12.14
+Downloading cpython-3.12.14-linux-x86_64-gnu (download) (32.7MiB)
+ Downloaded cpython-3.12.14-linux-x86_64-gnu (download)
+Installed Python 3.12.14 in 1.44s
+ + cpython-3.12.14-linux-x86_64-gnu (python3.12)
+warning: `<pod-home>/.local/bin` is not on your PATH. To use installed Python executables, run `export PATH="<pod-home>/.local/bin:$PATH"` or `uv python update-shell`.
++ rm -rf <pod-home>/g2venv
++ uv venv -q --python 3.12.14 <pod-home>/g2venv
++ uv pip install -q -p <pod-home>/g2venv/bin/python --no-deps --index-strategy unsafe-best-match --index-url https://download.pytorch.org/whl/cu126 --extra-index-url https://pypi.org/simple -r /dev/fd/63
+++ pkgs <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/env.lock
+++ grep -v '^#' <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/env.lock
+++ sort
+++ uv pip freeze -p <pod-home>/g2venv/bin/python
+++ sort
+Using Python 3.12.14 environment at: <pod-home>/g2venv
+++ pkgs <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/env.lock
+++ grep -v '^#' <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/env.lock
+++ sort
++ '[' 'cuda-bindings==12.9.7
+cuda-pathfinder==1.6.0
+cuda-toolkit==12.6.3
+filelock==3.32.3
+fsspec==2026.7.0
+jinja2==3.1.6
+markupsafe==3.0.3
+mpmath==1.3.0
+networkx==3.6.1
+numpy==2.2.6
+nvidia-cublas-cu12==12.6.4.1
+nvidia-cuda-cupti-cu12==12.6.80
+nvidia-cuda-nvrtc-cu12==12.6.85
+nvidia-cuda-runtime-cu12==12.6.77
+nvidia-cudnn-cu12==9.10.2.21
+nvidia-cufft-cu12==11.3.0.4
+nvidia-cufile-cu12==1.11.1.6
+nvidia-curand-cu12==10.3.7.77
+nvidia-cusolver-cu12==11.7.1.2
+nvidia-cusparse-cu12==12.5.4.2
+nvidia-cusparselt-cu12==0.7.1
+nvidia-nccl-cu12==2.28.9
+nvidia-nvjitlink-cu12==12.6.85
+nvidia-nvshmem-cu12==3.4.5
+nvidia-nvtx-cu12==12.6.77
+scipy==1.18.1
+setuptools==78.1.0
+stim==1.16.0
+sympy==1.14.0
+torch==2.11.0+cu126
+triton==3.6.0
+typing-extensions==4.16.0' = 'cuda-bindings==12.9.7
+cuda-pathfinder==1.6.0
+cuda-toolkit==12.6.3
+filelock==3.32.3
+fsspec==2026.7.0
+jinja2==3.1.6
+markupsafe==3.0.3
+mpmath==1.3.0
+networkx==3.6.1
+numpy==2.2.6
+nvidia-cublas-cu12==12.6.4.1
+nvidia-cuda-cupti-cu12==12.6.80
+nvidia-cuda-nvrtc-cu12==12.6.85
+nvidia-cuda-runtime-cu12==12.6.77
+nvidia-cudnn-cu12==9.10.2.21
+nvidia-cufft-cu12==11.3.0.4
+nvidia-cufile-cu12==1.11.1.6
+nvidia-curand-cu12==10.3.7.77
+nvidia-cusolver-cu12==11.7.1.2
+nvidia-cusparse-cu12==12.5.4.2
+nvidia-cusparselt-cu12==0.7.1
+nvidia-nccl-cu12==2.28.9
+nvidia-nvjitlink-cu12==12.6.85
+nvidia-nvshmem-cu12==3.4.5
+nvidia-nvtx-cu12==12.6.77
+scipy==1.18.1
+setuptools==78.1.0
+stim==1.16.0
+sympy==1.14.0
+torch==2.11.0+cu126
+triton==3.6.0
+typing-extensions==4.16.0' ']'
++ echo LOCK_OK
+LOCK_OK
++ rm -rf <pod-home>/cqvenv
++ uv venv -q --python 3.12.14 <pod-home>/cqvenv
++ uv pip install -q -p <pod-home>/cqvenv/bin/python --no-deps -r /dev/fd/63
+++ pkgs <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/cqvenv.lock
+++ grep -v '^#' <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/cqvenv.lock
+++ sort
+++ uv pip freeze -p <pod-home>/cqvenv/bin/python
+++ sort
+Using Python 3.12.14 environment at: <pod-home>/cqvenv
+++ pkgs <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/cqvenv.lock
+++ grep -v '^#' <pod-home>/rt/code/bb/gross_stage4/ising_compare/data/bb/stage4_gross/pod/cqvenv.lock
+++ sort
++ '[' 'astpretty==3.0.0
+beliefmatching==0.2.0
+certifi==2026.7.22
+charset-normalizer==3.5.2
+contourpy==1.4.0
+cuda-bindings==12.9.9
+cuda-core==0.7.0
+cuda-pathfinder==1.8.3
+cuda-quantum-cu12==0.16.0.post1
+cudaq-qec-cu12==0.8.0
+cudaq-qec==0.8.0
+cudensitymat-cu12==0.6.0
+cupauliprop-cu12==0.4.0
+cupy-cuda12x==13.6.0
+cuquantum-python-cu12==26.6.0
+custabilizer-cu12==0.4.0
+custatevec-cu12==1.14.0
+cutensor-cu12==2.8.1
+cutensornet-cu12==2.13.0
+cycler==0.12.1
+fastrlock==0.8.3
+fonttools==4.66.1
+idna==3.20
+iniconfig==2.3.1
+kiwisolver==1.5.1
+ldpc==2.4.1
+matplotlib==3.11.2
+networkx==3.7
+numpy==2.2.6
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cuda-nvrtc-cu12==12.9.86
+nvidia-cuda-runtime-cu12==12.9.79
+nvidia-curand-cu12==10.3.10.19
+nvidia-cusolver-cu12==11.7.5.82
+nvidia-cusparse-cu12==12.5.10.65
+nvidia-nvjitlink-cu12==12.9.86
+nvmath-python==0.9.0
+packaging==26.3
+pillow==12.3.0
+pluggy==1.6.0
+pygments==2.21.0
+pymatching==2.4.0
+pyparsing==3.3.3
+pytest==9.1.1
+python-dateutil==2.9.0.post0
+relay-bp==0.2.2
+requests==2.34.2
+scipy==1.18.1
+sinter==1.16.0
+six==1.17.0
+stim==1.16.0
+tqdm==4.70.1
+urllib3==2.8.0' = 'astpretty==3.0.0
+beliefmatching==0.2.0
+certifi==2026.7.22
+charset-normalizer==3.5.2
+contourpy==1.4.0
+cuda-bindings==12.9.9
+cuda-core==0.7.0
+cuda-pathfinder==1.8.3
+cuda-quantum-cu12==0.16.0.post1
+cudaq-qec-cu12==0.8.0
+cudaq-qec==0.8.0
+cudensitymat-cu12==0.6.0
+cupauliprop-cu12==0.4.0
+cupy-cuda12x==13.6.0
+cuquantum-python-cu12==26.6.0
+custabilizer-cu12==0.4.0
+custatevec-cu12==1.14.0
+cutensor-cu12==2.8.1
+cutensornet-cu12==2.13.0
+cycler==0.12.1
+fastrlock==0.8.3
+fonttools==4.66.1
+idna==3.20
+iniconfig==2.3.1
+kiwisolver==1.5.1
+ldpc==2.4.1
+matplotlib==3.11.2
+networkx==3.7
+numpy==2.2.6
+nvidia-cublas-cu12==12.9.2.10
+nvidia-cuda-nvrtc-cu12==12.9.86
+nvidia-cuda-runtime-cu12==12.9.79
+nvidia-curand-cu12==10.3.10.19
+nvidia-cusolver-cu12==11.7.5.82
+nvidia-cusparse-cu12==12.5.10.65
+nvidia-nvjitlink-cu12==12.9.86
+nvmath-python==0.9.0
+packaging==26.3
+pillow==12.3.0
+pluggy==1.6.0
+pygments==2.21.0
+pymatching==2.4.0
+pyparsing==3.3.3
+pytest==9.1.1
+python-dateutil==2.9.0.post0
+relay-bp==0.2.2
+requests==2.34.2
+scipy==1.18.1
+sinter==1.16.0
+six==1.17.0
+stim==1.16.0
+tqdm==4.70.1
+urllib3==2.8.0' ']'
++ echo CQLOCK_OK
+CQLOCK_OK
++ uv pip freeze -p <pod-home>/g2venv/bin/python
+Using Python 3.12.14 environment at: <pod-home>/g2venv
++ uv pip freeze -p <pod-home>/cqvenv/bin/python
+Using Python 3.12.14 environment at: <pod-home>/cqvenv
++ cat
++ source <pod-home>/rt/env.sh
+++ export W=<pod-home>/rt PY=<pod-home>/g2venv/bin/python PYQ=<pod-home>/cqvenv/bin/python QND_RELAY=<pod-home>/rt/relay BB_PIDNS=1 PYTHONUNBUFFERED=1 S=<pod-home>/rt/code/retest/shim/rt_bb.py X=<pod-home>/rt/code/retest/replay/bb_replay.py
+++ W=<pod-home>/rt
+++ PY=<pod-home>/g2venv/bin/python
+++ PYQ=<pod-home>/cqvenv/bin/python
+++ QND_RELAY=<pod-home>/rt/relay
+++ BB_PIDNS=1
+++ PYTHONUNBUFFERED=1
+++ S=<pod-home>/rt/code/retest/shim/rt_bb.py
+++ X=<pod-home>/rt/code/retest/replay/bb_replay.py
++ sha256sum <pod-home>/rt/code/weights/bb/g2_D12k113c10_final_ema.pt
+eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692  <pod-home>/rt/code/weights/bb/g2_D12k113c10_final_ema.pt
++ <pod-home>/g2venv/bin/python -
+ENV g2venv 3.12.14 torch 2.11.0+cu126 12.6 91002 triton 3.6.0 numpy 2.2.6 stim 1.16.0 gpu NVIDIA H100 80GB HBM3
++ <pod-home>/cqvenv/bin/python -c 'import sys, importlib.metadata as m, cudaq_qec, numpy, stim; print('\''ENV cqvenv'\'', sys.version.split()[0], '\''cudaq-qec'\'', m.version('\''cudaq-qec-cu12'\''), '\''numpy'\'', numpy.__version__, '\''stim'\'', stim.__version__)'
+<pod-home>/cqvenv/lib/python3.12/site-packages/cudaq_qec/__init__.py:13: FutureWarning: The CUDA-Q `sample` and `observe` algorithmic primitives will change in a future release. Existing code may require updates. See https://nvidia.github.io/cuda-quantum/latest/using/migration/upcoming_changes.html for details.
+  import cudaq
+ENV cqvenv 3.12.14 cudaq-qec 0.8.0 numpy 2.2.6 stim 1.16.0
+++ date +%T
++ echo SETUP_END 03:30:01
+SETUP_END 03:30:01
