@@ -376,7 +376,7 @@ checks pass.
 #### Dry run (the whole pipeline, dry seeds, one chunk per p)
 
 Job RJ06 (`d1_R1.sbatch` with `RT_DRY_CHUNKS=1`, the dry beacon and seeds of round 6,540,000, both p in one job on one RTX PRO 6000,
-node rt-gpu-node-01, 1 min 45 s, 0.03 GPU-hours; two earlier runs of the same steps, jobs RJ07 and RJ08, differed from these bytes
+node gpu-node-06, 1 min 45 s, 0.03 GPU-hours; two earlier runs of the same steps, jobs RJ07 and RJ08, differed from these bytes
 only in the trace and the output path), from `RT=.../code/dry`, output `dry/out/d1`: guard passed; eager read through the shim, chunk
 6,433,102 (10,000 shots) with seed 8005032492382299980 at p = 0.2 % and 7336132527545497238 at 0.3 %, each the seed of beacon index 0 of
 its set; the trace holds one call by the main process and one by a worker per chunk; the seed check passed (saved rows equal a fresh
@@ -1158,8 +1158,10 @@ Each change below leaves the frozen computation as it was; the checks that show 
 
 The re-test's files follow this repository's `SANITIZE.md`. Paths and accounts are placeholders: `<cluster-scratch>`
 (the cluster directory of the account that ran the jobs), `<cluster-scratch-root>` (the file system the containers
-bind, as the original jobs did), `<cluster-projects>`, `<cluster-work>`, `<account>`, `<pod-home>`; the re-test's
-nodes are labelled `rt-cpu-node-NN` and `rt-gpu-node-NN` and its jobs `RJNN` (the original jobs keep their labels:
+bind, as the original jobs did), `<cluster-projects>`, `<cluster-work>`, `<account>`, `<pod-home>`. A node keeps the
+label this repository already gives it (one label per node; the original A1 draws' node, for example, is cpu-node-13
+here as in `head/`), a node new to the repository is `rt-cpu-node-NN` or `rt-gpu-node-NN`, and the re-test's jobs
+are `RJNN` (the original jobs keep their labels:
 CJ73 for D1-S, AJ32-AJ36 for d = 13's e5, e6, e7, e8 and e7r). The copies deployed on the cluster, on Derecho and on
 the pod differ from these files only in the placeholders of `retest/`: every deployed file with its values replaced
 by the placeholders again is byte-identical to this commit's, checked at each deployment. The scripts that copied
