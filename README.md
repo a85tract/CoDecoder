@@ -4,6 +4,9 @@ This repository holds the artifacts of the paper "A Small Network Makes Quantum 
 Accurate" by Yicheng Guang, Yuliang Xiong, Xun Gao and Yueqi Chen (University of Colorado Boulder): the training method,
 the trained networks and the test method, with the records that check every table and figure.
 
+[`METHODS.md`](METHODS.md) states how the accuracy and the speed were measured: the shots and their seeds, the decoders
+and their settings, the statistics, what was timed, on which hardware and in which session.
+
 ## What the paper shows
 
 A quantum error-correction decoder reads the detector bits of one shot (one run of the error-correction circuit) and
