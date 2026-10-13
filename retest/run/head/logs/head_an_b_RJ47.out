@@ -1,0 +1,88 @@
+node cpu-node-17 gpu 'NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.' mig '' tree <cluster-scratch>/rev_a1/code_at/2e69738e74be71c5cfbcb6661ecfa28a54048877 PIN 2e69738e74be71c5cfbcb6661ecfa28a54048877 PINSUMS 0098f4b42c153b69d34d7594c85898da96ab1c89285d0442c767a458a5d4b94e: checked; venv <cluster-scratch>/ising/venv_gpu cmd head_analysis.sh cpus 9 dry ''
+shim sha256 f590fe89b4f1cc967ecbbfec5c1fff8ee71fc8b122b69b64354602676ebbef72 RT <cluster-scratch>/retest/code/freeze RT_OUT <cluster-scratch>/retest/out
+NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+
+++ R=<cluster-scratch>/retest/out/head/reads/bb72
+++ OUTA=<cluster-scratch>/retest/out/head/analysis_bb72
+++ CFG=data/a1/analysis_bb72.json
++++ '[' bb72 = surface ']'
++++ echo <cluster-scratch>/rev_a1/ckpt/bb72
+++ CK=<cluster-scratch>/rev_a1/ckpt/bb72
+++ '[' -n '' ']'
+++ '[' '!' -e <cluster-scratch>/retest/out/head/analysis_bb72/analysis.json ']'
+++ cal_check
++++ ls <cluster-scratch>/retest/out/head/sets
++++ grep -c -E '^a1_(surface_cal|bb72_a1cal)_[0-9]{3}\.npz$'
+++ '[' 40 = 40 ']'
+++ awk -F, 'NR > 1 {print $2 "  " $1}' <cluster-scratch>/retest/code/freeze/retest/head/cal_chunks.csv
+++ cd <cluster-scratch>/retest/out/head/sets
+++ sha256sum --quiet --strict -c -
+++ cd <cluster-scratch>/retest/out/head/reads
+++ sha256sum --quiet --strict -c <cluster-scratch>/retest/code/freeze/retest/head/cal_reads.sha256
+++ echo 'CAL CHECK: 40 calibration chunks and 23 calibration reads equal the original sha256'
+CAL CHECK: 40 calibration chunks and 23 calibration reads equal the original sha256
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.preflight --code bb72 --decisions <cluster-scratch>/rev_a1/rule --ckpt-root <cluster-scratch>/rev_a1/ckpt/bb72 --reads <cluster-scratch>/retest/out/head/reads/bb72 --out <cluster-scratch>/retest/out/head/reads/bb72/reads_final.json
+PREFLIGHT OK bb72: decision CONTINUE, 8 runs, 0 ramp runs, 0 reads pending, 18 kept
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python -c 'import json, sys; j = json.load(open('\''<cluster-scratch>/retest/out/head/reads/bb72/reads_final.json'\'')); print('\''READS'\'', len(j), '\''pending before the analysis'\''); sys.exit(len(j) != 0)'
+READS 0 pending before the analysis
++++ '[' bb72 = surface ']'
++++ echo 'B-JT B-J B-P B-PA'
+++ arms='B-JT B-J B-P B-PA'
++++ for arm in $arms
++++ for s in 1 2
++++ echo a1_B-JT_s1
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-JT_s1 ']'
++++ for s in 1 2
++++ echo a1_B-JT_s2
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-JT_s2 ']'
++++ for arm in $arms
++++ for s in 1 2
++++ echo a1_B-J_s1
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-J_s1 ']'
++++ for s in 1 2
++++ echo a1_B-J_s2
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-J_s2 ']'
++++ for arm in $arms
++++ for s in 1 2
++++ echo a1_B-P_s1
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-P_s1 ']'
++++ for s in 1 2
++++ echo a1_B-P_s2
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-P_s2 ']'
++++ for arm in $arms
++++ for s in 1 2
++++ echo a1_B-PA_s1
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-PA_s1 ']'
++++ for s in 1 2
++++ echo a1_B-PA_s2
++++ '[' -d <cluster-scratch>/rev_a1/ckpt/bb72/a1ramp_B-PA_s2 ']'
+++ runs='a1_B-JT_s1
+a1_B-JT_s2
+a1_B-J_s1
+a1_B-J_s2
+a1_B-P_s1
+a1_B-P_s2
+a1_B-PA_s1
+a1_B-PA_s2'
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.check checks --code bb72 --runs a1_B-JT_s1 a1_B-JT_s2 a1_B-J_s1 a1_B-J_s2 a1_B-P_s1 a1_B-P_s2 a1_B-PA_s1 a1_B-PA_s2 --out <cluster-scratch>/retest/out/head/reads/bb72/checks.json
+CHECKS [{"run": "a1_B-JT_s1", "head": "joint", "translate_weight": 1.0, "seed": 1, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.07312497837841511, "constant_guess": 7.564898588246278, "guess_kind": "class entropy", "ratio": 0.009666352764071516, "trained": true}, {"run": "a1_B-JT_s2", "head": "joint", "translate_weight": 1.0, "seed": 2, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.07175829581078141, "constant_guess": 7.564405844273493, "guess_kind": "class entropy", "ratio": 0.009486309604224214, "trained": true}, {"run": "a1_B-J_s1", "head": "joint", "translate_weight": 0.0, "seed": 1, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.08655987998656929, "constant_guess": 7.564898588246278, "guess_kind": "class entropy", "ratio": 0.011442305402620858, "trained": true}, {"run": "a1_B-J_s2", "head": "joint", "translate_weight": 0.0, "seed": 2, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.08271858922950924, "constant_guess": 7.564405844273493, "guess_kind": "class entropy", "ratio": 0.010935239453357724, "trained": true}, {"run": "a1_B-P_s1", "head": "pooled", "translate_weight": 0.0, "seed": 1, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.04423966632690281, "constant_guess": 0.6567623162678838, "guess_kind": "mean bit entropy", "ratio": 0.0673602385994054, "trained": true}, {"run": "a1_B-P_s2", "head": "pooled", "translate_weight": 0.0, "seed": 2, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.05035151156224311, "constant_guess": 0.6567082402590846, "guess_kind": "mean bit entropy", "ratio": 0.07667257463128288, "trained": true}, {"run": "a1_B-PA_s1", "head": "pooled", "translate_weight": 1.0, "seed": 1, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.03469751678872854, "constant_guess": 0.6567623162678838, "guess_kind": "mean bit entropy", "ratio": 0.052831162704188896, "trained": true}, {"run": "a1_B-PA_s2", "head": "pooled", "translate_weight": 1.0, "seed": 2, "p_ramp": "", "samples": 20000768, "window_steps": 2000, "decision_loss": 0.033407334450632334, "constant_guess": 0.6567082402590846, "guess_kind": "mean bit entropy", "ratio": 0.050870892738383286, "trained": true}]
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.analyze --config data/a1/analysis_bb72.json --reads <cluster-scratch>/retest/out/head/reads/bb72 --checks <cluster-scratch>/retest/out/head/reads/bb72/checks.json --out <cluster-scratch>/retest/out/head/analysis_bb72
+R1 B-P vs B-J q=0: mean +27261.0 pm [+26860.0, +27662.0] p_iut 0 p_holm 0 worse
+R1 B-P vs B-J q=0.02: mean +14616.0 pm [+14336.4, +14895.6] p_iut 0 p_holm 0 worse
+R2 B-PA vs B-JT q=0: mean +20074.0 pm [+19726.5, +20421.5] p_iut 0 p_holm 0 worse
+R2 B-PA vs B-JT q=0.02: mean +7447.0 pm [+7243.4, +7650.6] p_iut 0 p_holm 0 worse
+U1 B-J vs B-JT q=0: mean +224.0 pm [+98.1, +349.9] p_iut 0.0178 p_holm 0.0356 worse
+U1 B-J vs B-JT q=0.02: mean -19.0 pm [-81.7, +43.7] p_iut 1 p_holm 1 inconclusive
+U2 B-PA vs B-P q=0: mean -7411.0 pm [-7704.3, -7117.7] p_iut 1.98e-190 p_holm 5.95e-190 better
+U2 B-PA vs B-P q=0.02: mean -7150.0 pm [-7422.1, -6877.9] p_iut 1.59e-207 p_holm 6.36e-207 better
+W1 B-P vs B-JT q=0: mean +27485.0 pm [+27082.5, +27887.5] p_iut 0 p_holm 0 worse
+W1 B-P vs B-JT q=0.02: mean +14597.0 pm [+14317.4, +14876.6] p_iut 0 p_holm 0 worse
+ANALYSIS DONE <cluster-scratch>/retest/out/head/analysis_bb72
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python -c 'import glob, json, os, numpy as np; m = {os.path.basename(f): json.loads(str(np.load(f)['\''meta'\''])) for f in sorted(glob.glob('\''<cluster-scratch>/retest/out/head/reads/bb72/*.npz'\'')) if not f.endswith(('\''.failed.npz'\'', '\''.tmp.npz'\''))}; json.dump(m, open('\''<cluster-scratch>/retest/out/head/analysis_bb72/reads_meta.json'\'', '\''w'\''), indent=1); print('\''META'\'', len(m), '\''files'\'')'
+META 19 files
+++ apptainer exec --nv -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/ising/venv_gpu/bin/python <cluster-scratch>/retest/code/freeze/retest/head/check_taus.py bb72 <cluster-scratch>/retest/out/head/analysis_bb72/pair_curves.csv <cluster-scratch>/retest/code/freeze/retest/head/taus.csv <cluster-scratch>/retest/out/head/analysis_bb72/taus_check.json
+TAU CHECK {"code": "bb72", "networks": 8, "rows_expected": 56, "rows_equal": 56, "ok": true} missing 0 extra 0 differ 0
++ date
+Mon Oct 12 22:37:38 MDT 2026
++ echo JOBDONE
+JOBDONE

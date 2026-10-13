@@ -1,0 +1,13 @@
+node rt-cpu-node-08 gpu 'NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.' mig '' tree <cluster-scratch>/rev_a1/code_at/2e69738e74be71c5cfbcb6661ecfa28a54048877 PIN 2e69738e74be71c5cfbcb6661ecfa28a54048877 PINSUMS 0098f4b42c153b69d34d7594c85898da96ab1c89285d0442c767a458a5d4b94e: checked; venv <cluster-scratch>/ising/venv_gpu cmd head_fallback_relay.sh cpus 32 dry ''
+shim sha256 f590fe89b4f1cc967ecbbfec5c1fff8ee71fc8b122b69b64354602676ebbef72 RT <cluster-scratch>/retest/code/freeze RT_OUT <cluster-scratch>/retest/out
+NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
+
+++ PYR='apptainer exec -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/bb/venv/bin/python'
+++ R=<cluster-scratch>/retest/out/head/reads/bb72
+++ '[' -e <cluster-scratch>/retest/out/head/reads/bb72/fallback_test.npz ']'
+++ apptainer exec -B <cluster-scratch-root> <cluster-scratch>/ising/pyfull.sif <cluster-scratch>/bb/venv/bin/python <cluster-scratch>/retest/code/freeze/retest/shim/rt_a1.py a1.fallback relay --code bb72 --kind a1test --chunks 0-49 --out <cluster-scratch>/retest/out/head/reads/bb72/fallback_test.npz --workers 32
+FALLBACK {"decoder": "full-DEM Relay-BP under A6's policy (revision/REVISION_PLAN.md 2.6), A1's frozen fallback (revision/A1_READ_PLAN.md section 6): relay-bp 0.2.2 RelayDecoderF32, qnd.teachers.CONFIGS['relay'], a new decoder per shot seeded with the shot's index in its set (10,000 chunk + row); secs = build + decode", "mean_build_secs": 0.015456202772305347, "relay_bp": "0.2.2", "stim": "1.16.0", "workers": 32, "task_shots": 2000, "code": "bb72", "kind": "a1test", "chunks": "0-49", "shots": 500000, "set_digest": "78d0c542c95637e4fabbfb79a042c3712309c7bbbd49bc5d4468019236f8815c", "failures": 2614, "mean_secs": 0.16476586796412815, "host": "rt-cpu-node-08", "wall_s": 2664.8708786964417}
++ date
+Mon Oct 12 22:36:17 MDT 2026
++ echo JOBDONE
+JOBDONE
