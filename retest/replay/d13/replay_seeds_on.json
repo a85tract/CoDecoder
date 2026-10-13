@@ -1,0 +1,111 @@
+{
+ "mode": "on",
+ "pid": 2309091,
+ "checks": {
+  "function": {
+   "patched": true,
+   "expect_patched": true,
+   "pass": true
+  },
+  "main_kind11": {
+   "chunks_checked": 10,
+   "bad": [],
+   "pass": true
+  },
+  "main_kind11_all_chunks": {
+   "chunks_checked": 3100,
+   "bad": [],
+   "pass": true
+  },
+  "seeds_distinct_from_original": {
+   "pass": true
+  },
+  "other_kinds_unchanged": {
+   "values_compared": 13332,
+   "bad": [],
+   "pass": true
+  },
+  "kind11_outside_sets_refused": {
+   "bad": [],
+   "pass": true
+  },
+  "spawned_sampling_pool": {
+   "rows": [
+    {
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "2f7ab04686fce811"
+    },
+    {
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "279cd11255730748"
+    },
+    {
+     "p": 0.006,
+     "chunk": 2,
+     "digest": "b192f9091248fa18"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "9dbcb5bfacb36932"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 1,
+     "digest": "8ab0c2480c600025"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 2,
+     "digest": "ecb6f6eadb4b100c"
+    }
+   ],
+   "bad": [],
+   "pass": true
+  },
+  "main_eval_chunk": {
+   "pass": true
+  },
+  "pool_differs_from_original_seed": {
+   "pass": true
+  },
+  "resume_and_worker_call_sites": {
+   "sites": {
+    "sv_read.py:68": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, j))",
+    "sv_read.py:211": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, int(j)))"
+   },
+   "pass": true
+  },
+  "resume_expression": {
+   "pass": true
+  },
+  "spawned_m_workers": {
+   "rows": [
+    {
+     "pid": 2309385,
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "2f7ab04686fce811"
+    },
+    {
+     "pid": 2309384,
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "279cd11255730748"
+    },
+    {
+     "pid": 2309385,
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "9dbcb5bfacb36932"
+    }
+   ],
+   "worker_pids_differ_from_main": true,
+   "bad": [],
+   "pass": true
+  }
+ },
+ "all_pass": true
+}

@@ -1,0 +1,82 @@
+{
+ "p": 0.003,
+ "family": "depspam_fm",
+ "kind": 14,
+ "chunks": [
+  6433102,
+  6433103
+ ],
+ "shots": 10000,
+ "n_chunks": 1,
+ "digests_ok": true,
+ "config": 1,
+ "tau1": 7.60439167022705,
+ "routed": 1003,
+ "net": "C14p",
+ "sha256": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "driver": "590.48.01",
+ "torch": "2.11.0+cu128",
+ "tree_sha": "310ce8e0f8bfb9d3b97b27186547a836d29fc9ca",
+ "tree": "net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca",
+ "read": "<cluster-scratch>/retest/dry/out/d1/0.003/read",
+ "read_json_sha256": "cbaad539dacf5c1dcbfd59f7cf0f2726e18500a9e4625fb187ec2f07f1acc552",
+ "lock": "<cluster-scratch>/cascade_d1/code.20261011_152939/cascade_compare/phase_d/d1_locked_depspam_fm.json",
+ "lock_sha256": "3ab39941df356883be395ef7bbf39672fdb546729187bd89fa523be22714f96c",
+ "paths": {
+  "single": "compiled@1",
+  "batched": "compiled@4096"
+ },
+ "frozen_paths": {
+  "single": "compiled@1",
+  "amortized": "compiled@4096",
+  "batched": "compiled@4096"
+ },
+ "impl": {
+  "single": "Multi: 32 streams x 16 batch-1 calls per graph",
+  "streams": 32,
+  "rounds": 16,
+  "slice_rows": 1048576,
+  "batched": "pc_speed.build(C14p, 'compiled', 4096).run"
+ },
+ "check_first": {
+  "rows": 10000,
+  "differ": 0,
+  "conf_bits_differ": 0,
+  "secs": 19.5
+ },
+ "check_every": {
+  "rows": 10,
+  "differ": 0,
+  "conf_bits_differ": 0,
+  "secs": 0.0,
+  "every": 1000
+ },
+ "S_anchor": {
+  "rows": 32768,
+  "differ": 0,
+  "conf_bits_differ": 0,
+  "pass": true
+ },
+ "cache": {
+  "async_compile_cache_miss": 120,
+  "async_compile_cache_hit": 80,
+  "fxgraph_cache_hit": 2
+ },
+ "caches": {
+  "TRITON_CACHE_DIR": "<cluster-scratch>/retest/jobcache/d1/RJ06/triton",
+  "TORCHINDUCTOR_CACHE_DIR": "<cluster-scratch>/retest/jobcache/d1/RJ06/inductor"
+ },
+ "secs": {
+  "digests": 0.0,
+  "build": 7.6,
+  "batched": 0.9,
+  "routed": 0.3,
+  "single": 1.8,
+  "total": 33.0
+ },
+ "us_per_row": {
+  "single": 183.23900699615479,
+  "batched": 88.03129196166992
+ }
+}

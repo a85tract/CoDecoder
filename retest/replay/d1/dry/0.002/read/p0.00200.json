@@ -1,0 +1,87 @@
+{
+ "p": 0.002,
+ "kind": 14,
+ "chunks": [
+  6433102,
+  6433103
+ ],
+ "code": "bb72",
+ "family": "depspam_fm",
+ "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+ "models": [
+  {
+   "path": "<cluster-scratch>/cascade_w3/ckpt/C14_dfm/final_ema.pt",
+   "sha256": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+   "kind": "cascade",
+   "weights": "ema",
+   "prec": "bf16",
+   "batch": 8192,
+   "cfg": {
+    "code": "bb72",
+    "H": 512,
+    "L": 14,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false,
+    "conv_impl": "triton"
+   },
+   "step": 81130,
+   "samples": null,
+   "status": "converged",
+   "driver": "590.48.01",
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": "net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca"
+  },
+  {
+   "path": "<cluster-scratch>/cascade_w3/ckpt/S55_dfm_deep/final_ema.pt",
+   "sha256": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af",
+   "kind": "convlines",
+   "weights": "state",
+   "prec": "fused",
+   "batch": 4096,
+   "cfg": {
+    "arch": "convlines_bb",
+    "code": "bb72",
+    "p": 0.0055,
+    "width": 128,
+    "bott": 32,
+    "blocks": 6,
+    "heads": 4,
+    "mlp": 2
+   },
+   "step": null,
+   "samples": 200007680,
+   "status": "completed",
+   "driver": "590.48.01",
+   "fused": {
+    "engine": "fused (bb.fused's kernels batched by pc_fused.Batched)",
+    "batch": 4096,
+    "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+    "triton": "3.6.0",
+    "src": {
+     "bb/fused.py": "195afee3087c0ee4",
+     "pc_fused.py": "257561171055fba4"
+    }
+   },
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": "net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca"
+  }
+ ],
+ "chunk_meta": [
+  {
+   "chunk": 6433102,
+   "seed": 8005032492382299980,
+   "det_sha256": "c4a917ed668fc731"
+  }
+ ]
+}

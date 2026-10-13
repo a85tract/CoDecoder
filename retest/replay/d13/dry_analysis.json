@@ -1,0 +1,50 @@
+{
+ "what": "d13 shim, dry seeds (round 6540000), dry reads of 1 chunk (10,000 shots) at p = 0.006, then the analysis steps (job RJ17, logs under <cluster-scratch>/retest/replay/d13_dry/)",
+ "refusals_of_d13_read.sh": {
+  "RT_DRY_CHUNKS with a beacon that is not dry": {
+   "exit": 1,
+   "message": "RT_DRY_CHUNKS is refused: the seeds in use are not the dry ones"
+  },
+  "dry seeds without RT_DRY_CHUNKS": {
+   "exit": 1,
+   "message": "the dry seeds are for dry chunk ranges only (RT_DRY_CHUNKS)"
+  }
+ },
+ "confirm_as_after_the_beacon_on_the_dry_read": {
+  "exit": 1,
+  "message": "<cluster-scratch>/retest/dry/d13_out/d13/conf/p0.0060: parts cover 0-1, not 0-100",
+  "meaning": "refuses on size at the first p, before any statistic (sc.load_read)"
+ },
+ "confirm_with_RT_DRY_CONFIRM_0-1": {
+  "exit": 0,
+  "hypotheses": 20,
+  "rejected": 2,
+  "shots": 10000,
+  "fail_single": {
+   "C1": 56,
+   "C2": 68,
+   "C3": 72,
+   "C4": 60,
+   "C5": 67
+  },
+  "fail_batched": {
+   "C1": 58,
+   "C2": 69,
+   "C3": 72,
+   "C4": 60,
+   "C5": 68
+  },
+  "agree_bitwise_notes": "S1_SB_logits_differ 0, MS_MB_differ 0, BQ1/BQ5 vs Bb logits differ 0, B1_Bb_decisions_differ 1",
+  "labels": "16 labels, values level / non-inferior only (10,000 shots)",
+  "note": "load_read cut to chunks 0-1, sc.PS = (0.006,), family 20; the output records the lock's chunk range [0, 100], so it is a dry output in route_dry_confirm and never a result"
+ },
+ "report_after_the_dry_confirm": {
+  "exit": 1,
+  "message": "<cluster-scratch>/cascade_w5/eval/bitwise_c7.json: not the C7 check of this lock with all 24 outputs of its plan",
+  "meaning": "the original e7 rows cover both p (48 outputs); with the family cut to p = 0.006 the report's completeness check refuses; the report itself ran on the original reads in the replay (replay_analysis.json)"
+ },
+ "verify": {
+  "1chunk_e5_e6": "dry_verify_1chunk_e5_e6.json (1 chunk, pass)",
+  "resume_p0.0035": "dry_verify_resume_p0.0035.json (22 chunks of both parts, pass)"
+ }
+}

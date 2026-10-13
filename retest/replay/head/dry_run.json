@@ -1,0 +1,117 @@
+{
+ "description": "Dry run of the output-head re-test on dry seeds (a past drand round, never a test seed); RT_DRY=1, one chunk per code; Alpine jobs, MDT = PDT + 1 h",
+ "RT": "<cluster-scratch>/retest/code/dry",
+ "RT_OUT": "<cluster-scratch>/retest/dry/head_out",
+ "note": "a first chain (RT_OUT dry/out) was deleted by mistake after its draw and reads had run; the PM job failed on the missing chunk and the pending jobs were cancelled by exact id; this record is the second chain",
+ "jobs": {
+  "draw": [
+   RJ18,
+   "acpu",
+   "-c 4",
+   "14 s"
+  ],
+  "reads_s0": [
+   RJ19,
+   "ah200 h200_2g.35gb",
+   "39 s",
+   "7 networks"
+  ],
+  "reads_s1": [
+   RJ20,
+   "ah200 h200_2g.35gb",
+   "43 s",
+   "7 networks"
+  ],
+  "reads_bb72": [
+   RJ21,
+   "artxpro6000 rtx_pro_6000_1g.24gb",
+   "77 s",
+   "9 networks"
+  ],
+  "pm": [
+   RJ22,
+   "acpu -c 32",
+   "318 s (5 min start-up of 32 spawned workers)",
+   "10,000 shots, MaxRSS 2.4 GB"
+  ],
+  "relay": [
+   RJ23,
+   "acpu -c 32",
+   "384 s",
+   "10,000 shots, 5 busy workers, MaxRSS 0.9 GB, mean 0.150 s per shot"
+  ],
+  "analysis_surface": [
+   RJ24,
+   "acpu",
+   "123 s"
+  ],
+  "analysis_bb72": [
+   RJ25,
+   "acpu",
+   "191 s"
+  ]
+ },
+ "draw": {
+  "surface": {
+   "file": "a1_surface_test_000.npz",
+   "seed": 8724833424388466509,
+   "beacon_index": 0
+  },
+  "bb72": {
+   "file": "a1_bb72_a1test_000.npz",
+   "seed": 7820737992942139394,
+   "beacon_index": 20
+  },
+  "freeze": "2e69738e74be71c5cfbcb6661ecfa28a54048877"
+ },
+ "reads": {
+  "surface": {
+   "test_reads": 14,
+   "cal_reads_kept": 14,
+   "device": "NVIDIA H200 NVL MIG 2g.35gb",
+   "decisions_differ_b1": 0,
+   "max_abs_conf_diff_b1": 3.67e-05
+  },
+  "bb72": {
+   "test_reads": 9,
+   "cal_reads_kept": 9,
+   "device": "NVIDIA RTX PRO 6000 Blackwell Server Edition MIG 1g.24gb",
+   "decisions_differ_b1": 0,
+   "max_abs_conf_diff_b1": 7.82e-05
+  },
+  "preflight": "surface: 14 reads pending, 14 kept; after the reads 0 pending, 28 kept; BB72: 9 pending, 9 kept; then 0 pending, 18 kept"
+ },
+ "fallbacks": {
+  "surface_pm": {
+   "shots": 10000,
+   "failures": 138,
+   "single_vs_batch_differ": 0
+  },
+  "bb72_relay": {
+   "shots": 10000,
+   "failures": 66,
+   "relay_bp": "0.2.2",
+   "workers": 32
+  }
+ },
+ "analysis": {
+  "surface": {
+   "test_shots": 10000,
+   "test_digest": "910407398a37...",
+   "cal_digest": "6313c8e9cb11... (A1's)",
+   "tau_rows_equal_to_A1": "70 of 70",
+   "reads_meta_files": 29,
+   "status": "ran to the end, no refusal"
+  },
+  "bb72": {
+   "test_shots": 10000,
+   "test_digest": "c0c78f57d279...",
+   "cal_digest": "fd05bc8b40d6... (A1's)",
+   "tau_rows_equal_to_A1": "56 of 56",
+   "reads_meta_files": 19,
+   "status": "ran to the end, no refusal"
+  }
+ },
+ "A1_tree_untouched": "find of rev_a1 for files newer than 2026-10-12 12:00 MDT (excluding logs and code.*): none; the 23 cal reads are symlinks into rev_a1/reads, 40 cal chunks symlinks into rev_a1/sets",
+ "ok": true
+}

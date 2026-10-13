@@ -1,0 +1,79 @@
+{
+ "rule": "seed(TAG, j) = 2^62 + (first 8 bytes, big-endian, of SHA-256(R || TAG || j as 2 bytes big-endian)) mod 2^62; R = the 32 randomness bytes of retest/beacon.json (bb72/ising_compare/bb/shots.py test_seed, stage 3's formula); native chunk k of a set takes the k-th beacon index it is assigned (j0 + k unless an index was dropped); collision rule: the sets of one TAG take their chunks in order of j0, each chunk the smallest index >= j0 that no earlier chunk took, an index whose seed equals an earlier chunk's seed or a historical seed (historical_seeds.txt) is dropped and the next index tried (retest/seeds.py assign)",
+ "tags": {
+  "bb72_p0.003": "convlines retest bb72 p0.003\n",
+  "bb72_p0.002": "convlines retest bb72 p0.002\n",
+  "bb144_p0.004": "convlines retest bb144 p0.004\n",
+  "bb72_depspam_fm_p0.002": "convlines retest bb72 depspam_fm p0.002\n",
+  "bb72_depspam_fm_p0.003": "convlines retest bb72 depspam_fm p0.003\n",
+  "surface_d13_p0.006": "convlines retest surface d13 p0.006\n",
+  "surface_d13_p0.0035": "convlines retest surface d13 p0.0035\n",
+  "surface_d9_p0.006": "convlines retest surface d9 p0.006\n"
+ },
+ "sets": {
+  "BB72-3": {
+   "tag": "bb72_p0.003",
+   "j0": 0,
+   "chunks": 20,
+   "test": "Table I, BB72 at p = 0.3 % (stage 3, amendment S)",
+   "original": "split BB72-3, 200,000 shots"
+  },
+  "head-bb72": {
+   "tag": "bb72_p0.003",
+   "j0": 20,
+   "chunks": 50,
+   "test": "output-head comparison, BB72 test set",
+   "original": "kind a1test, 500,000 shots"
+  },
+  "BB72-2": {
+   "tag": "bb72_p0.002",
+   "j0": 0,
+   "chunks": 30,
+   "test": "Table I, BB72 at p = 0.2 % (stage 3, amendment S)",
+   "original": "split BB72-2, 300,000 shots"
+  },
+  "gross": {
+   "tag": "bb144_p0.004",
+   "j0": 0,
+   "chunks": 15,
+   "test": "Table I, gross code at p = 0.4 % (stage 4)",
+   "original": "split test4, 150,000 shots"
+  },
+  "d1-0.002": {
+   "tag": "bb72_depspam_fm_p0.002",
+   "j0": 0,
+   "chunks": 1100,
+   "test": "Cascade on BB72 (D1), p = 0.2 %",
+   "original": "kind 14, 11,000,000 shots"
+  },
+  "d1-0.003": {
+   "tag": "bb72_depspam_fm_p0.003",
+   "j0": 0,
+   "chunks": 1700,
+   "test": "Cascade on BB72 (D1), p = 0.3 %",
+   "original": "kind 14, 17,000,000 shots"
+  },
+  "d13-0.006": {
+   "tag": "surface_d13_p0.006",
+   "j0": 0,
+   "chunks": 100,
+   "test": "Cascade on the surface code at d = 13, p = 0.6 %",
+   "original": "kind 11, 1,000,000 shots"
+  },
+  "d13-0.0035": {
+   "tag": "surface_d13_p0.0035",
+   "j0": 0,
+   "chunks": 3000,
+   "test": "Cascade on the surface code at d = 13, p = 0.35 %",
+   "original": "kind 11, 30,000,000 shots"
+  },
+  "head-surface": {
+   "tag": "surface_d9_p0.006",
+   "j0": 0,
+   "chunks": 100,
+   "test": "output-head comparison, surface test set (d = 9)",
+   "original": "kind test, 1,000,000 shots"
+  }
+ },
+ "chunk_shots": 10000
+}

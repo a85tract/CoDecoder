@@ -1,0 +1,192 @@
+{
+ "dry_seeds": {
+  "beacon": "<cluster-scratch>/retest/dry/beacon_dry.json",
+  "seeds": "<cluster-scratch>/retest/dry/seeds_dry.json"
+ },
+ "reads": {
+  "e5_e6_1chunk_p0.006": [
+   {
+    "file": "read_20261012_183000_477124.json",
+    "job": "RJ13",
+    "host": "rt-gpu-node-01",
+    "comps": [
+     "SB",
+     "Bb",
+     "BQ1",
+     "BQ5",
+     "MB",
+     "MP"
+    ],
+    "chunks": [
+     0,
+     1
+    ],
+    "shots": 10000,
+    "complete": true,
+    "kind": 11,
+    "kcache_start": "46c6069894fa4844",
+    "kcache_end": "46c6069894fa4844",
+    "resume": null,
+    "fail": {
+     "SB": 94,
+     "Bb": 69,
+     "BQ1": 68,
+     "BQ5": 65,
+     "MB": 72,
+     "MP": 224
+    }
+   },
+   {
+    "file": "read_20261012_183040_477477.json",
+    "job": "RJ14",
+    "host": "rt-gpu-node-01",
+    "comps": [
+     "S1",
+     "B1",
+     "MS"
+    ],
+    "chunks": [
+     0,
+     1
+    ],
+    "shots": 10000,
+    "complete": true,
+    "kind": 11,
+    "kcache_start": "46c6069894fa4844",
+    "kcache_end": "46c6069894fa4844",
+    "resume": null,
+    "fail": {
+     "S1": 94,
+     "B1": 68,
+     "MS": 72
+    }
+   },
+   {
+    "journal": "progress_conf_B1+MS+S1_00000-00001.jsonl",
+    "lines": [
+     "header",
+     "attempt",
+     "part [0, 1]"
+    ],
+    "attempts": [
+     {
+      "job": "RJ14",
+      "host": "rt-gpu-node-01",
+      "pid": 477477,
+      "time": "2026-10-12T18:30:31-0600",
+      "from_chunk": 0,
+      "quarantined": []
+     }
+    ]
+   },
+   {
+    "journal": "progress_conf_BQ1+BQ5+Bb+MB+MP+SB_00000-00001.jsonl",
+    "lines": [
+     "header",
+     "attempt",
+     "part [0, 1]"
+    ],
+    "attempts": [
+     {
+      "job": "RJ13",
+      "host": "rt-gpu-node-01",
+      "pid": 477124,
+      "time": "2026-10-12T18:29:51-0600",
+      "from_chunk": 0,
+      "quarantined": []
+     }
+    ]
+   }
+  ],
+  "resume_p0.0035_chunks0-200": [
+   {
+    "file": "read_20261012_184813_480316.json",
+    "job": "RJ12",
+    "host": "rt-gpu-node-01",
+    "comps": [
+     "SB",
+     "Bb",
+     "BQ1",
+     "BQ5",
+     "MB",
+     "MP"
+    ],
+    "chunks": [
+     0,
+     200
+    ],
+    "shots": 2000000,
+    "complete": true,
+    "kind": 11,
+    "kcache_start": "46c6069894fa4844",
+    "kcache_end": "46c6069894fa4844",
+    "resume": {
+     "from_chunk": 100,
+     "quarantined": [],
+     "rebuilt": {
+      "SB": [
+       576,
+       244
+      ],
+      "Bb": [
+       0,
+       62500
+      ],
+      "BQ1": [
+       14,
+       37500
+      ],
+      "BQ5": [
+       15,
+       627
+      ]
+     },
+     "verified": {
+      "SB": 576,
+      "BQ1": 376,
+      "BQ5": 21
+     }
+    },
+    "fail": {
+     "SB": 117,
+     "Bb": 73,
+     "BQ1": 73,
+     "BQ5": 70,
+     "MB": 83,
+     "MP": 614
+    }
+   },
+   {
+    "journal": "progress_conf_BQ1+BQ5+Bb+MB+MP+SB_00000-00200.jsonl",
+    "lines": [
+     "header",
+     "attempt",
+     "part [0, 100]",
+     "attempt",
+     "part [100, 200]"
+    ],
+    "attempts": [
+     {
+      "job": "RJ11",
+      "host": "rt-gpu-node-02",
+      "pid": 831648,
+      "time": "2026-10-12T18:37:53-0600",
+      "from_chunk": 0,
+      "quarantined": []
+     },
+     {
+      "job": "RJ12",
+      "host": "rt-gpu-node-01",
+      "pid": 480316,
+      "time": "2026-10-12T18:43:57-0600",
+      "from_chunk": 100,
+      "quarantined": []
+     }
+    ]
+   }
+  ]
+ },
+ "lock_kcache_digest": "46c6069894fa4844",
+ "kcache_listing_unchanged_after_all_dry_runs": true,
+ "kcache_files": 1248
+}

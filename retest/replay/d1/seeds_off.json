@@ -1,0 +1,43 @@
+{
+ "mode": "OFF",
+ "node": "rt-cpu-node-02",
+ "pid": 3207716,
+ "cpu_flags": [
+  "avx",
+  "avx2",
+  "sse4_1",
+  "sse4_2",
+  "sse4a",
+  "ssse3"
+ ],
+ "patched_function": false,
+ "checks": {
+  "1_patch_off_is_the_original": {
+   "cells": 22400,
+   "mismatches": 0,
+   "blocks_equal": true,
+   "no_patch_attribute": true,
+   "pass": true
+  },
+  "2_workers_use_the_original_seeds": {
+   "worker_seeds_equal_original": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "pass": true
+  },
+  "2_workers_reproduce_the_original_chunks_informational": {
+   "digest_equal": {
+    "6433102": true,
+    "6433103": true,
+    "6434201": true
+   },
+   "pass": true
+  }
+ },
+ "pass": true
+}

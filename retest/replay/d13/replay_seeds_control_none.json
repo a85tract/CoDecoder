@@ -1,0 +1,271 @@
+{
+ "mode": "control none",
+ "pid": 2310248,
+ "checks": {
+  "function": {
+   "patched": false,
+   "expect_patched": true,
+   "pass": false
+  },
+  "main_kind11": {
+   "chunks_checked": 10,
+   "bad": [
+    [
+     0.006,
+     0
+    ],
+    [
+     0.006,
+     1
+    ],
+    [
+     0.006,
+     2
+    ],
+    [
+     0.006,
+     50
+    ],
+    [
+     0.006,
+     99
+    ],
+    [
+     0.0035,
+     0
+    ],
+    [
+     0.0035,
+     1
+    ],
+    [
+     0.0035,
+     2
+    ],
+    [
+     0.0035,
+     1000
+    ],
+    [
+     0.0035,
+     2999
+    ]
+   ],
+   "pass": false
+  },
+  "main_kind11_all_chunks": {
+   "chunks_checked": 3100,
+   "bad": [
+    [
+     0.006,
+     0
+    ],
+    [
+     0.006,
+     1
+    ],
+    [
+     0.006,
+     2
+    ],
+    [
+     0.006,
+     3
+    ],
+    [
+     0.006,
+     4
+    ]
+   ],
+   "pass": false
+  },
+  "seeds_distinct_from_original": {
+   "pass": true
+  },
+  "other_kinds_unchanged": {
+   "values_compared": 13332,
+   "bad": [],
+   "pass": true
+  },
+  "kind11_outside_sets_refused": {
+   "bad": [
+    [
+     [
+      17,
+      11,
+      0.006,
+      0
+     ],
+     "not refused"
+    ],
+    [
+     [
+      13,
+      11,
+      0.007,
+      0
+     ],
+     "not refused"
+    ],
+    [
+     [
+      13,
+      11,
+      0.006,
+      100
+     ],
+     "not refused"
+    ],
+    [
+     [
+      13,
+      11,
+      0.0035,
+      3000
+     ],
+     "not refused"
+    ]
+   ],
+   "pass": false
+  },
+  "spawned_sampling_pool": {
+   "rows": [
+    {
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "ff17f5d0205b8c39"
+    },
+    {
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "85016cc1202bb562"
+    },
+    {
+     "p": 0.006,
+     "chunk": 2,
+     "digest": "8a5a58ed326b0b8c"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "515b1e9944d4a288"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 1,
+     "digest": "2256ffc1bfa35fa8"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 2,
+     "digest": "64b59ca7accdcb1a"
+    }
+   ],
+   "bad": [
+    [
+     0.006,
+     0
+    ],
+    [
+     0.006,
+     1
+    ],
+    [
+     0.006,
+     2
+    ],
+    [
+     0.0035,
+     0
+    ],
+    [
+     0.0035,
+     1
+    ],
+    [
+     0.0035,
+     2
+    ]
+   ],
+   "pass": false
+  },
+  "main_eval_chunk": {
+   "pass": false
+  },
+  "pool_differs_from_original_seed": {
+   "pass": false
+  },
+  "resume_and_worker_call_sites": {
+   "sites": {
+    "sv_read.py:68": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, j))",
+    "sv_read.py:211": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, int(j)))"
+   },
+   "pass": true
+  },
+  "resume_expression": {
+   "pass": false
+  },
+  "spawned_m_workers": {
+   "rows": [
+    {
+     "pid": 2310293,
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "ff17f5d0205b8c39"
+    },
+    {
+     "pid": 2310292,
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "85016cc1202bb562"
+    },
+    {
+     "pid": 2310293,
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "515b1e9944d4a288"
+    }
+   ],
+   "worker_pids_differ_from_main": true,
+   "bad": [
+    [
+     0.006,
+     0
+    ],
+    [
+     0.006,
+     1
+    ],
+    [
+     0.0035,
+     0
+    ]
+   ],
+   "pass": false
+  }
+ },
+ "all_pass": false,
+ "failed": [
+  "function",
+  "kind11_outside_sets_refused",
+  "main_eval_chunk",
+  "main_kind11",
+  "main_kind11_all_chunks",
+  "pool_differs_from_original_seed",
+  "resume_expression",
+  "spawned_m_workers",
+  "spawned_sampling_pool"
+ ],
+ "control_expected_failures": [
+  "function",
+  "kind11_outside_sets_refused",
+  "main_eval_chunk",
+  "main_kind11",
+  "main_kind11_all_chunks",
+  "pool_differs_from_original_seed",
+  "resume_expression",
+  "spawned_m_workers",
+  "spawned_sampling_pool"
+ ],
+ "control_ok": true
+}

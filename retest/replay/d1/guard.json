@@ -1,0 +1,205 @@
+{
+ "cases": [
+  {
+   "case": "kind14_freshness_original_guard",
+   "guard": "orig",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: records outside D1's read directories name kind 14: <cluster-scratch>/cascade_d1/out/compiled/p0.00300.json <cluster-scratch>/cascade_d1/out/compiled/p0.00200.json <cluster-scratch-root>",
+   "ok": true
+  },
+  {
+   "case": "fresh_dir_passes",
+   "guard": "orig",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; no other record names kind 14; the read at 0.002 is not done",
+   "ok": true
+  },
+  {
+   "case": "tree_not_F_refused",
+   "guard": "orig",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the deployed tree is '0000000000000000000000000000000000000000', not F = 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca",
+   "ok": true
+  },
+  {
+   "case": "tree_not_clean_refused",
+   "guard": "orig",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the deployed tree is 'net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca+dirty', not a clean tree at F",
+   "ok": true
+  },
+  {
+   "case": "completed_read_refused",
+   "guard": "orig",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the read at 0.002 is already done",
+   "ok": true
+  },
+  {
+   "case": "eager_done_only_continues",
+   "guard": "orig",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; no other record names kind 14; the read at 0.002 is not done",
+   "ok": true
+  },
+  {
+   "case": "fresh_dir_passes",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 6540000; output <cluster-scratch>/retest/replay/d1/guard_work/dry/ok",
+   "ok": true
+  },
+  {
+   "case": "tree_not_F_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the deployed tree is '0000000000000000000000000000000000000000', not F = 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca",
+   "ok": true
+  },
+  {
+   "case": "tree_not_clean_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the deployed tree is 'net 64b2e25d d1 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca+dirty', not a clean tree at F",
+   "ok": true
+  },
+  {
+   "case": "completed_read_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the read at 0.002 is already done",
+   "ok": true
+  },
+  {
+   "case": "eager_done_only_continues",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 6540000; output <cluster-scratch>/retest/replay/d1/guard_work/dry/readonly_rt",
+   "ok": true
+  },
+  {
+   "case": "original_outputs_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: <cluster-scratch>/cascade_d1/out is inside D1's original outputs",
+   "ok": true
+  },
+  {
+   "case": "original_outputs_subdir_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: <cluster-scratch>/cascade_d1/out/dry_x is inside D1's original outputs",
+   "ok": true
+  },
+  {
+   "case": "block_same_seeds_continues",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 6540000; output <cluster-scratch>/retest/replay/d1/guard_work/dry/blk",
+   "ok": true
+  },
+  {
+   "case": "block_other_seeds_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: <cluster-scratch>/retest/replay/d1/guard_work/dry/blk2/read/block_0.002.json names other seeds or another beacon: a read is never continued under other seeds",
+   "ok": true
+  },
+  {
+   "case": "seeds_round_differs_from_beacon_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the seeds file is of round 7000001, the beacon's is 6540000",
+   "ok": true
+  },
+  {
+   "case": "dry_seeds_outside_dry_dir_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the dry seeds need an output directory under /dry/, not <cluster-scratch>/retest/replay/d1/guard_work/real/r2",
+   "ok": true
+  },
+  {
+   "case": "dry_chunks_with_dry_seeds_passes",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 6540000; output <cluster-scratch>/retest/replay/d1/guard_work/dry/r3",
+   "ok": true
+  },
+  {
+   "case": "real_seeds_real_dir_passes",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 7000001; output <cluster-scratch>/retest/replay/d1/guard_work/real/r4",
+   "ok": true
+  },
+  {
+   "case": "real_seeds_with_dry_chunks_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: RT_DRY_CHUNKS is set with the real seeds (round 7000001)",
+   "ok": true
+  },
+  {
+   "case": "real_seeds_dry_dir_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: the real seeds (round 7000001) cannot write under /dry/: <cluster-scratch>/retest/replay/d1/guard_work/dry/r6",
+   "ok": true
+  },
+  {
+   "case": "missing_beacon_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: RT_BEACON and RT_SEEDS must name files",
+   "ok": true
+  },
+  {
+   "case": "real_block_same_continues",
+   "guard": "rt",
+   "status": "0",
+   "expected": 0,
+   "message": "guard passed: tree 310ce8e0f8bfb9d3b97b27186547a836d29fc9ca, clean; the read at 0.002 is not done; seeds of round 7000001; output <cluster-scratch>/retest/replay/d1/guard_work/real/blk3",
+   "ok": true
+  },
+  {
+   "case": "real_block_other_beacon_refused",
+   "guard": "rt",
+   "status": "1",
+   "expected": 1,
+   "message": "GUARD: <cluster-scratch>/retest/replay/d1/guard_work/real/blk3/read/block_0.002.json names other seeds or another beacon: a read is never continued under other seeds",
+   "ok": true
+  }
+ ],
+ "kept_checks_same_status_as_d1_guard": {
+  "fresh_dir_passes": true,
+  "tree_not_F_refused": true,
+  "tree_not_clean_refused": true,
+  "completed_read_refused": true,
+  "eager_done_only_continues": true
+ },
+ "pass": true,
+ "note": "the original guard is run with an empty SEARCH (its kind-14 freshness test emptied); kind14_freshness_original_guard runs it with D1's own directory as SEARCH"
+}

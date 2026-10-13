@@ -1,0 +1,302 @@
+{
+ "description": "check 2: spawned workers, the main process and the resume path use the intended seeds; Relay-BP keeps its per-shot seeds; the shim's guards (dry seeds)",
+ "probe": {
+  "check": "2: the main process and spawned workers draw the intended seeds (shim launcher, dry seeds)",
+  "processes": [
+   {
+    "pid": 2861003,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861039,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861040,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861041,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861039,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861041,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861040,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861039,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861041,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   },
+   {
+    "pid": 2861040,
+    "patched": true,
+    "surface_test_equal": true,
+    "bb72_a1test_equal": true,
+    "old_seeds_absent": true
+   }
+  ],
+  "worker_pids": [
+   2861039,
+   2861040,
+   2861041
+  ],
+  "indices": {
+   "surface": [
+    0,
+    99
+   ],
+   "bb72": [
+    20,
+    69
+   ]
+  },
+  "dropped": {
+   "surface": [],
+   "bb72": []
+  },
+  "ok": true
+ },
+ "draw": {
+  "check": "2: the set-generation main process draws the intended seeds",
+  "chunks": [
+   {
+    "file": "a1_surface_test_000.npz",
+    "beacon_index": 0,
+    "expected_seed": 8724833424388466509,
+    "stored_seed": 8724833424388466509,
+    "row_seed": 8724833424388466509,
+    "row_sha256_equal": true,
+    "det_equal_direct_sampling": true,
+    "obs_equal_direct_sampling": true,
+    "not_the_original_seed": true,
+    "freeze": "2e69738e74be71c5cfbcb6661ecfa28a54048877",
+    "ok": true
+   },
+   {
+    "file": "a1_surface_test_001.npz",
+    "beacon_index": 1,
+    "expected_seed": 7909428921537304620,
+    "stored_seed": 7909428921537304620,
+    "row_seed": 7909428921537304620,
+    "row_sha256_equal": true,
+    "det_equal_direct_sampling": true,
+    "obs_equal_direct_sampling": true,
+    "not_the_original_seed": true,
+    "freeze": "2e69738e74be71c5cfbcb6661ecfa28a54048877",
+    "ok": true
+   },
+   {
+    "file": "a1_bb72_a1test_000.npz",
+    "beacon_index": 20,
+    "expected_seed": 7820737992942139394,
+    "stored_seed": 7820737992942139394,
+    "row_seed": 7820737992942139394,
+    "row_sha256_equal": true,
+    "det_equal_direct_sampling": true,
+    "obs_equal_direct_sampling": true,
+    "not_the_original_seed": true,
+    "freeze": "2e69738e74be71c5cfbcb6661ecfa28a54048877",
+    "ok": true
+   },
+   {
+    "file": "a1_bb72_a1test_001.npz",
+    "beacon_index": 21,
+    "expected_seed": 4864109665055823155,
+    "stored_seed": 4864109665055823155,
+    "row_seed": 4864109665055823155,
+    "row_sha256_equal": true,
+    "det_equal_direct_sampling": true,
+    "obs_equal_direct_sampling": true,
+    "not_the_original_seed": true,
+    "freeze": "2e69738e74be71c5cfbcb6661ecfa28a54048877",
+    "ok": true
+   }
+  ],
+  "ok": true
+ },
+ "resume": {
+  "check": "2: the draw's resume path (KEPT, RECOVERED) uses the intended seeds",
+  "rerun_keeps_every_chunk": true,
+  "rows_lost_recovered_from_bytes": true,
+  "patch_off_refuses_the_chunks": true,
+  "chunk_sha256_unchanged": true,
+  "patch_off_message": [
+   "    raise ValueError(f\"{os.path.basename(f)} is not chunk {j} of {code} {kind} under freeze {freeze!r} \"",
+   "ValueError: a1_surface_test_000.npz is not chunk 0 of surface test under freeze '2e69738e74be71c5cfbcb6661ecfa28a54048877' (got, want): {'seed': (8724833424388466509, 72090000)}"
+  ],
+  "ok": true
+ },
+ "relay": {
+  "check": "2: the Relay-BP fallback's per-shot decoder seeds are the shot's index in its set (frozen)",
+  "shots": 200,
+  "decodes_per_shot": 2,
+  "native_chunks": [
+   0,
+   1
+  ],
+  "recorded_seeds": 400,
+  "workers_that_decoded": {
+   "2864297": 50,
+   "2864298": 50,
+   "2864299": 50,
+   "2864300": 50,
+   "2866941": 200
+  },
+  "seeds_equal_shot_index_10000c_plus_r": true,
+  "beacon_indices_in_play": [
+   20,
+   21
+  ],
+  "answers_equal_across_layouts": true,
+  "processes_with_the_patch": [
+   {
+    "pid": 2862730,
+    "patched": true
+   },
+   {
+    "pid": 2864297,
+    "patched": true
+   },
+   {
+    "pid": 2864298,
+    "patched": true
+   },
+   {
+    "pid": 2864299,
+    "patched": true
+   },
+   {
+    "pid": 2864300,
+    "patched": true
+   },
+   {
+    "pid": 2866940,
+    "patched": true
+   },
+   {
+    "pid": 2866941,
+    "patched": true
+   }
+  ],
+  "ok": true
+ },
+ "guards": {
+  "check": "the shim's guards",
+  "runs": {
+   "kind_cal": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: --kind cal: the re-test draws and decodes test sets only"
+    ]
+   },
+   "rows_outside_the_re_test": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: --rows <cluster-scratch>/rev_a1/sets/rows_retest_x.csv is not under <cluster-scratch>/retest/replay/head/out/head"
+    ]
+   },
+   "sets_dir_overridden": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: A1_SETS is '<cluster-scratch>/rev_a1/sets', the re-test's is '<cluster-scratch>/retest/replay/head/out/head/sets'"
+    ]
+   },
+   "dry_beacon_without_RT_DRY": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: RT_DRY and a dry beacon go together (RT_DRY only with the dry seeds, the dry seeds only with RT_DRY)"
+    ]
+   },
+   "RT_DRY_with_a_real_beacon": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: RT_DRY and a dry beacon go together (RT_DRY only with the dry seeds, the dry seeds only with RT_DRY)"
+    ]
+   },
+   "cal_read_job": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: a read of kind cal: the re-test reads test sets only (the cal reads are the original ones)"
+    ]
+   },
+   "read_out_under_A1": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: a read's out <cluster-scratch>/rev_a1/reads/surface/x_test.npz is not under <cluster-scratch>/retest/replay/head/out/head"
+    ]
+   },
+   "sets_dry_preflight": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: --sets dry: not in the re-test"
+    ]
+   },
+   "config_not_frozen": {
+    "exit_code": 1,
+    "refused_by_shim": true,
+    "message": [
+     "rt_a1: <cluster-scratch>/retest/replay/head/work/config_changed.json is not one of the frozen analysis configs"
+    ]
+   },
+   "control_frozen_config": {
+    "exit_code": 1,
+    "refused_by_shim": false,
+    "message": []
+   },
+   "control_valid_draw": {
+    "exit_code": 0,
+    "refused_by_shim": false,
+    "message": []
+   }
+  },
+  "ok": true
+ },
+ "ok": true
+}

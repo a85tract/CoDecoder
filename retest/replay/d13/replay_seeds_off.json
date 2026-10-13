@@ -1,0 +1,100 @@
+{
+ "mode": "off",
+ "pid": 2310061,
+ "checks": {
+  "function": {
+   "patched": false,
+   "expect_patched": false,
+   "pass": true
+  },
+  "main_kind11": {
+   "chunks_checked": 10,
+   "bad": [],
+   "pass": true
+  },
+  "off_kind11_formula_all_chunks": {
+   "bad": [],
+   "pass": true
+  },
+  "other_kinds_unchanged": {
+   "values_compared": 13332,
+   "bad": [],
+   "pass": true
+  },
+  "spawned_sampling_pool": {
+   "rows": [
+    {
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "ff17f5d0205b8c39"
+    },
+    {
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "85016cc1202bb562"
+    },
+    {
+     "p": 0.006,
+     "chunk": 2,
+     "digest": "8a5a58ed326b0b8c"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "515b1e9944d4a288"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 1,
+     "digest": "2256ffc1bfa35fa8"
+    },
+    {
+     "p": 0.0035,
+     "chunk": 2,
+     "digest": "64b59ca7accdcb1a"
+    }
+   ],
+   "bad": [],
+   "pass": true
+  },
+  "main_eval_chunk": {
+   "pass": true
+  },
+  "resume_and_worker_call_sites": {
+   "sites": {
+    "sv_read.py:68": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, j))",
+    "sv_read.py:211": "det, obs = sc.sdata.sample(sc.D, p, sc.CHUNK, sc.sdata.eval_seed(sc.D, kind, p, int(j)))"
+   },
+   "pass": true
+  },
+  "resume_expression": {
+   "pass": true
+  },
+  "spawned_m_workers": {
+   "rows": [
+    {
+     "pid": 2310103,
+     "p": 0.006,
+     "chunk": 0,
+     "digest": "ff17f5d0205b8c39"
+    },
+    {
+     "pid": 2310104,
+     "p": 0.006,
+     "chunk": 1,
+     "digest": "85016cc1202bb562"
+    },
+    {
+     "pid": 2310103,
+     "p": 0.0035,
+     "chunk": 0,
+     "digest": "515b1e9944d4a288"
+    }
+   ],
+   "worker_pids_differ_from_main": true,
+   "bad": [],
+   "pass": true
+  }
+ },
+ "all_pass": true
+}
