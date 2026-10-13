@@ -33,7 +33,7 @@ historical result; its 0.5 % hybrid is reported on the re-test's gross shots as 
 ## 1. Procedure
 
 1. This commit is pushed to the hub and, after an independent review of the shims and replay checks (section 6), to
-   GitHub. The time of that push comes from GitHub's server records (`retest/github_push_activity.json`,
+   GitHub. The time of that push comes from GitHub's server records (`retest/run/github_push_activity.json`,
    committed with the results).
 2. Beacon: `python retest/beacon.py --push-time T --commit C --out retest/run/beacon.json` on Alpine's login node:
    the first drand mainnet round (chain 8990e7a9..., 30 s period) whose time is at least 600 s after T, fetched from
@@ -95,7 +95,9 @@ takes each:
   every 19-digit integer in [2^62, 2^63) found in any manifest, seeds or beacon file on every branch of the research
   hub, in the release, in this account's records on Alpine (919 seeds, the same in the hub and on Alpine) and in the
   re-test's own dry-run and replay records (6,115 more): 7,034 seeds, sha256 f2c7eb444b6b418e... (the scans and their
-  counts: `retest/replay/hist/`). Seeds from a TAG lie in [2^62, 2^63); the arithmetic
+  counts: `retest/replay/hist/`; in its `release.files` the 17 paths under a third-party folder of the private release
+  read `./reproductions/external/...`, replaced in the list only before the freeze went to GitHub, so the scan, its
+  counts and the seeds are unchanged). Seeds from a TAG lie in [2^62, 2^63); the arithmetic
   seed rules of D1, d = 13 and A1 give seeds below 2^57, so they cannot collide with these.
 - TAGs used before, all different from these: `ising_compare study 2 T2`, `study 3 T3`, `study 4 T4`,
   `ising_compare bb test BB72-3`, `bb test BB72-2`, `bb test G-4`, `bb test4 G-4R G-4F`.
@@ -155,9 +157,21 @@ job has not started within an hour moves to a rented H100 where its frozen engin
 submitted to Derecho and nothing is deleted there between 00:35 and 01:00 PDT: no `qsub` (also not of a cut read
 submitted again) and no `qdel`.
 
+Run-book deviation in the real run, job shape only (recorded after the results). The three Derecho jobs, submitted at
+20:30 PDT, had not started 90 minutes later and were deleted by their ids at 22:00:40 PDT. Their Alpine fallback, three
+64-core `gross_full_alpine.sbatch` jobs (chunks 0-4 with the sector reads, 5-9, 10-14), then waited for whole nodes, so
+at 22:48 PDT, before any of them had started, they were cancelled by their ids and the same script with the same
+environment was submitted as one job per 10,000-shot chunk: 15 jobs of 16 processes (`-c 16 --mem=32G`, the dry run's
+shape), chunk 0 also running the sector Relay-BP and BP-OSD reads on all 15 chunks (`-t 4:15:00`, the others `-t
+3:00:00`). Decoders, settings, shots and per-shot seeds are the frozen ones, every chunk was read once, and the outputs
+have the dry run's format (per chunk `pred`, `fail`, `secs`, `conv`). The 15 jobs started together and took 0:51:47 to
+1:41:50; their logs are in `retest/run/bb/logs/`. The rented H100 of the reads is a second pod of the same type: the
+first was stopped by its watchdog before any read of the run, and the second was set up from the same records and passed the same
+checks (`retest/run/bb/pod/`) before reading.
+
 Analysis, once per tree, after every read of the tree: `retest/jobs/bb_analysis.sbatch` (WHICH=bb72, WHICH=gross):
 
-    python retest/shim/rt_bb.py --prepare OUT --gpu "NVIDIA RTX PRO 6000 Blackwell Server Edition"   (bb72; gross: no --gpu)
+    python retest/shim/rt_bb.py --prepare OUT --gpu auto   (bb72: the GPU named from the reads' engine signatures; gross: no --gpu)
     python retest/shim/rt_bb.py bb.stage3 analyze --out OUT
     python retest/shim/rt_bb.py bb.stage3 analyze --amend OUT/amendment_S.json --out OUT
     python retest/shim/rt_bb.py bb.stage4_gross analyze --out OUT4
@@ -324,12 +338,15 @@ PIN="bash $RT/retest/jobs/tree_pin.sh <cluster-scratch>/cascade_d1/code.20261011
      <cluster-scratch>/retest/pins/d1_tree.sha256 46329005461cf149951e411d4594bedb66f5f74ea2abf93011b33799741ca07c"
 $PIN && R1=$(sbatch --parsable d1_R1.sbatch)                    # p = 0.2 %, 11,000,000 shots
 $PIN && R2=$(sbatch --parsable d1_R2.sbatch)                    # p = 0.3 %, 17,000,000 shots
-$PIN && A1=$(sbatch --parsable --dependency=afterok:$R1:$R2 d1_confirm.sbatch)
+$PIN && A1=$(sbatch --parsable --hold --dependency=afterok:$R1:$R2 d1_confirm.sbatch)   # held
 $PIN && X2=$(sbatch --parsable --dependency=afterok:$A1 d1_x2.sbatch)   # exploratory, after the confirmatory analysis
+# once R1 and R2 have ended:
+$PIN && scontrol release $A1
 ```
 
-`$PIN` runs before each submission and again once R1 and R2 have ended, before the analysis starts. If it does not
-print `PIN_OK`, nothing more is submitted and the pending D1 jobs are cancelled by their ids. Its output lines go into
+`$PIN` runs before each submission and again once R1 and R2 have ended; the analysis is submitted held and released
+only after that last check prints `PIN_OK`. If a check does not print `PIN_OK`, nothing more is submitted or released
+and the pending D1 jobs are cancelled by their ids. Its output lines go into
 the next commit (the first ones into commit 1).
 
 The sbatch files carry `--nice=1000` and D1's resources. R1 and R2: `-p artxpro6000 --qos=gpu-normal --gres=gpu:rtx_pro_6000:1
@@ -622,10 +639,13 @@ PIN="bash $RT/retest/jobs/tree_pin.sh <cluster-scratch>/cascade_w5/code.20261012
      <cluster-scratch>/retest/pins/d13_tree.sha256 a4abb5b0cb09791e338f7cedb5956b7fe6418b958036c1b988aaf1c6c94ca227"
 $PIN && E5=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e5.sbatch)
 $PIN && E6=$(sbatch --parsable --nice=1000 $RT/retest/jobs/d13_e6.sbatch)
-$PIN && sbatch --parsable --nice=1000 --dependency=afterok:$E5:$E6 $RT/retest/jobs/d13_analysis.sh
+$PIN && E8=$(sbatch --parsable --nice=1000 --hold --dependency=afterok:$E5:$E6 $RT/retest/jobs/d13_analysis.sh)   # held
+# once e5 and e6 have ended:
+$PIN && scontrol release $E8
 ```
-`$PIN` runs before each submission and again once e5 and e6 have ended, before the analysis starts; without `PIN_OK`
-nothing more is submitted and the pending d = 13 jobs are cancelled by their ids. Its output lines go into the next
+`$PIN` runs before each submission and again once e5 and e6 have ended; the analysis is submitted held and released
+only after that last check prints `PIN_OK`. Without `PIN_OK` nothing more is submitted or released and the pending
+d = 13 jobs are cancelled by their ids. Its output lines go into the next
 commit (the first ones into commit 1).
 
 Each read job runs, per p, the original command through the shim (shown for e5; `$PY` is the container with the staged
@@ -658,7 +678,8 @@ reads completed. Optional check of the seeds actually used (CPU, a few chunks of
 #### Replay checks (review finding 10) and the dry run
 
 Run on Alpine before the freeze, on the dry tree `<cluster-scratch>/retest/code/dry` with the files listed above
-(the GPU runs used the shim, `seeds.py`, `tags.json`, `d13_env.sh`, `d13_read.sh`, `d13_e5.sbatch` and `d13_e6.sbatch` with the hashes above); results in
+(the GPU runs used the shim, `seeds.py`, `tags.json`, `d13_env.sh`, `d13_read.sh`, `d13_e5.sbatch` and `d13_e6.sbatch` with the hashes above, except `seeds.py`: the dry runs used 9fafc141cadf5fc0, to which
+the freeze added only the `--verify` branch of section 1, step 3); results in
 `retest/replay/d13/*.json`, scripts `jobs/d13_replay.sbatch`, `jobs/d13_dry_checks.sbatch` and `replay/d13/d13_replay.py`.
 The dry seeds are drand round 6540000, a past round that is never a test seed.
 
@@ -1149,14 +1170,18 @@ analysis table, end to end.
 - Table I (chunks of 100 shots over every frozen chunk range: 5,000 BB72 and 1,500 gross shots): the draw on Alpine
   after the host check; BB72's networks on the RTX PRO 6000; the gross network and cudaq-qec (both codes) on the rented
   H100; BB72's CPU opponents on Alpine; gross's sector Relay-BP, BP-OSD and full-DEM Relay-BP on Derecho's main queue
-  (job RJ16: 128 processes, 8.3 s per full-DEM shot) and with the Alpine fallback; every transfer; then `--prepare`,
+  (job RJ16, log `logs/rt_g4dry.o7804233` under its Derecho job id, the node labelled rt-cpu-node-02: 128 processes,
+  13.9 s per full-DEM shot) and with the Alpine fallback; every transfer; then `--prepare`,
   stage 3's, Amendment S's and stage 4's analyses and the pack scripts ran to their outputs (no engine refusal: the
   RTX reads match the policies' signature, the H100 read the frozen fusedt signature). Logs and small records:
   `retest/replay/bb/dry/` (the Alpine jobs, the Derecho job, the analyses' outputs). After the review the pod's dry
   reads ran again from this commit's tree (`retest/replay/bb/pod/reads_dry.log`: the gross network, then cudaq-qec on
   gross in stage 4's environment and on BB72 in stage 3's), and the two analyses ran again from it on the dry run's
   reads with the GPU field taken from the reads' signatures (`--gpu auto`): every result and report byte-identical
-  to the first dry run's. `retest/replay/bb/copycheck_test.log`: the analysis refuses a parameter copy changed in a
+  to the first dry run's (sha256 of both runs' files, equal to the copies in `retest/replay/bb/dry/`: stage 3
+  `results.json` fd166e23f0c38523..., `results_amendment_S.json` 451d2b195037be44..., `RESULTS_stage3.md`
+  2ba013c33886c90d..., `RESULTS_stage3_amendment_S.md` 473ba1874e45584f...; stage 4 `results.json` 84f8da49eea47009...,
+  `RESULTS_stage4_gross.md` 4af51dbcbd77b4f6...). `retest/replay/bb/copycheck_test.log`: the analysis refuses a parameter copy changed in a
   threshold, in its rows path, in the GPU fields or in Amendment S, and runs on the unchanged copy.
 - Cascade BB72, Cascade d = 13, head comparison: sections 3.2, 3.3 and 3.4.
 
