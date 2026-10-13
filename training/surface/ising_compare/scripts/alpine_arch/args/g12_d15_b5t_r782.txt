@@ -1,0 +1,5 @@
+# G12 replica 782 (arch/README.md 21): 778's final EMA (sha256 checked) warm-restarted at d = 15. G6 15.4's checks on this
+# card first (the start identical to the parent in fp32 and bf16, the smoke; a failure ends the job), then 1e8 more
+# true-label samples of stream 782: fresh AdamW, 500 warm-up steps, cosine from 2e-4 to 2 %, the in-job stops
+$PY -m arch.g6_check --d 15 --blocks 5 --run-id 782 --parent $A/ckpt/d15_b5t_r778/final_ema.pt --sha 346ea266f50874383e9b525aa2c527823b195fb99dadf13366266e0bac280d3f
+$PY -m arch.train --run d15_b5t_r782 --run-id 782 --d 15 --init $A/ckpt/d15_b5t_r778/final_ema.pt --init-sha 346ea266f50874383e9b525aa2c527823b195fb99dadf13366266e0bac280d3f --phase truth --samples 1e8 --lr 2e-4 --warmup 500 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --no-val --plateau-kill 1.2 --collapse-kill 1.2 --blocks 5 --save-every 500

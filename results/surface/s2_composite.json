@@ -1,0 +1,676 @@
+{
+ "stage": "study 2 composite (registered speed score, us per shot): per candidate (a) the GPU term + (b) the CPU term converted to the Grace basis by the same-node ratio + (c) the handoff, and every opponent's time",
+ "nodes": {
+  "cpu_term_node": {
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "core": 8,
+   "python": "3.12.14",
+   "numpy": "2.2.6",
+   "stim": "1.16.0",
+   "pymatching": "2.4.0",
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)"
+  }
+ },
+ "ratio": {
+  "7": {
+   "numerator": 35.71,
+   "numerator_source": "extrapolation (M4 x 2.374)",
+   "node_reps": [
+    36.69905283022672,
+    37.332036113366485,
+    37.4916521133855
+   ],
+   "node_median": 37.332036113366485,
+   "ratio": 0.956551094388722
+  },
+  "9": {
+   "numerator": 67.59,
+   "numerator_source": "paper, Table IX",
+   "node_reps": [
+    82.2899857070297,
+    82.79046956449747,
+    83.91398866660893
+   ],
+   "node_median": 82.79046956449747,
+   "ratio": 0.816398316805588
+  },
+  "11": {
+   "numerator": 155.61,
+   "numerator_source": "extrapolation (M4 x 2.374)",
+   "node_reps": [
+    164.4777269102633,
+    164.6084666484967,
+    164.81687794439495
+   ],
+   "node_median": 164.6084666484967,
+   "ratio": 0.9453341202204871
+  },
+  "13": {
+   "numerator": 279.63,
+   "numerator_source": "paper, Table IX",
+   "node_reps": [
+    285.8736175345257,
+    288.92756826244295,
+    296.2595989461988
+   ],
+   "node_median": 288.92756826244295,
+   "ratio": 0.9678204183894364
+  }
+ },
+ "cands": {
+  "d7_b1w64_r740": {
+   "d": 7,
+   "a_gpu": 8.442882880000003,
+   "c_handoff": 2.2402656317460288,
+   "c_rule": "d = 7 kernel: the host round trip (timing stamps off) minus the device time (stamps on) in the same process, five fresh processes, the largest",
+   "c_allowance": null,
+   "c_measured": [
+    2.1601092246031754,
+    2.2402656317460288,
+    2.1894374714285707,
+    2.1051464325396836,
+    2.095363720634918
+   ],
+   "c_beside": [
+    1.6404849899999991,
+    1.6408753149999993,
+    1.7754852799999996,
+    1.6400858499999993,
+    1.7540328199999997
+   ],
+   "b_node_reps": [
+    2.342138112289831,
+    2.332622316898778,
+    2.2958220914006233
+   ],
+   "b_node": 2.342138112289831,
+   "decisions_equal": true,
+   "opponents": {
+    "Ising M1 + PM": {
+     "grace": 48.756,
+     "m4": 46.263000000000005,
+     "plan": "fp8 L3",
+     "plan_us": 43.386,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "Ising M4 + PM": {
+     "grace": 61.41,
+     "m4": 59.077,
+     "plan": "fp8 L5",
+     "plan_us": 56.48,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "plain PM": {
+     "grace": 17.16,
+     "m4": 6.68,
+     "label": "extrapolation (M4 x 2.594)"
+    },
+    "correlated PM": {
+     "grace": 35.71,
+     "m4": 15.07,
+     "label": "extrapolation (M4 x 2.374)"
+    },
+    "min-LLR BP-OSD": {
+     "grace": 2864.199187606573,
+     "m4": 2864.199187606573,
+     "reps": [
+      2893.7694802880287,
+      2865.4932975769043,
+      2864.199187606573
+     ],
+     "bound_div10": 286.4199187606573,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    },
+    "BP 60 BP-OSD": {
+     "grace": 5668.339245021343,
+     "m4": 5668.339245021343,
+     "reps": [
+      5778.603293001652,
+      5779.186226427555,
+      5668.339245021343
+     ],
+     "bound_div10": 566.8339245021343,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    }
+   },
+   "beside": {
+    "m4": {
+     "b_m4": 1.0114931594580412,
+     "composite_m4": 11.694641671204073
+    },
+    "rtx_pro_6000": {
+     "label": "the d = 7 kernel is not ported to this card; the FROZEN engine instead",
+     "a": 13.944405281543732,
+     "c": 2.582375145945351,
+     "grace": 18.83598592260295,
+     "m4": 17.545238673742514,
+     "source": "development measurement on one RTX PRO 6000 Blackwell card (decides nothing)"
+    }
+   },
+   "b_grace": 2.2403747745203733,
+   "composite_grace": 12.923523286266404,
+   "gate": 17.16,
+   "passes_gate": true,
+   "vs_grace": {
+    "ours": 12.923523286266404,
+    "fastest": "plain PM",
+    "us": 17.16,
+    "holds_all": true,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 48.756,
+      "holds": true,
+      "margin": 35.832
+     },
+     "Ising M4 + PM": {
+      "us": 61.41,
+      "holds": true,
+      "margin": 48.486
+     },
+     "plain PM": {
+      "us": 17.16,
+      "holds": true,
+      "margin": 4.236
+     },
+     "correlated PM": {
+      "us": 35.71,
+      "holds": true,
+      "margin": 22.786
+     },
+     "min-LLR BP-OSD": {
+      "us": 2864.199187606573,
+      "holds": true,
+      "margin": 2851.276
+     },
+     "BP 60 BP-OSD": {
+      "us": 5668.339245021343,
+      "holds": true,
+      "margin": 5655.416
+     }
+    }
+   },
+   "vs_m4": {
+    "ours": 11.694641671204073,
+    "fastest": "plain PM",
+    "us": 6.68,
+    "holds_all": false,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 46.263000000000005,
+      "holds": true,
+      "margin": 34.568
+     },
+     "Ising M4 + PM": {
+      "us": 59.077,
+      "holds": true,
+      "margin": 47.382
+     },
+     "plain PM": {
+      "us": 6.68,
+      "holds": false,
+      "margin": -5.015
+     },
+     "correlated PM": {
+      "us": 15.07,
+      "holds": true,
+      "margin": 3.375
+     },
+     "min-LLR BP-OSD": {
+      "us": 2864.199187606573,
+      "holds": true,
+      "margin": 2852.505
+     },
+     "BP 60 BP-OSD": {
+      "us": 5668.339245021343,
+      "holds": true,
+      "margin": 5656.645
+     }
+    }
+   }
+  },
+  "d9_b3_r764": {
+   "d": 9,
+   "a_gpu": 27.906761281490326,
+   "c_handoff": 1.1,
+   "c_rule": "FROZEN engine: max(the 1.1 us allowance, the router's handoff estimate measured on the session host at this d)",
+   "c_allowance": 1.1,
+   "c_measured": 0.5861481387872576,
+   "c_beside": {
+    "complete_raw": 32.84763774499999,
+    "device_only_b1": 31.018271731212735,
+    "routed_fraction": 0.010255,
+    "routed_pm_raw_mean": 121.23041199414921,
+    "estimate": 0.5861481387872576,
+    "start": "2026-10-03T19:59:30+0000",
+    "end": "2026-10-03T20:00:06+0000",
+    "label": "the router's handoff estimate on the session host; FROZEN counts max(1.1 us, this)",
+    "clocks": {
+     "samples": 177,
+     "sm_mhz_min": 345.0,
+     "sm_mhz_max": 1980.0,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ],
+     "window": [
+      "2026-10-03T19:59:30+0000",
+      "2026-10-03T20:00:06+0000"
+     ]
+    }
+   },
+   "b_node_reps": [
+    1.2768177641555667,
+    1.2481607438530773,
+    1.2513053882867098
+   ],
+   "b_node": 1.2768177641555667,
+   "decisions_equal": true,
+   "opponents": {
+    "Ising M1 + PM": {
+     "grace": 56.401,
+     "m4": 50.81,
+     "plan": "fp8 L3",
+     "plan_us": 44.771,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "Ising M4 + PM": {
+     "grace": 68.083,
+     "m4": 63.378,
+     "plan": "fp8 L5",
+     "plan_us": 58.293,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "plain PM": {
+     "grace": 36.99,
+     "m4": 14.16,
+     "label": "extrapolation (M4 x 2.594)"
+    },
+    "correlated PM": {
+     "grace": 67.59,
+     "m4": 33.66,
+     "label": "paper, Table IX"
+    },
+    "min-LLR BP-OSD": {
+     "grace": 9353.559892624617,
+     "m4": 9353.559892624617,
+     "reps": [
+      9383.140187710524,
+      9353.559892624617,
+      9381.620474159718
+     ],
+     "bound_div10": 935.3559892624617,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    },
+    "BP 60 BP-OSD": {
+     "grace": 18211.254235357046,
+     "m4": 18211.254235357046,
+     "reps": [
+      18284.25705432892,
+      18549.682442098856,
+      18211.254235357046
+     ],
+     "bound_div10": 1821.1254235357046,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    }
+   },
+   "beside": {
+    "m4": {
+     "b_m4": 0.5469318432733417,
+     "composite_m4": 29.55369312476367
+    },
+    "rtx_pro_6000": {
+     "label": "FROZEN",
+     "a": 28.444711174964905,
+     "c": 2.582375145945351,
+     "grace": 32.05984237825609,
+     "m4": 31.5740181641836,
+     "source": "development measurement on one RTX PRO 6000 Blackwell card (decides nothing)"
+    }
+   },
+   "b_grace": 1.042391873524079,
+   "composite_grace": 30.049153155014405,
+   "gate": 33.99,
+   "passes_gate": true,
+   "vs_grace": {
+    "ours": 30.049153155014405,
+    "fastest": "plain PM",
+    "us": 36.99,
+    "holds_all": true,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 56.401,
+      "holds": true,
+      "margin": 26.352
+     },
+     "Ising M4 + PM": {
+      "us": 68.083,
+      "holds": true,
+      "margin": 38.034
+     },
+     "plain PM": {
+      "us": 36.99,
+      "holds": true,
+      "margin": 6.941
+     },
+     "correlated PM": {
+      "us": 67.59,
+      "holds": true,
+      "margin": 37.541
+     },
+     "min-LLR BP-OSD": {
+      "us": 9353.559892624617,
+      "holds": true,
+      "margin": 9323.511
+     },
+     "BP 60 BP-OSD": {
+      "us": 18211.254235357046,
+      "holds": true,
+      "margin": 18181.205
+     }
+    }
+   },
+   "vs_m4": {
+    "ours": 29.55369312476367,
+    "fastest": "plain PM",
+    "us": 14.16,
+    "holds_all": false,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 50.81,
+      "holds": true,
+      "margin": 21.256
+     },
+     "Ising M4 + PM": {
+      "us": 63.378,
+      "holds": true,
+      "margin": 33.824
+     },
+     "plain PM": {
+      "us": 14.16,
+      "holds": false,
+      "margin": -15.394
+     },
+     "correlated PM": {
+      "us": 33.66,
+      "holds": true,
+      "margin": 4.106
+     },
+     "min-LLR BP-OSD": {
+      "us": 9353.559892624617,
+      "holds": true,
+      "margin": 9324.006
+     },
+     "BP 60 BP-OSD": {
+      "us": 18211.254235357046,
+      "holds": true,
+      "margin": 18181.701
+     }
+    }
+   }
+  },
+  "d11_b5_r777": {
+   "d": 11,
+   "a_gpu": 40.613390369415285,
+   "c_handoff": 1.1,
+   "c_rule": "FROZEN engine: max(the 1.1 us allowance, the router's handoff estimate measured on the session host at this d)",
+   "c_allowance": 1.1,
+   "c_measured": 0.5892842455543463,
+   "c_beside": {
+    "complete_raw": 46.698629135000004,
+    "device_only_b1": 43.72678476944566,
+    "routed_fraction": 0.0102,
+    "routed_pm_raw_mean": 233.58432549019608,
+    "estimate": 0.5892842455543463,
+    "start": "2026-10-03T20:00:43+0000",
+    "end": "2026-10-03T20:01:23+0000",
+    "label": "the router's handoff estimate on the session host; FROZEN counts max(1.1 us, this)",
+    "clocks": {
+     "samples": 196,
+     "sm_mhz_min": 345.0,
+     "sm_mhz_max": 1980.0,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ],
+     "window": [
+      "2026-10-03T20:00:43+0000",
+      "2026-10-03T20:01:23+0000"
+     ]
+    }
+   },
+   "b_node_reps": [
+    2.339907002169639,
+    2.3190769052598625,
+    2.286111266585067
+   ],
+   "b_node": 2.339907002169639,
+   "decisions_equal": true,
+   "opponents": {
+    "Ising M1 + PM": {
+     "grace": 68.633,
+     "m4": 57.955,
+     "plan": "fp8 L3",
+     "plan_us": 45.943,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "Ising M4 + PM": {
+     "grace": 78.666,
+     "m4": 69.31,
+     "plan": "fp8 L3",
+     "plan_us": 59.366,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "plain PM": {
+     "grace": 72.02,
+     "m4": 27.77,
+     "label": "extrapolation (M4 x 2.594)"
+    },
+    "correlated PM": {
+     "grace": 155.61,
+     "m4": 66.46,
+     "label": "extrapolation (M4 x 2.374)"
+    },
+    "min-LLR BP-OSD": {
+     "grace": 25202.851984649897,
+     "m4": 25202.851984649897,
+     "reps": [
+      25202.851984649897,
+      25554.908867925406,
+      25404.771603643894
+     ],
+     "bound_div10": 2520.2851984649897,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    },
+    "BP 60 BP-OSD": {
+     "grace": 46430.190987885,
+     "m4": 46430.190987885,
+     "reps": [
+      46573.94800335169,
+      46548.6591681838,
+      46430.190987885
+     ],
+     "bound_div10": 4643.0190987885,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    }
+   },
+   "beside": {},
+   "b_grace": 2.211993927293793,
+   "composite_grace": 43.925384296709076,
+   "gate": 65.32,
+   "passes_gate": true,
+   "vs_grace": {
+    "ours": 43.925384296709076,
+    "fastest": "Ising M1 + PM",
+    "us": 68.633,
+    "holds_all": true,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 68.633,
+      "holds": true,
+      "margin": 24.708
+     },
+     "Ising M4 + PM": {
+      "us": 78.666,
+      "holds": true,
+      "margin": 34.741
+     },
+     "plain PM": {
+      "us": 72.02,
+      "holds": true,
+      "margin": 28.095
+     },
+     "correlated PM": {
+      "us": 155.61,
+      "holds": true,
+      "margin": 111.685
+     },
+     "min-LLR BP-OSD": {
+      "us": 25202.851984649897,
+      "holds": true,
+      "margin": 25158.927
+     },
+     "BP 60 BP-OSD": {
+      "us": 46430.190987885,
+      "holds": true,
+      "margin": 46386.266
+     }
+    }
+   }
+  },
+  "d13_b5_r775": {
+   "d": 13,
+   "a_gpu": 49.15251747608185,
+   "c_handoff": 1.1,
+   "c_rule": "FROZEN engine: max(the 1.1 us allowance, the router's handoff estimate measured on the session host at this d)",
+   "c_allowance": 1.1,
+   "c_measured": 0.2990729942715049,
+   "c_beside": {
+    "complete_raw": 60.146832665,
+    "device_only_b1": 52.16697587072849,
+    "routed_fraction": 0.02,
+    "routed_pm_raw_mean": 384.03919,
+    "estimate": 0.2990729942715049,
+    "start": "2026-10-03T20:02:01+0000",
+    "end": "2026-10-03T20:02:52+0000",
+    "label": "the router's handoff estimate on the session host; FROZEN counts max(1.1 us, this)",
+    "clocks": {
+     "samples": 247,
+     "sm_mhz_min": 825.0,
+     "sm_mhz_max": 1980.0,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ],
+     "window": [
+      "2026-10-03T20:02:01+0000",
+      "2026-10-03T20:02:52+0000"
+     ]
+    }
+   },
+   "b_node_reps": [
+    7.738203012850136,
+    7.9609706392511725,
+    7.816209881566465
+   ],
+   "b_node": 7.9609706392511725,
+   "decisions_equal": true,
+   "opponents": {
+    "Ising M1 + PM": {
+     "grace": 90.262,
+     "m4": 72.075,
+     "plan": "fp8 L3",
+     "plan_us": 50.612,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "Ising M4 + PM": {
+     "grace": 98.34199999999998,
+     "m4": 82.70299999999999,
+     "plan": "fp8 L5",
+     "plan_us": 65.192,
+     "label": "the fastest validated TensorRT plan at batch 1 on the session H100 + Ising's PM share (Grace: an estimate, see README; M4: measured on the M4)"
+    },
+    "plain PM": {
+     "grace": 129.61,
+     "m4": 49.47,
+     "label": "paper, Table VII"
+    },
+    "correlated PM": {
+     "grace": 279.63,
+     "m4": 118.61,
+     "label": "paper, Table IX"
+    },
+    "min-LLR BP-OSD": {
+     "grace": 68177.06406116486,
+     "m4": 68177.06406116486,
+     "reps": [
+      68177.06406116486,
+      72823.03499057889,
+      69209.88025143743
+     ],
+     "bound_div10": 6817.706406116486,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    },
+    "BP 60 BP-OSD": {
+     "grace": 115302.0166233182,
+     "m4": 115302.0166233182,
+     "reps": [
+      115630.76192513108,
+      115302.0166233182,
+      115988.08862268925
+     ],
+     "bound_div10": 11530.20166233182,
+     "label": "the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; a tenth of it in bound_div10"
+    }
+   },
+   "beside": {},
+   "b_grace": 7.704789934866089,
+   "composite_grace": 57.95730741094794,
+   "gate": 86.66,
+   "passes_gate": true,
+   "vs_grace": {
+    "ours": 57.95730741094794,
+    "fastest": "Ising M1 + PM",
+    "us": 90.262,
+    "holds_all": true,
+    "missing": [],
+    "each": {
+     "Ising M1 + PM": {
+      "us": 90.262,
+      "holds": true,
+      "margin": 32.305
+     },
+     "Ising M4 + PM": {
+      "us": 98.34199999999998,
+      "holds": true,
+      "margin": 40.385
+     },
+     "plain PM": {
+      "us": 129.61,
+      "holds": true,
+      "margin": 71.653
+     },
+     "correlated PM": {
+      "us": 279.63,
+      "holds": true,
+      "margin": 221.673
+     },
+     "min-LLR BP-OSD": {
+      "us": 68177.06406116486,
+      "holds": true,
+      "margin": 68119.107
+     },
+     "BP 60 BP-OSD": {
+      "us": 115302.0166233182,
+      "holds": true,
+      "margin": 115244.059
+     }
+    }
+   }
+  }
+ }
+}

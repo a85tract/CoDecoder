@@ -1,0 +1,31 @@
+# A1 reads after the main runs (revision/REVISION_PLAN.md 2.1, "Evaluation"; after the freeze and the draws only):
+# the arms and seeds of $CODE (surface or bb72) that the continuation rule's decision requires, on the cal and test sets,
+# the reference row (r764 / r12) and the ramp runs that decision requires, through a1.read (decision path only, fp32,
+# the batch-one check); one GPU of any model. The stage barrier (revision/A1_POD_RUN.md, gate finding 3): a1.preflight
+# writes the job list only after the rule's result $A/rule/rule_$CODE.json (CONTINUE: every arm, seeds 1 and 2; STOP:
+# the stage-1 arms of seed 1) and every required checkpoint, not-trained check and ramp disposition are in place; it
+# refuses otherwise, before any test shot is read. Completed reads are kept and not repeated after a restart; the
+# preflight runs again after the reads and must find nothing pending. Each READ line is stamped with the time.
+# PARTS=k PART=i (i = 0 .. k-1): this job reads only the networks at positions i, i+k, ... of the code's sorted list of
+# planned networks (stable however many reads are done), so k jobs on k GPUs of one model share the reads; each part
+# writes its own job lists (reads_p<i>.json) and checks only its own networks afterwards; analysis_main.txt checks
+# that nothing at all is pending before it analyzes.
+# DRY=1: the same commands on the dry sets in both roles (a1.preflight --sets dry) into $A/reads_dry_main/$CODE, which
+# reads no calibration or test shot (revision/A1_READ_PLAN.md: the dry run of this path).
+#   sbatch -p ah200 --gres=gpu:h200:1 -c 8 --mem=64G -t 02:00:00 -J a1_reads_s --export=ALL,CMD=reads_main.txt,CODE=surface a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+if [ -n "${DRY:-}" ]; then R=$A/reads_dry_main/$CODE; SETSF="--sets dry"; else R=$A/reads/$CODE; SETSF=""; fi
+mkdir -p $R
+C=$([ $CODE = surface ] && echo $ICMP_CKPT || echo $BB_CKPT)
+P=${PARTS:+_p$PART}
+# part(FILE): keep in FILE only this part's networks (a network = an output name without _cal / _test)
+part() { [ -z "${PARTS:-}" ] || $PY -c "import json, os, sys; f, i, k = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]); rec = json.load(open(f + '.preflight.json')); key = lambda o: os.path.basename(o).rsplit('_', 1)[0]; nets = sorted({key(o) for o in rec['pending'] + rec['kept']}); mine = set(nets[i::k]); jobs = [j for j in json.load(open(f)) if key(j['out']) in mine]; json.dump(jobs, open(f, 'w'), indent=1); print('PART', i, 'of', k, sorted(mine), len(jobs), 'reads pending')" $1 $PART $PARTS; }
+$PY -m a1.preflight --code $CODE --decisions $A/rule --ckpt-root $C --reads $R --out $R/reads$P.json $SETSF ${PREFLIGHT_FLAGS:-}
+part $R/reads$P.json
+set +x; echo "+ $(date +%T) a1.read --code $CODE --many $R/reads$P.json"
+$PY -m a1.read --code $CODE --many $R/reads$P.json 2>&1 | while IFS= read -r l; do echo "$(date +%T) $l"; done
+set -x
+$PY -m a1.preflight --code $CODE --decisions $A/rule --ckpt-root $C --reads $R --out $R/reads_again$P.json $SETSF ${PREFLIGHT_FLAGS:-}
+part $R/reads_again$P.json
+$PY -c "import json, sys; j = json.load(open('$R/reads_again$P.json')); print('READS', len(j), 'pending after the reads'); sys.exit(len(j) != 0)"

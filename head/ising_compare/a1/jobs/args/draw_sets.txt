@@ -1,0 +1,16 @@
+# A1's evaluation sets, drawn once after the freeze (revision/REVISION_PLAN.md 2.1, "Data"), each kind only after
+# a1/seedcheck.sh has found none of its seeds on any branch: surface cal (71 M, chunks 0-19) and test (72 M, 0-99),
+# BB72 a1cal (0-19) and a1test (0-49). $FREEZE = the frozen commit (recorded in every manifest row), which must be the
+# commit this job is pinned to ($PIN, a1/jobs/job.sbatch); the rows go to $A/sets/rows.csv and then to
+# data/a1/sets_manifest.csv in git. A chunk is published atomically and its row made from its bytes (a1.sets); after an
+# interruption the same job, submitted again, keeps the chunks with rows, recovers the rows of published chunks from
+# their validated bytes and draws only the chunks never published (never a chunk twice). CPU only.
+#   sbatch -p acpu --qos=cpu-normal -c 4 --mem=16G -t 01:00:00 -J a1_draw --export=ALL,CMD=draw_sets.txt,FREEZE=<commit>,PIN=<commit>,PINSUMS=<sha256> a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+[ -n "${FREEZE:-}" ] || { echo "FREEZE is not set"; exit 1; }
+[ "$FREEZE" = "$PIN" ] || { echo "FREEZE $FREEZE is not the pinned commit $PIN"; exit 1; }
+$PY -m a1.sets draw --code surface --kind cal --chunks 0-19 --freeze $FREEZE --rows $A/sets/rows.csv
+$PY -m a1.sets draw --code surface --kind test --chunks 0-99 --freeze $FREEZE --rows $A/sets/rows.csv
+$PY -m a1.sets draw --code bb72 --kind a1cal --chunks 0-19 --freeze $FREEZE --rows $A/sets/rows.csv
+$PY -m a1.sets draw --code bb72 --kind a1test --chunks 0-49 --freeze $FREEZE --rows $A/sets/rows.csv

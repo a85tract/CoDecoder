@@ -1,0 +1,199 @@
+{
+ "rule": "bb.route.power: exact two-sided McNemar p < 0.05/3 and the paired Newcombe (method 10) (1 - 0.05/3) interval below 0; 20,000 draws, seed 20261006; target 1 - 0.10 / comparisons per comparison",
+ "tag": "g2_D12k113c10_fusedt_s4",
+ "cal": {
+  "G-4R": {
+   "q": 0.01,
+   "tau": 2.2055678367614746,
+   "routed": 1000,
+   "hybrid": 259,
+   "net_alone": 717,
+   "relay": 490,
+   "vs_relay": [
+    218,
+    41,
+    272,
+    100000
+   ]
+  },
+  "G-4F": {
+   "q": 0.02,
+   "tau": 6.272581100463867,
+   "routed": 2000,
+   "hybrid": 156,
+   "net_alone": 717,
+   "relay": 490,
+   "vs_relay": [
+    64,
+    92,
+    426,
+    100000
+   ],
+   "vs_relay_full_worst": [
+    146,
+    10,
+    33,
+    100000
+   ]
+  }
+ },
+ "cells": {
+  "G-4R": {
+   "per_comparison_power": 0.9666666666666667,
+   "comparisons": {
+    "relay (CAL paired counts)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      218,
+      41,
+      272,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "relay, difference one SE smaller": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      218,
+      50,
+      263,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "relay, worst case (no shared failure)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      259,
+      490,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "bposd, worst case (stage-1 dev 523 / 20,000)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      259,
+      2615,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "gpu_bposd, worst case (stage-1 dev 515 / 20,000)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      259,
+      2575,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    }
+   },
+   "n_rule": 100000
+  },
+  "G-4F": {
+   "per_comparison_power": 0.975,
+   "comparisons": {
+    "relay_full, worst case on CAL (GROSS_FULLDEM_CAL.md 5)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      146,
+      10,
+      33,
+      100000
+     ],
+     "n": 160000,
+     "power_at_150000": 0.97435,
+     "power_at_300000": 0.9998
+    },
+    "relay (CAL paired counts)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      64,
+      92,
+      426,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "relay, difference one SE smaller": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      64,
+      103,
+      415,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "relay, worst case (no shared failure)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      156,
+      490,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "bposd, worst case (stage-1 dev 523 / 20,000)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      156,
+      2615,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    },
+    "gpu_bposd, worst case (stage-1 dev 515 / 20,000)": {
+     "counts_both_onlyhybrid_onlyopp_shots": [
+      0,
+      156,
+      2575,
+      100000
+     ],
+     "n": 100000,
+     "power_at_150000": 1.0,
+     "power_at_300000": 1.0
+    }
+   },
+   "n_rule": 160000
+  }
+ },
+ "n": 150000,
+ "decision": "150,000 shots: 150,000 (GROSS_FULLDEM_CAL.md 5) unless G-4R's rule needs more",
+ "inputs": {
+  "bb144_p0.004_cal0000_net-g2_D12k113c10_fusedt_s4.npz": "31f0095c0932a485c47864f0c8b644b04b28804cceb8826fdf249125d6c49390",
+  "bb144_p0.004_cal0000_relay.npz": "91d7ae489d590705aff6b7e838f081725700fe1ece67175763b16c195b8b2025",
+  "bb144_p0.004_cal0001_net-g2_D12k113c10_fusedt_s4.npz": "6b3b05f5050551fa731e0aa26ea897676249041d8a8f411322f144a3b45a289e",
+  "bb144_p0.004_cal0001_relay.npz": "fec8ef4332423ef60b4f5aec4d0c3c8404fc6ff8964bd304020aaa7a5cdbdb0c",
+  "bb144_p0.004_cal0002_net-g2_D12k113c10_fusedt_s4.npz": "4cb773db6267897f08681f1576bec65d52450479bc888549d2c33b512ea0adf5",
+  "bb144_p0.004_cal0002_relay.npz": "21196e8226e444cab784996df502eb8d3057cbb0d42d844142b067c8cb8ca39f",
+  "bb144_p0.004_cal0003_net-g2_D12k113c10_fusedt_s4.npz": "c12c66ae77bed2574d0dcc9cdab37556ebd344d42611773be33a41fc28a26472",
+  "bb144_p0.004_cal0003_relay.npz": "cbd497b64503306e0d1573263014d3ac7b341cb581153a2effdab5b7bc110e04",
+  "bb144_p0.004_cal0004_net-g2_D12k113c10_fusedt_s4.npz": "807f299a1ac5caefe043db0374fadff6b5ad7572593bc2fe7d9e2da24adfad08",
+  "bb144_p0.004_cal0004_relay.npz": "0dbfebfef44ebe0224449dc350fb52048f93c4cc0e109925131798b8f23f4d90",
+  "bb144_p0.004_cal0005_net-g2_D12k113c10_fusedt_s4.npz": "cdc0e78fac35cac7d12ac0de327930017877e7505242dc3ae1f64e88e9e7867d",
+  "bb144_p0.004_cal0005_relay.npz": "f4a5d25a0b47c733f60f200e6ea3958435926089ac547a1b9a29d327b26f2bb1",
+  "bb144_p0.004_cal0006_net-g2_D12k113c10_fusedt_s4.npz": "ea5028ddcac3d347ba90557e4927956fd809e80278c1360282bbed960bbaaa4c",
+  "bb144_p0.004_cal0006_relay.npz": "c26b1d342f5268722c83cf7c93e01b1e8402567c0e3837f4ff8d610dddb860c2",
+  "bb144_p0.004_cal0007_net-g2_D12k113c10_fusedt_s4.npz": "fe26a320418b2b7ff50be7971b0f8bbba5c83e11660cc4cb8d3b74b0d567e310",
+  "bb144_p0.004_cal0007_relay.npz": "c0ec05c5b7f999f623c7279baa8871b5eeb1272a5c415fa7450a3697ad9f105e",
+  "bb144_p0.004_cal0008_net-g2_D12k113c10_fusedt_s4.npz": "b184d4e892e3af435bb8553744a49f65bf2244bad27ce465d0e7b08c56096d73",
+  "bb144_p0.004_cal0008_relay.npz": "a2f6f1b50b1052a6ce71854ad7e74ffb55e391a9669819bb83ee1be9b9a50c8a",
+  "bb144_p0.004_cal0009_net-g2_D12k113c10_fusedt_s4.npz": "7220d25be7298408404e54cf4c971f3d1f59302209e2a53c21fac6d6a55a30d6",
+  "bb144_p0.004_cal0009_relay.npz": "db5ba53ec4bf2a46d412c85f4f2b33a3f1e4e079ee3db681972d0cb3d7948bca"
+ }
+}

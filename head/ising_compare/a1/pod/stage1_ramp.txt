@@ -1,0 +1,8 @@
+# stage 1r: seed 1's surface ramp reruns (revision/A1_POD_RUN.md, sections 2 and 6). At 2e7 samples S-PA and S-P
+# failed their not-trained check (decision loss = the constant guess, ratio 1.000; S-VA and S-V trained), so the plan
+# reruns them and the deployed arm S-VA once with the noise ramp (p from 0.1 % to 0.6 % over the first quarter), and the
+# continuation rule is RAMP_FIRST for the surface whatever the stage-1 records show. Each starts on a BB72 pod as soon as
+# that pod's stage-1 run ends (queued behind it): the slowest, S-PA, on the pod expected to free up first.
+p8 1 surface S-PA 1 1
+p5 1 surface S-P 1 1
+p6 1 surface S-VA 1 1

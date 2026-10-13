@@ -1,0 +1,370 @@
+{
+ "name": "BB72 supplementary timing T1: full-DEM Relay-BP's own mean time per shot at p = 0.002 on the Apple M4",
+ "status": "Supplementary measurement made after the registered BB72 test (2026-10-09). It is not a registered result and it changes no registered file or result. RESULTS_stage3.md, results.json and the registered rows (rows_cpu.csv) are untouched.",
+ "why": "The registered test (stage 3) timed full-DEM Relay-BP only at p = 0.003 (session B, 58.5963 ms, the bar of BB72-3F), because only that cell's speed gate needed it. At p = 0.002 it was not timed, so the poster and the paper draw it as a dashed accuracy line. This session measures it with session B's method, and first re-runs session B's p = 0.003 measurement as a control.",
+ "result": {
+  "p0.002": {
+   "means_ms": [
+    36.58708335988922,
+    36.40866576868575,
+    36.58112192610861
+   ],
+   "fastest_ms": 36.40866576868575,
+   "fastest_proc": 2,
+   "slowest_ms": 36.58708335988922,
+   "spread_slowest_over_fastest": 1.0049004155312091,
+   "ratio_to_p0.003_control_fastest": 0.6271572748870666,
+   "ratio_to_p0.003_registered_fastest": 0.6213478149603188
+  },
+  "p0.003_control": {
+   "means_ms": [
+    58.05348550766939,
+    58.48723841807805,
+    58.26234468683833
+   ],
+   "fastest_ms": 58.05348550766939,
+   "fastest_proc": 1,
+   "slowest_ms": 58.48723841807805,
+   "spread_slowest_over_fastest": 1.0074716084075839,
+   "registered_fastest_ms": 58.59627231651393,
+   "registered_means_ms": [
+    58.59627231651393,
+    58.99640700580494,
+    59.20705352346704
+   ],
+   "ratio_fastest_to_registered": 0.9907368372187122,
+   "ratio_mean_of_three_to_registered_mean_of_three": 0.9887066331998265
+  },
+  "counted": "the fastest of three fresh processes (STAGE3_PLAN.md 0.1 item 3 and 4.2, session B item 3)"
+ },
+ "host": {
+  "name": "mac-mini (release: m4-host)",
+  "cpu": "Apple M4",
+  "logical_cpus": 10,
+  "memory_bytes": 17179869184,
+  "os": "macOS 26.2 (25C56), Darwin 25.2.0",
+  "booted": "2026-10-05 18:17:05 PDT; the same boot as the registered sessions A, B and S (2026-10-07)",
+  "timezone": "PDT (UTC-7); every time below is the Mac's local time"
+ },
+ "session": {
+  "label": "mac-mini-m4-supp-T1",
+  "start": "2026-10-09 00:50:39",
+  "end": "2026-10-09 01:01:05",
+  "script": "~/work/bb72_supp_t1/mac_T1.sh (verbatim in records)",
+  "launch": "from the x86 box: ssh <hub-host> \"ssh mac-mini 'cd ~/work/bb72_supp_t1 && nohup bash mac_T1.sh > mac_T1.log 2>&1 < /dev/null &'\"",
+  "processes": "one warm-up process, then three p = 0.003 processes, then three p = 0.002 processes, one at a time, each a fresh single-threaded python process",
+  "monitoring": "while it ran, three ssh calls from the box read the logs (remote loops of 10-s sleeps; the last ended when the script exited); nothing else of ours ran on the Mac",
+  "waits": "every idle check held at once (waited 0 s before each of the 7 processes)",
+  "observations": [
+   "1-min load 1.24-2.20 across the logged lines (session B's relay_full lines: 1.80-2.12). The logged top processes are macOS's own: the aerial wallpaper extension (at most 10.1 % CPU), WindowServer and VTDecoderXPCService, the same three as in session B's relay_full lines, and at times opendirectoryd and dasd.",
+   "The line logged before control process 2 (00:53:31) shows launchd at 28.2 % CPU. That ps sample was taken just after the idle check's own sample had passed (no process at >= 20 %), as process 1 exited; launchd handles process exits and launches. Control process 2 (58.49 ms) is the slowest of the three, 0.75 % above the fastest, and is not the counted one.",
+   "The only python process other than ours was the system Python 3.9 of the Command Line Tools, idle since boot (0.0 % CPU), the one that led to the narrowed check in session S.",
+   "The warm-up process's core check took 0.0477 s; the six timed processes' took 0.0494-0.0503 s (performance-core speed; the release gives 0.049-0.051 s for registered sessions A and B and 0.049-0.053 s for session S, to three decimals)."
+  ]
+ },
+ "replicates": {
+  "registered_session": "mac-mini-m4-B (release: 'M4 session B'), 2026-10-07; full-DEM Relay-BP's own time 12:28:52-12:34:47 PDT (hub commit 906e0952)",
+  "registered_script": {
+   "path": "~/work/bb72s3/mac_B.sh on the Mac mini (not in git)",
+   "sha256": "926e615a3a389ded4c1838444e0dced0dc7f00c2ea96d6a3db4ee1efd4cc5ee3",
+   "environment_lines": [
+    "W=~/work/bb72s3; C=$W/code",
+    "export PYTHONPATH=$C/ising_compare:$C/qldpc_neural BB_SHOTS=$W/shots BB_PREDS=$W/preds QND_RELAY=~/work/relay",
+    "export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 RAYON_NUM_THREADS=1",
+    "export BB_SESSION=mac-mini-m4-B",
+    "PY=~/work/.venv/bin/python; R=$W/out/rows_cpu_B.csv; L=$W/out/load_B.log"
+   ],
+   "warm_up_line": "for d in relay bposd relay_full; do $PY -m bb.timing opponent --code bb72 --p 0.003 --dec $d --split test --chunks 1 --first 1000 --out $W/out/warmup_B.csv > /dev/null; done",
+   "timed_line": "for k in 1 2 3; do load \"before relay_full-own proc$k\"; $PY -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc $k --out $R > /dev/null; load \"after\"; done"
+  },
+  "registered_rows": [
+   {
+    "date": "2026-10-07T12:30:49",
+    "session": "mac-mini-m4-B",
+    "process": "mac-mini:18646:5d9453e1",
+    "p": 0.003,
+    "split": "test",
+    "chunks": "0",
+    "proc": 1,
+    "n": 2000,
+    "mean_ms": 58.59627231651393,
+    "median_ms": 39.85302049841266,
+    "p99_ms": 354.4012141690473,
+    "corecheck_s": 0.05116437500691973
+   },
+   {
+    "date": "2026-10-07T12:32:48",
+    "session": "mac-mini-m4-B",
+    "process": "mac-mini:18726:ee3c2218",
+    "p": 0.003,
+    "split": "test",
+    "chunks": "0",
+    "proc": 2,
+    "n": 2000,
+    "mean_ms": 58.99640700580494,
+    "median_ms": 40.071041497867554,
+    "p99_ms": 354.6716489145183,
+    "corecheck_s": 0.049872958014020696
+   },
+   {
+    "date": "2026-10-07T12:34:47",
+    "session": "mac-mini-m4-B",
+    "process": "mac-mini:18805:496cf611",
+    "p": 0.003,
+    "split": "test",
+    "chunks": "0",
+    "proc": 3,
+    "n": 2000,
+    "mean_ms": 59.20705352346704,
+    "median_ms": 40.36143749544863,
+    "p99_ms": 352.90975274401717,
+    "corecheck_s": 0.050669832999119535
+   }
+  ],
+  "registered_value_ms": 58.59627231651393,
+  "idle_check": "session S's check as narrowed in the release (mac_S.sh, sha256 fa7f36a491dfb77835bdf216b208bcd98419d322832b0df283e337ea2e26e14d, the same file as data/bb/stage3/mac_S.sh): before every process wait in 15-s steps until no process is at >= 20 % CPU in ps, no python process is at >= 1 % CPU and the 1-min load is < 3",
+  "differences_from_session_B": [
+   "Session label mac-mini-m4-supp-T1. Outputs go to ~/work/bb72_supp_t1, not to session B's ~/work/bb72s3/out, so no registered record is touched.",
+   "Idle check: session B logged the load and the top three processes before and after each process (load()) without waiting. This session ran session S's narrowed check (above) before each process and logged the same fields after it.",
+   "Warm-up: one untimed pass of relay_full over the same 1,000 shots session B used (test chunk 1 at p = 0.003). Session B warmed up relay, bposd and relay_full in turn because it timed all three.",
+   "What came before: in session B the three relay_full processes followed about 15 minutes of other single-threaded timing (the opponents and the F cells' CPU terms). Here they follow only the warm-up, and the three p = 0.002 processes follow the control.",
+   "p = 0.002 itself: the same command with --p 0.002, on split BB72-2's first 2,000 test shots (test chunk 0 at p = 0.002); session B had no such step."
+  ]
+ },
+ "code": {
+  "path": "~/work/bb72s3/code (ising_compare and qldpc_neural; the code copy session B ran from, the same path; re-extracted 2026-10-07 14:38 for session S)",
+  "timed_path_files_sha256_prefix": {
+   "ising_compare/bb/timing.py": "bee4e460b66e102a",
+   "ising_compare/bb/opp.py": "6c44f1ea726657a0",
+   "ising_compare/bb/shots.py": "52cb0d3d282085c9",
+   "qldpc_neural/qnd/teachers.py": "9ad346df93e46744",
+   "qldpc_neural/qnd/circuits.py": "0f7eb476e913002e"
+  },
+  "check": "every .py file under ising_compare/bb and qldpc_neural/qnd of the copy equals the freeze commit 19368aea's byte for byte, except bb/stage3.py (amendment S's cputerm, not on this path) and the added bb/scripts/stage3_pack.py; no Python file of bb/ or qnd/ changed between 006a8070 and 19368aea",
+  "relay_testdata": "~/work/relay at d185194 (QND_RELAY; the circuits are sha256-checked by qnd.circuits.load against qldpc_neural's manifest)"
+ },
+ "versions": {
+  "python": "3.12.14 (~/work/.venv)",
+  "relay-bp": "0.2.2",
+  "numpy": "2.2.6",
+  "stim": "1.16.0",
+  "scipy": "1.18.1",
+  "ldpc": "2.4.1 (not on this path)",
+  "machine": "arm64",
+  "venv_since_session_B": "the only top-level site-packages entries newer than 2026-10-07 12:00 are fontTools and __pycache__ (2026-10-07 15:07); relay_bp-0.2.2.dist-info unchanged"
+ },
+ "decoder": {
+  "name": "relay_full (bb.opp DECODERS: ('relay', 'all'))",
+  "constructor": "qnd.teachers.Decoder('relay', 'bb72', 'X', p, 'all'): relay_bp.RelayDecoderF32 on the full detector error model (both detector sectors) of the X-memory circuit at p",
+  "parameters": {
+   "alpha": 1.0,
+   "gamma0": 0.15000000000000002,
+   "pre_iter": 80,
+   "num_sets": 300,
+   "set_max_iter": 60,
+   "gamma_dist_interval": [
+    -0.22628432386414646,
+    0.6216020925981884
+   ],
+   "stop_nconv": 5
+  },
+  "circuits": {
+   "0.003": "circuit=bicycle_bivariate_72_12_6_memory_X,distance=6,rounds=6,error_rate=0.003,noise_model=uniform_circuit,basis=CX,A=x^3+y+y^2,B=y^3+x+x^2.stim",
+   "0.002": "circuit=bicycle_bivariate_72_12_6_memory_X,distance=6,rounds=6,error_rate=0.002,noise_model=uniform_circuit,basis=CX,A=x^3+y+y^2,B=y^3+x+x^2.stim"
+  },
+  "timed": "bb.timing opponent: per process, the wall time (time.perf_counter) of each single-shot decode call; value = the mean over the n shots, in ms; the row also records the median, the 99th percentile and the core-check loop (3,000,000 integer additions, about 0.05 s on a performance core, about twice that on an efficiency core)"
+ },
+ "environment": {
+  "PYTHONPATH": "~/work/bb72s3/code/ising_compare:~/work/bb72s3/code/qldpc_neural",
+  "BB_SHOTS": "~/work/bb72s3/shots",
+  "BB_PREDS": "~/work/bb72s3/preds (not used by bb.timing opponent)",
+  "QND_RELAY": "~/work/relay",
+  "OMP_NUM_THREADS": "1",
+  "OPENBLAS_NUM_THREADS": "1",
+  "MKL_NUM_THREADS": "1",
+  "VECLIB_MAXIMUM_THREADS": "1",
+  "RAYON_NUM_THREADS": "1",
+  "BB_SESSION": "mac-mini-m4-supp-T1",
+  "cwd": "~/work/bb72s3/code/ising_compare"
+ },
+ "shots": {
+  "p0.003": {
+   "split": "test, split BB72-3 (200,000 shots in chunks 0-19 of 10,000)",
+   "timed": "the first 2,000 shots of test chunk 0 (shots 0-1,999 in split order)",
+   "file": "bb72_p0.003_test0000.npz",
+   "sha256": "1f0c3e1384e36c1d47dba10f3692f2831ad06002fd1378b26cb62ceb77da61e7",
+   "seed": 9161801995823473862
+  },
+  "p0.002": {
+   "split": "test, split BB72-2 (300,000 shots in chunks 0-29 of 10,000)",
+   "timed": "the first 2,000 shots of test chunk 0 (shots 0-1,999 in split order)",
+   "file": "bb72_p0.002_test0000.npz",
+   "sha256": "e32497e26b633355f33348b6205cb5ac46e862b7e1842323c245a688204c86b0",
+   "seed": 6062260133724251858
+  },
+  "warm_up": {
+   "timed": "the first 1,000 shots of test chunk 1 at p = 0.003 (untimed pass, as session B)",
+   "file": "bb72_p0.003_test0001.npz",
+   "sha256": "c3f45e23ae8df1f941669e7fd149f3aa04992d21b0a9709b02d3f186044430df"
+  },
+  "check": "the three files on the Mac match data/bb/shot_manifest.csv (shasum -a 256 before the session), and bb.shots.load checks the sha256 of each chunk against the manifest in every process"
+ },
+ "commands": {
+  "warm_up": "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 1 --first 1000 --out ~/work/bb72_supp_t1/warmup_T1.csv > /dev/null",
+  "control_p0.003": [
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 1 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 2 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 3 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null"
+  ],
+  "p0.002": [
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.002 --dec relay_full --split test --chunks 0 --first 2000 --proc 1 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.002 --dec relay_full --split test --chunks 0 --first 2000 --proc 2 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.002 --dec relay_full --split test --chunks 0 --first 2000 --proc 3 --out ~/work/bb72_supp_t1/rows_cpu_T1.csv > /dev/null"
+  ],
+  "registered_p0.003_session_B": [
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 1 --out ~/work/bb72s3/out/rows_cpu_B.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 2 --out ~/work/bb72s3/out/rows_cpu_B.csv > /dev/null",
+   "~/work/.venv/bin/python -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc 3 --out ~/work/bb72s3/out/rows_cpu_B.csv > /dev/null"
+  ]
+ },
+ "idle_checks": [
+  "python processes at the start: pid 965 0.0 % CPU up 03-06:22:31 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python; ",
+  "before warm-up 00:50:39 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.24 1.50 2.42 } | 7.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.8 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 3.1 /usr/libexec/opendirectoryd; ",
+  "after warm-up 00:51:34 load { 2.03 1.67 2.43 } | 6.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.2 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "before relay_full-own p0.003 proc1 00:51:34 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 2.03 1.67 2.43 } | 6.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.2 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "after relay_full-own p0.003 proc1 00:53:31 load { 1.85 1.76 2.36 } | 7.8 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.8 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.1 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "before relay_full-own p0.003 proc2 00:53:31 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.85 1.76 2.36 } | 28.2 /sbin/launchd; 10.1 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.4 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; ",
+  "after relay_full-own p0.003 proc2 00:55:28 load { 1.81 1.77 2.28 } | 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.3 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "before relay_full-own p0.003 proc3 00:55:28 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.81 1.77 2.28 } | 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.3 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "after relay_full-own p0.003 proc3 00:57:25 load { 1.87 1.85 2.25 } | 6.5 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent; ",
+  "before relay_full-own p0.002 proc1 00:57:25 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.87 1.85 2.25 } | 6.5 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent; ",
+  "after relay_full-own p0.002 proc1 00:58:39 load { 2.20 1.93 2.25 } | 8.2 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "before relay_full-own p0.002 proc2 00:58:39 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 2.20 1.93 2.25 } | 8.2 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; ",
+  "after relay_full-own p0.002 proc2 00:59:52 load { 1.98 1.91 2.21 } | 8.7 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 3.8 /usr/libexec/dasd; ",
+  "before relay_full-own p0.002 proc3 00:59:52 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.98 1.91 2.21 } | 8.4 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 7.8 /usr/libexec/dasd; 5.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; ",
+  "after relay_full-own p0.002 proc3 01:01:05 load { 1.75 1.83 2.15 } | 7.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; "
+ ],
+ "warm_up": {
+  "date": "2026-10-09T00:51:34",
+  "session": "mac-mini-m4-supp-T1",
+  "process": "mac-mini:43888:853c5ca9",
+  "p": 0.003,
+  "split": "test",
+  "chunks": "1",
+  "proc": 1,
+  "n": 1000,
+  "mean_ms": 55.0669087395072,
+  "median_ms": 38.24589599389583,
+  "p99_ms": 262.0498821651563,
+  "corecheck_s": 0.047692916996311396
+ },
+ "processes": [
+  {
+   "date": "2026-10-09T00:53:31",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:43935:b5608083",
+   "p": 0.003,
+   "split": "test",
+   "chunks": "0",
+   "proc": 1,
+   "n": 2000,
+   "mean_ms": 58.05348550766939,
+   "median_ms": 39.52272899914533,
+   "p99_ms": 344.28762483352324,
+   "corecheck_s": 0.050260832998901606
+  },
+  {
+   "date": "2026-10-09T00:55:28",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:43991:a94b4a5d",
+   "p": 0.003,
+   "split": "test",
+   "chunks": "0",
+   "proc": 2,
+   "n": 2000,
+   "mean_ms": 58.48723841807805,
+   "median_ms": 39.80670848977752,
+   "p99_ms": 353.4055846522096,
+   "corecheck_s": 0.05024841701379046
+  },
+  {
+   "date": "2026-10-09T00:57:25",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:44053:1a56ac03",
+   "p": 0.003,
+   "split": "test",
+   "chunks": "0",
+   "proc": 3,
+   "n": 2000,
+   "mean_ms": 58.26234468683833,
+   "median_ms": 39.61381298722699,
+   "p99_ms": 349.0297282725805,
+   "corecheck_s": 0.05015266704140231
+  },
+  {
+   "date": "2026-10-09T00:58:39",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:44097:c843b954",
+   "p": 0.002,
+   "split": "test",
+   "chunks": "0",
+   "proc": 1,
+   "n": 2000,
+   "mean_ms": 36.58708335988922,
+   "median_ms": 27.484312508022413,
+   "p99_ms": 178.6977016594028,
+   "corecheck_s": 0.04942733398638666
+  },
+  {
+   "date": "2026-10-09T00:59:52",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:44136:308c0433",
+   "p": 0.002,
+   "split": "test",
+   "chunks": "0",
+   "proc": 2,
+   "n": 2000,
+   "mean_ms": 36.40866576868575,
+   "median_ms": 27.361312502762303,
+   "p99_ms": 176.72498710220677,
+   "corecheck_s": 0.04997512500267476
+  },
+  {
+   "date": "2026-10-09T01:01:05",
+   "session": "mac-mini-m4-supp-T1",
+   "process": "mac-mini:44201:da2289a8",
+   "p": 0.002,
+   "split": "test",
+   "chunks": "0",
+   "proc": 3,
+   "n": 2000,
+   "mean_ms": 36.58112192610861,
+   "median_ms": 27.538104506675154,
+   "p99_ms": 177.41090770985463,
+   "corecheck_s": 0.05027783301193267
+  }
+ ],
+ "records": {
+  "mac_T1.sh": {
+   "sha256": "c95d524b023789c8d4aca85acc1e13a447671ccbfc477bf08c14636f98aa3f52",
+   "text": "#!/bin/bash\n# BB72 supplementary timing T1 (2026-10-09, after the test; a supplementary measurement, not a registered result):\n# full-DEM Relay-BP's own mean time per shot at p = 0.002, the way quiet session B (mac_B.sh, 2026-10-07) timed it at\n# p = 0.003, whose measurement is re-run first as a control. Session B's code copy, venv, shots, environment and command\n# (bb.timing opponent, first 2,000 test shots of chunk 0, three fresh processes one after another); one warm-up pass of\n# relay_full over 1,000 test shots as in session B; before every process the idle check as narrowed in session S\n# (mac_S.sh). Writes only to $O.\nW=~/work/bb72s3; C=$W/code; O=~/work/bb72_supp_t1\nexport PYTHONPATH=$C/ising_compare:$C/qldpc_neural BB_SHOTS=$W/shots BB_PREDS=$W/preds QND_RELAY=~/work/relay\nexport OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 RAYON_NUM_THREADS=1\nexport BB_SESSION=mac-mini-m4-supp-T1\nPY=~/work/.venv/bin/python; R=$O/rows_cpu_T1.csv; L=$O/load_T1.log\ncd $C/ising_compare\ntop() { ps -Ao pcpu,comm -r | sed -n '2,4p' | awk '{printf \"%s %s; \", $1, $NF}'; }\n# idle = no process at >= 20 % CPU in ps, no python process at >= 1 % CPU, 1-min load < 3; wait (15-s steps) until it\n# holds (mac_S.sh's check, verbatim)\nidle() {\n  local t0=$SECONDS\n  until [ \"$(ps -Ao pcpu= | awk '$1>=20' | wc -l | tr -d ' ')\" = 0 ] && [ \"$(ps -Ao pcpu=,comm= | awk 'tolower($0) ~ /python/ && $1 >= 1' | wc -l | tr -d ' ')\" = 0 ] \\\n        && awk -v l=\"$(sysctl -n vm.loadavg | awk '{print $2}')\" 'BEGIN{exit !(l<3)}'; do sleep 15; done\n  echo \"before $1 $(date +%T) idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited $((SECONDS-t0)) s) load $(sysctl -n vm.loadavg) | $(top)\" >> $L\n}\nafter() { echo \"after $1 $(date +%T) load $(sysctl -n vm.loadavg) | $(top)\" >> $L; }\necho \"== session T1 start $(date +%T)\"\necho \"python processes at the start: $(ps -Ao pid=,pcpu=,etime=,comm= | grep -i python | awk '{printf \"pid %s %s %% CPU up %s %s; \", $1, $2, $3, $4}')\" >> $L\nidle warm-up; $PY -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 1 --first 1000 --out $O/warmup_T1.csv > /dev/null; after warm-up\necho \"== control: relay_full p0.003 $(date +%T)\"\nfor k in 1 2 3; do idle \"relay_full-own p0.003 proc$k\"; $PY -m bb.timing opponent --code bb72 --p 0.003 --dec relay_full --split test --chunks 0 --first 2000 --proc $k --out $R > /dev/null; after \"relay_full-own p0.003 proc$k\"; done\necho \"== relay_full p0.002 $(date +%T)\"\nfor k in 1 2 3; do idle \"relay_full-own p0.002 proc$k\"; $PY -m bb.timing opponent --code bb72 --p 0.002 --dec relay_full --split test --chunks 0 --first 2000 --proc $k --out $R > /dev/null; after \"relay_full-own p0.002 proc$k\"; done\necho \"SESSION_T1_END $(date +%T)\"\n"
+  },
+  "mac_T1.log": {
+   "sha256": "9f4b0b4aef5185f068ffb899cb5c62e65782c0a9899f43e60dd7dea126bffe9e",
+   "text": "== session T1 start 00:50:39\n== control: relay_full p0.003 00:51:34\n== relay_full p0.002 00:57:25\nSESSION_T1_END 01:01:05\n"
+  },
+  "load_T1.log": {
+   "sha256": "345a6a81684c6be9a847f326d142a33bef45eba5f12a42a2c6cf10c7463ee986",
+   "text": "python processes at the start: pid 965 0.0 % CPU up 03-06:22:31 /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/Resources/Python.app/Contents/MacOS/Python; \nbefore warm-up 00:50:39 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.24 1.50 2.42 } | 7.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.8 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 3.1 /usr/libexec/opendirectoryd; \nafter warm-up 00:51:34 load { 2.03 1.67 2.43 } | 6.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.2 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nbefore relay_full-own p0.003 proc1 00:51:34 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 2.03 1.67 2.43 } | 6.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.2 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nafter relay_full-own p0.003 proc1 00:53:31 load { 1.85 1.76 2.36 } | 7.8 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.8 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.1 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nbefore relay_full-own p0.003 proc2 00:53:31 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.85 1.76 2.36 } | 28.2 /sbin/launchd; 10.1 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.4 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; \nafter relay_full-own p0.003 proc2 00:55:28 load { 1.81 1.77 2.28 } | 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.3 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nbefore relay_full-own p0.003 proc3 00:55:28 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.81 1.77 2.28 } | 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 4.3 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nafter relay_full-own p0.003 proc3 00:57:25 load { 1.87 1.85 2.25 } | 6.5 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent; \nbefore relay_full-own p0.002 proc1 00:57:25 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.87 1.85 2.25 } | 6.5 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.1 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent; \nafter relay_full-own p0.002 proc1 00:58:39 load { 2.20 1.93 2.25 } | 8.2 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nbefore relay_full-own p0.002 proc2 00:58:39 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 2.20 1.93 2.25 } | 8.2 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \nafter relay_full-own p0.002 proc2 00:59:52 load { 1.98 1.91 2.21 } | 8.7 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 5.2 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 3.8 /usr/libexec/dasd; \nbefore relay_full-own p0.002 proc3 00:59:52 idle (no process >= 20 % CPU, no python process >= 1 % CPU, load < 3; waited 0 s) load { 1.98 1.91 2.21 } | 8.4 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 7.8 /usr/libexec/dasd; 5.0 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; \nafter relay_full-own p0.002 proc3 01:01:05 load { 1.75 1.83 2.15 } | 7.0 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension; 4.9 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer; 2.0 /System/Library/Frameworks/VideoToolbox.framework/Versions/A/XPCServices/VTDecoderXPCService.xpc/Contents/MacOS/VTDecoderXPCService; \n"
+  },
+  "warmup_T1.csv": {
+   "sha256": "1b793cb9271439c0dea19810d3481e4fc4bfa25622ad0b1a546371a6339e54b3",
+   "text": "date,host,device,role,code,p,name,proc,n,value_ms,session,process,binding,note\n2026-10-09T00:51:34,mac-mini,Apple M4,opponent,bb72,0.003,relay_full,1,1000,55.0669087395072,mac-mini-m4-supp-T1,mac-mini:43888:853c5ca9,,\"{\"\"median_ms\"\": 38.24589599389583, \"\"p99_ms\"\": 262.0498821651563, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"1\"\", \"\"corecheck_s\"\": 0.047692916996311396}\"\n"
+  },
+  "rows_cpu_T1.csv": {
+   "sha256": "48768debc04c53bc70ac78a70f4dc5e7d3b784b70042ae5f8bec92979a108184",
+   "text": "date,host,device,role,code,p,name,proc,n,value_ms,session,process,binding,note\n2026-10-09T00:53:31,mac-mini,Apple M4,opponent,bb72,0.003,relay_full,1,2000,58.05348550766939,mac-mini-m4-supp-T1,mac-mini:43935:b5608083,,\"{\"\"median_ms\"\": 39.52272899914533, \"\"p99_ms\"\": 344.28762483352324, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.050260832998901606}\"\n2026-10-09T00:55:28,mac-mini,Apple M4,opponent,bb72,0.003,relay_full,2,2000,58.48723841807805,mac-mini-m4-supp-T1,mac-mini:43991:a94b4a5d,,\"{\"\"median_ms\"\": 39.80670848977752, \"\"p99_ms\"\": 353.4055846522096, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.05024841701379046}\"\n2026-10-09T00:57:25,mac-mini,Apple M4,opponent,bb72,0.003,relay_full,3,2000,58.26234468683833,mac-mini-m4-supp-T1,mac-mini:44053:1a56ac03,,\"{\"\"median_ms\"\": 39.61381298722699, \"\"p99_ms\"\": 349.0297282725805, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.05015266704140231}\"\n2026-10-09T00:58:39,mac-mini,Apple M4,opponent,bb72,0.002,relay_full,1,2000,36.58708335988922,mac-mini-m4-supp-T1,mac-mini:44097:c843b954,,\"{\"\"median_ms\"\": 27.484312508022413, \"\"p99_ms\"\": 178.6977016594028, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.04942733398638666}\"\n2026-10-09T00:59:52,mac-mini,Apple M4,opponent,bb72,0.002,relay_full,2,2000,36.40866576868575,mac-mini-m4-supp-T1,mac-mini:44136:308c0433,,\"{\"\"median_ms\"\": 27.361312502762303, \"\"p99_ms\"\": 176.72498710220677, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.04997512500267476}\"\n2026-10-09T01:01:05,mac-mini,Apple M4,opponent,bb72,0.002,relay_full,3,2000,36.58112192610861,mac-mini-m4-supp-T1,mac-mini:44201:da2289a8,,\"{\"\"median_ms\"\": 27.538104506675154, \"\"p99_ms\"\": 177.41090770985463, \"\"split\"\": \"\"test\"\", \"\"chunks\"\": \"\"0\"\", \"\"corecheck_s\"\": 0.05027783301193267}\"\n"
+  }
+ },
+ "records_note": "the five files of ~/work/bb72_supp_t1 on the Mac mini, verbatim"
+}

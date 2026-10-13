@@ -1,0 +1,77 @@
+{
+ "code": "bb72",
+ "label": "BB72 [[72,12,6]], p = 0.3 %, uniform circuits, the deployed trunk (3 blocks of width 128)",
+ "arms": [
+  "B-JT",
+  "B-J",
+  "B-P",
+  "B-PA"
+ ],
+ "deployed": "B-JT",
+ "seeds": [
+  1,
+  2
+ ],
+ "cal": {
+  "kind": "a1cal",
+  "chunks": "0-19"
+ },
+ "test": {
+  "kind": "a1test",
+  "chunks": "0-49"
+ },
+ "q": [
+  0,
+  0.0025,
+  0.005,
+  0.01,
+  0.02,
+  0.03,
+  0.05
+ ],
+ "q_registered": 0.02,
+ "fallback": "full-DEM Relay-BP under A6's policy",
+ "comparisons": [
+  {
+   "id": "R1",
+   "factor": "readout",
+   "x": "B-P",
+   "y": "B-J",
+   "held": "no translate loss"
+  },
+  {
+   "id": "R2",
+   "factor": "readout",
+   "x": "B-PA",
+   "y": "B-JT",
+   "held": "translate loss"
+  },
+  {
+   "id": "U1",
+   "factor": "supervision",
+   "x": "B-J",
+   "y": "B-JT",
+   "held": "joint read-out"
+  },
+  {
+   "id": "U2",
+   "factor": "supervision",
+   "x": "B-PA",
+   "y": "B-P",
+   "held": "pooled read-out"
+  },
+  {
+   "id": "W1",
+   "factor": "whole design",
+   "x": "B-P",
+   "y": "B-JT",
+   "held": "neither (credited to neither)"
+  }
+ ],
+ "references": [
+  {
+   "name": "r12",
+   "label": "registered r12"
+  }
+ ]
+}

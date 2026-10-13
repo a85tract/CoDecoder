@@ -1,0 +1,20 @@
+# The continuation rule's input checks alone (a1.rule.load_records; revision/A1_POD_RUN.md, gate finding 4), without
+# the decision: for each code, the stage-1 validation records in $A/val are the arms' completed runs, passed their
+# batch-one checks, read one validation set and come from checkpoints equal to $A/ckpt's files, and the runs of the code
+# read the same training stream (equal final stream_chain); the same for seed 1's ramp records when $RAMP=1. CPU, seconds.
+#   sbatch -p acpu --qos=cpu-normal -c 2 --mem=16G -t 00:10:00 -J a1_rin --export=ALL,CMD=rule_inputs.txt a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+export A RAMP=${RAMP:-0}
+$PY - <<'PYEOF'
+import os
+from a1 import rule
+A, ramp = os.environ["A"], os.environ["RAMP"] == "1"
+for code, ck in (("surface", os.environ["ICMP_CKPT"]), ("bb72", os.environ["BB_CKPT"])):
+    if ramp and code == "bb72" and not any(f.startswith("a1ramp_B-") for f in os.listdir(f"{A}/val")):
+        continue
+    R = rule.load_records(code, f"{A}/val", ck, "a1ramp" if ramp else "a1")
+    m = next(iter(R.values()))["meta"]
+    print("RULE INPUTS OK", code, "ramp" if ramp else "stage 1", "runs", sorted(R), "set", m["set"]["digest"][:16],
+          "stream_chain", m["stream_chain"][:16], "devices", sorted({r["meta"]["device"] for r in R.values()}), flush=True)
+PYEOF

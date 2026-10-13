@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -A <account>
+#PBS -q develop
+#PBS -l select=1:ncpus=128:mem=200GB
+#PBS -l walltime=06:00:00
+#PBS -j oe
+# STAGE4_GROSS_PLAN.md step 7: the CPU opponents' blind test4 reads, job A of two (128 + 64 cores <= the 192 allowed):
+# sector Relay-BP and BP-OSD on all 15 test4 chunks (bb.opp), then full-DEM Relay-BP on chunks 0-9 (bb.stage4_gross
+# fullread, one shot per task, resumable: a resubmission keeps the decoded shots). Code at $R/code (git archive of the
+# freeze commit plus the test4 manifest rows), shots at $R/shots.
+#   qsub -N s4a bb/scripts/derecho/cpu_s4_a.pbs
+module load ncarenv/25.10 conda/latest 2>/dev/null || module load conda/latest
+conda activate <cluster-work>/conda-envs/qec
+set -euo pipefail
+R=<cluster-scratch>/bb/stage4
+T=$R/code
+cd $T/ising_compare
+export PYTHONPATH=$T/ising_compare:$T/qldpc_neural OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+       RAYON_NUM_THREADS=1 PYTHONUNBUFFERED=1 QND_RELAY=<cluster-work>/qldpc/relay BB_SHOTS=$R/shots BB_PREDS=$R/preds
+mkdir -p $R/out $R/preds
+PY=<cluster-work>/qldpc/venv/bin/python
+hostname; date; lscpu | grep "Model name"; echo "tree $(cat $T/COMMIT)"
+[ -f $R/preds/bb144_p0.004_test40014_bposd.npz ] || \
+  $PY -m bb.opp --code bb144 --p 0.004 --split test4 --chunks 0-14 --dec relay,bposd --procs 128 --out $R/out/opp_test4_reads_a.csv
+$PY -m bb.stage4_gross fullread --split test4 --chunks 0-9 --procs 128 --out $R/out/opp_test4_reads_a.csv
+date; echo JOBDONE

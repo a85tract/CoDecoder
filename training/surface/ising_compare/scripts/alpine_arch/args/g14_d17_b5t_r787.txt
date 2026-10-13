@@ -1,0 +1,5 @@
+# G14 replica 787 (arch/README.md 24): the d = 15 final EMA of 778 (sha256 checked) mapped to d = 17 by arch.transfer and
+# trained by G12's warm restart. G6 15.4's checks on this card first (mapping 15 -> 17, geometry, start, smoke; a
+# failure ends the job), then 2e8 true-label samples of stream 787: fresh AdamW, 500 warm-up steps, cosine from 2e-4 to 2 %
+$PY -m arch.g6_check --d 17 --blocks 5 --run-id 787 --parent $A/ckpt/d15_b5t_r778/final_ema.pt --sha 346ea266f50874383e9b525aa2c527823b195fb99dadf13366266e0bac280d3f
+$PY -m arch.train --run d17_b5t_r787 --run-id 787 --d 17 --init-transfer $A/ckpt/d15_b5t_r778/final_ema.pt --init-sha 346ea266f50874383e9b525aa2c527823b195fb99dadf13366266e0bac280d3f --phase truth --samples 2e8 --lr 2e-4 --warmup 500 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --no-val --plateau-kill 1.2 --collapse-kill 1.2 --blocks 5 --save-every 500 --max-hours 23.6 --max-hours-at-pool

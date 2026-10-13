@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -A <account>
+#PBS -q develop
+#PBS -l select=1:ncpus=128:mem=200GB
+#PBS -l walltime=02:00:00
+#PBS -j oe
+# STAGE3_GROSS_PLAN.md step 9: the CPU opponents' blind test reads of cell G-4 on one Derecho CPU node, 128
+# single-threaded bb.opp processes: sector Relay-BP and BP-OSD on all 30 test chunks, full-DEM Relay-BP on chunk 0
+# (the first 10,000 test shots). Code at $R/code (git archive of the freeze commit), shots at $R/shots.
+#   qsub -N g4opp bb/scripts/derecho/cpu_opp_g4.pbs
+module load ncarenv/25.10 conda/latest 2>/dev/null || module load conda/latest
+conda activate <cluster-work>/conda-envs/qec
+set -euo pipefail
+R=<cluster-scratch>/bb/g4s3
+T=$R/code
+cd $T/ising_compare
+export PYTHONPATH=$T/ising_compare:$T/qldpc_neural OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+       RAYON_NUM_THREADS=1 PYTHONUNBUFFERED=1 QND_RELAY=<cluster-work>/qldpc/relay BB_SHOTS=$R/shots BB_PREDS=$R/preds
+mkdir -p $R/out $R/preds
+PY=<cluster-work>/qldpc/venv/bin/python
+hostname; date; lscpu | grep "Model name"; echo "tree $(cat $T/COMMIT)"
+$PY -m bb.opp --code bb144 --p 0.004 --split test --chunks 0-29 --dec relay,bposd --procs 128 --out $R/out/opp_test_reads.csv
+$PY -m bb.opp --code bb144 --p 0.004 --split test --chunks 0 --dec relay_full --slice 10 --procs 128 \
+   --out $R/out/opp_test_reads.csv
+date; echo JOBDONE

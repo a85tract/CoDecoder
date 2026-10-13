@@ -1,0 +1,9 @@
+# A1's surface fallback answers (revision/REVISION_PLAN.md 2.1, "Pair curves"): correlated PM on every test shot,
+# once, 32 workers (about 1 core-hour). The BB72 fallback (full-DEM Relay-BP under A6's policy) is fallback_relay.txt.
+# DRY=1: the dry test set (dry, chunks 4-9) into $A/reads_dry_main/surface (revision/A1_READ_PLAN.md).
+#   sbatch -p acpu --qos=cpu-normal -c 32 --mem=64G -t 01:00:00 -J a1_pm --export=ALL,CMD=fallback_pm.txt a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+if [ -n "${DRY:-}" ]; then K="--kind dry --chunks 4-9"; R=$A/reads_dry_main/surface; else K="--kind test --chunks 0-99"; R=$A/reads/surface; fi
+mkdir -p $R
+$PY -m a1.fallback pm $K --out $R/fallback_test.npz --workers ${SLURM_CPUS_PER_TASK:-32}

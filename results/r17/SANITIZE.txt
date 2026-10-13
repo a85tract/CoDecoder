@@ -1,0 +1,75 @@
+Text files under r17/ are the hub's files under ising_compare/r17/ at the commit in SOURCE, byte for byte, except the
+files listed below; and every file or directory name that held an Alpine job id holds that job's label instead. In the
+listed files, internal names were replaced as bb72/SANITIZE.txt describes, each as an exact replacement, with the same
+text everywhere it occurs. No number, rule or result changed.
+- Cluster jobs. Each Alpine job id became a label, J01 to J30, numbered in the order of the ids, which is the order
+  in which the jobs were submitted; names and text use the same label. The run's jobs: J23 the CPU term, J24 the
+  sample job that drew T6, J25, J26 and J27 the BP-OSD shares (chunks 0-6, 7-13, 14-19), J28 the merge, J29 the
+  inventory, J30 the one-time analysis. The rehearsal's: J14 to J22 (dry/README.md; J21 and J22 are the dry inventory
+  and the dry analysis). The first dry runs: J01 to J13 (J10 to J13 were four cancelled analysis jobs). A pod job's id,
+  pod followed by its start time in UTC (pod.sh start), is kept: it is a time, not the id of a machine.
+- The account and paths. The cluster account became <user> and its scratch directory <cluster-scratch>. The work
+  directories on the Linux workstation and on the Mac mini became ~/work (~/work/repo, ~/work/release,
+  ~/work/paper.git, ~/work/plans_s4r3_t1, ~/work/deep17_runs, ~/work/s4r3, ~/work/s4r1). In deploy.sh's comment, a
+  second account on the Linux workstation became "the other account".
+- Hosts. The Linux workstation's ssh host name became x86-host. Where an account name on it stood for the machine (an
+  account before a path, or a clone "on" an account), it became "Linux workstation". The Mac mini's nickname became
+  m4-host in ssh commands and "Mac mini" in prose. The pod's container host name became gpu-pod, and the GPU UUIDs (the
+  pod's H100, and the four H200s that the H200 job in dry/rehearsal/gpu_J06 listed) GPU-<uuid>. Alpine's node names
+  stay, as in bb72/.
+- Names. The coordinating role became "the study lead", and the bylines were removed from the first lines of
+  PLAN_R17.md, R17_READY.md and R17_RESULT.md. S4-R3's pods are named by their role: its timing pod and its read pod.
+  r17.py is kept byte for byte (its sha256 is in T6's manifest), so four of its comments still call the read pod PB.
+Hashes recorded before these replacements keep their values and refer to the hub's files:
+- r17.json's sha256 of the policy (method.policy) refers to the hub's policy_d17b5_r787_q08.json; the copy here
+  differs in the path of its "source".
+- The inventory (run/final_inputs.sha256) and run/final/r17_summary.json ("inputs") hold the sha256 of cpu_term.json,
+  hopper.json and reads_ours_pm_ising.json as the analysis read them. The copies in run/records/cpu_J23/ and
+  run/records/gpu_pod20261010100258/ differ from those in paths, in the job label and in the GPU UUID, so R17_RESULT.md
+  section 5's statement that they carry the inventory's sha256 holds for the hub's copies only.
+- The freeze check (R17_RESULT.md section 4, step 3) and the copies that deploy.sh and pod.sh checked by sha256 refer
+  to the hub's tree.
+Byte for byte the hub's, so their recorded sha256 can be checked here: r17.py, r17.json (the inventory's "record"),
+run/t6_manifest.json (its "manifest"; also testsets/T6.json), run/final_inputs.sha256, run/final/r17_eval.csv and
+run/final/r17_summary.json (also results/r17_test_eval.csv and results/r17_summary.json), the merged BP-OSD sidecars
+in run/records/merge_J28/ (the inventory's two .prov.json), every other BP-OSD sidecar, and e3/E3_SUMMARY.md.
+Files changed:
+  PLAN_R17.md
+  R17_READY.md
+  R17_RESULT.md
+  deploy.sh
+  pod.sh
+  policy_d17b5_r787_q08.json
+  seedcheck.sh
+  alpine/r17_analyze.sbatch, r17_bposd.sbatch, r17_cpu.sbatch, r17_gpu.sbatch, r17_sample.sbatch
+  dry/README.md
+  dry/bposd_J04/r17_bposd_J04.out
+  dry/cpu_J02/cpu_term.json
+  dry/cpu_J05/cpu_term.json
+  dry/cpu_J08/cpu_term.json, node.txt, r17_cpu_J08.out, ref_d17_correlated_rep1.json, ref_d17_plain_rep1.json,
+    term_r17_q08_rep1.json, term_r17_q10_rep1.json
+  dry/sample_J01/r17_sample_J01.out
+  dry/rehearsal/bposd_J16/r17_bposd_J16.out
+  dry/rehearsal/bposd_J17/r17_bposd_J17.out
+  dry/rehearsal/bposd_J18/r17_bposd_J18.out
+  dry/rehearsal/bposd_J19/r17_bposd_J19.out
+  dry/rehearsal/cpu_J15/cpu_term.json, node.txt, r17_cpu_J15.out, and the 12 files ref_d17_*_rep[123].json and
+    term_r17_q*_rep[123].json
+  dry/rehearsal/gpu_J06/ours_val.log, r17_gpu_J06.out
+  dry/rehearsal/pod_pod20261010094236/final_inputs_J21.sha256, hopper.json, hopper.log, pins.json, r17_analyze_J21.out,
+    r17_gpu_pod20261010094236.out, read.log, reads_ours_pm_ising.json
+  dry/rehearsal/sample_J14/r17_sample_J14.out
+  run/records/bposd_J25/r17_bposd_J25.out
+  run/records/bposd_J26/r17_bposd_J26.out
+  run/records/bposd_J27/r17_bposd_J27.out
+  run/records/cpu_J23/cpu_term.json, node.txt, r17_cpu_J23.out, and the 12 files ref_d17_*_rep[123].json and
+    term_r17_q*_rep[123].json
+  run/records/gpu_pod20261010100258/hopper.json, hopper.log, pins.json, r17_gpu_pod20261010100258.out, read.log,
+    reads_ours_pm_ising.json
+  run/records/inventory_J29/r17_analyze_J29.out
+  run/records/sample_J24/r17_sample_J24.out
+
+REPRODUCTION_CHECK.md is not one of the hub's files: it was written for this release on 2026-10-10 and records a
+reader's run of README section 8 from a fresh clone. It follows the same rules: the cluster's scratch directory
+appears as <cluster-scratch>, the account name does not appear, and the check's two Slurm jobs are named by what they
+ran, with their ids left out. Alpine's node names stay.

@@ -1,0 +1,3 @@
+# G9 replica 778 (arch/README.md 18): b5 at d = 15 from G7's d = 13 b5 774 final EMA (sha256 checked), its checks passed
+# in an Alpine job; 2e8 samples (18.1's budget) of stream 778, G2's recipe, --no-val, the in-job plateau / collapse stops
+$PY -m arch.train --run d15_b5t_r778 --run-id 778 --d 15 --init-transfer $A/ckpt/d13_b5t_r774/final_ema.pt --init-sha eea02c3556e5b2b4f0895d1897a65a28c892bccd23b74a9107803fd6925c69c7 --phase truth --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --no-val --plateau-kill 1.2 --collapse-kill 1.2 --blocks 5

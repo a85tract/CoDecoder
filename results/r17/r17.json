@@ -1,0 +1,118 @@
+{
+ "revision": "R17",
+ "study": "4",
+ "about": "The record of R17 (PLAN_R17.md): study 4's d = 17 row re-registered at q = 8 % on a new test set T6. r17.py reads every pin from this file. engine holds E3's verdict (NO-GO) and its records; the rehearsal ran with this file as it is, and nothing in it changes after the freeze commit.",
+ "frozen_tree": "f1c6a0e9a0086cf56dd617d3e334c82af187132f",
+ "base_freeze": {"file": "data/study4/freeze.json", "sha256": "c500ef8e404ca38b4c70f19ef02e08b416c2daa74aa1aa0391ba6fd26c27d889"},
+ "s4r3": {
+  "commit": "a31d525eec3fc2555d2a51d83f288ac3575b6954",
+  "branch": "ising-worker",
+  "files": {
+   "data/study4/r3/r3.json": "0af4b8af90a169a278cd912c7462e0faa7545e5bd9a6510e499a192abe29eb4e",
+   "data/study4/r3/t/work/s4/phase_a.json": "b35ffcd1b3dd8fcc007c13ee0e4e2dffc58d02e9b4730a72392bf1623e97f84c",
+   "data/study4/speed/cpu_term.json": "45b066b294769be312ece98f865fd638ee2b315ae0f15dbd2069ac70f8cbc032",
+   "data/study4/r3/pmshare_r3.json": "6d1c7d952859bbc30954fdfffd2a11c7b975a78822a537d41463ac300c1e7543",
+   "data/study4/r3/t/work/r3_parts.json": "37fd28fe2e8861285a284a7de472a624329038f49207aef686c16d77ea3c7301",
+   "data/study4/r3/val_power.json": "4fe97666c98c06ac0783286b201cc73a5c5165406f08f192f1cfab8f745e37d7",
+   "data/study4/r3/t5_manifest.json": "43cd8994942ffe65ddfb804c6c149c36fb5b6f85652aef0f43c8080ae0792faf",
+   "data/study4/r3/pb/reads_ising.json": "251c874f838b4c748562e2d2f470d202bb24a3023a26c9fb8be54f079a2b08be",
+   "data/study4/r3/pb/reads_ours_pm.json": "f34330971a069a60acac61d039f1cb7f294bea07412411b2a66f8b744bd4483f",
+   "data/study4/r3/pb/res_d17_M1_v17b000.npz": "3a1911f5d035f58a5272ebbed38cf2bf96bd1ed6e704e00ff4125994db2356b4",
+   "data/study4/r3/pb/res_d17_M4_v17b000.npz": "fef8290c3cf9bfcef72801eea734798f8c9241c1f7cb8e1c65a6453f17a1967a",
+   "data/study4/r3/final/out/r3_summary.json": "c0a3843079876439ddf9e29c44df81c85bdff380a6dffeb369fd68a692c4e62c"
+  }
+ },
+ "method": {
+  "candidate": "d17_b5_r787",
+  "frozen_stages": 4,
+  "tau": "4.539173126220703",
+  "q": 0.08,
+  "tau_registered": "5.121974468231201",
+  "q_registered": 0.1,
+  "policy": {"file": "ising_compare/r17/policy_d17b5_r787_q08.json", "sha256": "9fda3fb6e5e90e9502461c0d6c774c6a1b68438383a0c1036bf6a3812ac64968"},
+  "routing": "|double(float32 c)| < tau -> correlated PM's decision on that shot; otherwise c > 0",
+  "how_read": "the frozen executable (speed2.s19.t4ours: FROZEN with 4 stages, the router library, the registered tau) records c, its routing and its decision for every T6 shot; the q = 8 % decisions follow from the same c and the same correlated-PM decisions, so one read gives both thresholds",
+  "bundle_files": {
+   "art/d17_b5t_r787_final_ema.pt": "bc00eb30fb2be3f14f0499f0e96bb25ce7dc4817284a09c037c9f3b66275ef45",
+   "lib/libs7router.so": "a939d9c7b25fc5c44db64d355beb8123e09cf5ded0434185b4b271b94be8eb34",
+   "lib/BUILD.json": "b3da581c1285b8750d4f875942e7cd3d040dbd14ada9b1cc7f81e0a985363ec8",
+   "lib/router.cc.sha256": "d5fe575fd05bbfb7b063a2711a63e71fddb0b8faf8ea1376579a24d4b3c43a99",
+   "devrec/d17.npz": "8e0ead565bbe3a003aec59a62499e6b52de284c548a4a9bdc6f69cdc8d4cd593",
+   "nv/models/Ising-Decoder-SurfaceCode-1-Fast.pt": "08ce4b1e09e3f396401d606b7c476225101012a6206bc7877efe153daae7b8c4",
+   "nv/models/Ising-Decoder-SurfaceCode-1-Accurate.pt": "f49df7fc70d2ca890d5155982dae79e531f012d584203308617e9f6316b19fa9",
+   "plans/M1_d17_fp16_L3_B1.plan": "0f0e051e2453304a037593b42a183223235630de49ebcfea3d56701a1ace05c3",
+   "plans/M1_d17_fp16_L5_B1.plan": "6ef72bd1cf979e09d019d095d211bbf62a7019344daf6a83e0032993ed117233",
+   "plans/M1_d17_fp8_L3_B1.plan": "75b79f06d45314da97d407851554f83be9051b6b10349009558dce9618129a81",
+   "plans/M1_d17_fp8_L5_B1.plan": "987f9d31cde7bb7a5679aff1304b7ba73002ebcb74a8330ff16d02655955c4b7",
+   "plans/M4_d17_fp16_L3_B1.plan": "2904e22ceb1cc6bbc8844fee67809bc4f7ba054ed1cab54825dd3b1536356524",
+   "plans/M4_d17_fp16_L5_B1.plan": "4167617f39dacc3a2376c8c9274c3fbb953592770fb39e4ea6ef1e07e53478c5",
+   "plans/M4_d17_fp8_L3_B1.plan": "050bd9f695a2a8864b911f48129349cb24c0de6a309f9c530afcf8cb5c9d3e04",
+   "plans/M4_d17_fp8_L5_B1.plan": "a2b83609781ca04fae848798a1b599341a84ac35a59fa4223d6a0a27391a44ac"
+  },
+  "nv_code": "NVIDIA Ising-Decoding 3ce4379fa6cf475789007bde4b6a8206e8622992 (ICMP_NV; its files are pinned by the freeze's route.nv_sha256)",
+  "versions_gpu": {"numpy": "2.2.6", "pymatching": "2.4.0", "scipy": "1.18.1", "stim": "1.16.0", "torch": "2.11.0+cu126", "triton": "3.6.0", "tensorrt": "10.14.1.48.post1"},
+  "versions_bposd": {"cudaq_qec": "CUDA-Q QEC 0.8.0 (https://github.com/NVIDIA/cudaqx 6ac00e5c24ab17bbb6515f09009ce69643839eed)", "numpy": "2.5.3", "pymatching": "2.4.0", "scipy": "1.18.1", "stim": "1.16.0"},
+  "versions_bposd_note": "cudaq_qec as its __version__ reads (the freeze's route.bposd.versions, Derecho's; Alpine's venv_cudaq has cudaq-qec-cu12 0.8.0 built from the same cudaqx commit); r17.py bposd checks all five against the loaded packages, and each decoder worker checks the freeze's pins"
+ },
+ "engine": {
+  "verdict": "NO-GO",
+  "go": "the persistent engine eng17 of branch ising-engine17 at the commit E3 ran; bit-exact with FROZEN on the 200,000 V17b shots (E3's mandatory exactness runs), so its decisions are FROZEN's",
+  "no_go": "FROZEN (timing/engine.py, 4 pipeline stages), study 4's engine",
+  "e3_records": {"branch": "ising-engine17", "commit": "82e286144be94933e8b231c33c30defb2d2db427", "summary": "ising_compare/r17/e3/E3_SUMMARY.md", "summary_sha256": "a48b75889179d420ac9590a56600f3d06321c210ffb2c1f8816b6fcd4a8f6954", "verdict": "VERDICT NO-GO (timing REVISE): grid: block phase 5.87 us (GO <= 5.25, REVISE <= 7.0); whole shot 74.57 us vs FROZEN 67.20 us same session, bound 56.66 us (not met)", "exact": "0 mismatches in the main, custom and staged runs", "sanitizers": "memcheck, racecheck, synccheck, initcheck: 0 errors", "gpu": "NVIDIA H100 80GB HBM3", "frozen_same_session_us": 67.20146408081055},
+  "applied": "FROZEN reads T6; (a) is study 4's registered GPU term 66.6595 us (speed.a_gpu.no_go) and (c) study 4's handoff estimate 1.5432 us (speed.c_handoff.inherited). E3's same-session FROZEN median, 67.2015 us, is 0.54 us above (a): reported as a sensitivity (PLAN_R17.md section 8), never used in place of (a)"
+ },
+ "test_set": {
+  "name": "T6",
+  "d": 17,
+  "split": "test6",
+  "file": "d17_p0.006_X_test6_{j:03d}.npz",
+  "chunks": "0-99",
+  "chunk": 10000,
+  "shots": 1000000,
+  "seed": "91,000,000 + 10,000 x 17 + j",
+  "seed_first": 91170000,
+  "seed_last": 91170099,
+  "bposd_chunks": "0-19",
+  "sampler": "stim Circuit.compile_detector_sampler(seed).sample(10,000, separate_observables=True) on the d = 17 verdict circuit; written by icmp.t4.write_npz (det = np.packbits of the detector bits, obs = observable 0, seed; stored members in name order, fixed timestamps)",
+  "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+  "versions": {"stim": "1.16.0", "numpy": "2.2.6"},
+  "host": "x86-64 with AVX2 (an Alpine AMD EPYC node)",
+  "seedcheck": "ising_compare/r17/seedcheck.sh: no integer of the 91 M namespace on any of 38 branches of the hub, the release and the paper repository (2026-10-10)"
+ },
+ "parts": {
+  "trt": ["M1_fp16_L3_B1", "M1_fp16_L5_B1", "M1_fp8_L3_B1", "M1_fp8_L5_B1", "M4_fp16_L3_B1", "M4_fp16_L5_B1", "M4_fp8_L3_B1", "M4_fp8_L5_B1"],
+  "torch": ["M1_torch", "M4_torch"],
+  "source": "data/study4/r3/t/work/r3_parts.json: the 8 timed batch-1 plans of S4-R3's session (M1 / M4 x fp16 / fp8 x builder level 3 / 5) and the official PyTorch numerics; each followed by plain PM and by correlated PM on the same residual"
+ },
+ "opponents": {
+  "pm": "plain PM (row pm)",
+  "pm_corr": "correlated PM (row pm_corr)",
+  "M1": "Ising M1 + PM: every M1 part, plain PM on its residual (5 rows)",
+  "M4": "Ising M4 + PM (5 rows)",
+  "M1_corr": "Ising M1 + correlated PM: every M1 part, correlated PM on its residual (5 rows)",
+  "M4_corr": "Ising M4 + correlated PM (5 rows)",
+  "minllr": "min-LLR BP-OSD on T6 chunks 0-19 (row bposd_minllr)",
+  "bp60": "BP 60 BP-OSD on T6 chunks 0-19 (row bposd_bp60)"
+ },
+ "accuracy": {
+  "alpha": 0.025,
+  "statistics": "icmp.stats2.paired: exact two-sided McNemar; Newcombe (1998) method 8 at 97.5 %",
+  "row": "better iff diff_hi < 0 and mcnemar_p < 0.025 (ours at q = 8 % minus the row, on the same shots)",
+  "cell": "an opponent's accuracy cell holds iff every row of it is better",
+  "claim": "all 16 cells (8 accuracy, 8 speed) hold"
+ },
+ "preservation": {
+  "compare": "ours at q = 8 % against ours at the registered tau (q = 10 %), both on all 1,000,000 T6 shots, from the same read",
+  "delta": 8.168778996560098e-05,
+  "rule": "preserved iff diff_hi < delta, where diff = LER(q 8 %) - LER(q 10 %) and diff_hi is the upper end of icmp.stats2.paired's 97.5 % Newcombe interval on the same shots",
+  "delta_source": "half of the end nearest zero of study 4's registered 97.5 % interval of LER(ours) - LER(correlated PM) on T5, -1.6337557993120196e-4 (data/study4/r3/final/out/r3_summary.json, cells.pm_corr.accuracy.rows.pm_corr.hi): R17 may give up at most half of the accuracy advantage over its closest opponent that study 4 established with its own registered statistic (the 50 % retention rule of non-inferiority designs). Neither E17d nor K17d enters it"
+ },
+ "speed": {
+  "a_gpu": {"no_go": {"file": "data/study4/r3/t/work/s4/phase_a.json", "key": "cands.d17_b5_r787.a_counted", "us": 66.65951348304749}, "go": null},
+  "c_handoff": {"inherited": {"file": "data/study4/r3/t/work/s4/phase_a.json", "key": "cands.d17_b5_r787.c_handoff", "us": 1.5432148370622656}, "e3": null},
+  "b_cpu": "the R17 CPU job (alpine/r17_cpu.sbatch): one exclusive Alpine amem node with an AMD EPYC 7713, core 8; three interleaved repetitions of the term on the q = 8 % mask and of the node's correlated PM per block on V17b chunk 0; b = max(term) x 714.05 / median(reference)",
+  "grace_correlated_d17_us": 714.05,
+  "opponents": "inherited, as registered: plain PM and correlated PM the freeze's route.speed.grace_numerators_us; Ising M1 / M4 + PM phase_a.json's total_grace; + correlated PM phase_a.json's plan_us + pmshare_r3.json's share; BP-OSD phase_a.json's fastest_us",
+  "cell": "holds iff ours < the opponent, strictly"
+ }
+}

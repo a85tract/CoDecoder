@@ -1,0 +1,81 @@
+model name	: AMD EPYC 9534 64-Core Processor
+16
+2026-10-12T04:46:22-06:00
+3.12.14 2.2.6 1.16.0 2.4.0 2.11.0+cu126
+== A smoke: bash training/smoke.sh (defaults)
+{"step": 976, "samples": 249856, "pool": 30, "lr": 0.0009343524478543751, "noise_scale": 1.0, "train_loss": 0.4213372566353184, "ema_failures": 524, "failures": 194, "eval_shots": 20000, "minutes": 1.3611457824707032, "samples_per_s": 3224.931307972342, "final": false}
+{"step": 1952, "samples": 499712, "pool": 60, "lr": 0.0005953750386169342, "noise_scale": 1.0, "train_loss": 0.1275130656164149, "ema_failures": 219, "failures": 128, "eval_shots": 20000, "minutes": 2.3690173188845316, "samples_per_s": 4300.67510264422, "final": false}
+{"step": 2928, "samples": 749568, "pool": 91, "lr": 0.00019548148230409847, "noise_scale": 1.0, "train_loss": 0.10192150293132915, "ema_failures": 124, "failures": 108, "eval_shots": 20000, "minutes": 3.383207074801127, "samples_per_s": 4267.315789245654, "final": false}
+{"step": 3904, "samples": 999424, "pool": 121, "lr": 2.0000782398434304e-05, "noise_scale": 1.0, "train_loss": 0.06787237163593907, "ema_failures": 112, "failures": 103, "eval_shots": 20000, "minutes": 4.392529757817586, "samples_per_s": 4287.281833758999, "final": false}
+{"step": 3906, "samples": 999936, "pool": 123, "lr": 2e-05, "noise_scale": 1.0, "train_loss": null, "ema_failures": 113, "failures": 102, "eval_shots": 20000, "minutes": 4.431766573588053, "samples_per_s": 3819.297188875493, "final": true}
+front end -> runs/smoke/train/final_ema.pt: EMA alone 113 failures of 20000 monitor shots
+100000 calibration shots; front end alone 510 failures, 200.520 us per shot; strong decoder on 100000 shots, alone 381 failures
+q =  0.00 %  tau = 0.0000  routed       0  failures    510  mean   200.520 us
+q =  1.00 %  tau = 1.4665  routed    1000  failures    369  mean   200.606 us
+q =  2.00 %  tau = 2.5367  routed    2000  failures    388  mean   200.679 us
+q =  3.00 %  tau = 3.3703  routed    3000  failures    376  mean   200.748 us
+q =  4.00 %  tau = 4.0863  routed    4000  failures    380  mean   200.815 us
+q =  5.00 %  tau = 4.6843  routed    5000  failures    382  mean   200.879 us
+q =  6.00 %  tau = 5.2116  routed    6000  failures    384  mean   200.942 us
+q =  7.00 %  tau = 5.6634  routed    7000  failures    382  mean   201.003 us
+q =  8.00 %  tau = 6.0409  routed    8000  failures    382  mean   201.064 us
+q =  9.00 %  tau = 6.3793  routed    9000  failures    382  mean   201.123 us
+q = 10.00 %  tau = 6.7001  routed   10000  failures    382  mean   201.181 us
+q = 11.00 %  tau = 7.0118  routed   11000  failures    382  mean   201.239 us
+q = 12.00 %  tau = 7.2814  routed   12000  failures    382  mean   201.295 us
+q = 13.00 %  tau = 7.5385  routed   13000  failures    382  mean   201.350 us
+q = 14.00 %  tau = 7.7688  routed   14000  failures    382  mean   201.405 us
+q = 15.00 %  tau = 8.0006  routed   15000  failures    381  mean   201.459 us
+q = 16.00 %  tau = 8.2141  routed   16000  failures    381  mean   201.512 us
+q = 17.00 %  tau = 8.4333  routed   17000  failures    381  mean   201.566 us
+q = 18.00 %  tau = 8.6291  routed   18000  failures    381  mean   201.618 us
+q = 19.00 %  tau = 8.8229  routed   19000  failures    381  mean   201.670 us
+q = 20.00 %  tau = 8.9977  routed   20000  failures    381  mean   201.721 us
+rule paper: q = 1.00 %, tau = 1.466540219783783, 369 failures, 200.606 us per shot -> runs/smoke/tune.json
+rc 0 293 s
+== A2 the budget rule on the smoke front end: front end charged 1 us, budget 1.04 us
+100000 calibration shots; front end alone 510 failures, 1.000 us per shot; strong decoder on 20000 shots
+q =  0.00 %  tau = 0.0000  routed       0  failures    510  mean     1.000 us
+q =  1.00 %  tau = 1.4665  routed    1000  failures    369  mean     1.084 us
+rule budget: q = 0.00 %, tau = 0.0, 510 failures, 1.000 us per shot -> runs/smoke_budget/tune.json
+rc 0 11 s
+== B the released d7 network on study 2's calibration set (records: 4,260 alone, 3,204 at q = 4 %, tau 1.3934324979782104)
+200000 calibration shots; front end alone 4262 failures, 219.368 us per shot; strong decoder on 200000 shots, alone 3433 failures
+q =  0.00 %  tau = 0.0000  routed       0  failures   4262  mean   219.368 us
+q =  1.00 %  tau = 0.3600  routed    2000  failures   3800  mean   219.849 us
+q =  2.00 %  tau = 0.7141  routed    4000  failures   3505  mean   220.304 us
+q =  4.00 %  tau = 1.3942  routed    8000  failures   3201  mean   221.155 us
+q =  6.00 %  tau = 2.0048  routed   12000  failures   3184  mean   221.968 us
+q =  8.00 %  tau = 2.5636  routed   16000  failures   3226  mean   222.772 us
+q = 10.00 %  tau = 3.0384  routed   20000  failures   3274  mean   223.523 us
+rule paper: q = 6.00 %, tau = 2.004844374656677, 3184 failures, 221.968 us per shot -> runs/released/tune_d7.json
+rc 0 54 s
+== C the released d9 network by the paper's rule, M = 2,500 (records: 2,484 alone, q = 1 %: 2,188, tau 0.6820775270462036)
+200000 calibration shots; front end alone 2484 failures, 1044.381 us per shot; strong decoder on 20000 shots
+q =  0.00 %  tau = 0.0000  routed       0  failures   2484  mean  1044.381 us
+q =  1.00 %  tau = 0.6813  routed    2000  failures   2188  mean  1045.377 us
+q =  2.00 %  tau = 1.3204  routed    4000  failures   2129  mean  1046.305 us
+q =  4.00 %  tau = 2.3806  routed    8000  failures   2227  mean  1048.099 us
+q =  6.00 %  tau = 3.2053  routed   12000  failures   2324  mean  1049.825 us
+q =  8.00 %  tau = 3.8685  routed   16000  failures   2392  mean  1051.560 us
+q = 10.00 %  tau = 4.4091  routed   20000  failures   2441  mean  1053.160 us
+rule paper: q = 1.00 %, tau = 0.6813445055484771, 2188 failures, 1045.377 us per shot -> runs/released/tune_d9.json
+rc 0 219 s
+== D growth (surface d3 -> d5, BB 1 -> 2 blocks) and BB with BP-OSD
+rc 0
+front end -> runs/g3/final_ema.pt: EMA alone 1971 failures of 2000 monitor shots
+rc 0
+front end -> runs/g5/final_ema.pt: EMA alone 1725 failures of 2000 monitor shots
+rc 0
+front end -> runs/bb/final_ema.pt: EMA alone 853 failures of 1000 monitor shots
+rc 0
+front end -> runs/bb2/final_ema.pt: EMA alone 851 failures of 1000 monitor shots
+q =  4.00 %  tau = 0.0001  routed     120  failures   2437  mean 35068.057 us
+q =  5.00 %  tau = 0.0002  routed     150  failures   2413  mean 43681.770 us
+rule budget: q = 5.00 %, tau = 0.0001765348017215729, 2413 failures, 43681.770 us per shot -> runs/bb_tune.json
+rc 0 221 s
+== E check_frozen (surface 7-17, bb)
+rc 0 23 s
+frozen trees: every check passed
+2026-10-12T05:00:09-06:00
+JOBDONE

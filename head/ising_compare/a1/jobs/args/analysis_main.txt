@@ -1,0 +1,23 @@
+# A1's one analysis (revision/REVISION_PLAN.md 2.1): $CODE's not-trained checks gathered, then a1.analyze with the
+# frozen config data/a1/analysis_$CODE.json on $A/reads/$CODE, and A3's timing file $TIMING if given. CPU only.
+# DRY=1: the same commands with the config's dry twin (data/a1/analysis_${CODE}_dry.json, which differs in the sets
+# alone) on $A/reads_dry_main/$CODE, into $A/analysis_dry_main/$CODE (revision/A1_READ_PLAN.md).
+#   sbatch -p acpu --qos=cpu-normal -c 4 --mem=32G -t 00:30:00 -J a1_an --export=ALL,CMD=analysis_main.txt,CODE=surface a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+if [ -n "${DRY:-}" ]; then R=$A/reads_dry_main/$CODE; CFG=data/a1/analysis_${CODE}_dry.json; OUT=$A/analysis_dry_main/$CODE; SETSF="--sets dry"
+else R=$A/reads/$CODE; CFG=data/a1/analysis_$CODE.json; OUT=$A/analysis/$CODE; SETSF=""; fi
+# every planned read done and kept (the barrier's plan, the same checkpoints by sha256; split reads end here)
+$PY -m a1.preflight --code $CODE --decisions $A/rule --ckpt-root $([ $CODE = surface ] && echo $ICMP_CKPT || echo $BB_CKPT) \
+  --reads $R --out $R/reads_final.json $SETSF ${PREFLIGHT_FLAGS:-}
+$PY -c "import json, sys; j = json.load(open('$R/reads_final.json')); print('READS', len(j), 'pending before the analysis'); sys.exit(len(j) != 0)"
+arms=${ARMS:-$([ $CODE = surface ] && echo "S-VA S-V S-L S-P S-PA" || echo "B-JT B-J B-P B-PA")}  # the rule's STOP: ARMS = the stage-1 arms, SEEDS=1
+# (an `if`, not `[ -d ] && echo`: the absent last ramp directory made the substitution fail under set -euo pipefail)
+runs=$(for arm in $arms; do for s in ${SEEDS:-1 2}; do echo a1_${arm}_s$s
+       if [ -d $([ $CODE = surface ] && echo $ICMP_CKPT || echo $BB_CKPT)/a1ramp_${arm}_s$s ]; then echo a1ramp_${arm}_s$s; fi
+       done; done)
+$PY -m a1.check checks --code $CODE --runs $runs --out $R/checks.json
+$PY -m a1.analyze --config $CFG --reads $R --checks $R/checks.json ${TIMING:+--timing $TIMING} \
+  ${SEEDS:+--seeds ${SEEDS// /,}} ${ARMS:+--arms ${ARMS// /,}} --out $OUT
+# every read's and the fallback's meta beside the analysis (revision/a1_results/<code>/reads_meta.json)
+$PY -c "import glob, json, os, numpy as np; m = {os.path.basename(f): json.loads(str(np.load(f)['meta'])) for f in sorted(glob.glob('$R/*.npz')) if not f.endswith(('.failed.npz', '.tmp.npz'))}; json.dump(m, open('$OUT/reads_meta.json', 'w'), indent=1); print('META', len(m), 'files')"

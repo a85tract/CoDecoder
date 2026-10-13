@@ -1,0 +1,78 @@
+{
+ "kind": "fusedt",
+ "tag": "g2_D12k113c10_fusedt_s4",
+ "chunks": "0-9",
+ "engine": {
+  "kind": "fusedt",
+  "batch": 1,
+  "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "torch": "2.11.0+cu126",
+  "cuda": "12.6",
+  "cudnn": 91002,
+  "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+  "src": {
+   "engine.py": "ca6c91f3b6c29c97",
+   "net.py": "36e2b562e3acad8c",
+   "fused.py": "195afee3087c0ee4",
+   "fast.py": "1c85d789b619d5c8"
+  },
+  "triton": "3.6.0",
+  "launch": {
+   "tpi": 16,
+   "stages": 4,
+   "pdl": false
+  }
+ },
+ "binding": "9bab38ece6d00140",
+ "reference": {
+  "tag": "g2_D12k113c10",
+  "engine": {
+   "batch": 1,
+   "cuda": "12.6",
+   "cudnn": 91002,
+   "gpu": "NVIDIA H100 80GB HBM3",
+   "kind": "graph32",
+   "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+   "precision": "fp32",
+   "src": {
+    "engine.py": "ca6c91f3b6c29c97",
+    "net.py": "36e2b562e3acad8c"
+   },
+   "torch": "2.11.0+cu126"
+  }
+ },
+ "fallback": "relay",
+ "build_s": 5.370481967926025,
+ "read_s": 26.038593769073486,
+ "shots": 100000,
+ "tau": 0.5629201531410217,
+ "decisions_differ": 3,
+ "routing_changed": 6,
+ "routed": {
+  "reference": 500,
+  "candidate": 500,
+  "only_candidate": 3,
+  "only_reference": 3
+ },
+ "margin_absdiff": {
+  "max": 7.060894012451172,
+  "p99.9": 0.9689762763977243,
+  "median": 0.0238800048828125
+ },
+ "net_failures": {
+  "reference": 717,
+  "candidate": 717,
+  "only_candidate": 0,
+  "only_reference": 0,
+  "p": 1.0
+ },
+ "hybrid_failures": {
+  "reference": 409,
+  "candidate": 406,
+  "only_candidate": 0,
+  "only_reference": 3,
+  "p": 0.25
+ },
+ "fallback_failures": 490
+}

@@ -1,0 +1,17 @@
+# A1's stage-1 continuation rule (revision/A1_POD_RUN.md, section 2) on the stage-1 validation records in $A/val (copied
+# from the pods by their pull loops), both codes; then, for a code whose decision is RAMP_FIRST and whose seed-1 ramp
+# reruns have their records, the rule's second application (a1.rule --ramp). CPU, seconds. Results in
+# $A/rule/rule_<code>.{json,md} and rule_<code>_ramp.{json,md}; they gate stage 2 (a1/pod/launch.sh) and the test reads
+# (a1.preflight). Run it again when the ramp records arrive.
+#   sbatch -p acpu --qos=cpu-normal -c 2 --mem=16G -t 00:15:00 -J a1_rule --export=ALL,CMD=rule_stage1.txt a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+mkdir -p $A/rule
+for code in surface bb72; do
+  C=$([ $code = surface ] && echo $ICMP_CKPT || echo $BB_CKPT); P=$([ $code = surface ] && echo S || echo B)
+  $PY -m a1.rule --records $A/val --ckpt-dir $C --code $code --out $A/rule
+  if grep -q '"decision": "RAMP_FIRST"' $A/rule/rule_$code.json && ls $A/val/a1ramp_$P-*_s1.npz > /dev/null 2>&1; then
+    $PY -m a1.rule --ramp --records $A/val --ckpt-dir $C --code $code --out $A/rule
+  fi
+done
+cat $A/rule/rule_*.md

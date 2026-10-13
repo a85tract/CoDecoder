@@ -1,0 +1,24 @@
+Text files under training/surface are the hub's files at the commit in SOURCE, byte for byte, except the files listed
+below, in which internal names were replaced as bb72/SANITIZE.txt describes, each as an exact replacement. No number,
+rule, argument or result changed.
+- Paths. The cluster scratch directory became <cluster-scratch> and the home work directory ~/work (the defaults of
+  ICMP_CKPT, ICMP_LABELS, ICMP_NV and ICMP_SHOTS).
+- Hosts. The Windows workstation's nickname became "the Windows workstation".
+- Names. The coordinating role became "the study lead"; a run name before a design, an engine or a venv became
+  the thing itself ("the RRStream design", "the S8 engine", "the studies' venv_gpu", "the cu128 build").
+- Cluster jobs. Alpine job ids became "an Alpine job" or were dropped ("its Alpine copy").
+The comments keep their references to the research repository's notes (arch/README.md and its sections,
+aux_a/README.md, SETTINGS, ASSUMPTIONS). Those notes are not part of this release; the facts the training needs are in
+../LINEAGE.md and ../TRAINING.md.
+Files changed:
+  ising_compare/arch/stream.py                            names
+  ising_compare/icmp/circuits.py                          path
+  ising_compare/icmp/lines.py                             names
+  ising_compare/icmp/shots.py                             path
+  ising_compare/icmp/streamer.py                          names
+  ising_compare/icmp/train.py                             paths, host, names
+  ising_compare/scripts/alpine_arch/gpu_job.sbatch        paths, names
+  ising_compare/scripts/alpine_arch/args/d7b1w64_r740.txt  names
+  ising_compare/scripts/alpine_arch/args/d13b3t_r733d.txt  job id
+  ising_compare/scripts/alpine_arch/args/g8_d11_b5t_r777d.txt  job id
+  ising_compare/scripts/alpine_arch/args/g9_d15_b5t_r778.txt  job id

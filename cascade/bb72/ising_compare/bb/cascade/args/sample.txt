@@ -1,0 +1,4 @@
+# Step 1 (acpu): the 0.55 % circuit check, then the w2test and w2cal shots (rows -> $W/out/rows_shots.csv).
+$PY -m bb.cascade.curves check
+$PY -m bb.cascade.curves sample --split w2test --rows $W/out/rows_shots.csv --procs $P
+$PY -m bb.cascade.curves sample --split w2cal --rows $W/out/rows_shots.csv --procs $P

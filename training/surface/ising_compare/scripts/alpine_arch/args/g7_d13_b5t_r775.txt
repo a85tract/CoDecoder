@@ -1,0 +1,10 @@
+# G7 b5 replica 775 (arch/README.md 16.3), all on this full card: (1) a random-weight b5 FROZEN artifact built and timed
+# beside the random-weight b3 (RTX triage; the job stops if 39.39 us x the b5 / b3 ratio exceeds 78 us); (2) G6's
+# checks for 775 (parent 733, two identity blocks, fp32 / bf16 equivalence, smoke); (3) 2e8 samples of stream 775
+$PY -c "import torch; from arch.latency import random_model; m = random_model(13, dict(width=128, bott=32, blocks=5, heads=4, stem_k=(3, 5, 5), block_k=(3, 3, 3)), device='cpu'); torch.save({'state': m.state_dict(), 'cfg': dict(m.cfg), 'row': {}}, '$A/ckpt/rand_b5_d13_r775.pt')"
+$PY -m arch.artifact build --d 13 --ckpt $A/ckpt/rand_b5_d13_r775.pt --out $A/art/rand_b5_d13_r775.pt
+$PY -m arch.qualify --artifact $A/art/rand_b5_d13_r775.pt --out $A/out/qualify_rand_b5_d13_r775 --source calib --reps 2 --shots 2000 --bar 86.66
+$PY -m arch.qualify --artifact $A/art/rand_b3_d13.pt --out $A/out/qualify_rand_b3_d13_r775 --source calib --reps 2 --shots 2000 --bar 86.66
+$PY -c "import json; t5 = json.load(open('$A/out/qualify_rand_b5_d13_r775/summary.json'))['slowest_mean_us']; t3 = json.load(open('$A/out/qualify_rand_b3_d13_r775/summary.json'))['slowest_mean_us']; p = 39.39 * t5 / t3; print(f'b5 {t5:.2f} us, b3 {t3:.2f} us on this card: ratio {t5 / t3:.3f}, H100 scale {p:.2f} us (stop above 78)', flush=True); raise SystemExit(int(p > 78))"
+$PY -m arch.g6_check --d 13 --blocks 5 --run-id 775 --parent $A/ckpt/d13_b3t_r733/final_ema.pt --sha 68588b00dccecd37a81081d3b3e2d7157d8d5fe96dc3d9df931821c568cdfef6
+$PY -m arch.train --run d13_b5t_r775 --run-id 775 --d 13 --init-transfer $A/ckpt/d13_b3t_r733/final_ema.pt --init-sha 68588b00dccecd37a81081d3b3e2d7157d8d5fe96dc3d9df931821c568cdfef6 --phase truth --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --no-val --plateau-kill 1.2 --collapse-kill 1.2 --blocks 5

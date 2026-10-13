@@ -1,0 +1,153 @@
+{
+ "p": 0.002,
+ "family": "depspam_fm",
+ "kind": 12,
+ "chunks": [
+  10,
+  20
+ ],
+ "shots": 100000,
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "driver": "570.211.01",
+ "torch": "2.11.0+cu128",
+ "card_role": "H100 (secondary, speed only)",
+ "tree": "net 64b2e25d phasec+h100t 0bc88bf2",
+ "locked": "<cluster-scratch>/cascade_w4/out/locked_depspam_fm.json",
+ "locked_sha256": "02b19c451c6a38f6854a6be665b9bdcc87f8feb53d86841309833a70f9be0e81",
+ "speed_sha256": "1ec6b2563060f0042f866f19841631e8e1499872e6c15ed77dae7a01c8c811f5",
+ "nets": {
+  "C14p": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+  "C6p": "5fd3bca606953ee88b09c1378bc996846313698474a97829cf2ba0199ef5c1c9",
+  "S55": "87886c65fbb6cc4955b9a05725e837f38f0f7081c28c89fcf448cb1700943344",
+  "S55p": "22fa0c832444d15476b1a45d779b3f0678cbc6e7c58231c7b3260730720b9ba0",
+  "S55p_deep": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af",
+  "r11": "58e60897c3f9302c2014e82257d0d08f80a6e8386d2dd5216a093230990b252f",
+  "r12": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96"
+ },
+ "frozen": {
+  "C14": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "C6": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "S55": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "C14p": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "S55p": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "S55p_deep": {
+   "single": "fused@1",
+   "amortized": "fused@4096",
+   "batched": "fused@4096"
+  },
+  "r11": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "r12": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "C6p": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  }
+ },
+ "alone": [
+  "C14p",
+  "C6p",
+  "S55",
+  "S55p",
+  "S55p_deep",
+  "r11",
+  "r12"
+ ],
+ "configs": [
+  2,
+  3,
+  4,
+  5
+ ],
+ "chunk_meta": [
+  {
+   "chunk": 10,
+   "det_sha256": "46ffc57f522ef7a8"
+  },
+  {
+   "chunk": 11,
+   "det_sha256": "650906e5fed917fa"
+  },
+  {
+   "chunk": 12,
+   "det_sha256": "75d68691559f1d51"
+  },
+  {
+   "chunk": 13,
+   "det_sha256": "615231fe759306d6"
+  },
+  {
+   "chunk": 14,
+   "det_sha256": "0f894ae60fc5139a"
+  },
+  {
+   "chunk": 15,
+   "det_sha256": "a31f9cdc3c41efad"
+  },
+  {
+   "chunk": 16,
+   "det_sha256": "70010cdf9d828a20"
+  },
+  {
+   "chunk": 17,
+   "det_sha256": "274a3b0bacb9c16d"
+  },
+  {
+   "chunk": 18,
+   "det_sha256": "2fe96bc19ca39c5f"
+  },
+  {
+   "chunk": 19,
+   "det_sha256": "21e4e2bd30300c7e"
+  }
+ ],
+ "fail": {
+  "C14p compiled@1": 72,
+  "C14p compiled@4096": 72,
+  "C6p compiled@1": 89,
+  "C6p compiled@4096": 90,
+  "S55 fused@1": 129,
+  "S55 fused@1024": 129,
+  "S55 fused@4096": 129,
+  "S55p fused@1": 144,
+  "S55p fused@1024": 144,
+  "S55p fused@4096": 144,
+  "S55p_deep fused@1": 94,
+  "S55p_deep fused@4096": 94,
+  "r11 fused@1": 142,
+  "r11 fused@1024": 142,
+  "r11 fused@4096": 142,
+  "r12 fused@1": 152,
+  "r12 fused@1024": 152,
+  "r12 fused@4096": 152
+ },
+ "secs": 310.4,
+ "relay_build_ms": 10.840854328125715
+}

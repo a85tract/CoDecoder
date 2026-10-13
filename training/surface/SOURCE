@@ -1,0 +1,13 @@
+hub ising-arch 593302bac44bd9a2e7a73591de76e93ccd86434f ising_compare/arch (__init__.py, train.py, net.py, geom.py, transfer.py, stream.py, g6_check.py), ising_compare/icmp (__init__.py, circuits.py, lines.py, shots.py, train.py, streamer.py, pm.py), ising_compare/scripts/alpine_arch/gpu_job.sbatch and the arguments files (args/) of the stages that trained the six released surface-code networks
+
+The training path (arch.train with everything it imports) is the same at 58764875ab1bf04b14672cbcd57b425ebb5f9825, the
+tree that trained d15_b5t_r782 and d17_b5t_r787, and at 593302ba; later commits on the branch added only analysis
+scripts and notes. The earlier stages ran earlier versions of arch/train.py and arch/stream.py (740 at c1b19f69, 764
+at e8dece98, for example). Since then arch/train.py has gained two kinds of options. The earlier stages did not use --init-transfer or
+--init-sha. The others only check, monitor or stop a run: --no-val, --plateau-kill and --collapse-kill. arch/stream.py
+gained the resume of its stream at any pool; an uninterrupted stream draws the same shots in the same order. So each
+stage's arguments file runs the same training here.
+
+Not included: icmp/dt_cached.py and the neural_emulation package, which only icmp.train's own trainer imports (arch.train
+uses icmp.train's paths, Stored and unpack); and the research repository's notes that the comments cite (arch/README.md
+and its sections, SETTINGS, ASSUMPTIONS, aux_a/README.md).

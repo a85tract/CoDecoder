@@ -1,0 +1,92 @@
+{
+ "end": "2026-10-10T10:34:25+0000",
+ "gpu": {
+  "capability": [
+   9,
+   0
+  ],
+  "name": "NVIDIA H100 80GB HBM3",
+  "smi": "NVIDIA H100 80GB HBM3, GPU-<uuid>, 580.159.04, 81559 MiB, Disabled"
+ },
+ "hopper": "03ed6ad2c7f16bda2528e0247919a9a111a76a3a087c6f6d4385c5dd2072a5eb",
+ "ident": {
+  "dry": false,
+  "revision": "R17",
+  "t6_manifest_sha256": "7860cceb5873255f7b64f285575cc7f9f3978f1ae7be393ffdf3608785bc9278"
+ },
+ "ours": {
+  "artifact_sha256": "bc00eb30fb2be3f14f0499f0e96bb25ce7dc4817284a09c037c9f3b66275ef45",
+  "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+  "compute_capability": [
+   9,
+   0
+  ],
+  "dem_sha256": "4709d66eb584fb6fbf5af5aa42c3e58b610fae6020b38edbb7f4d842d0deee3d",
+  "engine": {
+   "engine": {
+    "BM": 16,
+    "stages": 3,
+    "tpi": 4,
+    "warps": 4,
+    "warps_ro": 4
+   },
+   "wddm_flush": 0
+  },
+  "executable": {
+   "artifact": "art/d17_b5t_r787_final_ema.pt",
+   "artifact_sha256": "bc00eb30fb2be3f14f0499f0e96bb25ce7dc4817284a09c037c9f3b66275ef45",
+   "cand": "d17_b5_r787",
+   "frozen_stages": 4,
+   "kind": "router",
+   "router_lib_sha256": "a939d9c7b25fc5c44db64d355beb8123e09cf5ded0434185b4b271b94be8eb34",
+   "tau": 5.121974468231201
+  },
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "num_detectors": 4896,
+  "router_lib_sha256": "a939d9c7b25fc5c44db64d355beb8123e09cf5ded0434185b4b271b94be8eb34",
+  "val_replay_checks": [
+   "c_equal_reference",
+   "c_finite",
+   "decision_binary",
+   "decision_equal_reference",
+   "det_rows",
+   "det_shape",
+   "obs",
+   "outputs_shape",
+   "record_c",
+   "record_decision",
+   "record_obs",
+   "record_routed",
+   "routed_binary",
+   "routed_equal_reference",
+   "routed_is_tau",
+   "unrouted_sign"
+  ]
+ },
+ "parts": {
+  "M1_fp16_L3_B1": "33a639511605f5b9f5c3f51d9c44495f1e02da504c7a46a11d6c9ab4074c505d",
+  "M1_fp16_L3_B1_corr": "544f3c5a08a47961b5988541730f6dfb5f3f025d3d208d2703896af68502cec1",
+  "M1_fp16_L5_B1": "467835c3efdb37faa3257be8c1dba5924674287dae9029f7d4b63199f9fbf726",
+  "M1_fp16_L5_B1_corr": "0a26d1fef4edd373846143609080871be6734b5531dda6b81b8290182b9d33f4",
+  "M1_fp8_L3_B1": "301aabe9407ab1a066e1185dec6551d342738180b2ebada35a107fd94fc70a94",
+  "M1_fp8_L3_B1_corr": "9536ae5b8fbf014e38e034633f0c00ca32b94fd23767237ff817187b83826c61",
+  "M1_fp8_L5_B1": "ea2417a75f31cac39519276200d9cdd38d4b327926886670cef41796c5db25c1",
+  "M1_fp8_L5_B1_corr": "47209b55d272920413f60d4ab149d5694eea158dd778cbc01e965109ee9ccafa",
+  "M1_torch": "9a10cbf4c03ed6e24ff5b88c5913af717b7d3572de91c7d76881eda2c927013d",
+  "M1_torch_corr": "457453cba6ce2df2f79f0f20d39b2e50866e7dc8c3e3ff63dc94e0daa084e24b",
+  "M4_fp16_L3_B1": "2ee615f32f7f5844fb58503d10bca7ad0e3f01522214b642aa730151824f82d6",
+  "M4_fp16_L3_B1_corr": "e9210ddd932bacd6fb4294ef14960dd01a12ef672987bd12e34e935728ea742f",
+  "M4_fp16_L5_B1": "01eb3fe0daf7db3bbddc3d20ffba7e00f96f570581aa6e8329b72358065b2ea5",
+  "M4_fp16_L5_B1_corr": "286f78bfd1256f92c649befe5047e6e4c1c9a4e46edc6e17524af154d38df2df",
+  "M4_fp8_L3_B1": "7b2bc2a3757f4bd12fff1378578e35434502e6b89b768a0451aacf06c5e63332",
+  "M4_fp8_L3_B1_corr": "d18f16c526904e89299e6b3c26ffd823659915d7350c2471a44b977234dbbf61",
+  "M4_fp8_L5_B1": "a27a1aac4675e2f5731d781593fc8be7e62789b78365aefc92c93d7184bd20fc",
+  "M4_fp8_L5_B1_corr": "f5f5fe859e3fe0ed4e77dee4f6f4b21ce1d1eb83f4cb32348bb14bf2a3df56c8",
+  "M4_torch": "94e27f711ddaf54b32f6c148ca8d0bca104968640d1319a4fade3476f3c8736c",
+  "M4_torch_corr": "9246b246c3915c8e3466fbf5ba2f340b6b65aeeccaba420dc800a39512fb2da2",
+  "pm": "f49911c88652f0b217f3d2df2b87c5d53f1f878f67fdbe7b4dbc50168fef7903",
+  "pm_corr": "018203b137f9b31fc01bc3b4064794239a613dab40d5078231a9f565501f0167"
+ },
+ "stage": "R17 reads on T6",
+ "start": "2026-10-10T10:08:22+0000"
+}

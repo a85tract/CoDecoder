@@ -1,0 +1,188 @@
+{
+ "rule": "A1 stage-1 continuation rule v1 (2026-10-12)",
+ "application": "ramp reruns",
+ "code": "surface",
+ "seed": 1,
+ "fractions": [
+  0.0,
+  0.01,
+  0.02,
+  0.05
+ ],
+ "margin": 0.03,
+ "alpha": 0.05,
+ "decision": "CONTINUE",
+ "contrasts": [
+  {
+   "x": "S-VA",
+   "y": "S-PA",
+   "label": "line loss on",
+   "wins_at": [
+    0.0,
+    0.01,
+    0.02,
+    0.05
+   ],
+   "losses_at": [],
+   "state": "favours the line head"
+  }
+ ],
+ "tests": [
+  {
+   "x": "S-VA",
+   "y": "S-PA",
+   "label": "line loss on",
+   "decisive": true,
+   "f": 0.0,
+   "fail_x": 3034,
+   "fail_y": 3201,
+   "only_x": 905,
+   "only_y": 1072,
+   "p": 0.00018738484181957438,
+   "rel": 0.052171196501093406,
+   "p_holm": 0.0005030746031034782,
+   "outcome": "win"
+  },
+  {
+   "x": "S-VA",
+   "y": "S-PA",
+   "label": "line loss on",
+   "decisive": true,
+   "f": 0.01,
+   "fail_x": 2160,
+   "fail_y": 2308,
+   "only_x": 690,
+   "only_y": 838,
+   "p": 0.0001676915343678261,
+   "rel": 0.06412478336221837,
+   "p_holm": 0.0005030746031034782,
+   "outcome": "win"
+  },
+  {
+   "x": "S-VA",
+   "y": "S-PA",
+   "label": "line loss on",
+   "decisive": true,
+   "f": 0.02,
+   "fail_x": 1535,
+   "fail_y": 1678,
+   "only_x": 493,
+   "only_y": 636,
+   "p": 2.3223591878061652e-05,
+   "rel": 0.08522050059594756,
+   "p_holm": 9.289436751224661e-05,
+   "outcome": "win"
+  },
+  {
+   "x": "S-VA",
+   "y": "S-PA",
+   "label": "line loss on",
+   "decisive": true,
+   "f": 0.05,
+   "fail_x": 655,
+   "fail_y": 714,
+   "only_x": 226,
+   "only_y": 285,
+   "p": 0.010225310361812654,
+   "rel": 0.08263305322128851,
+   "p_holm": 0.010225310361812654,
+   "outcome": "win"
+  }
+ ],
+ "descriptive": [
+  {
+   "x": "S-PA",
+   "y": "S-P",
+   "label": "pooled: line loss",
+   "decisive": false,
+   "f": 0.0,
+   "fail_x": 3201,
+   "fail_y": 3223,
+   "only_x": 1143,
+   "only_y": 1165,
+   "p": 0.6620330675545297,
+   "rel": 0.006825938566552901,
+   "p_holm": null,
+   "outcome": "descriptive"
+  },
+  {
+   "x": "S-PA",
+   "y": "S-P",
+   "label": "pooled: line loss",
+   "decisive": false,
+   "f": 0.01,
+   "fail_x": 2308,
+   "fail_y": 2377,
+   "only_x": 863,
+   "only_y": 932,
+   "p": 0.10846661841701584,
+   "rel": 0.02902818679007152,
+   "p_holm": null,
+   "outcome": "descriptive"
+  },
+  {
+   "x": "S-PA",
+   "y": "S-P",
+   "label": "pooled: line loss",
+   "decisive": false,
+   "f": 0.02,
+   "fail_x": 1678,
+   "fail_y": 1724,
+   "only_x": 641,
+   "only_y": 687,
+   "p": 0.21687198945120797,
+   "rel": 0.02668213457076566,
+   "p_holm": null,
+   "outcome": "descriptive"
+  },
+  {
+   "x": "S-PA",
+   "y": "S-P",
+   "label": "pooled: line loss",
+   "decisive": false,
+   "f": 0.05,
+   "fail_x": 714,
+   "fail_y": 748,
+   "only_x": 285,
+   "only_y": 319,
+   "p": 0.17930451643942255,
+   "rel": 0.045454545454545456,
+   "p_holm": null,
+   "outcome": "descriptive"
+  }
+ ],
+ "trained": {
+  "S-P": true,
+  "S-PA": true,
+  "S-VA": true
+ },
+ "set": {
+  "split": "val_legacy",
+  "d": 9,
+  "p": 0.006,
+  "chunks": "0-19",
+  "shots": 200000,
+  "digest": "47fd63955a8e1ff42399f98d5f8893c063af7210bd114570e05767b6cceb7d25"
+ },
+ "stream_chain": "c33305dd41bcead88312be9e9deeacbbc3287c6ec01ae28a49d943fa885c3e9f",
+ "records": {
+  "S-P": {
+   "sha256": "ee43b7bd71c790ad95a2726a678a5e3186942c7b44eca681b14aa5194e5ea075",
+   "ckpt_sha256": "485ffd92b00a6b709ae0ccf2f26b4391a6174ac416d7bebf061fe776486e56b2",
+   "failures": 3223,
+   "device": "NVIDIA H100 80GB HBM3"
+  },
+  "S-PA": {
+   "sha256": "cd05d8493b3505844b52dc9cfbd92fda06dc90ada80b5f021aa1e25dfc3739e1",
+   "ckpt_sha256": "fbcecad020f83bbccfdd721f9991390576bec2d09b30d8850e3da64045834a4e",
+   "failures": 3201,
+   "device": "NVIDIA H100 80GB HBM3"
+  },
+  "S-VA": {
+   "sha256": "d6a83f9c2461c175581de2786b9503d8f2bdc7215286876e6b2a998a23e7d696",
+   "ckpt_sha256": "207398cdd135798f83b92e579aa44af215061cccff6bdb48c9d5ea37acbf9e26",
+   "failures": 3034,
+   "device": "NVIDIA H100 80GB HBM3"
+  }
+ }
+}

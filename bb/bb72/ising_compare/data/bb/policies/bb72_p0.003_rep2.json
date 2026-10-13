@@ -1,0 +1,173 @@
+{
+ "code": "bb72",
+ "p": 0.003,
+ "split": "cal",
+ "chunks": "0-19",
+ "tag": "r12",
+ "replica": 2,
+ "network": {
+  "ckpt": "<cluster-scratch>/bb/ckpt/r12/final_ema.pt",
+  "run": "r12",
+  "run_id": 12,
+  "samples": 199999488,
+  "status": "completed"
+ },
+ "engine": {
+  "batch": 1,
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "kind": "fused",
+  "net_sha256": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96",
+  "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+  "src": {
+   "engine.py": "6b35816b6221f752",
+   "fused.py": "195afee3087c0ee4",
+   "net.py": "6da5ecb3541d920a"
+  },
+  "torch": "2.11.0+cu128",
+  "triton": "3.6.0"
+ },
+ "fallback": "relay",
+ "shots": 200000,
+ "net_alone": 1396,
+ "fallback_alone": 2734,
+ "target": 2461,
+ "gpu_us": 73.76166439056396,
+ "handoff_us": 13.076245319098234,
+ "limit_ms": 1.06,
+ "sources": {
+  "gpu_us": "bb.latency in an Alpine job (bb.validate choose: the chosen rung, slowest of 3 processes)",
+  "limit_ms": "LIMIT_MS (PLAN 2.7, frozen)",
+  "cpu": "the relay cal read's recorded per-shot times (bb.opp)"
+ },
+ "frontier": [
+  {
+   "q": 0,
+   "tau": -Infinity,
+   "routed": 0.0,
+   "failures": 1396,
+   "fallback_ms_routed_mean": 0.0,
+   "composite_ms": 0.0868379097096622,
+   "admissible": true
+  },
+  {
+   "q": 0.005,
+   "tau": 0.8449650406837463,
+   "routed": 0.005,
+   "failures": 1230,
+   "fallback_ms_routed_mean": 23.826915740966797,
+   "composite_ms": 0.2059724897877872,
+   "admissible": true
+  },
+  {
+   "q": 0.01,
+   "tau": 1.8487449884414673,
+   "routed": 0.01,
+   "failures": 1298,
+   "fallback_ms_routed_mean": 21.398033142089844,
+   "composite_ms": 0.3008182417409122,
+   "admissible": true
+  },
+  {
+   "q": 0.02,
+   "tau": 3.6329734325408936,
+   "routed": 0.02,
+   "failures": 1560,
+   "fallback_ms_routed_mean": 18.320056915283203,
+   "composite_ms": 0.4532390425221622,
+   "admissible": true
+  },
+  {
+   "q": 0.03,
+   "tau": 4.8571577072143555,
+   "routed": 0.03,
+   "failures": 1786,
+   "fallback_ms_routed_mean": 16.003461837768555,
+   "composite_ms": 0.5669417768971622,
+   "admissible": true
+  },
+  {
+   "q": 0.04,
+   "tau": 5.737287998199463,
+   "routed": 0.04,
+   "failures": 1945,
+   "fallback_ms_routed_mean": 14.351253509521484,
+   "composite_ms": 0.6608880659596622,
+   "admissible": true
+  },
+  {
+   "q": 0.06,
+   "tau": 7.007660388946533,
+   "routed": 0.06,
+   "failures": 2152,
+   "fallback_ms_routed_mean": 12.37452220916748,
+   "composite_ms": 0.8293092378346623,
+   "admissible": true
+  },
+  {
+   "q": 0.08,
+   "tau": 7.894299507141113,
+   "routed": 0.08,
+   "failures": 2284,
+   "fallback_ms_routed_mean": 11.137062072753906,
+   "composite_ms": 0.9778029097096622,
+   "admissible": true
+  },
+  {
+   "q": 0.1,
+   "tau": 8.602935791015625,
+   "routed": 0.1,
+   "failures": 2380,
+   "fallback_ms_routed_mean": 10.203109741210938,
+   "composite_ms": 1.107148925334662,
+   "admissible": false
+  },
+  {
+   "q": 0.12,
+   "tau": 9.190690994262695,
+   "routed": 0.12,
+   "failures": 2441,
+   "fallback_ms_routed_mean": 9.476181983947754,
+   "composite_ms": 1.223979706584662,
+   "admissible": false
+  },
+  {
+   "q": 0.15,
+   "tau": 9.891324043273926,
+   "routed": 0.15,
+   "failures": 2516,
+   "fallback_ms_routed_mean": 8.636617660522461,
+   "composite_ms": 1.382330644084662,
+   "admissible": false
+  },
+  {
+   "q": 0.2,
+   "tau": 10.80884838104248,
+   "routed": 0.2,
+   "failures": 2583,
+   "fallback_ms_routed_mean": 7.653038024902344,
+   "composite_ms": 1.617445565959662,
+   "admissible": false
+  }
+ ],
+ "policy": {
+  "q": 0,
+  "tau": -Infinity,
+  "routed": 0.0,
+  "failures": 1396,
+  "fallback_ms_routed_mean": 0.0,
+  "composite_ms": 0.0868379097096622,
+  "admissible": true
+ },
+ "screen": {
+  "policy_exists": true,
+  "policy_beats_fallback": true,
+  "net_within_3x_fallback": true
+ },
+ "status": "pass",
+ "rank_key": [
+  1396,
+  0.0868379097096622
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "about": "R17's routing policy for study 4's d = 17 network d17_b5_r787 (PLAN_R17.md section 1). The threshold is the one the pre-stated C4.2 rule (ising_compare/arch/policy.py) chose on deep17's calibration set K17d for the registered artifact; deep17's readout recorded it at networks.D5reg.rule. Routing: a shot with |double(float32 c)| < tau goes to correlated PyMatching; any other shot is decided by c > 0.",
+ "rule": "C4.2: the smallest q on G14's grid (0 and 1-30 %) with F_cal(q) <= M - 2 sqrt(2 M), M = round(0.90 x correlated PM's failures on the calibration set); if no q qualifies, the q with the fewest calibration failures (ties: the smaller q)",
+ "d": 17,
+ "candidate": "d17_b5_r787",
+ "artifact_sha256": "bc00eb30fb2be3f14f0499f0e96bb25ce7dc4817284a09c037c9f3b66275ef45",
+ "calibration_set": {"name": "K17d", "shots": 200000, "seeds": "97,000,000 + 10,000 x 17 + j, j = 0..19", "plan": "ising_compare/deep17/PLAN_deep17.md section 5 (branch ising-deep17, 897ad712)"},
+ "logits": "the registered deploy tables through FROZEN (timing/engine.py, 4 pipeline stages) on the deep17 pod's H100; equal bit for bit on K17d to the refolded network (summary.json d5reg_consistency: 200,000 of 200,000)",
+ "chosen": {"q": 0.08, "tau": 4.539173126220703, "tau_repr": "4.539173126220703", "calibration_failures": 540},
+ "margin": 536,
+ "limit": 470.5171778250204,
+ "qualifies": false,
+ "fallback": "argmin",
+ "source": {"file": "Linux workstation:~/work/deep17_runs/eval/summary.json (deep17's readout, pulled from the pod 2026-10-09 23:09 PDT)", "sha256": "24821ad7c51aefacca54180a20af44b18a32721421e008c9e564eccc419022e2", "key": "networks.D5reg.rule"},
+ "replaces": {"file": "speed2/data/s19/policies/policy_d17b5_r787.json (frozen tree f1c6a0e9)", "sha256": "e555016664603d798ed74e9e559ec8d352befea14b7917332f7038b88d065f53", "calibration_set": "C17b (200,000 shots)", "q": 0.1, "tau": 5.121974468231201, "qualifies": false, "fallback": "argmin"}
+}

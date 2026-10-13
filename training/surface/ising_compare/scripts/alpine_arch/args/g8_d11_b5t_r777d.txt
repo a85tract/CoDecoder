@@ -1,0 +1,4 @@
+# G8 replica 777 on Derecho (arch/README.md 17: no full Alpine card; its Alpine copy cancelled before this was
+# submitted; its checks passed on Alpine first): b5 at d = 11 from G5's 735 final EMA (the copy in $D/init, sha256
+# checked), 2e8 fresh samples of stream 777, G2's recipe, --no-val, the in-job plateau / collapse kills
+$PY -m arch.train --run d11_b5t_r777 --run-id 777 --d 11 --init-transfer $D/init/d11_b3t_r735_final_ema.pt --init-sha 2941b48afbd04d2fc53459c83d84985fa1ec0c53d150d7f6a67a2c7095683922 --phase truth --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --no-val --plateau-kill 1.2 --collapse-kill 1.2 --blocks 5

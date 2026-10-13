@@ -1,0 +1,3 @@
+# d = 7 replica 740 (arch/README.md section 12): ConvLines b1w64 (width 64, bottleneck 16, one block), from scratch, 2e8
+# fresh true-label samples, G2's recipe; picked by section 12's rule with the S8 engine (the study lead, 19:58 PDT)
+$PY -m arch.train --run d7_b1w64_r740 --run-id 740 --d 7 --phase truth --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 2e7 --workers 8 --compile --ema 0.999 --width 64 --bott 16 --blocks 1 --heads 4

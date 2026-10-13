@@ -1,0 +1,349 @@
+Text files under cascade/ are the hub's files at the commits in SOURCE, byte for byte, except the files listed at the
+end and the files written for this release (SOURCE names them); every file or directory name that held an Alpine job id
+holds that job's label instead. In the listed files internal names were replaced as bb72/SANITIZE.txt describes, each as
+an exact replacement with the same text everywhere it occurs, and some passages were cut or reworded as described below.
+No number, rule or result changed.
+- Cluster jobs. Each Alpine job id became a label, CJ01 to CJ74, numbered in the order of the ids, which is the order in
+  which the jobs were submitted; text, file names and directory names use the same label (for example the multi-shot
+  engine's jobs CJ55 to CJ59 and their report CJ65, the exploratory look CJ66, D1's read jobs CJ71 and CJ72). The
+  curve sets' jobs became CC01 to CC16 in the same way, and a range of their ids a range of labels (CC07-CC10).
+- The account and paths. The cluster account became <user> and its scratch directory <cluster-scratch>, in every form
+  the files used (compute-node and relative forms included). Work directories on the Linux workstation and on the Mac
+  mini became ~/work/... (~/work/repo.git, ~/work/relay, ~/work/cascade_..., ~/work/h100t_state, ~/work/h100b_state).
+  The H100 pods' own paths (/opt/...) and Alpine's node names stay, as in bb72/.
+- Hosts. The Linux workstation's ssh host name became x86-host, and in prose "the Linux workstation"; the Windows
+  workstation that trained C6' is "the Windows workstation". The Mac mini's host name became m4-host. The H100 pods'
+  container host names became gpu-pod, their GPU UUIDs GPU-<uuid>, and the serial number and PDI in the nvidia-smi
+  records <serial> and <pdi>.
+- Names. The coordinating role became "the study lead", "the user" became "the authors", and run names and
+  bylines were removed or replaced by their role (the training stage, the noise-model fit, the curve sets, the first
+  and second H100 pod, the H100 session, milestone 1 or 2). Names that are identifiers stay as they are: the variables
+  W2, W3, W4 and W6 in the code (pc_common.W4 is phase C's run directory, curves.W2 the curve sets'), the environment
+  variables W2_DIR and W2_ROWS, the curve sets' splits w2test and w2cal and job names w2_*, the directory names
+  cascade_w1 to cascade_w5, cascade_h100b, fix/, fix2/, fix3/ and w2fix/, and the job names w4f2_smoke_rtx and
+  w4f2_smoke_h200. Mentions of the gate reviews and of their finding numbers stay, as in r17/; the review texts are
+  not part of this release.
+- Passages cut. Operational instructions, the H100 pods' pull loop and spend watchdog, forecasts, deadlines,
+  rental prices, plans for later work and the lever ranking and optimization plan of batchopt/PROFILE.md (sections 8
+  and 9; batchopt/M2.md states the targets it measured against) were cut. Each cut leaves a note in square brackets;
+  shorter removals inside a paragraph leave none. References in the code and in two M2 summaries to the cut sections
+  now point to M2.md.
+- Training code. The training program is not part of this release. bb/cascade_eval.py imports p_block_to_pl and
+  wilson from bb/cascade_stats.py, a verbatim copy of the two functions of bb/cascade_train.py at 64b2e25d, instead of
+  from bb/cascade_train.py; bb/cascade_data.py lost train_seed, the training streams (the Stim stream, dem_dense and the
+  DEM sampler) and the sampler benchmark, and its command line keeps check and env. cascade_eval's --bn-recal needs
+  bb/cascade_optim.py (training code) and does not run here; no read of the comparison used it.
+- Weights. weights/ holds inference checkpoints made from the checkpoints the comparison read
+  (repro/strip_checkpoint.py): Cascade's EMA weights with the architecture fields of its configuration, and the
+  ConvLines networks' weights with their full configuration. Every tensor is byte for byte the original's. Each file
+  records the original's sha256 as source_sha256; that is the sha256 that the locks, the reads' signatures and the
+  timing rows give for the network, and the paths they give (<cluster-scratch>/cascade_w3/ckpt/<name>/final_ema.pt,
+  cascade_w4/ckpt/C6_dfm/ for C6') are the originals'. The training metadata in the originals (arguments, curriculum,
+  logs, hosts, job ids) is not part of this release.
+Hashes recorded before these replacements keep their values and refer to the hub's files:
+- phase_c/out/locked_uniform.json and locked_depspam_fm.json differ from the hub's in paths, so their sha256 is not the
+  locked_sha256 that the confirmation, the check, the timing rows, the report and the multi-shot rows record. The same
+  holds for D1's lock (phase_d/d1_locked_depspam_fm.json, paths and job labels): d1_result.json's lock_sha256 and the
+  D1 rows' locked_sha256 refer to the hub's file. The check files of the first lock (phase_c/out/lock_1e8d1c6d/)
+  record that lock's sha256, and the first lock itself is not part of this release. Steps that hash a lock
+  (pc_route.py, pc_report.py --locked, d1_confirm.py) get other hashes from these copies than the records hold, and
+  pc_report.py refuses them; repro/recompute_numbers.py takes the recorded sha256 from the records instead.
+- The reads' signatures, explore_deep.json's inputs and the D1 freeze record give the sha256 of files as they were on
+  the cluster (checkpoints, locks, code trees); the checkpoints' are the released files' source_sha256.
+Byte for byte the hub's, so their recorded sha256 can be checked here: phase_c/out/speed_components.json (the locks'
+speed_sha256), phase_c/out/npz_sha256.txt and phase_d/out/npz_sha256.txt (the per-shot files on the cluster), and
+every file not listed below.
+Files changed:
+  cascade_compare/PHASE_C_PLAN.md                                                             job labels, paths, text
+  cascade_compare/batchopt/M2.md                                                              job labels, paths, text
+  cascade_compare/batchopt/PROFILE.md                                                         job labels, paths, text
+  cascade_compare/batchopt/deploy.sh                                                          comments, paths
+  cascade_compare/batchopt/m1.py                                                              comments, job labels, paths
+  cascade_compare/batchopt/m2.py                                                              comments, job labels, paths, references
+  cascade_compare/batchopt/m2.sbatch                                                          comments, paths
+  cascade_compare/batchopt/m2_pod_deploy.sh                                                   comments, paths
+  cascade_compare/batchopt/m2_pod_run.sh                                                      comments, job labels, paths
+  cascade_compare/batchopt/m2_report.sbatch                                                   comments, paths
+  cascade_compare/batchopt/m2_run.sh                                                          comments
+  cascade_compare/batchopt/mfused.py                                                          comments
+  cascade_compare/batchopt/mshot.py                                                           comments
+  cascade_compare/batchopt/out_h100/20261011_204455/env/nvidia_smi_q.txt                      GPU ids
+  cascade_compare/batchopt/out_h100/20261011_204455/env/nvidia_smi_q_end.txt                  GPU ids
+  cascade_compare/batchopt/out_h100/20261011_204455/env/pod_inputs.sha256                     paths
+  cascade_compare/batchopt/out_h100/20261011_204455/env/run_env.txt                           GPU ids, paths
+  cascade_compare/batchopt/out_h100/20261011_204455/nets.jsonl                                hosts
+  cascade_compare/batchopt/out_h100/20261011_204455/pipe.jsonl                                hosts
+  cascade_compare/batchopt/out_h100/20261011_204455/summary.md                                job labels, references
+  cascade_compare/batchopt/out_h100/20261011_204455/tailnets.jsonl                            hosts
+  cascade_compare/batchopt/out_h100/stage/alpine_inputs_20261011_134221.sha256                paths
+  cascade_compare/batchopt/out_h100/stage/pod_inputs_20261011_134221.sha256                   paths
+  cascade_compare/batchopt/out_m2/report_CJ65.log                                             job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ55/screen.jsonl                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ55/summary.json                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ55/summary.md                                     name
+  cascade_compare/batchopt/out_m2/rows/m2_CJ56/summary.json                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ56/summary.md                                     name
+  cascade_compare/batchopt/out_m2/rows/m2_CJ56/tail_depspam_fm.json                           name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ56/tail_uniform.json                              name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ56/tailnets.jsonl                                 job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ57/drive_nets.jsonl                               job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ57/nets.jsonl                                     job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ57/summary.json                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ57/summary.md                                     job labels, name
+  cascade_compare/batchopt/out_m2/rows/m2_CJ58/drive_pipe.jsonl                               job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ58/pipe.jsonl                                     job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ58/summary.json                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ58/summary.md                                     job labels, name
+  cascade_compare/batchopt/out_m2/rows/m2_CJ59/drive_pipe.jsonl                               job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ59/pipe.jsonl                                     job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ59/summary.json                                   job labels, name, paths
+  cascade_compare/batchopt/out_m2/rows/m2_CJ59/summary.md                                     job labels, name
+  cascade_compare/batchopt/out_m2/summary.json                                                job labels, paths
+  cascade_compare/batchopt/out_m2/summary.md                                                  job labels, references
+  cascade_compare/batchopt/pod_deploy.sh                                                      comments, paths, references
+  cascade_compare/batchopt/pod_run.sh                                                         comments, paths, references
+  cascade_compare/batchopt/prof.sbatch                                                        comments, paths
+  cascade_compare/batchopt/prof_batched.py                                                    comments
+  cascade_compare/batchopt/prof_check.sbatch                                                  comments, paths
+  cascade_compare/batchopt/prof_run.sh                                                        comments, references
+  cascade_compare/batchopt/req_cu128.txt                                                      comments
+  cascade_compare/phase_c/EXPLORE_DEEP.md                                                     job labels, paths
+  cascade_compare/phase_c/H100_TIMING.md                                                      job labels, paths, text
+  cascade_compare/phase_c/RESULTS.md                                                          job labels, paths, text
+  cascade_compare/phase_c/RUN.md                                                              job labels, paths, text
+  cascade_compare/phase_c/dry/DRY_RUNS.md                                                     job labels, paths, text
+  cascade_compare/phase_c/dry/out/relay_dev/depspam_fm/relay_p0.00200.json                    paths
+  cascade_compare/phase_c/dry/out/relay_dev/depspam_fm/relay_p0.00300.json                    paths
+  cascade_compare/phase_c/dry/out/relay_dev/uniform/relay_p0.00200.json                       paths
+  cascade_compare/phase_c/dry/out/relay_dev/uniform/relay_p0.00300.json                       paths
+  cascade_compare/phase_c/dry/out/relay_dev7/depspam_fm/relay_p0.00200.json                   paths
+  cascade_compare/phase_c/dry/out/relay_dev7/depspam_fm/relay_p0.00300.json                   paths
+  cascade_compare/phase_c/dry/out/relay_dev7/uniform/relay_p0.00200.json                      paths
+  cascade_compare/phase_c/dry/out/relay_dev7/uniform/relay_p0.00300.json                      paths
+  cascade_compare/phase_c/dry/out/relay_dev8a/depspam_fm/relay_p0.00200.json                  paths
+  cascade_compare/phase_c/dry/out/relay_dev8a/depspam_fm/relay_p0.00300.json                  paths
+  cascade_compare/phase_c/dry/out/relay_dev8a/uniform/relay_p0.00200.json                     paths
+  cascade_compare/phase_c/dry/out/relay_dev8a/uniform/relay_p0.00300.json                     paths
+  cascade_compare/phase_c/dry/out/relay_dev8b/depspam_fm/relay_p0.00200.json                  paths
+  cascade_compare/phase_c/dry/out/relay_dev8b/depspam_fm/relay_p0.00300.json                  paths
+  cascade_compare/phase_c/dry/out/relay_dev8b/uniform/relay_p0.00200.json                     paths
+  cascade_compare/phase_c/dry/out/relay_dev8b/uniform/relay_p0.00300.json                     paths
+  cascade_compare/phase_c/dry/out/relay_dev9/depspam_fm/relay_p0.00200.json                   paths
+  cascade_compare/phase_c/dry/out/relay_dev9/depspam_fm/relay_p0.00300.json                   paths
+  cascade_compare/phase_c/dry/out/relay_dev9/uniform/relay_p0.00200.json                      paths
+  cascade_compare/phase_c/dry/out/relay_dev9/uniform/relay_p0.00300.json                      paths
+  cascade_compare/phase_c/explore/explore_deep.json                                           job labels, paths
+  cascade_compare/phase_c/explore/explore_deep.sbatch                                         paths
+  cascade_compare/phase_c/explore/explore_deep_CJ66.out                                       name, paths
+  cascade_compare/phase_c/explore/explore_deep_tables.md                                      job labels
+  cascade_compare/phase_c/explore/ship.sh                                                     paths
+  cascade_compare/phase_c/jobs/dry11_gpu.sh                                                   job labels
+  cascade_compare/phase_c/jobs/dry2_cpu.sh                                                    comments
+  cascade_compare/phase_c/jobs/h100.sh                                                        comments, paths
+  cascade_compare/phase_c/jobs/h100_a1.sh                                                     comments, paths
+  cascade_compare/phase_c/jobs/h100_smoke.sh                                                  comments, paths
+  cascade_compare/phase_c/jobs/report.sh                                                      comments
+  cascade_compare/phase_c/out/check/depspam_fm/eager/rows_0.002,0.003.json                    paths
+  cascade_compare/phase_c/out/check/depspam_fm/read/rows_0.002,0.003.json                     paths
+  cascade_compare/phase_c/out/check/uniform/eager/rows_0.002,0.003.json                       paths
+  cascade_compare/phase_c/out/check/uniform/read/rows_0.002,0.003.json                        paths
+  cascade_compare/phase_c/out/check_depspam_fm.json                                           paths
+  cascade_compare/phase_c/out/check_uniform.json                                              paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.001.json                                 paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.0015.json                                paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.002.json                                 paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.0025.json                                paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.003.json                                 paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.0035.json                                paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.004.json                                 paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.0045.json                                paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.005.json                                 paths
+  cascade_compare/phase_c/out/conf/depspam_fm/rows_0.0055.json                                paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.001.json                                    paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.0015.json                                   paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.002.json                                    paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.0025.json                                   paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.003.json                                    paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.0035.json                                   paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.004.json                                    paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.0045.json                                   paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.005.json                                    paths
+  cascade_compare/phase_c/out/conf/uniform/rows_0.0055.json                                   paths
+  cascade_compare/phase_c/out/confirm_depspam_fm.json                                         paths
+  cascade_compare/phase_c/out/confirm_uniform.json                                            paths
+  cascade_compare/phase_c/out/dev/depspam_fm/rows_0.001.json                                  paths
+  cascade_compare/phase_c/out/dev/depspam_fm/rows_0.0015.json                                 paths
+  cascade_compare/phase_c/out/dev/depspam_fm/rows_0.002.json                                  paths
+  cascade_compare/phase_c/out/dev/depspam_fm/rows_0.0025,0.003.json                           paths
+  cascade_compare/phase_c/out/dev/depspam_fm/rows_0.0035,0.004,0.0045,0.005,0.0055.json       paths
+  cascade_compare/phase_c/out/dev/uniform/rows_0.001.json                                     paths
+  cascade_compare/phase_c/out/dev/uniform/rows_0.0015.json                                    paths
+  cascade_compare/phase_c/out/dev/uniform/rows_0.002.json                                     paths
+  cascade_compare/phase_c/out/dev/uniform/rows_0.0025,0.003.json                              paths
+  cascade_compare/phase_c/out/dev/uniform/rows_0.0035,0.004,0.0045,0.005,0.0055.json          paths
+  cascade_compare/phase_c/out/dev_late/depspam_fm/rows_0.001.json                             paths
+  cascade_compare/phase_c/out/dev_late/depspam_fm/rows_0.0015.json                            paths
+  cascade_compare/phase_c/out/dev_late/depspam_fm/rows_0.002.json                             paths
+  cascade_compare/phase_c/out/dev_late/depspam_fm/rows_0.0025,0.003.json                      paths
+  cascade_compare/phase_c/out/dev_late/depspam_fm/rows_0.0035,0.004,0.0045,0.005,0.0055.json  paths
+  cascade_compare/phase_c/out/dev_late/uniform/rows_0.001.json                                paths
+  cascade_compare/phase_c/out/dev_late/uniform/rows_0.0015.json                               paths
+  cascade_compare/phase_c/out/dev_late/uniform/rows_0.002.json                                paths
+  cascade_compare/phase_c/out/dev_late/uniform/rows_0.0025,0.003.json                         paths
+  cascade_compare/phase_c/out/dev_late/uniform/rows_0.0035,0.004,0.0045,0.005,0.0055.json     paths
+  cascade_compare/phase_c/out/lock_1e8d1c6d/check_depspam_fm.json                             paths
+  cascade_compare/phase_c/out/lock_1e8d1c6d/check_uniform.json                                paths
+  cascade_compare/phase_c/out/locked_depspam_fm.json                                          paths
+  cascade_compare/phase_c/out/locked_uniform.json                                             paths
+  cascade_compare/phase_c/out/relay_conf/depspam_fm/relay_p0.00200.json                       paths
+  cascade_compare/phase_c/out/relay_conf/depspam_fm/relay_p0.00300.json                       paths
+  cascade_compare/phase_c/out/relay_conf/uniform/relay_p0.00200.json                          paths
+  cascade_compare/phase_c/out/relay_conf/uniform/relay_p0.00300.json                          paths
+  cascade_compare/phase_c/out/relay_dev/depspam_fm/relay_p0.00200.json                        paths
+  cascade_compare/phase_c/out/relay_dev/depspam_fm/relay_p0.00300.json                        paths
+  cascade_compare/phase_c/out/relay_dev/uniform/relay_p0.00200.json                           paths
+  cascade_compare/phase_c/out/relay_dev/uniform/relay_p0.00300.json                           paths
+  cascade_compare/phase_c/out/report/phase_c_summary.json                                     paths
+  cascade_compare/phase_c/out/speed/clocks_CJ30.txt                                           name
+  cascade_compare/phase_c/out/speed/rows.jsonl                                                job labels
+  cascade_compare/phase_c/out_h100/first_pod/env.json                                         hosts
+  cascade_compare/phase_c/out_h100/first_pod/h100_speed.json                                  hosts
+  cascade_compare/phase_c/out_h100/first_pod/outputs/depspam_fm/h100_p0.00200.json            paths
+  cascade_compare/phase_c/out_h100/first_pod/outputs/depspam_fm/h100_p0.00300.json            paths
+  cascade_compare/phase_c/out_h100/first_pod/outputs/uniform/h100_p0.00200.json               paths
+  cascade_compare/phase_c/out_h100/first_pod/outputs/uniform/h100_p0.00300.json               paths
+  cascade_compare/phase_c/out_h100/first_pod/rows.jsonl                                       hosts
+  cascade_compare/phase_c/out_h100/screen/END                                                 job labels
+  cascade_compare/phase_c/out_h100/screen/amend1/h100_speed.json                              hosts, paths
+  cascade_compare/phase_c/out_h100/screen/amend1/screen_depspam_fm.json                       paths
+  cascade_compare/phase_c/out_h100/screen/amend1/screen_uniform.json                          paths
+  cascade_compare/phase_c/out_h100/screen/first/h100_speed.json                               hosts
+  cascade_compare/phase_c/out_h100/screen/first/screen_depspam_fm.json                        paths
+  cascade_compare/phase_c/out_h100/screen/first/screen_uniform.json                           paths
+  cascade_compare/phase_c/out_h100/second_pod/env.json                                        hosts, paths
+  cascade_compare/phase_c/out_h100/second_pod/h100_speed.json                                 hosts, paths
+  cascade_compare/phase_c/out_h100/second_pod/outputs/depspam_fm/h100_p0.00200.json           paths
+  cascade_compare/phase_c/out_h100/second_pod/outputs/depspam_fm/h100_p0.00300.json           paths
+  cascade_compare/phase_c/out_h100/second_pod/outputs/uniform/h100_p0.00200.json              paths
+  cascade_compare/phase_c/out_h100/second_pod/outputs/uniform/h100_p0.00300.json              paths
+  cascade_compare/phase_c/out_h100/second_pod/rows.jsonl                                      hosts
+  cascade_compare/phase_c/pc_common.py                                                        comments, paths
+  cascade_compare/phase_c/pc_h100.py                                                          comments
+  cascade_compare/phase_c/pc_relay.py                                                         comments
+  cascade_compare/phase_c/scripts/cpu.sbatch                                                  paths
+  cascade_compare/phase_c/scripts/deploy.sh                                                   paths
+  cascade_compare/phase_c/scripts/gpu.sbatch                                                  paths
+  cascade_compare/phase_c/scripts/h100_deploy.sh                                              comments, paths
+  cascade_compare/phase_c/scripts/h100_screen.sbatch                                          comments, paths
+  cascade_compare/phase_c/scripts/h100_screen_a1.sbatch                                       comments, job labels, paths
+  cascade_compare/phase_c/scripts/h100_setup_venv.sh                                          comments
+  cascade_compare/phase_c/scripts/submit.sh                                                   paths
+  cascade_compare/phase_d/D1_RESULT.md                                                        job labels, paths, text
+  cascade_compare/phase_d/PHASE_D1_PLAN.md                                                    job labels, paths, text
+  cascade_compare/phase_d/d1_common.py                                                        paths
+  cascade_compare/phase_d/d1_locked_depspam_fm.json                                           job labels, paths
+  cascade_compare/phase_d/dry/CJ67/anchor.json                                                name, paths
+  cascade_compare/phase_d/dry/CJ67/compat.json                                                name, paths
+  cascade_compare/phase_d/dry/CJ67/compiled/p0.00200.json                                     job labels, name, paths
+  cascade_compare/phase_d/dry/CJ67/compiled/p0.00300.json                                     job labels, name, paths
+  cascade_compare/phase_d/dry/CJ67/confirm/run_1/d1_tables.md                                 name
+  cascade_compare/phase_d/dry/CJ67/dry_lock.json                                              name, paths
+  cascade_compare/phase_d/dry/CJ67/profile.jsonl                                              job labels, name
+  cascade_compare/phase_d/dry/CJ67/read/block_0.002.json                                      job labels, name, paths
+  cascade_compare/phase_d/dry/CJ67/read/block_0.003.json                                      job labels, name, paths
+  cascade_compare/phase_d/dry/CJ67/read/p0.00200.json                                         name, paths
+  cascade_compare/phase_d/dry/CJ67/read/p0.00300.json                                         name, paths
+  cascade_compare/phase_d/dry/CJ67/read/rows_0.002.json                                       name, paths
+  cascade_compare/phase_d/dry/CJ67/read/rows_0.003.json                                       name, paths
+  cascade_compare/phase_d/dry/CJ67/refusals.json                                              name
+  cascade_compare/phase_d/dry/CJ67/speed/rows.jsonl                                           job labels, name, paths
+  cascade_compare/phase_d/dry/CJ67/verify.jsonl                                               job labels, name
+  cascade_compare/phase_d/dry/CJ69/anchor.json                                                name, paths
+  cascade_compare/phase_d/dry/CJ69/compiled/p0.00200.json                                     job labels, name, paths
+  cascade_compare/phase_d/dry/CJ69/compiled/p0.00300.json                                     job labels, name, paths
+  cascade_compare/phase_d/dry/CJ69/verify.jsonl                                               job labels, name
+  cascade_compare/phase_d/dry/power_CJ68.json                                                 name
+  cascade_compare/phase_d/jobs/d1_guard.sh                                                    paths
+  cascade_compare/phase_d/out/compiled/p0.00200.json                                          job labels, paths
+  cascade_compare/phase_d/out/compiled/p0.00300.json                                          job labels, paths
+  cascade_compare/phase_d/out/confirm/run_1/d1_result.json                                    job labels, paths
+  cascade_compare/phase_d/out/logs/d1_a_CJ74.out                                              name, paths
+  cascade_compare/phase_d/out/logs/d1_r1_CJ71.out                                             job labels, name, paths
+  cascade_compare/phase_d/out/logs/d1_r2_CJ72.out                                             job labels, name, paths
+  cascade_compare/phase_d/out/logs/d1_s_CJ73.out                                              job labels, name, paths
+  cascade_compare/phase_d/out/read/block_0.002.json                                           paths
+  cascade_compare/phase_d/out/read/block_0.003.json                                           paths
+  cascade_compare/phase_d/out/read/p0.00200.json                                              paths
+  cascade_compare/phase_d/out/read/p0.00300.json                                              paths
+  cascade_compare/phase_d/out/read/rows_0.002.json                                            paths
+  cascade_compare/phase_d/out/read/rows_0.003.json                                            paths
+  cascade_compare/phase_d/out/speed/rows.jsonl                                                job labels, paths
+  cascade_compare/phase_d/scripts/cpu.sbatch                                                  paths
+  cascade_compare/phase_d/scripts/deploy.sh                                                   paths
+  cascade_compare/phase_d/scripts/gpu.sbatch                                                  paths
+  cascade_compare/phase_d/scripts/submit.sh                                                   paths
+  ising_compare/bb/cascade/CASCADE_CURVES.md                                                  job labels, paths, text
+  ising_compare/bb/cascade/cpu.sbatch                                                         comments, paths
+  ising_compare/bb/cascade/curves.py                                                          comments, paths
+  ising_compare/bb/cascade/gpu.sbatch                                                         comments, paths
+  ising_compare/bb/cascade/noise.py                                                           comments
+  ising_compare/bb/cascade_data.py                                                            training code
+  ising_compare/bb/cascade_eval.py                                                            training import
+  ising_compare/bb/cascade_net.py                                                             comments
+  ising_compare/bb/code.py                                                                    comments, paths
+  noise_fit/CASCADE_CAL.md                                                                    job labels, text
+  noise_fit/cal.py                                                                            comments
+  noise_fit/cascade_cal_counts.json                                                           hosts, paths
+  noise_fit/noise.py                                                                          comments
+  noise_fit/runs/alpine/bposd_i10_alp_a.jsonl                                                 paths
+  noise_fit/runs/alpine/bposd_i10_alp_b.jsonl                                                 paths
+  noise_fit/runs/alpine/bposd_i10_alp_c.jsonl                                                 paths
+  noise_fit/runs/alpine/bposd_i10_alp_d.jsonl                                                 paths
+  noise_fit/runs/alpine/bposd_i11_alp_a.jsonl                                                 paths
+  noise_fit/runs/alpine/bposd_i2_alp_a.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i2_alp_b.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i3_alp_a.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i6_alp_a.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i6_alp_b.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i6_alp_c.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i6_alp_d.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_i7_alp_a.jsonl                                                  paths
+  noise_fit/runs/alpine/bposd_sector_i0_alp_t.jsonl                                           paths
+  noise_fit/runs/alpine/bposd_sector_i1_alp_t.jsonl                                           paths
+  noise_fit/runs/alpine/relay_full_i0_alp_a.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i0_alp_b.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i0_alp_t.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i10_alp_a.jsonl                                            paths
+  noise_fit/runs/alpine/relay_full_i10_alp_b.jsonl                                            paths
+  noise_fit/runs/alpine/relay_full_i11_alp_a.jsonl                                            paths
+  noise_fit/runs/alpine/relay_full_i1_alp_a.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i1_alp_b.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i1_alp_t.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i6_alp_a.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i6_alp_b.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i6_alp_c.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i6_alp_d.jsonl                                             paths
+  noise_fit/runs/alpine/relay_full_i7_alp_a.jsonl                                             paths
+  noise_fit/runs/alpine/relay_sector_i0_alp_a.jsonl                                           paths
+  noise_fit/runs/alpine/relay_sector_i1_alp_a.jsonl                                           paths
+  noise_fit/runs/alpine/setup_tesseract_i0.jsonl                                              paths
+  noise_fit/runs/alpine/tesseract_sector_i0_alp_t.jsonl                                       paths
+  noise_fit/runs/alpine/tesseract_sector_i1_alp_t.jsonl                                       paths
+  noise_fit/runs/mac/bposd_i0_mac.jsonl                                                       hosts, paths
+  noise_fit/runs/mac/bposd_i1_mac.jsonl                                                       hosts, paths
+  noise_fit/runs/mac/pilot_bposd_i0.jsonl                                                     hosts, paths
+  noise_fit/runs/mac/pilot_bposd_i1.jsonl                                                     hosts, paths
+  noise_fit/runs/mac/pilot_tesseract_i0.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/pilot_tesseract_i1.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_bfs_i1_mac_a.jsonl                                             hosts, paths
+  noise_fit/runs/mac/tesseract_i0_mac_a.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_i0_mac_b.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_i10_mac_a.jsonl                                                hosts, paths
+  noise_fit/runs/mac/tesseract_i10_mac_b.jsonl                                                hosts, paths
+  noise_fit/runs/mac/tesseract_i11_mac_a.jsonl                                                hosts, paths
+  noise_fit/runs/mac/tesseract_i1_mac_a.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_i1_mac_b.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_i6_mac_a.jsonl                                                 hosts, paths
+  noise_fit/runs/mac/tesseract_i7_mac_a.jsonl                                                 hosts, paths
+  noise_fit/table.py                                                                          comments
+  qldpc_neural/qnd/circuits.py                                                                paths

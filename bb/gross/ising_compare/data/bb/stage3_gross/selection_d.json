@@ -1,0 +1,70 @@
+{
+ "plan": {
+  "trunk_at": 113238016,
+  "pauses": [],
+  "pending": [],
+  "samples_per_s": 4959.099538101099,
+  "gpu_term_ms": 3.3508052368164063,
+  "feasible": true,
+  "stopped": false
+ },
+ "status": {
+  "g2_A3D": "ok"
+ },
+ "trunk_at": 113238016,
+ "cooldowns": [
+  {
+   "run": "g2_D12k20c3",
+   "at": 20004864,
+   "k": 3000000.0,
+   "fail": 632,
+   "best_before": "g2_A3D",
+   "improved": true
+  },
+  {
+   "run": "g2_D12k50c3",
+   "at": 50003968,
+   "k": 3000000.0,
+   "fail": 453,
+   "best_before": "g2_D12k20c3",
+   "improved": true
+  },
+  {
+   "run": "g2_D12k76c10",
+   "at": 76333056,
+   "k": 10000000.0,
+   "fail": 409,
+   "best_before": "g2_D12k50c3",
+   "improved": true
+  },
+  {
+   "run": "g2_D12k113c10",
+   "at": 113238016,
+   "k": 10000000.0,
+   "fail": 350,
+   "best_before": "g2_D12k76c10",
+   "improved": true
+  }
+ ],
+ "best": "g2_D12k113c10",
+ "best_verified": {
+  "run": "g2_D12k113c10",
+  "fail": 350,
+  "ckpt": "/workspace/g2/ckpt/g2_D12k113c10/final_ema.pt",
+  "sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692"
+ },
+ "futility": false,
+ "gate": {
+  "net_alone": 717,
+  "hybrid": 409,
+  "q": 0.005,
+  "composite_ms": 15.122112252591847,
+  "fallback_alone": 490,
+  "gpu_term_ms": 3.4058945922851565,
+  "net_ok": true,
+  "hybrid_ok": true,
+  "pass": true
+ },
+ "decision": "pass",
+ "errors": []
+}

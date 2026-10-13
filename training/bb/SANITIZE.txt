@@ -1,0 +1,35 @@
+Text files under training/bb are the hub's files at the commits in SOURCE, byte for byte, except the files listed
+below, in which internal names were replaced as bb72/SANITIZE.txt and cascade/SANITIZE.txt describe, each as an exact
+replacement. No number, rule, argument or result changed. bb/code.py, bb/cascade_net.py, bb/cascade/noise.py and
+qnd/circuits.py are cascade/'s sanitized copies of the same files (the same commit).
+- Paths. The cluster account became <user> and its scratch directory <cluster-scratch>; the home work directory of
+  fetch_relay.sh's default became ~/work, as the QND_RELAY default of qnd/circuits.py.
+- Hosts. The Windows workstation that trained C6' is "the Windows workstation" (its launcher's path is dropped).
+- Names. The coordinating role became "the study lead"; the run names of the Cascade comparison became their role (the
+  noise-model fit, the training stage) and the run labels in the job files' headings were dropped. Names that are
+  identifiers stay (the --w3-stream and --w3-monitor options, the w3*_ job files, the W4 variable and the cascade_w*
+  directories).
+- Notes. References to the Cascade re-implementation's internal notes, which are not part of this release, were
+  dropped or reworded. References to bb/DESIGN.md, bb/PLAN.md, bb/STAGE3_PLAN.md and the gross plans stay (bb72/,
+  gross/ and gross_stage4/ hold them), as do two to research notes that are not released (SETTINGS.md,
+  interp/REPORT.md).
+- Cluster jobs. Alpine job ids became "an Alpine job" (a dependency on one: "on that segment's job").
+Files changed:
+  ising_compare/bb/cascade_data.py                        names, notes
+  ising_compare/bb/cascade_net.py                         notes (cascade/'s copy)
+  ising_compare/bb/cascade/noise.py                       names (cascade/'s copy)
+  ising_compare/bb/cascade_optim.py                       notes
+  ising_compare/bb/cascade_train.py                       names, notes
+  ising_compare/bb/code.py                                path (cascade/'s copy)
+  ising_compare/bb/train.py                               names, notes
+  ising_compare/bb/scripts/alpine/gpu.sbatch              paths, names
+  ising_compare/bb/cascade/stage2/jobs/w3b_C14.sh         notes
+  ising_compare/bb/cascade/stage2/jobs/w3b_C6.sh          notes
+  ising_compare/bb/cascade/stage2/jobs/w3b_S55.sh         names
+  ising_compare/bb/cascade/stage2/jobs/w3c_C14_dfm.sh     names, notes, job id
+  ising_compare/bb/cascade/stage2/jobs/w3c_S55_dfm.sh     names, notes, job id
+  ising_compare/bb/cascade/stage2/jobs/w3d_C6_dfm.sh      names, host
+  ising_compare/bb/cascade/stage2/jobs/w3d_S55_dfm_deep.sh  names, job ids
+  ising_compare/bb/cascade/stage2/jobs/w3e_C6_dfm.sh      names, host, notes, paths
+  qldpc_neural/qnd/circuits.py                            path (cascade/'s copy)
+  qldpc_neural/scripts/fetch_relay.sh                     path

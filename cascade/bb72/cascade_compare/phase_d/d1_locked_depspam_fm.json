@@ -1,0 +1,418 @@
+{
+ "what": "D1 lock (cascade_compare/phase_d/PHASE_D1_PLAN.md): the two configurations of the registered test and its fixed parameters",
+ "status": "frozen: the freeze commit F is the commit of ising-cascade-d1 that sets this status (PHASE_D1_PLAN.md 5.3); nothing in this file changes after it",
+ "gate": {
+  "verdict": "PROCEED WITH CHANGES",
+  "file": "cascade_compare/phase_d/D1_GATE.md",
+  "dispositions": "PHASE_D1_PLAN.md section 0"
+ },
+ "source": {
+  "commit": "1e8d1c6df46d978280f70f5e4d843132212239d7",
+  "file": "cascade_compare/phase_c/out/locked_depspam_fm.json",
+  "alpine_file": "<cluster-scratch>/cascade_w4/out/locked_depspam_fm.json",
+  "sha256": "02b19c451c6a38f6854a6be665b9bdcc87f8feb53d86841309833a70f9be0e81",
+  "configs": [
+   2,
+   7
+  ],
+  "rule": "fewest development failures among the speed-feasible"
+ },
+ "family": "depspam_fm",
+ "B": "C14p",
+ "nets": {
+  "C14p": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+  "S55p_deep": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af"
+ },
+ "read_prec": {
+  "C14p": "bf16",
+  "S55p_deep": "fused"
+ },
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "driver": "590.48.01",
+ "torch": "2.11.0+cu128",
+ "speed_sha256": "1ec6b2563060f0042f866f19841631e8e1499872e6c15ed77dae7a01c8c811f5",
+ "frozen_paths": {
+  "C14p": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "S55p_deep": {
+   "single": "fused@1",
+   "amortized": "fused@4096",
+   "batched": "fused@4096"
+  }
+ },
+ "cascade_t1_us": 1781.8525852868333,
+ "cascade_a_us": 71.6260423878623,
+ "configs": [
+  {
+   "type": "S-B",
+   "p": 0.002,
+   "S": "S55p_deep",
+   "B": "C14p",
+   "q1": 0.02,
+   "tau": {
+    "tau1": 7.3331888389587405
+   },
+   "fail": 696,
+   "shots": 1000000,
+   "to_B": 0.02,
+   "to_R": 0.0,
+   "relay_s_mean": 0.0,
+   "L1_us": 166.52068718150258,
+   "A_us": 7.689693070602743,
+   "feasible": true,
+   "vs_B": {
+    "both": 695,
+    "only_D": 1,
+    "only_B": 6,
+    "shots": 1000000
+   },
+   "rule": "fewest development failures among the speed-feasible",
+   "sizing": {
+    "sized": false,
+    "why": "the development block's discordant rate is below 10 % of B's failure rate",
+    "d": 7e-06,
+    "delta": 7.010000000000001e-05
+   },
+   "planned_power": null
+  },
+  {
+   "type": "S-B",
+   "p": 0.003,
+   "S": "S55p_deep",
+   "B": "C14p",
+   "q1": 0.1,
+   "tau": {
+    "tau1": 7.60439167022705
+   },
+   "fail": 2297,
+   "shots": 500000,
+   "to_B": 0.1,
+   "to_R": 0.0,
+   "relay_s_mean": 0.0,
+   "L1_us": 309.06889400444925,
+   "A_us": 13.419776461631727,
+   "feasible": true,
+   "vs_B": {
+    "both": 2296,
+    "only_D": 1,
+    "only_B": 9,
+    "shots": 500000
+   },
+   "rule": "fewest development failures among the speed-feasible",
+   "sizing": {
+    "sized": false,
+    "why": "the development block's discordant rate is below 10 % of B's failure rate",
+    "d": 2e-05,
+    "delta": 0.00046100000000000004
+   },
+   "planned_power": null
+  }
+ ],
+ "grid": [
+  {
+   "p": 0.002,
+   "q1": 0.01,
+   "tau1": 5.253921661376953,
+   "dev_fail": 701,
+   "dev_shots": 1000000,
+   "L1_us": 148.70216132863425,
+   "A_us": 6.97343264672412
+  },
+  {
+   "p": 0.002,
+   "q1": 0.02,
+   "tau1": 7.3331888389587405,
+   "dev_fail": 696,
+   "dev_shots": 1000000,
+   "L1_us": 166.52068718150258,
+   "A_us": 7.689693070602743
+  },
+  {
+   "p": 0.002,
+   "q1": 0.05,
+   "tau1": 9.593660306930541,
+   "dev_fail": 696,
+   "dev_shots": 1000000,
+   "L1_us": 219.97626474010758,
+   "A_us": 9.838474342238612
+  },
+  {
+   "p": 0.002,
+   "q1": 0.1,
+   "tau1": 10.84427318572998,
+   "dev_fail": 699,
+   "dev_shots": 1000000,
+   "L1_us": 309.06889400444925,
+   "A_us": 13.419776461631727
+  },
+  {
+   "p": 0.002,
+   "q1": 0.2,
+   "tau1": 11.909797668457031,
+   "dev_fail": 699,
+   "dev_shots": 1000000,
+   "L1_us": 487.2523706805473,
+   "A_us": 20.58230907437557
+  },
+  {
+   "p": 0.002,
+   "q1": 0.4,
+   "tau1": 12.976472473144531,
+   "dev_fail": 700,
+   "dev_shots": 1000000,
+   "L1_us": 843.6246695904993,
+   "A_us": 34.90758917799042
+  },
+  {
+   "p": 0.003,
+   "q1": 0.01,
+   "tau1": 1.7131494998931882,
+   "dev_fail": 2559,
+   "dev_shots": 500000,
+   "L1_us": 148.70216132863425,
+   "A_us": 6.97343264672412
+  },
+  {
+   "p": 0.003,
+   "q1": 0.02,
+   "tau1": 3.097613506317139,
+   "dev_fail": 2392,
+   "dev_shots": 500000,
+   "L1_us": 166.52068718150258,
+   "A_us": 7.689693070602743
+  },
+  {
+   "p": 0.003,
+   "q1": 0.05,
+   "tau1": 5.505523252487182,
+   "dev_fail": 2298,
+   "dev_shots": 500000,
+   "L1_us": 219.97626474010758,
+   "A_us": 9.838474342238612
+  },
+  {
+   "p": 0.003,
+   "q1": 0.1,
+   "tau1": 7.60439167022705,
+   "dev_fail": 2297,
+   "dev_shots": 500000,
+   "L1_us": 309.06889400444925,
+   "A_us": 13.419776461631727
+  },
+  {
+   "p": 0.003,
+   "q1": 0.2,
+   "tau1": 9.52823543548584,
+   "dev_fail": 2300,
+   "dev_shots": 500000,
+   "L1_us": 487.2541525331326,
+   "A_us": 20.582380700417957
+  },
+  {
+   "p": 0.003,
+   "q1": 0.4,
+   "tau1": 11.277367401123048,
+   "dev_fail": 2302,
+   "dev_shots": 500000,
+   "L1_us": 843.6246695904993,
+   "A_us": 34.90758917799042
+  }
+ ],
+ "kind_seed": 14,
+ "chunks": {
+  "0.002": 1100,
+  "0.003": 1700
+ },
+ "chunk_offset": "c0 = int(F[:7], 16) % 9000000 with F the full sha of the freeze commit; the read at p uses chunks c0 .. c0 + chunks[p] - 1",
+ "alpha": 0.05,
+ "cascade_paths": {
+  "eager": "bb.cascade_eval's evaluation backend through pc_eval.py: bf16 autocast, eager, batches of 8,192 within each 10,000-shot chunk (phase C's accuracy path)",
+  "compiled": {
+   "single": "compiled@1: C14p alone and D's routed shots, one shot per call",
+   "batched": "compiled@4096: C14p alone over consecutive batches of 4,096 of the block, the last padded with zeros; D's routed shots in shot order in batches of 4,096, the last padded"
+  }
+ },
+ "comparisons": [
+  {
+   "name": "H1e",
+   "p": 0.002,
+   "config": 0,
+   "path": "eager"
+  },
+  {
+   "name": "H2e",
+   "p": 0.003,
+   "config": 1,
+   "path": "eager"
+  },
+  {
+   "name": "H1c",
+   "p": 0.002,
+   "config": 0,
+   "path": "compiled"
+  },
+  {
+   "name": "H2c",
+   "p": 0.003,
+   "config": 1,
+   "path": "compiled"
+  }
+ ],
+ "compiled_rule": "single and batched with the same failures of D and of C14p on every shot are one comparison; otherwise an intersection-union test: p-value the larger of the two exact McNemar p-values, better only if both Newcombe intervals at its Holm level lie below zero, worse only if both lie above zero",
+ "compiled_read": {
+  "streams": 32,
+  "rounds": 16,
+  "check_first": 20000,
+  "check_every": 1000,
+  "slice_rows": 1048576
+ },
+ "m_family": 4,
+ "holm_levels": [
+  0.0125,
+  0.016666666666666666,
+  0.025,
+  0.05
+ ],
+ "alpha_size": 0.025,
+ "power_target": 0.9,
+ "power_rule": "the block sizes stay unless the compiled comparison's design-scenario power under the four-test Holm procedure (D1-P) is below 0.8 at a point; then that block grows to the smallest multiple of 100 chunks that restores 0.8",
+ "alternatives": {
+  "source": "EXPLORE_DEEP.md 4.2: the same configurations on phase C's confirmation block (seed kind 11)",
+  "cells": "(both fail, only D, only Cascade, shots), as bb.route.power takes them",
+  "observed": {
+   "0.002": [
+    3815,
+    7,
+    43,
+    5000000
+   ],
+   "0.003": [
+    4448,
+    4,
+    11,
+    1000000
+   ]
+  },
+  "design": {
+   "0.002": [
+    3815,
+    16,
+    34,
+    5000000
+   ],
+   "0.003": [
+    4448,
+    5.75,
+    9.25,
+    1000000
+   ]
+  },
+  "design_rule": "the observed discordant shots with half the observed net gain"
+ },
+ "planned_power": {
+  "step": "D1-P (PHASE_D1_PLAN.md 2.4), job CJ68, d1_power.py on the lock of tree d285960f (inputs unchanged since: alternatives, chunks, holm_levels, comparisons)",
+  "file": "phase_d/dry/power_CJ68.json",
+  "lock_sha256_at_run": "530e3ec0b777f3b4a791daba8a71eca1abc3a6b39532de65e220a8292ac7403a",
+  "seed": 20261006,
+  "reps": 20000,
+  "decision": "exact two-sided McNemar p below the level and Newcombe's interval at the level below zero",
+  "per_test": {
+   "design": {
+    "0.002": {
+     "0.0125": 0.895,
+     "0.016666666666666666": 0.9105,
+     "0.025": 0.9335,
+     "0.05": 0.9599
+    },
+    "0.003": {
+     "0.0125": 0.8816,
+     "0.016666666666666666": 0.9005,
+     "0.025": 0.9241,
+     "0.05": 0.9569
+    }
+   },
+   "observed": {
+    "0.002": {
+     "0.0125": 1.0,
+     "0.016666666666666666": 1.0,
+     "0.025": 1.0,
+     "0.05": 1.0
+    },
+    "0.003": {
+     "0.0125": 1.0,
+     "0.016666666666666666": 1.0,
+     "0.025": 1.0,
+     "0.05": 1.0
+    }
+   }
+  },
+  "joint": {
+   "design": {
+    "identical": {
+     "H1e": 0.9293,
+     "H2e": 0.9179,
+     "H1c": 0.9293,
+     "H2c": 0.9179,
+     "all": 0.8599
+    },
+    "independent": {
+     "H1e": 0.9535,
+     "H2e": 0.9491,
+     "H1c": 0.9584,
+     "H2c": 0.9496,
+     "all": 0.8407
+    }
+   },
+   "observed": {
+    "identical": {
+     "H1e": 1.0,
+     "H2e": 1.0,
+     "H1c": 1.0,
+     "H2c": 1.0,
+     "all": 1.0
+    },
+    "independent": {
+     "H1e": 1.0,
+     "H2e": 1.0,
+     "H1c": 1.0,
+     "H2c": 1.0,
+     "all": 1.0
+    }
+   }
+  },
+  "interval_fails": {
+   "design": {
+    "0.002": {
+     "0.0125": 0,
+     "0.016666666666666666": 0,
+     "0.025": 0,
+     "0.05": 0
+    },
+    "0.003": {
+     "0.0125": 0,
+     "0.016666666666666666": 0,
+     "0.025": 0,
+     "0.05": 0
+    }
+   },
+   "observed": {
+    "0.002": {
+     "0.0125": 0,
+     "0.016666666666666666": 0,
+     "0.025": 0,
+     "0.05": 0
+    },
+    "0.003": {
+     "0.0125": 0,
+     "0.016666666666666666": 0,
+     "0.025": 0,
+     "0.05": 0
+    }
+   }
+  },
+  "sizes_kept": true
+ }
+}

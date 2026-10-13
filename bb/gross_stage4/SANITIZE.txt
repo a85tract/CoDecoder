@@ -1,0 +1,43 @@
+Text files under gross_stage4/ are the hub's files at the commit in SOURCE, byte for byte, except the files listed
+here. In them, internal names were replaced as bb72/SANITIZE.txt describes, each as an exact replacement: user
+names, host names and container host names (m4-host, x86-host, gpu-pod), the RunPod pod's id (gpu-pod), its GPU's
+UUID (GPU-<uuid>), the cluster account and paths (<account>, <user>, <cluster-work>, <cluster-scratch>), the Mac
+mini's nickname (Mac mini) and work directory (~/work), the shared Linux machine's nickname (Linux
+workstation), cluster job names and node names (derecho-node), the timing
+session labels (H100 session s4, M4 session s4, in the timing rows and cell.json alike), and internal run names and
+coordination signals (the sentence reworded around them; an earlier study is named by
+its document). No number, rule or result changed: the analysis, run again from this directory on the published
+per-shot outputs, writes results.json and RESULTS_stage4_gross.md byte for byte. engine.py, net.py, fused.py and
+fast.py, which the engine signature hashes, did not change.
+  ising_compare/bb/code.py
+  ising_compare/bb/stage4_gross.py
+  ising_compare/bb/scripts/stage4_gross_sizes.py
+  ising_compare/bb/scripts/derecho/cpu_s4_a.pbs
+  ising_compare/bb/scripts/derecho/cpu_s4_b.pbs
+  ising_compare/data/bb/shot_manifest.csv
+  ising_compare/bb/STAGE4_GROSS_PLAN.md
+  ising_compare/bb/GROSS_FULLDEM_CAL.md
+  ising_compare/bb/GROSS_FAST_ENGINE.md
+  ising_compare/bb/GROSS_BPOSD_FALLBACK.md
+  qldpc_neural/qnd/circuits.py
+  ising_compare/data/bb/stage4_gross/beacon.json
+  ising_compare/data/bb/stage4_gross/cell.json
+  ising_compare/data/bb/stage4_gross/derecho/job_a.log (file renamed: the hub's name held a run name)
+  ising_compare/data/bb/stage4_gross/derecho/job_b.log (file renamed: the hub's name held a run name)
+  ising_compare/data/bb/stage4_gross/derecho/opp_test4_reads_a.csv
+  ising_compare/data/bb/stage4_gross/derecho/opp_test4_reads_b.csv
+  ising_compare/data/bb/stage4_gross/mac/mac_an.sh
+  ising_compare/data/bb/stage4_gross/mac/mac_pack.sh
+  ising_compare/data/bb/stage4_gross/mac/mac_s4.sh
+  ising_compare/data/bb/stage4_gross/mac/warmup.csv
+  ising_compare/data/bb/stage4_gross/pod/allocation.txt
+  ising_compare/data/bb/stage4_gross/pod/gpu_bposd_test4_reads.csv
+  ising_compare/data/bb/stage4_gross/pod/gpu_bposd_time.csv
+  ising_compare/data/bb/stage4_gross/pod/hostcheck.json
+  ising_compare/data/bb/stage4_gross/pod/hostcheck_sampling.json
+  ising_compare/data/bb/stage4_gross/pod/nvidia_smi_q_summary.txt
+  ising_compare/data/bb/stage4_gross/pod/post_logs.txt
+  ising_compare/data/bb/stage4_gross/pod/test4_rows.csv
+  ising_compare/data/bb/stage4_gross/rows_cpu.csv
+  ising_compare/data/bb/stage4_gross/rows_gpu.csv
+  ising_compare/icmp/t2.py

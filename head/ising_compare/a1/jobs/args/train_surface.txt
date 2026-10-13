@@ -1,0 +1,23 @@
+# A1 main run, surface (revision/REVISION_PLAN.md 2.1): arm $ARM (S-VA, S-V, S-L, S-P, S-PA), seed $S, d = 9, 2e8
+# samples from scratch with the deployed recipe (common.sh), the seed's registered trunk file, the shared stream of
+# seed $S, val monitoring every 2e7, the not-trained check at 2e7. $RAMP=1: the ramp rerun (a1ramp_*, p from 0.001 to
+# 0.6 % over the first quarter, RampLineStream). Every arm of a seed on one GPU model (seed 1: H200, seed 2: A100);
+# a job that runs out of time saves the complete state at the end of a pool, and the next job resumes from it.
+#   sbatch -p ah200 --gres=gpu:h200:1 -c 16 --mem=64G -t 05:00:00 -J a1_S-VA_s1 --export=ALL,CMD=train_surface.txt,ARM=S-VA,S=1 a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+case $S in 1|2|3) ;; *) echo "seed $S"; exit 1 ;; esac
+pre=a1; ex=""; rid=$((1100 + 10 * S + ${SIDX[$ARM]}))
+if [ "${RAMP:-0}" = 1 ]; then pre=a1ramp; ex="--p-ramp 0.001:0.25"; rid=$((rid + 50)); fi
+run=${pre}_${ARM}_s$S
+[ -f $ICMP_CKPT/$run/final_ema.pt ] && { echo "$run is complete"; exit 0; }
+last=""; lastn=-1                        # the newest complete state; a fresh run has none (an ls of the empty glob
+for f in $ICMP_CKPT/$run/state_p*.pt; do  # ended the job under job.sbatch's set -euo pipefail: gate finding 1)
+  [ -f "$f" ] || continue
+  n=${f##*state_p}; n=${n%.pt}
+  if [ "$n" -gt "$lastn" ]; then last=$f; lastn=$n; fi
+done
+# $WORKERS: the sampler count (default 8; any divisor of 8 gives the same stream, arch/stream.py), set by the pods' packing
+$PY -m arch.train --run $run --run-id $rid $SURF ${SFLAGS[$ARM]} --seed $S --init $A/trunk/trunk_surface_s$S.pt \
+  --init-sha $(regsha surface $S) --samples 2e8 --eval-every 2e7 --train-check 2e7 --workers ${WORKERS:-8} --save-every 500 \
+  --max-hours $(awk -v m=$(left_min) 'BEGIN {print m / 60}') --max-hours-at-pool $ex ${last:+--resume $last}

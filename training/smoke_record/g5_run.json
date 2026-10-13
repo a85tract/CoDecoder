@@ -1,0 +1,106 @@
+{
+ "args": {
+  "circuit": "runs/smoke/d5_p003.stim",
+  "out": "runs/g5",
+  "bb": "",
+  "samples": 20000.0,
+  "seed": 1,
+  "width": null,
+  "bott": null,
+  "blocks": null,
+  "heads": null,
+  "batch": 1024,
+  "pool": 32,
+  "lr": 0.001,
+  "wd": 0.01,
+  "warmup": 1000,
+  "ema": 0.999,
+  "curriculum": "",
+  "init_from": "runs/g3/final_ema.pt",
+  "eval_shots": 2000,
+  "eval_every": 10000000.0,
+  "workers": 1,
+  "device": "",
+  "fp32": false,
+  "compile": false,
+  "max_minutes": 0,
+  "resume": false
+ },
+ "steps": 19,
+ "samples": 19456,
+ "init": {
+  "mapped": {
+   "w": [
+    [
+     3
+    ],
+    [
+     5
+    ]
+   ],
+   "head.e": [
+    [
+     3,
+     64
+    ],
+    [
+     5,
+     64
+    ]
+   ],
+   "head.b_line": [
+    [
+     4,
+     2,
+     11
+    ],
+    [
+     4,
+     2,
+     19
+    ]
+   ],
+   "head.b_t": [
+    [
+     4,
+     2,
+     4
+    ],
+    [
+     4,
+     2,
+     6
+    ]
+   ]
+  },
+  "path": "runs/g3/final_ema.pt",
+  "sha256": "b6426030716bde0758e160380c00048673dbcc60ce414173b4641569e80aaba6"
+ },
+ "final": {
+  "step": 19,
+  "samples": 19456,
+  "pool": 1,
+  "lr": 2e-05,
+  "noise_scale": 1.0,
+  "train_loss": 0.8340506553649902,
+  "ema_failures": 1725,
+  "failures": 79,
+  "eval_shots": 2000,
+  "minutes": 0.4302303115526835,
+  "samples_per_s": 791.0900299687795,
+  "final": true
+ },
+ "torch": "2.11.0+cu126",
+ "stim": "1.16.0",
+ "device": "cpu",
+ "circuit_sha256": "dc53f69ca5df78e40e10c7c3612f657ccf29248a1026d70e59531e3dd45ce118",
+ "front_end": "runs/g5/final_ema.pt",
+ "front_end_sha256": "1beeaa3f1dabc2d68a4cc715752512e066bbd4710260d03c1065eb03c6306614",
+ "arch": {
+  "width": 64,
+  "bott": 16,
+  "blocks": 1,
+  "heads": 4
+ },
+ "design": null
+}

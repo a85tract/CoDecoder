@@ -1,0 +1,18 @@
+# A1 main run, BB72 (revision/REVISION_PLAN.md 2.1): arm $ARM (B-JT, B-J, B-P, B-PA), seed $S, p = 0.3 %, 2e8 samples
+# with r11 / r12's recipe (common.sh), the seed's registered trunk file, the shared stream of seed $S, the
+# not-trained check at 2e7. $RAMP=1: the ramp rerun (a1ramp_*, p from 0.001, the lowest circuit file, to 0.3 % over the
+# first quarter). Every arm of a seed on one slice type (seed 1: H200 2g.35gb, seed 2: RTX PRO 6000 1g.24gb; see
+# a1/jobs/submit_main.sh); a job that runs out of time pauses with a checkpoint (exit 3) and the next job resumes it
+# exactly.
+#   sbatch -p ah200 --gres=gpu:h200_2g.35gb:1 -c 8 --mem=48G -t 04:25:00 -J a1_B-JT_s1 --export=ALL,CMD=train_bb72.txt,ARM=B-JT,S=1 a1/jobs/job.sbatch
+source a1/jobs/args/common.sh
+set -x
+case $S in 1|2|3) ;; *) echo "seed $S"; exit 1 ;; esac
+pre=a1; ex=""; rid=$((1200 + 10 * S + ${BIDX[$ARM]}))
+if [ "${RAMP:-0}" = 1 ]; then pre=a1ramp; ex="--p-ramp 0.001:0.25"; rid=$((rid + 50)); fi
+run=${pre}_${ARM}_s$S
+[ -f $BB_CKPT/$run/log.json ] && { echo "$run has ended"; exit 0; }
+RES=""; [ -f $BB_CKPT/$run/last.pt ] && RES="--resume"
+$PY -m bb.train --run $run --run-id $rid $BBR ${BFLAGS[$ARM]} --seed $S --init $A/trunk/trunk_bb72_s$S.pt \
+  --init-sha $(regsha bb72 $S) --samples 2e8 --eval-every 1e7 --train-check 2e7 --workers ${WORKERS:-6} --max-minutes $(left_min) \
+  $ex $RES || [ $? = 3 ]

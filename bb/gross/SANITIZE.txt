@@ -1,0 +1,73 @@
+Text files under gross/ are the hub's files at the commit in SOURCE, byte for byte, except the files listed below.
+
+First pass (with the BB144 results): user names, personal host names, the RunPod pod and machine ids, the cluster
+account and the cluster home and scratch paths were replaced by placeholders such as <user>, m4-host, x86-host,
+gpu-pod, gpu-machine, <account>, <cluster-work> and <cluster-scratch>, the same text everywhere it occurs. No number,
+rule or result changed.
+  ising_compare/bb/scripts/derecho/cpu_opp_g4.pbs
+  ising_compare/bb/STAGE3_GROSS_PLAN.md
+  ising_compare/data/bb/stage3_gross/beacon.json
+  ising_compare/data/bb/stage3_gross/cell.json
+  ising_compare/data/bb/stage3_gross/mac/warmup_A.csv
+  ising_compare/data/bb/stage3_gross/mac/warmup_B.csv
+  ising_compare/data/bb/stage3_gross/pod/allocation.txt
+  ising_compare/data/bb/stage3_gross/pod/s3g_pre.sh
+  ising_compare/data/bb/stage3_gross/pod/s3g_pre_cq.sh
+  ising_compare/data/bb/stage3_gross/pod/s3g_reads.sh
+  ising_compare/data/bb/stage3_gross/rows_cpu.csv
+  ising_compare/data/bb/stage3_gross/rows_gpu.csv
+
+Second pass (2026-10-07, before gross/ joined the public release): the rules of bb72/SANITIZE.txt's second pass,
+applied the same way, each as an exact replacement, and the few new ones that the top-level SANITIZE.txt names. No
+number, rule or result changed.
+- Shared files. bb/PLAN.md, bb/stage3.py, bb/code.py, icmp/t2.py and qldpc_neural/qnd/circuits.py were byte-identical
+  to bb72/'s copies before that pass; they are now bb72/'s scrubbed copies.
+- Hosts. The Mac mini's nickname became "Apple M4 Mac mini", "Mac mini" or "M4", and this cell's two timing session
+  labels (nickname-m4-gA and -gB) became "M4 session gA" and "M4 session gB" in the timing rows, the warm-up rows,
+  the two session scripts and cell.json, whose two keys named after the Mac became "apple_m4". The Linux
+  workstation's nickname became "Linux workstation". The test pod's container host name became gpu-pod, as in BB72's
+  records (the timing rows, the pod's records and the test rows). In the shot manifest the BB72 test pod's container
+  host name became gpu-pod (those rows now equal bb72/'s manifest apart from line endings), the test pod's gpu-pod,
+  and that of the gross2 stage-1 pod, which sampled the D-bank chunks, gross2-pod.
+- The rented pods. A pod id became "stage 1's pod", the ssh key's file name <key>, and the stage-1 pod's IP address
+  and port and another study's port were dropped. The GPU's UUID became GPU-<uuid> and its PDI <pdi>.
+- Internal notes, names and signals. As in bb72/: the coordinating role became "the study lead"; run names, the
+  coordination signals and the internal notes they referred to were removed, or the sentence was reworded around
+  them; a row of STAGE3_GROSS_PLAN.md's cost table became "working time".
+  The training program's data-loading processes became "sampler processes" in prose; the command block of
+  PLAN_gross2.md section 3 keeps bb.train's own flag for their number.
+- Paths. The Linux workstation's work directory became ~/work (~/work/stage_gross2, ~/work/repo, ~/work/clone), and
+  so did the Mac mini's, with gross_stage3 as the run directory of the two session scripts.
+The analysis reads cell.json, the timing rows and the shot manifest. Run again from this directory on the stored reads,
+it writes results.json, RESULTS_stage3_gross.md and the report printed in analysis.log byte for byte (none of them
+holds a session label or a host name), and gross_stage3.png byte for byte on the host of the one analysis (M4).
+engine.py, net.py and fused.py, which the engine signature hashes, and the policy file, whose sha256 the timing rows
+carry, did not change. No other file records the sha256 of a changed file.
+Files changed in this pass:
+  ising_compare/bb/PLAN.md
+  ising_compare/bb/PLAN_gross2.md
+  ising_compare/bb/PLAN_gross2_stage2.md
+  ising_compare/bb/RESULTS_gross2_stage1.md
+  ising_compare/bb/STAGE3_GROSS_PLAN.md
+  ising_compare/bb/code.py
+  ising_compare/bb/stage3.py
+  ising_compare/bb/stage3_gross.py
+  ising_compare/icmp/t2.py
+  ising_compare/data/bb/shot_manifest.csv
+  ising_compare/data/bb/stage3_gross/cell.json
+  ising_compare/data/bb/stage3_gross/mac/mac_gA.sh
+  ising_compare/data/bb/stage3_gross/mac/mac_gB.sh
+  ising_compare/data/bb/stage3_gross/mac/warmup_A.csv
+  ising_compare/data/bb/stage3_gross/mac/warmup_B.csv
+  ising_compare/data/bb/stage3_gross/pod/gpu_bposd_post.csv
+  ising_compare/data/bb/stage3_gross/pod/gpu_bposd_pre.csv
+  ising_compare/data/bb/stage3_gross/pod/gpu_bposd_test_reads.csv
+  ising_compare/data/bb/stage3_gross/pod/hostcheck.json
+  ising_compare/data/bb/stage3_gross/pod/hostcheck_sampling.json
+  ising_compare/data/bb/stage3_gross/pod/nvidia_smi_q_summary.txt
+  ising_compare/data/bb/stage3_gross/pod/pod_setup.sh
+  ising_compare/data/bb/stage3_gross/pod/reads_log.txt
+  ising_compare/data/bb/stage3_gross/pod/test_rows.csv
+  ising_compare/data/bb/stage3_gross/rows_cpu.csv
+  ising_compare/data/bb/stage3_gross/rows_gpu.csv
+  qldpc_neural/qnd/circuits.py

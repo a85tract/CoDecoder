@@ -1,0 +1,23 @@
+== gpu.log
+gpu_term accepted 3 GPU_END 01:13:08
+== lat_1.log
+timing {"date": "2026-10-08T01:12:59", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3385:53fe7fe1", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 1, "binding": "9bab38ece6d00140", "role": "gpu_term", "n": 500, "value_ms": 0.2560760917663574, "note": "{\"rep_us\": [257.97983169555664, 257.9017639160156
+timing {"date": "2026-10-08T01:12:59", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3385:53fe7fe1", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 1, "binding": "9bab38ece6d00140", "role": "handoff", "n": 1000, "value_ms": 0.019644562155008316, "note": "{\"clock_min_ratio\": 1.0, \"other_pids\": [], \"
+latency {"engine": {"kind": "fusedt", "batch": 1, "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin", "gpu": "NVIDIA H100 80GB HBM3", "torch": "2.11.0+cu126", "cuda": "12.6", "cudnn": 91002, "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692", "src": {"engine.py": "ca6c91f3b6c29c97", "net.py": "36e2b562e3ac
+== lat_2.log
+timing {"date": "2026-10-08T01:13:03", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3641:6980e0fd", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 2, "binding": "9bab38ece6d00140", "role": "gpu_term", "n": 500, "value_ms": 0.25598137283325195, "note": "{\"rep_us\": [257.41247177124023, 257.360000610351
+timing {"date": "2026-10-08T01:13:03", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3641:6980e0fd", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 2, "binding": "9bab38ece6d00140", "role": "handoff", "n": 1000, "value_ms": 0.019570108503103256, "note": "{\"clock_min_ratio\": 1.0, \"other_pids\": [], \"
+latency {"engine": {"kind": "fusedt", "batch": 1, "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin", "gpu": "NVIDIA H100 80GB HBM3", "torch": "2.11.0+cu126", "cuda": "12.6", "cudnn": 91002, "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692", "src": {"engine.py": "ca6c91f3b6c29c97", "net.py": "36e2b562e3ac
+== lat_3.log
+timing {"date": "2026-10-08T01:13:07", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3897:4c54808e", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 3, "binding": "9bab38ece6d00140", "role": "gpu_term", "n": 500, "value_ms": 0.256924991607666, "note": "{\"rep_us\": [262.8278350830078, 262.88320541381836,
+timing {"date": "2026-10-08T01:13:07", "host": "gpu-pod", "session": "H100 session s4", "process": "gpu-pod:3897:4c54808e", "device": "NVIDIA H100 80GB HBM3", "code": "bb144", "p": 0.004, "name": "fusedt:eb380295a6ec", "proc": 3, "binding": "9bab38ece6d00140", "role": "handoff", "n": 1000, "value_ms": 0.021934308111667633, "note": "{\"clock_min_ratio\": 1.0, \"other_pids\": [], \"
+latency {"engine": {"kind": "fusedt", "batch": 1, "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin", "gpu": "NVIDIA H100 80GB HBM3", "torch": "2.11.0+cu126", "cuda": "12.6", "cudnn": 91002, "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692", "src": {"engine.py": "ca6c91f3b6c29c97", "net.py": "36e2b562e3ac
+== reads.log
+== network test4 read 01:29:42
+net-g2_D12k113c10_fusedt_s4 test4 chunk 14: stored
+NETREAD_END 01:30:25
+== cudaq-qec batch-1 timing 01:30:25
+gpu_bposd accepted 3
+== cudaq-qec test4 read 01:31:00
+{'date': '2026-10-08T01:31:04', 'host': 'gpu-pod', 'gpu': 'NVIDIA H100 80GB HBM3', 'code': 'bb144', 'p': 0.004, 'decoder': 'nv-qldpc-decoder ms80_cs60', 'p
+READS_END 01:33:05

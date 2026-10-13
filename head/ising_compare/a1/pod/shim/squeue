@@ -1,0 +1,4 @@
+#!/bin/bash
+# The pods have no Slurm. a1/jobs/args/common.sh's left_min asks `squeue -h -j $SLURM_JOB_ID -o %e` for the job's end;
+# on a pod a job has no time limit, so this answers 24 hours from now (a run pauses only if it is killed).
+date -d "+24 hours" +%Y-%m-%dT%H:%M:%S

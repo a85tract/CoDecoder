@@ -1,0 +1,4 @@
+# Step 2 (one GPU): r11 and r12 in fp32 on every w2cal and w2test chunk, then r12's taus from w2cal.
+$PY -m bb.cascade.curves infer --split w2cal
+$PY -m bb.cascade.curves infer --split w2test
+$PY -m bb.cascade.curves taus

@@ -1,0 +1,35 @@
+2026-10-11T20:44:55+00:00
+tree net 64b2e25d batchopt 4a5b9e6a
+GPU 0: NVIDIA H100 80GB HBM3 (UUID: GPU-<uuid>)
+name, pci.bus_id, driver_version, vbios_version, mig.mode.current, mig.mode.pending, memory.total [MiB], clocks.max.sm [MHz], clocks.max.memory [MHz], clocks.applications.graphics [MHz], power.limit [W], enforced.power.limit [W], power.default_limit [W], power.max_limit [W], persistence_mode, compute_mode, ecc.mode.current, pstate
+NVIDIA H100 80GB HBM3, 00000000:3A:00.0, 580.126.09, 96.00.89.00.01, Disabled, Disabled, 81559 MiB, 1980 MHz, 2619 MHz, 1980 MHz, 700.00 W, 700.00 W, 700.00 W, 700.00 W, Enabled, Default, Enabled, P0
+CPU(s):                               208
+On-line CPU(s) list:                  0-207
+Model name:                           Intel(R) Xeon(R) Platinum 8470
+Thread(s) per core:                   2
+Core(s) per socket:                   52
+Socket(s):                            2
+CPU(s) scaling MHz:                   30%
+CPU max MHz:                          3800.0000
+NUMA node(s):                         2
+nproc 1; cgroup cpu.max 2210000 100000; Relay-BP workers (pc_common.NCPU_RELAY) 16; OMP_NUM_THREADS 1
+               total        used        free      shared  buff/cache   available
+Mem:            2015          96         846           9        1095        1919
+Linux 6.8.0-90-generic x86_64
+"Ubuntu 24.04.3 LTS"
+python Python 3.12.3; pip 25.0.1
+BB_PIDNS=1
+M2_CARD=H100
+O=/opt/b2m2/out/20261011_204455
+OMP_NUM_THREADS=1
+PC_GPU_DRIVER=580.126.09
+PTX_ARGS=--net S55 --batches 4096,1024,256,64,16,1
+PYTHONPATH=/opt/b2m2/code.20261011_134221/ising_compare:/opt/b2m2/code.20261011_134221/qldpc_neural:/opt/b2m2/code.20261011_134221/cascade_compare/phase_c:/opt/b2m2/code.20261011_134221/cascade_compare/batchopt
+QND_RELAY=<cluster-scratch>/bb/relay
+REFS=<cluster-scratch>/cascade_batchopt/out/m2_refs
+REPS=3
+STEPS=screen ptx tailnets tail nets pipe report
+TAIL_B=512
+TAIL_PATHS=compiled@512
+TORCHINDUCTOR_CACHE_DIR=/opt/b2m2/cache/inductor
+TRITON_CACHE_DIR=/opt/b2m2/cache/triton

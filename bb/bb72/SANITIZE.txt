@@ -1,0 +1,109 @@
+Text files under bb72/ are the hub's files at the commit in SOURCE, byte for byte, except the files listed below.
+
+First pass (with the BB72 results): user names, personal host names and home or scratch paths were replaced by
+placeholders such as <user>, m4-host, x86-host, gpu-pod and <cluster-scratch>. No number, rule or result changed.
+DEPLOYED_POLICIES was regenerated for the four policy files as they are here (only their checkpoint paths changed).
+  ising_compare/bb/DESIGN.md
+  ising_compare/data/bb/fullroute/bb72_cal.json
+  ising_compare/data/bb/fullroute/bb72_cal_interim.json
+  ising_compare/data/bb/fullroute/bb72_p0.002_cal_ens-fp32.json
+  ising_compare/data/bb/fullroute/bb72_p0.003_cal_ens-fp32.json
+  ising_compare/data/bb/policies/bb72_p0.002_rep1.json
+  ising_compare/data/bb/policies/bb72_p0.002_rep2.json
+  ising_compare/data/bb/policies/bb72_p0.003_rep1.json
+  ising_compare/data/bb/policies/bb72_p0.003_rep2.json
+  ising_compare/data/bb/shot_manifest.csv
+  ising_compare/data/bb/stage3/beacon.json
+  ising_compare/data/bb/stage3/gpu_bposd_pre.csv
+  ising_compare/data/bb/stage3/gpu_bposd_preflight.csv
+  ising_compare/data/bb/stage3/hostcheck.json
+  ising_compare/data/bb/stage3/hostcheck_sampling.json
+  ising_compare/data/bb/stage3/mac_A.log
+  ising_compare/data/bb/stage3/mac_B.log
+  ising_compare/data/bb/stage3/opp_test_reads.csv
+  ising_compare/data/bb/stage3/opp_test_reads_workstation.csv (renamed in the second pass)
+  ising_compare/data/bb/stage3/pod/gpu_bposd_post.csv
+  ising_compare/data/bb/stage3/pod/gpu_bposd_test_reads.csv
+  ising_compare/data/bb/stage3/pod/out_gpu.log
+  ising_compare/data/bb/stage3/pod/out_reads.log
+  ising_compare/data/bb/stage3/pod/rows_gpu_post.csv
+  ising_compare/data/bb/stage3/rows_cpu.csv
+  ising_compare/data/bb/stage3/rows_cpu_S.csv
+  ising_compare/data/bb/stage3/rows_gpu.csv
+  ising_compare/data/bb/stage3/rows_preflight.csv
+  ising_compare/data/bb/stage3/test_rows.csv
+  ising_compare/data/bb/stage3/warmup_A.csv
+  ising_compare/data/bb/stage3/warmup_B.csv
+  ising_compare/data/bb/stage3/warmup_S.csv
+
+Second pass (2026-10-07, before the repository went public): internal names were removed from every tracked text file
+of the repository, in bb72/ and outside it (the top-level SANITIZE.txt lists the files outside). No number, rule or
+result changed. The rules below describe the replaced names without quoting them; each was applied as an exact
+replacement:
+- Hosts. The Mac mini's nickname became "Apple M4 Mac mini" or "Mac mini", and its three timing session labels
+  (nickname-m4-A, -B and -S) became "M4 session A", "M4 session B" and "M4 session S". The Linux workstation's
+  nickname, used as a host name, became "Linux workstation". What the first pass had left of the Mac's host name in
+  mac_A.log (<user> and the rest of the name) became m4-host, as in the other records.
+- The RunPod H100 pod. Its session labels (h100-<pod id>-pre, -post and -preflight) became "H100 session pre",
+  "H100 session post" and "H100 session preflight", "RunPod <pod id> (" became "RunPod (", and its GPU UUID became
+  GPU-<uuid>.
+- Cluster jobs. The RTX session's label, an Alpine job id with the name of an internal note, became "Alpine (CU Boulder
+  Research Computing)". The other Alpine and Derecho job ids and job names were dropped: "Alpine <id>" became
+  "Alpine" or "an Alpine job", "Derecho <id>" became "a Derecho job", "job <id>" became "an Alpine job", and a list
+  of jobs became their number ("three Alpine jobs").
+- Internal notes, names and signals. References to internal notes and logs, run names (including another study's
+  runs and pod) and coordination signal names were removed, or the sentence was reworded around them. The
+  coordinating role became "the study lead", hours of working time in PLAN.md became "working hours", and a row of
+  STAGE3_PLAN.md's cost table became "working time". DESIGN.md's header has no byline and gives
+  the request that started the study in English only; PLAN.md's Q8 no longer names another project.
+- Paths and run names. The work directory of the Mac mini became ~/work (mac_S.sh, and the QND_RELAY default of
+  bb/code.py and qldpc_neural/qnd/circuits.py), and the run directory in it became bb72_stage3.
+- File names. data/bb/stage3/opp_test_reads_<nickname>.csv became opp_test_reads_workstation.csv.
+- The reproductions, outside bb72/. RunPod pod ids became <pod-1> to <pod-6> and network-volume ids <volume-1> and
+  <volume-2> (one placeholder per id, numbered within each reproduction), container host names became <container>,
+  GPU UUIDs became GPU-<uuid> and a GPU serial number <serial>.
+The timing rows (the inputs of bb.stage3 analyze), cells.json and amendment_S.json carry the new session labels, and so
+do results.json and results_amendment_S.json: both analyses, run again from this directory, write these two files,
+RESULTS_stage3.md, RESULTS_stage3_amendment_S.md, the printed reports (analysis.log, analysis_amendment_S.log) and the
+three figures byte for byte. engine.py, net.py and fused.py, which the engine signature hashes, did not change.
+DEPLOYED_POLICIES was regenerated again (each policy lost a job id). Hashes recorded before this pass keep their values
+and refer to the files before it: the registered sha256 of AMENDMENT_S.md (in amendment_S.json and the copy note) and
+the hub commits.
+Files changed or renamed in this pass:
+  DEPLOYED_POLICIES
+  ising_compare/bb/AMENDMENT_F_draft.md
+  ising_compare/bb/AMENDMENT_S.md
+  ising_compare/bb/DESIGN.md
+  ising_compare/bb/PLAN.md
+  ising_compare/bb/STAGE3_PLAN.md
+  ising_compare/bb/code.py
+  ising_compare/bb/scripts/stage3_sizes.py
+  ising_compare/bb/stage3.py
+  ising_compare/icmp/t2.py
+  ising_compare/data/bb/fullroute/bb72_cal.json
+  ising_compare/data/bb/fullroute/bb72_cal_interim.json
+  ising_compare/data/bb/policies/bb72_p0.002_rep1.json
+  ising_compare/data/bb/policies/bb72_p0.002_rep2.json
+  ising_compare/data/bb/policies/bb72_p0.003_rep1.json
+  ising_compare/data/bb/policies/bb72_p0.003_rep2.json
+  ising_compare/data/bb/stage3/amendment_S.json
+  ising_compare/data/bb/stage3/cells.json
+  ising_compare/data/bb/stage3/mac_A.log
+  ising_compare/data/bb/stage3/mac_S.sh
+  ising_compare/data/bb/stage3/nvidia_smi_q_summary.txt
+  ising_compare/data/bb/stage3/opp_test_reads_workstation.csv (renamed only)
+  ising_compare/data/bb/stage3/pod/rows_gpu_post.csv
+  ising_compare/data/bb/stage3/pod/s3_cqtime.sh
+  ising_compare/data/bb/stage3/pod/s3_gpu.sh
+  ising_compare/data/bb/stage3/pod/s3_pre.sh
+  ising_compare/data/bb/stage3/pod/s3_reads.sh
+  ising_compare/data/bb/stage3/results.json
+  ising_compare/data/bb/stage3/results_amendment_S.json
+  ising_compare/data/bb/stage3/rows_cpu.csv
+  ising_compare/data/bb/stage3/rows_cpu_S.csv
+  ising_compare/data/bb/stage3/rows_gpu.csv
+  ising_compare/data/bb/stage3/rows_preflight.csv
+  ising_compare/data/bb/stage3/warmup_A.csv
+  ising_compare/data/bb/stage3/warmup_B.csv
+  ising_compare/data/bb/stage3/warmup_S.csv
+  qldpc_neural/qnd/circuits.py

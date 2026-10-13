@@ -1,0 +1,22 @@
+# Stage-2 training segment of run $RID (bb/PLAN.md 2.1-2.3), resumed exactly if a checkpoint exists; pauses $MM
+# minutes in (gpu.sbatch: before the job's end or the 04:30 PDT drain).
+#   sbatch -p aa100 --gres=gpu:a100-40gb:1 -J bb_r11 -t 03:00:00 --time-min 01:00:00 --export=ALL,CMD=s2_train.txt,RID=11 bb/scripts/alpine/gpu.sbatch
+case $RID in
+  11|12) A="--code bb72 --p 0.003 --design data/bb/design_bb72.json --samples 2e8" ;;
+  13|14) A="--code bb72 --p 0.002 --design data/bb/design_bb72.json --samples 5e7 --lr 2e-4 --init $R/ckpt/r$((RID - 2))/final_ema.pt" ;;
+  21)    A="--code bb144 --p 0.004 --design data/bb/design_bb144.json --samples 1e8 --p-ramp 0.001:0.5 --early-stop 5e7:0.20" ;;
+  22)    A="--code bb144 --p 0.004 --design data/bb/design_bb144.json --samples 1e8 --p-ramp 0.001:0.5" ;;
+  *)     echo "unknown run id $RID"; exit 1 ;;
+esac
+RES=""; [ -f $R/ckpt/r$RID/last.pt ] && RES="--resume"
+$PY -m bb.train --run r$RID --run-id $RID $A --eval-every 1e7 --workers 6 --monitor 0 --compile --max-minutes $MM $RES
+# Run 21 completed (PLAN 2.3): submit gross's registered-GPU engine job now (its 3-h RTX window starts at this
+# submission, PLAN 2.8), the A100-40GB twin from the window's end, and the probe gate's frontier after both.
+if [ $RID = 21 ] && [ -f $R/ckpt/r21/final_ema.pt ] && [ ! -f $R/out/engine_bb144/submitted ]; then
+  mkdir -p $R/out/engine_bb144
+  U=$(date -d '+3 hours' --iso-8601=seconds)
+  J1=$(sbatch --parsable -p artxpro6000 --gres=gpu:rtx_pro_6000:1 -J bb_eng144 -t 02:00:00 --export=ALL,CMD=s2_engine.txt,CODE=bb144,UNTIL=$U bb/scripts/alpine/gpu.sbatch)
+  J2=$(sbatch --parsable -p aa100 --gres=gpu:a100-40gb:1 -J bb_eng144a --begin=$(date -d "$U" +%Y-%m-%dT%H:%M:%S) -t 02:00:00 --export=ALL,CMD=s2_engine.txt,CODE=bb144,UNTIL=$U bb/scripts/alpine/gpu.sbatch)
+  J3=$(sbatch --parsable -p acpu --qos=cpu-normal -c 2 --mem=16G -J bb_front144 -t 00:20:00 --dependency=afterany:$J1:$J2 --export=ALL,CMD=s2_frontier.txt,CODE=bb144 bb/scripts/alpine/cpu.sbatch)
+  echo "$J1 $J2 $J3 submitted $(date -Is) rtx-until $U" | tee $R/out/engine_bb144/submitted
+fi

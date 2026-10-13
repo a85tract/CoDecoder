@@ -1,0 +1,25 @@
+{
+ "about": "The deployed decoder's routing masks: one npz member, routed (uint8 per shot; 1 = the shot went to correlated PyMatching). test: every shot of a test set in chunk order, taken from the studies' per-chunk records of the deployed decoder's test read (c, routed and decision of every shot); record_digest is the sha256 the studies registered for those records (sha256 of the chunk files' sha256 hex strings in chunk order, the input named by the study's analysis), and failures the deployed decisions' failures. val: the masks the studies' CPU term read (validation chunks 0-19, 200,000 shots), byte for byte; sha256 is the one the study's freeze pinned (study_file is their name there; at d = 17 the CPU term read the mask from a member of the development record, written here as a file of its own), and shots_sha256 identifies the studies' validation shots (sha256 of np.packbits(det, axis=1) bytes, then the observable bytes, timing.deployed.shots_sha256).",
+ "test": {
+  "T2": {
+   "7": {"file": "test_T2_d7.npz", "sha256": "9f16ac035f1ce19a42c49f9c558187bf8acd49f19d5651ab35065b75d88ef1a9", "d": 7, "network": "d7_b1w64_r740", "chunks": "0-199", "shots": 2000000, "routed": 81229, "failures": 33582, "record_digest": "b260f35758460d1341cb30fad354579968eb3cfdf00bcd80067b9f8967f2d3bf"},
+   "9": {"file": "test_T2_d9.npz", "sha256": "95a4199564e514596bf99c49f70ffed1b0384492f395e4dca67ee4a1dbe062d9", "d": 9, "network": "d9_b3_r764", "chunks": "0-99", "shots": 1000000, "routed": 9910, "failures": 10789, "record_digest": "8eb1d5d85f561bf8febce1cef6b63a82a571b4f8928053b29089285f2bf86bc6"},
+   "11": {"file": "test_T2_d11.npz", "sha256": "0d026f4449d48740953a466056f55eaa0b771be15b48b7d189d8f0f70a9cc272", "d": 11, "network": "d11_b5_r777", "chunks": "0-99", "shots": 1000000, "routed": 9944, "failures": 7215, "record_digest": "76f73cf2db491f1c08b9de9e62d09c9b8187b2ba1eed2fc821c821722ad559bc"},
+   "13": {"file": "test_T2_d13.npz", "sha256": "1e90ff2459f51c99aba6952103ff61ba029b1805c1c5056bfcaf94fc0eb129a7", "d": 13, "network": "d13_b5_r775", "chunks": "0-99", "shots": 1000000, "routed": 19405, "failures": 5627, "record_digest": "620ff7ba1bacb1e027f41a28fd7931d25ba8cb18ac98b51d64399d3219556b22"}
+  },
+  "T3": {
+   "15": {"file": "test_T3_d15.npz", "sha256": "792885dacd16590a95b3ee58c784a600464c769810dedf5cda68eefe24297bf6", "d": 15, "network": "d15_b5_r782", "chunks": "0-99", "shots": 1000000, "routed": 60078, "failures": 3911, "record_digest": "23019f8301f85ce4c796b06f67f1070b8d18d85e6a30f330d0b2fb68b1f3e1b7"}
+  },
+  "T5": {
+   "17": {"file": "test_T5_d17.npz", "sha256": "1bb0292c27b952533dd47c5fe3049c1d78a5414f6bec138d760e1d11880596ef", "d": 17, "network": "d17_b5_r787", "chunks": "0-99", "shots": 1000000, "routed": 100797, "failures": 2687, "record_digest": "b813d31a65bdc994f818bd686c7bc2b03be4f374893b49c31553b3b070d0a867"}
+  }
+ },
+ "val": {
+  "7": {"file": "val_d7.npz", "sha256": "40e1093175cc40221f0837afa24c0de47a6bcbbb1532fd024996c11d6daa64e4", "study_file": "r740_routed.npz", "d": 7, "network": "d7_b1w64_r740", "shots": 200000, "routed": 8095, "shots_sha256": "59919f8127b36a63177903ce4cbb58d05ddeb9d42ea5dda17bdcd4a5709538d1"},
+  "9": {"file": "val_d9.npz", "sha256": "ab671b650f4d14e397adad7841e045109d974dde77d0b050df0bfdf1777f4cbd", "study_file": "d9_b3_r764_routed.npz", "d": 9, "network": "d9_b3_r764", "shots": 200000, "routed": 2051, "shots_sha256": "5b3b56849e366988907bc7ff3317020728a6497a5eada7e1f1feccbefba03396"},
+  "11": {"file": "val_d11.npz", "sha256": "bcf8ca6f6eab4812a8f5aea9652c6d7d3fc7188acde532d6f174994dd6efce19", "study_file": "d11_b5_r777_routed.npz", "d": 11, "network": "d11_b5_r777", "shots": 200000, "routed": 2040, "shots_sha256": "6ab910e45d8ad931015b401926ded459cd04c9a2864193b11e113b9249266c0a"},
+  "13": {"file": "val_d13.npz", "sha256": "fbbf70b68c9fbb32e08f6418518416ac5f2465fccd9a9bed3f3e6d45c6b7c570", "study_file": "d13_b5_r775_routed.npz", "d": 13, "network": "d13_b5_r775", "shots": 200000, "routed": 4000, "shots_sha256": "2b9c8a5bc9be32b75126940a819782e79bb0f44077f92c0d70e99cf2ddf72bee"},
+  "15": {"file": "val_d15.npz", "sha256": "5310ef73e4af6f720fd5439c17f5bdcc44b43218e7c1726779a609b8b91a689c", "study_file": "d15_b5_r782_routed.npz", "d": 15, "network": "d15_b5_r782", "shots": 200000, "routed": 11822, "shots_sha256": "7b2cb1efe4ff55d30684fb0c9ba340c709f6d9946a26bf4b0cd781d2cab945dd"},
+  "17": {"file": "val_d17.npz", "sha256": "a2ea487db01e80582de11337fd508452179bc14c7a4dbe982700932937101247", "study_file": "d17.npz, member d17_b5_r787_routed (the development record study 4's freeze pinned, sha256 8e0ead565bbe3a003aec59a62499e6b52de284c548a4a9bdc6f69cdc8d4cd593)", "d": 17, "network": "d17_b5_r787", "shots": 200000, "routed": 19957, "shots_sha256": "04c501a00e1412e1c5260cd066172355a7e86a1180db3d0f7787a196fe2720b2"}
+ }
+}

@@ -1,0 +1,139 @@
+{
+ "plan": "ising_compare/bb/STAGE3_GROSS_PLAN.md (9c59fb05)",
+ "cell": "G-4",
+ "code": "bb144",
+ "p": 0.004,
+ "split": "test",
+ "chunks": "0-29",
+ "shots": 300000,
+ "policy": "data/bb/stage3_gross/frontierf_g2_D12k113c10.json",
+ "policy_sha256": "1f5e2ad79eb48d648c3464c57168c2189ae2f22638ac146a08e00c687d1c902d",
+ "tag": "g2_D12k113c10",
+ "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+ "engine": {
+  "batch": 1,
+  "cuda": "12.6",
+  "cudnn": 91002,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "kind": "graph32",
+  "net_sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692",
+  "precision": "fp32",
+  "src": {
+   "engine.py": "ca6c91f3b6c29c97",
+   "net.py": "36e2b562e3acad8c"
+  },
+  "torch": "2.11.0+cu126"
+ },
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "tau": 0.5629201531410217,
+ "q": 0.005,
+ "fallback": "relay",
+ "vs": [
+  "relay",
+  "bposd",
+  "gpu_bposd"
+ ],
+ "alpha": 0.016666666666666666,
+ "reference": "relay_full",
+ "reference_chunks": "0",
+ "reference_first": 10000,
+ "cpu_term_first_routed": 1000,
+ "opponents_first": 1000,
+ "warmup_first": 100,
+ "configs": {
+  "relay": "relay-bp 0.2.2 RelayDecoderF32 on the X-detector sector: alpha 1.0, gamma0 0.15, pre_iter 80, num_sets 300, set_max_iter 60, gamma_dist_interval (-0.22628432386414646, 0.6216020925981884), stop_nconv 5 (qnd.teachers 'relay', bb.opp relay)",
+  "relay_full": "the same decoder and parameters on the full DEM (both detector sectors), bb.opp relay_full",
+  "bposd": "ldpc 2.4.1 BpOsdDecoder: bp_method minimum_sum, ms_scaling_factor 1.0, max_iter 80, schedule parallel, osd_method osd_cs, osd_order 60, X sector (qnd.teachers 'bposd_ms80_cs60', bb.opp bposd)",
+  "gpu_bposd": "cudaq-qec 0.8.0 nv-qldpc-decoder ms80_cs60: bp_method 1 (min-sum), scale_factor 1.0, max_iterations 80, use_osd, osd_method 3 (OSD-CS), osd_order 60, X sector; reads in calls of 1,000 shots, timing at batch 1 (bb.gpu_bposd)"
+ },
+ "versions": {
+  "pod_engine_venv": "<pod-home>/g2venv = gross2's lock (stage_gross2/pod_env.lock): Python 3.12.14, torch 2.11.0+cu126 (CUDA 12.6, cuDNN 91002), triton 3.6.0, numpy 2.2.6, stim 1.16.0, scipy 1.18.1",
+  "pod_cudaq_venv": "<pod-home>/cqvenv: Python 3.12.14, cudaq-qec 0.8.0 (cudaq-qec-cu12 0.8.0, cuda-quantum-cu12 0.16.0.post1, cupy-cuda12x 13.6.0), numpy 2.2.6, stim 1.16.0, scipy 1.18.1",
+  "apple_m4": "Python 3.12.14, relay-bp 0.2.2, ldpc 2.4.1, stim 1.16.0, numpy 2.2.6, scipy 1.18.1",
+  "derecho": "<cluster-work>/qldpc/venv: Python 3.12.14, relay-bp 0.2.2, ldpc 2.4.1, stim 1.16.0, numpy 2.2.6, scipy 1.18.1"
+ },
+ "hosts": {
+  "pod": "RunPod gpu-pod (machine gpu-machine): one NVIDIA H100 80GB HBM3, Intel Xeon Platinum 8480+ (avx2)",
+  "apple_m4": "Apple M4 (4 performance + 6 efficiency cores, 16 GB): one single-threaded process at a time, idle otherwise",
+  "derecho": "one Derecho CPU node (2 x AMD EPYC 7763), PBS develop queue, account <account>, 128 bb.opp processes"
+ },
+ "sessions": {
+  "gpu_pre": "h100-gpu-pod-pre",
+  "gpu_post": "h100-gpu-pod-post",
+  "cpu_A": "M4 session gA",
+  "cpu_B": "M4 session gB"
+ },
+ "rows": {
+  "gpu": "data/bb/stage3_gross/rows_gpu.csv",
+  "cpu": "data/bb/stage3_gross/rows_cpu.csv"
+ },
+ "analysis_command": "python -m bb.stage3_gross analyze --out data/bb/stage3_gross",
+ "status": "tested",
+ "prefreeze": {
+  "split": "cal",
+  "gpu_term": {
+   "value_ms": 3.4296144409179687,
+   "n": 5,
+   "all_ms": [
+    3.4296144409179687,
+    3.355472351074219,
+    3.408097229003906,
+    3.4080355224609375,
+    3.4078577880859373
+   ]
+  },
+  "handoff": {
+   "value_ms": 0.022617649286985397,
+   "n": 5,
+   "all_ms": [
+    0.019940990954637527,
+    0.022617649286985397,
+    0.01993679627776146,
+    0.020005706697702408,
+    0.01984742097556591
+   ]
+  },
+  "cpu_term": {
+   "value_ms": 5.0309639334815435,
+   "n": 3,
+   "all_ms": [
+    5.006951136662101,
+    5.0309639334815435,
+    5.01853244468366
+   ]
+  },
+  "gating": {
+   "relay": {
+    "value_ms": 63.07363797372091,
+    "n": 3,
+    "all_ms": [
+     63.34413804183714,
+     63.35634109470993,
+     63.07363797372091
+    ]
+   },
+   "bposd": {
+    "value_ms": 76.94941433015629,
+    "n": 3,
+    "all_ms": [
+     76.94941433015629,
+     77.01328780374024,
+     76.98004771472188
+    ]
+   },
+   "gpu_bposd": {
+    "value_ms": 16.294205263257027,
+    "n": 3,
+    "all_ms": [
+     16.294205263257027,
+     17.28974048048258,
+     18.020345140248537
+    ]
+   }
+  },
+  "composite_ms": 8.483196023686498,
+  "bar_ms": 16.294205263257027,
+  "bar_from": "gpu_bposd",
+  "ok": true
+ }
+}

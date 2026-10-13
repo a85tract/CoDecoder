@@ -1,0 +1,3 @@
+# G4 replica 733 (arch/README.md section 13): ConvLines b3 at d = 13 from G2's d = 9 g2_r711 final EMA (sha256 checked),
+# block 3 the identity at the start, 2e8 fresh true-label samples, G2's recipe; --no-val
+$PY -m arch.train --run d13_b3t_r733 --run-id 733 --d 13 --phase truth --init-transfer $A/ckpt/g2_r711/final_ema.pt --init-sha 135ef76d25b55eaef8a1a016b24dacbf119cf201d3cdd6b4ad3350c292d87a53 --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --blocks 3 --no-val --plateau-kill 1.2

@@ -1,0 +1,92 @@
+{
+ "code": "surface",
+ "label": "d = 9, p = 0.6 %, the deployed trunk (stem and 3 blocks of width 128)",
+ "arms": [
+  "S-VA",
+  "S-V",
+  "S-L",
+  "S-P",
+  "S-PA"
+ ],
+ "deployed": "S-VA",
+ "seeds": [
+  1,
+  2
+ ],
+ "cal": {
+  "kind": "cal",
+  "chunks": "0-19"
+ },
+ "test": {
+  "kind": "test",
+  "chunks": "0-99"
+ },
+ "q": [
+  0,
+  0.005,
+  0.01,
+  0.02,
+  0.04,
+  0.08,
+  0.16
+ ],
+ "q_registered": 0.01,
+ "fallback": "correlated PM",
+ "comparisons": [
+  {
+   "id": "R1",
+   "factor": "readout",
+   "x": "S-P",
+   "y": "S-V",
+   "held": "no line loss"
+  },
+  {
+   "id": "R2",
+   "factor": "readout",
+   "x": "S-L",
+   "y": "S-V",
+   "held": "no line loss"
+  },
+  {
+   "id": "R3",
+   "factor": "readout",
+   "x": "S-PA",
+   "y": "S-VA",
+   "held": "line loss"
+  },
+  {
+   "id": "U1",
+   "factor": "supervision",
+   "x": "S-V",
+   "y": "S-VA",
+   "held": "vote read-out"
+  },
+  {
+   "id": "U2",
+   "factor": "supervision",
+   "x": "S-PA",
+   "y": "S-P",
+   "held": "pooled read-out"
+  },
+  {
+   "id": "W1",
+   "factor": "whole design",
+   "x": "S-L",
+   "y": "S-VA",
+   "held": "neither (credited to neither)"
+  },
+  {
+   "id": "W2",
+   "factor": "whole design",
+   "x": "S-P",
+   "y": "S-VA",
+   "held": "neither (credited to neither)"
+  }
+ ],
+ "references": [
+  {
+   "name": "r764",
+   "label": "deployed r764, grown from a 2-block network: outside the controlled comparison"
+  }
+ ]
+}

@@ -1,0 +1,1123 @@
+{
+ "dry": false,
+ "files": {
+  "mask.log": "mask: 15759 of 200,000 V17b shots routed (7.8795%); registered tau 19957; 86dc8abf2712a97d; V17b failures q 8 % 581, q 10 % 582 (only 29 / 30); planning power at 1e6 {'true_diff_0': 0.9940423731427913, 'true_diff_val': 0.997490061960513, 'true_diff_half_delta': 0.5543347235239138}\n",
+  "mask_q08.json": {
+   "created": "2026-10-10T03:53:34-0600",
+   "devrec_sha256": "8e0ead565bbe3a003aec59a62499e6b52de284c548a4a9bdc6f69cdc8d4cd593",
+   "mask_sha256": "86dc8abf2712a97d8e1cac2baa0a11c3d5fc6fffb10a2aebb461bc546ce98c26",
+   "routed": 15759,
+   "routed_fraction": 0.078795,
+   "routed_registered": 19957,
+   "stage": "R17: the q = 8 % routing mask of V17b",
+   "tau": "4.539173126220703",
+   "val_preservation": {
+    "failures_q08": 581,
+    "failures_q10": 582,
+    "only_q08": 29,
+    "only_q10": 30,
+    "power_at_1e6": {
+     "true_diff_0": 0.9940423731427913,
+     "true_diff_half_delta": 0.5543347235239138,
+     "true_diff_val": 0.997490061960513
+    },
+    "rule": "normal approximation of the paired difference; power = P(upper end of the 97.5 % interval < delta)",
+    "shots": 200000
+   }
+  },
+  "node.txt": "2026-10-10T03:53:00-06:00\nmem-node-01\n47dc748fc6e3f9aecb057750bb9b9316986de7f1\nArchitecture:        x86_64\nCPU op-mode(s):      32-bit, 64-bit\nByte Order:          Little Endian\nCPU(s):              64\nOn-line CPU(s) list: 0-63\nThread(s) per core:  1\nCore(s) per socket:  64\nSocket(s):           1\nNUMA node(s):        1\nVendor ID:           AuthenticAMD\nCPU family:          25\nModel:               1\nModel name:          AMD EPYC 7713 64-Core Processor\nStepping:            1\nCPU MHz:             1996.150\nBogoMIPS:            3992.30\nVirtualization:      AMD-V\nL1d cache:           32K\nL1i cache:           32K\nL2 cache:            512K\nL3 cache:            32768K\nNUMA node0 CPU(s):   0-63\nFlags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid aperfmperf pni pclmulqdq monitor ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb cat_l3 cdp_l3 invpcid_single hw_pstate ssbd mba ibrs ibpb stibp vmmcall fsgsbase bmi1 avx2 smep bmi2 invpcid cqm rdt_a rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local clzero irperf xsaveerptr wbnoinvd amd_ppin brs arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload vgif v_spec_ctrl umip pku ospke vaes vpclmulqdq rdpid overflow_recov succor smca\n              total        used        free      shared  buff/cache   available\nMem:            995          12         870          14         112         963\nSwap:            14           0          14\n 03:53:00 up 2 days, 20:25,  0 users,  load average: 1.25, 1.22, 1.20\ncore 8 siblings 8\njob J23 nodes mem-node-01 cpus_on_node 64 dry 0\n   NumNodes=1 NumCPUs=64 NumTasks=1 CPUs/Task=13 ReqB:S:C:T=0:0:*:*\n   OverSubscribe=NO Contiguous=0 Licenses=(null) Network=(null)\n    680 root\n      6 <user>\n      3 telegraf\n      2 postfix\n      1 scalepm\n      1 rpcuser\n      1 rpc\n      1 polkitd\n      1 munge\n      1 dbus\n 03:56:51 up 2 days, 20:29,  0 users,  load average: 2.37, 1.89, 1.48\n",
+  "pins.json": {
+   "bad": [],
+   "bundle_files": 15,
+   "host": {
+    "cpu": "AMD EPYC 7713 64-Core Processor",
+    "machine": "x86_64",
+    "node": "mem-node-01",
+    "platform": "Linux-4.18.0-553.92.1.el8_10.x86_64-x86_64-with-glibc2.36",
+    "simd": [
+     "avx",
+     "avx2",
+     "sse2",
+     "sse4_1",
+     "sse4_2"
+    ]
+   },
+   "missing": [],
+   "record": "7c6e65397710b4df428cfd08141bb3de06e52ccb841fa1bb463913c9e32fd147",
+   "s4r3_files": 12,
+   "when": "2026-10-10T03:53:21-0600"
+  },
+  "pins.log": "pins: frozen code, Stim, numpy and circuit equal; 15 bundle files, 12 S4-R3 records; differ []; missing []\n",
+  "ref_d17_correlated_rep1.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:54:00-0600",
+   "failures": 36,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0037831021437578815,
+     "steal": 0.0,
+     "system": 0.0012610340479192938
+    },
+    "load_end": [
+     "1.81",
+     "1.38",
+     "1.25"
+    ],
+    "load_start": [
+     "1.70",
+     "1.35",
+     "1.25"
+    ],
+    "nonvoluntary_ctxt": 10,
+    "pinned": 8,
+    "seconds": 7.942679166793823,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "correlated",
+   "numpy": "2.2.6",
+   "per_block_us": 780.5385206709616,
+   "pid": 806264,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 1,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:53:50-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 1879.1309848893434,
+    "mean": 780.5385206709616,
+    "min": 448.43199430033565,
+    "n": 10000,
+    "p50": 765.6889938516542,
+    "p99": 1165.7233836012892
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_correlated_rep1.log": "ref_d17_correlated_rep1: 780.54 \u00b5s per block (p99 1165.7); failures 36\n",
+  "ref_d17_correlated_rep2.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:55:04-0600",
+   "failures": 36,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0037546933667083854,
+     "steal": 0.0,
+     "system": 0.0025031289111389237
+    },
+    "load_end": [
+     "2.17",
+     "1.59",
+     "1.34"
+    ],
+    "load_start": [
+     "2.19",
+     "1.58",
+     "1.33"
+    ],
+    "nonvoluntary_ctxt": 11,
+    "pinned": 8,
+    "seconds": 7.993962049484253,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "correlated",
+   "numpy": "2.2.6",
+   "per_block_us": 785.6091881491011,
+   "pid": 806633,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 2,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:54:54-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 1874.4920089375228,
+    "mean": 785.6091881491011,
+    "min": 456.8579897750169,
+    "n": 10000,
+    "p50": 770.4579766141251,
+    "p99": 1171.532189764548
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_correlated_rep2.log": "ref_d17_correlated_rep2: 785.61 \u00b5s per block (p99 1171.5); failures 36\n",
+  "ref_d17_correlated_rep3.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:56:06-0600",
+   "failures": 36,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.005154639175257732,
+     "steal": 0.0,
+     "system": 0.001288659793814433
+    },
+    "load_end": [
+     "2.70",
+     "1.85",
+     "1.45"
+    ],
+    "load_start": [
+     "2.65",
+     "1.81",
+     "1.43"
+    ],
+    "nonvoluntary_ctxt": 7,
+    "pinned": 8,
+    "seconds": 7.76535177230835,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "correlated",
+   "numpy": "2.2.6",
+   "per_block_us": 763.0910186941037,
+   "pid": 807038,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 3,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:55:56-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 1864.6239768713713,
+    "mean": 763.0910186941037,
+    "min": 447.3600129131228,
+    "n": 10000,
+    "p50": 747.96550325118,
+    "p99": 1146.6714984271678
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_correlated_rep3.log": "ref_d17_correlated_rep3: 763.09 \u00b5s per block (p99 1146.7); failures 36\n",
+  "ref_d17_plain_rep1.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:53:48-0600",
+   "failures": 152,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0033003300330033004,
+     "steal": 0.0,
+     "system": 0.0
+    },
+    "load_end": [
+     "1.68",
+     "1.34",
+     "1.24"
+    ],
+    "load_start": [
+     "1.65",
+     "1.33",
+     "1.24"
+    ],
+    "nonvoluntary_ctxt": 5,
+    "pinned": 8,
+    "seconds": 3.038655996322632,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "plain",
+   "numpy": "2.2.6",
+   "per_block_us": 300.36430999753065,
+   "pid": 806189,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 1,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:53:43-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 943.2820079382509,
+    "mean": 300.36430999753065,
+    "min": 163.01599680446088,
+    "n": 10000,
+    "p50": 290.1700063375756,
+    "p99": 511.94901490816864
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_plain_rep1.log": "ref_d17_plain_rep1: 300.36 \u00b5s per block (p99 511.9); failures 152\n",
+  "ref_d17_plain_rep2.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:54:52-0600",
+   "failures": 152,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0033003300330033004,
+     "steal": 0.0,
+     "system": 0.0
+    },
+    "load_end": [
+     "2.21",
+     "1.57",
+     "1.33"
+    ],
+    "load_start": [
+     "2.22",
+     "1.57",
+     "1.33"
+    ],
+    "nonvoluntary_ctxt": 5,
+    "pinned": 8,
+    "seconds": 3.0248167514801025,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "plain",
+   "numpy": "2.2.6",
+   "per_block_us": 298.94567099399865,
+   "pid": 806568,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 2,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:54:47-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 935.0370091851801,
+    "mean": 298.94567099399865,
+    "min": 163.71702076867223,
+    "n": 10000,
+    "p50": 288.88299129903316,
+    "p99": 507.0445052115247
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_plain_rep2.log": "ref_d17_plain_rep2: 298.95 \u00b5s per block (p99 507.0); failures 152\n",
+  "ref_d17_plain_rep3.json": {
+   "api": "pymatching.Matching.from_detector_error_model(dem, enable_correlations=...).decode(syndrome, enable_correlations=...)",
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "end": "2026-10-10T03:55:54-0600",
+   "failures": 152,
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0033222591362126247,
+     "steal": 0.0,
+     "system": 0.0
+    },
+    "load_end": [
+     "2.62",
+     "1.79",
+     "1.42"
+    ],
+    "load_start": [
+     "2.62",
+     "1.79",
+     "1.42"
+    ],
+    "nonvoluntary_ctxt": 4,
+    "pinned": 8,
+    "seconds": 3.0059356689453125,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "kind": "plain",
+   "numpy": "2.2.6",
+   "per_block_us": 297.1841822436545,
+   "pid": 806981,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "rep": 3,
+   "shots": 10000,
+   "stage": "S11.6 items 2-3",
+   "start": "2026-10-10T03:55:49-0600",
+   "stim": "1.16.0",
+   "times": {
+    "max": 941.7789988219738,
+    "mean": 297.1841822436545,
+    "min": 160.672003403306,
+    "n": 10000,
+    "p50": 287.07500314339995,
+    "p99": 507.35707976855343
+   },
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58"
+    },
+    "chunks": [
+     0
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "what": "ref"
+  },
+  "ref_d17_plain_rep3.log": "ref_d17_plain_rep3: 297.18 \u00b5s per block (p99 507.4); failures 152\n",
+  "term_r17_q08_rep1.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 902.8492964192599,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:54:21-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.004172461752433936,
+     "steal": 0.0,
+     "system": 0.0006954102920723226
+    },
+    "load_end": [
+     "2.11",
+     "1.49",
+     "1.30"
+    ],
+    "load_start": [
+     "2.14",
+     "1.46",
+     "1.28"
+    ],
+    "nonvoluntary_ctxt": 13,
+    "pinned": 8,
+    "seconds": 14.376837730407715,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "f846cbcc21d1906b2c59c8474b30d0bc1ff91ab6bae271f049f6a82fc47cee18",
+   "numpy": "2.2.6",
+   "pid": 806355,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.08,
+   "rep": 1,
+   "routed": 15759,
+   "routed_fraction": 0.078795,
+   "routed_times": {
+    "max": 2239.0570084098727,
+    "mean": 902.8492964192599,
+    "min": 546.5170252136886,
+    "n": 15759,
+    "p50": 883.0089936964214,
+    "p99": 1351.5466131502762
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "4.539173126220703",
+   "term_us": 71.14001031135558,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 14.376378059387207,
+   "what": "term",
+   "which": "q08"
+  },
+  "term_r17_q08_rep1.log": "term_r17_q08_rep1: term 71.140 \u00b5s per shot (15759 routed, conditional mean 902.85, p99 1351.5); decisions equal record True\n",
+  "term_r17_q08_rep2.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 877.9989802680591,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:55:23-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.004288777698355968,
+     "steal": 0.0,
+     "system": 0.0014295925661186562
+    },
+    "load_end": [
+     "2.28",
+     "1.65",
+     "1.36"
+    ],
+    "load_start": [
+     "2.16",
+     "1.60",
+     "1.34"
+    ],
+    "nonvoluntary_ctxt": 7,
+    "pinned": 8,
+    "seconds": 13.982041358947754,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "f846cbcc21d1906b2c59c8474b30d0bc1ff91ab6bae271f049f6a82fc47cee18",
+   "numpy": "2.2.6",
+   "pid": 806719,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.08,
+   "rep": 2,
+   "routed": 15759,
+   "routed_fraction": 0.078795,
+   "routed_times": {
+    "max": 2214.901993284002,
+    "mean": 877.9989802680591,
+    "min": 528.9340042509139,
+    "n": 15759,
+    "p50": 857.9830173403025,
+    "p99": 1323.6592506291345
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "4.539173126220703",
+   "term_us": 69.18192965022172,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 13.981595277786255,
+   "what": "term",
+   "which": "q08"
+  },
+  "term_r17_q08_rep2.log": "term_r17_q08_rep2: term 69.182 \u00b5s per shot (15759 routed, conditional mean 878.00, p99 1323.7); decisions equal record True\n",
+  "term_r17_q08_rep3.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 926.9311490899031,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:56:26-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0040650406504065045,
+     "steal": 0.0,
+     "system": 0.0013550135501355014
+    },
+    "load_end": [
+     "2.56",
+     "1.88",
+     "1.47"
+    ],
+    "load_start": [
+     "2.73",
+     "1.87",
+     "1.46"
+    ],
+    "nonvoluntary_ctxt": 8,
+    "pinned": 8,
+    "seconds": 14.759590864181519,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "f846cbcc21d1906b2c59c8474b30d0bc1ff91ab6bae271f049f6a82fc47cee18",
+   "numpy": "2.2.6",
+   "pid": 807131,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.08,
+   "rep": 3,
+   "routed": 15759,
+   "routed_fraction": 0.078795,
+   "routed_times": {
+    "max": 2302.476001204923,
+    "mean": 926.9311490899031,
+    "min": 560.553016839549,
+    "n": 15759,
+    "p50": 906.7540231626481,
+    "p99": 1385.0536925019699
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "4.539173126220703",
+   "term_us": 73.03753989253892,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 14.759129047393799,
+   "what": "term",
+   "which": "q08"
+  },
+  "term_r17_q08_rep3.log": "term_r17_q08_rep3: term 73.038 \u00b5s per shot (15759 routed, conditional mean 926.93, p99 1385.1); decisions equal record True\n",
+  "term_r17_q10_rep1.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 879.6756394371183,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:54:44-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0033917467495760316,
+     "steal": 0.0,
+     "system": 0.0011305822498586771
+    },
+    "load_end": [
+     "2.16",
+     "1.54",
+     "1.32"
+    ],
+    "load_start": [
+     "2.10",
+     "1.50",
+     "1.30"
+    ],
+    "nonvoluntary_ctxt": 12,
+    "pinned": 8,
+    "seconds": 17.70603895187378,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "9ea543a5099b66d54c71163ef4965309024e9befa34f862de4010df570dc4d4a",
+   "numpy": "2.2.6",
+   "pid": 806452,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.1,
+   "rep": 1,
+   "routed": 19957,
+   "routed_fraction": 0.099785,
+   "routed_times": {
+    "max": 2227.8359974734485,
+    "mean": 879.6756394371183,
+    "min": 526.3689963612705,
+    "n": 19957,
+    "p50": 859.3040111009032,
+    "p99": 1327.696869848295
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "5.121974468231201",
+   "term_us": 87.77843368123285,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 17.705580949783325,
+   "what": "term",
+   "which": "q10"
+  },
+  "term_r17_q10_rep1.log": "term_r17_q10_rep1: term 87.778 \u00b5s per shot (19957 routed, conditional mean 879.68, p99 1327.7); decisions equal record True\n",
+  "term_r17_q10_rep2.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 893.22019165831,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:55:47-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.0038953811908736783,
+     "steal": 0.0,
+     "system": 0.0005564830272676684
+    },
+    "load_end": [
+     "2.58",
+     "1.77",
+     "1.41"
+    ],
+    "load_start": [
+     "2.42",
+     "1.69",
+     "1.38"
+    ],
+    "nonvoluntary_ctxt": 11,
+    "pinned": 8,
+    "seconds": 17.980288982391357,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "9ea543a5099b66d54c71163ef4965309024e9befa34f862de4010df570dc4d4a",
+   "numpy": "2.2.6",
+   "pid": 806869,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.1,
+   "rep": 2,
+   "routed": 19957,
+   "routed_fraction": 0.099785,
+   "routed_times": {
+    "max": 2256.279985886067,
+    "mean": 893.22019165831,
+    "min": 533.8329938240349,
+    "n": 19957,
+    "p50": 873.040989972651,
+    "p99": 1339.0003179665637
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "5.121974468231201",
+   "term_us": 89.12997682462446,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 17.979843616485596,
+   "what": "term",
+   "which": "q10"
+  },
+  "term_r17_q10_rep2.log": "term_r17_q10_rep2: term 89.130 \u00b5s per shot (19957 routed, conditional mean 893.22, p99 1339.0); decisions equal record True\n",
+  "term_r17_q10_rep3.json": {
+   "cand": "d17_b5_r787",
+   "conditional_mean_us": 895.0395866488238,
+   "core": 8,
+   "cpu": "AMD EPYC 7713 64-Core Processor",
+   "d": 17,
+   "decisions_differ": 0,
+   "decisions_equal_record": true,
+   "dry": false,
+   "end": "2026-10-10T03:56:50-0600",
+   "host": "mem-node-01",
+   "hostmon": {
+    "cpu8": {
+     "busy": 1.0,
+     "irq": 0.003886729594669628,
+     "steal": 0.0,
+     "system": 0.001110494169905608
+    },
+    "load_end": [
+     "2.40",
+     "1.89",
+     "1.48"
+    ],
+    "load_start": [
+     "2.52",
+     "1.88",
+     "1.47"
+    ],
+    "nonvoluntary_ctxt": 13,
+    "pinned": 8,
+    "seconds": 18.01374363899231,
+    "voluntary_ctxt": 0
+   },
+   "job": "J23",
+   "mask_sha256": "9ea543a5099b66d54c71163ef4965309024e9befa34f862de4010df570dc4d4a",
+   "numpy": "2.2.6",
+   "pid": 807227,
+   "pymatching": "2.4.0",
+   "python": "3.12.14",
+   "q": 0.1,
+   "rep": 3,
+   "routed": 19957,
+   "routed_fraction": 0.099785,
+   "routed_times": {
+    "max": 2258.3829995710403,
+    "mean": 895.0395866488238,
+    "min": 540.935987373814,
+    "n": 19957,
+    "p50": 874.7339888941497,
+    "p99": 1343.9758529420938
+   },
+   "shots": 200000,
+   "stage": "R17 CPU term (speed2.s11.cpu12 term's procedure, the q = 8 % mask)",
+   "stim": "1.16.0",
+   "tau": "5.121974468231201",
+   "term_us": 89.31152515375288,
+   "val_set": {
+    "chunk_content_sha256": {
+     "d17_v17b_000.npz": "5496887e10ef6d9b77fdf5dedbe9523a5a615807b367d15cb2553826c7f2df58",
+     "d17_v17b_001.npz": "09d94b925775d11cc0efb023019885ad68e8bf7899cc4d8b0ee36c52ae603d6b",
+     "d17_v17b_002.npz": "7cf131d996e937dab481c84a42b429a12b843aa804996086e4433d89079ed74d",
+     "d17_v17b_003.npz": "eb8b206eefecc45430af9c5a0e28e3b4592c4ffd16222bc5e02246f558237954",
+     "d17_v17b_004.npz": "a36752528059959167641163f0efeefd07be9958b2a048faba0c129073998431",
+     "d17_v17b_005.npz": "734f13069576c8d9402184a4e8f1e0c39687cd739cb5b74c2121b6b866df98b7",
+     "d17_v17b_006.npz": "4f90e370ddad798e87154e25e5f590cd2d481839ed7481cf5cdb175fb306db5c",
+     "d17_v17b_007.npz": "7143564c8ce9e0ee5cbdd9b323c792cd8a2f7d2b441bc24050c6b978a2d65b6d",
+     "d17_v17b_008.npz": "e8e641b4f6428035a88e3c740742a870a9a96ba6a434d954921e10063afd71ec",
+     "d17_v17b_009.npz": "2026500f1e9b3f8930ccdd8048366116fd71f7f26f98c035946630210d6ad9a5",
+     "d17_v17b_010.npz": "c5290a470c37ed7790e1d32ea6aab008d691cafd2077718f6b7022690a9535e0",
+     "d17_v17b_011.npz": "ab68eb04f652da8424c181802356fdfa6f3dc1f48dfbe3205256be6ba65f439e",
+     "d17_v17b_012.npz": "ce84edaa259976bb7c631ca10e8d55667712c2905133e12db809e6e103e399b0",
+     "d17_v17b_013.npz": "653f3071fac8ab6de79692aa3bb586affcd87fe27aab4782da0f4f7588ebafcd",
+     "d17_v17b_014.npz": "ea7c39e3b440521f7356c6d4d9327a2dabb9e617890f069c20279d13ef03f9f0",
+     "d17_v17b_015.npz": "b261bf8d61d56705c57ce069e080b5facf978cee20b63bd7b078b9768a89ae4e",
+     "d17_v17b_016.npz": "0db7b3490e169f9eaa1a1fa6f0000f47bcd3e25484eae64a114db6b9d3f25f71",
+     "d17_v17b_017.npz": "f310f0f5e87453543048e6f77dbad1887356dd0e420770c7e015dc374e5ffcbc",
+     "d17_v17b_018.npz": "383d035b48fc62a69981015e1f74166b86fc6e9966d386897105a01b4d0f712c",
+     "d17_v17b_019.npz": "6605ac584a3f495fb01e6be14e3504cd0616feb5f84d9b9900e06bb9bd05dd0b"
+    },
+    "chunks": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19
+    ],
+    "circuit_sha256": "5a17d28287e216cc0797acef8a6de96a6e217b7668e1b5417a850498a2a962f7",
+    "d": 17,
+    "manifest": "g14_shot_manifest.csv",
+    "manifest_sha256": "13c661d1c45c9dc121707c6c699889d23a2461a7c712b26125c39389789e8523",
+    "split": "v17b"
+   },
+   "wall_s": 18.013283014297485,
+   "what": "term",
+   "which": "q10"
+  },
+  "term_r17_q10_rep3.log": "term_r17_q10_rep3: term 89.312 \u00b5s per shot (19957 routed, conditional mean 895.04, p99 1344.0); decisions equal record True\n"
+ },
+ "job": "J23",
+ "revision": "R17",
+ "stage": "R17's CPU term (b) on one exclusive Alpine amem node (study 4's s4_cpu.sbatch procedure)"
+}

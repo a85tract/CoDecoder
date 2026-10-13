@@ -1,0 +1,17 @@
+hub ising-cascade-net 64b2e25d480415f4acc12f401e0060d9d9ad6c43 ising_compare/bb (train.py, net.py, code.py, shots.py, design.py, cascade_data.py, cascade_net.py, cascade_optim.py, cascade_train.py, cascade_triton.py, cascade/noise.py), ising_compare/data/bb (design_bb72.json, design_bb144.json), ising_compare/bb/scripts/alpine (gpu.sbatch, args/s2_train.txt), ising_compare/bb/cascade/stage2/jobs (w3b_C14.sh, w3b_C6.sh, w3b_S55.sh, w3c_C14_dfm.sh, w3c_S55_dfm.sh, w3d_C6_dfm.sh, w3d_S55_dfm_deep.sh), qldpc_neural/qnd (__init__.py, bb.py, circuits.py), qldpc_neural/data/circuit_manifest.csv, qldpc_neural/scripts/fetch_relay.sh
+hub ising-cascade-net 9fcfdd4f37508e41ce3152564ed42c64d7da2b22 ising_compare/bb/cascade/stage2/jobs/w3e_C6_dfm.sh (a job file; the code there is 64b2e25d's)
+
+64b2e25d is the commit of ../../cascade/SOURCE. Its bb.train trained S55, S55' and S55'-deep (their job files pin
+the trees b142837ebd183cfcdfea419520d0429f9f2d5c8c and c69800c1dee46d02346076593819f066aafe4138, whose bb.train and
+bb.cascade_train differ from 64b2e25d's only in the --family option the fitted runs added); its bb.cascade_train
+trained C14, C6, C14' and C6'. The same bb.train, with every option added after a run off by default (its docstring),
+runs the arguments of the earlier BB networks: r11, r12 and r21 (5c6edafcd91d1170d265df13599d23738793fb94 on
+ising-bb), g2_A3D (5515f70914aef53ea7ec631687b57384f20d1a7a on ising-bb-gross2) and the gross trunk and its cooldown
+(d71bc5633ee95a6ac668c1d999cc6d4d5a97a5e8 or a later commit of ising-bb-gross2); 5c6edafc, 5515f709 and d71bc563 are
+ancestors of 64b2e25d. The gross stages were started by ising_compare/bb/gross2.py on ising-bb-gross2 (a pod driver,
+not included); ../TRAINING.md gives their arguments, which the released network's own record confirms
+for the last stage.
+
+Not included: the Cascade re-implementation's notes that comments cite (bb/cascade/*.md), bb/checks.py and
+bb/test_cascade.py (the training stage's tests), the Relay-BP circuits (qldpc_neural/scripts/fetch_relay.sh clones
+them; qnd.circuits checks each file's sha256 against data/circuit_manifest.csv).

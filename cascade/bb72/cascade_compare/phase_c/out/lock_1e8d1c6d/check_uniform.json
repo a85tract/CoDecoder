@@ -1,0 +1,1284 @@
+{
+ "family": "uniform",
+ "locked": "<cluster-scratch>/cascade_w4/out/locked_uniform.json",
+ "locked_sha256": "4644fbcc1b65a34c40fe60410c48859b6d1d60f4503371288e2b3d03f11be760",
+ "speed_sha256": "1ec6b2563060f0042f866f19841631e8e1499872e6c15ed77dae7a01c8c811f5",
+ "read": "<cluster-scratch>/cascade_w4/out/check/uniform/read",
+ "eager": "<cluster-scratch>/cascade_w4/out/check/uniform/eager",
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "driver": "590.48.01",
+ "torch": "2.11.0+cu128",
+ "tree": "net 64b2e25d phasec d9b0b899",
+ "tolerance": {
+  "rel": 0.01,
+  "z": 3.0
+ },
+ "frozen": {
+  "C14": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "C6": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "S55": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "C14p": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  },
+  "S55p": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "S55p_deep": {
+   "single": "fused@1",
+   "amortized": "fused@4096",
+   "batched": "fused@4096"
+  },
+  "r11": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "r12": {
+   "single": "fused@1",
+   "amortized": "fused@1024",
+   "batched": "fused@4096"
+  },
+  "C6p": {
+   "single": "compiled@1",
+   "amortized": "compiled@4096",
+   "batched": "compiled@4096"
+  }
+ },
+ "relay_union": {
+  "0.002": 380,
+  "0.003": 2641
+ },
+ "relay_build_ms": {
+  "0.002": 7.394179500988685,
+  "0.003": 7.379545152070932
+ },
+ "secs": {
+  "0.002": 408.5,
+  "0.003": 351.7
+ },
+ "rows": [
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C14",
+   "mode": "single",
+   "path": "compiled@1",
+   "differ": 3,
+   "conf_differ": 58835,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 37,
+    "timed": 38,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C14",
+   "mode": "amortized",
+   "path": "compiled@4096",
+   "differ": 3,
+   "conf_differ": 58073,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 37,
+    "timed": 38,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C6",
+   "mode": "single",
+   "path": "compiled@1",
+   "differ": 0,
+   "conf_differ": 45729,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 58,
+    "timed": 58,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C6",
+   "mode": "amortized",
+   "path": "compiled@4096",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 58,
+    "timed": 58,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 100,
+    "timed": 100,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 100,
+    "timed": 100,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 105,
+    "timed": 105,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 105,
+    "timed": 105,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p_deep",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 71,
+    "timed": 71,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p_deep",
+   "mode": "amortized",
+   "path": "fused@4096",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 71,
+    "timed": 71,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r11",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 98,
+    "timed": 98,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r11",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 98,
+    "timed": 98,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r12",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 104,
+    "timed": 104,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r12",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 104,
+    "timed": 104,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "eval",
+   "net": "C6",
+   "mode": "compiled read against eager",
+   "fail": {
+    "eval": 58,
+    "timed": 58,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "eval",
+   "net": "C6p",
+   "mode": "compiled read against eager",
+   "fail": {
+    "eval": 55,
+    "timed": 56,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 2,
+   "type": "S-B",
+   "decoder": "S -> B",
+   "S": "S55",
+   "B": "C14",
+   "mode": "single",
+   "paths": {
+    "S": "fused@1",
+    "B": "compiled@1"
+   },
+   "fail": {
+    "eval": 37,
+    "timed": 38,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 1990,
+     "timed": 1990,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 2,
+   "type": "S-B",
+   "decoder": "S -> B",
+   "S": "S55",
+   "B": "C14",
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096",
+    "B": "compiled@4096"
+   },
+   "fail": {
+    "eval": 37,
+    "timed": 38,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 1990,
+     "timed": 1990,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 3,
+   "type": "S-B-R",
+   "decoder": "S -> B -> R",
+   "S": "S55",
+   "B": "C14",
+   "mode": "single",
+   "paths": {
+    "S": "fused@1",
+    "B": "compiled@1"
+   },
+   "fail": {
+    "eval": 53,
+    "timed": 54,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 40015,
+     "timed": 40015,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    },
+    "to_R": {
+     "eval": 114,
+     "timed": 117,
+     "only_timed": 3,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 3,
+   "type": "S-B-R",
+   "decoder": "S -> B -> R",
+   "S": "S55",
+   "B": "C14",
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096",
+    "B": "compiled@4096"
+   },
+   "fail": {
+    "eval": 53,
+    "timed": 54,
+    "only_timed": 1,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 40015,
+     "timed": 40015,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    },
+    "to_R": {
+     "eval": 114,
+     "timed": 117,
+     "only_timed": 3,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 4,
+   "type": "S-R",
+   "decoder": "S -> R",
+   "S": "S55",
+   "B": null,
+   "mode": "single",
+   "paths": {
+    "S": "fused@1"
+   },
+   "fail": {
+    "eval": 78,
+    "timed": 78,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 278,
+     "timed": 278,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 4,
+   "type": "S-R",
+   "decoder": "S -> R",
+   "S": "S55",
+   "B": null,
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096"
+   },
+   "fail": {
+    "eval": 78,
+    "timed": 78,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 278,
+     "timed": 278,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 5,
+   "type": "S-R",
+   "decoder": "r12 -> R",
+   "S": "r12",
+   "B": null,
+   "mode": "single",
+   "paths": {
+    "S": "fused@1"
+   },
+   "fail": {
+    "eval": 73,
+    "timed": 73,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 267,
+     "timed": 267,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.002,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 5,
+   "type": "S-R",
+   "decoder": "r12 -> R",
+   "S": "r12",
+   "B": null,
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096"
+   },
+   "fail": {
+    "eval": 73,
+    "timed": 73,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 267,
+     "timed": 267,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C14",
+   "mode": "single",
+   "path": "compiled@1",
+   "differ": 11,
+   "conf_differ": 57094,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 227,
+    "timed": 229,
+    "only_timed": 2,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C14",
+   "mode": "amortized",
+   "path": "compiled@4096",
+   "differ": 8,
+   "conf_differ": 56337,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 227,
+    "timed": 227,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C6",
+   "mode": "single",
+   "path": "compiled@1",
+   "differ": 9,
+   "conf_differ": 40458,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 334,
+    "timed": 333,
+    "only_timed": 0,
+    "only_eval": 1,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "C6",
+   "mode": "amortized",
+   "path": "compiled@4096",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": false,
+   "fail": {
+    "eval": 334,
+    "timed": 334,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 569,
+    "timed": 569,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 569,
+    "timed": 569,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 619,
+    "timed": 619,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 619,
+    "timed": 619,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p_deep",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 391,
+    "timed": 391,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "S55p_deep",
+   "mode": "amortized",
+   "path": "fused@4096",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 391,
+    "timed": 391,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r11",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 677,
+    "timed": 677,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r11",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 677,
+    "timed": 677,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r12",
+   "mode": "single",
+   "path": "fused@1",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 686,
+    "timed": 686,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "alone",
+   "net": "r12",
+   "mode": "amortized",
+   "path": "fused@1024",
+   "differ": 0,
+   "conf_differ": 0,
+   "bitwise_required": true,
+   "fail": {
+    "eval": 686,
+    "timed": 686,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "eval",
+   "net": "C6",
+   "mode": "compiled read against eager",
+   "fail": {
+    "eval": 333,
+    "timed": 334,
+    "only_timed": 2,
+    "only_eval": 1,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "eval",
+   "net": "C6p",
+   "mode": "compiled read against eager",
+   "fail": {
+    "eval": 363,
+    "timed": 365,
+    "only_timed": 2,
+    "only_eval": 0,
+    "pass": true
+   },
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 7,
+   "type": "S-B",
+   "decoder": "S -> B",
+   "S": "S55",
+   "B": "C14",
+   "mode": "single",
+   "paths": {
+    "S": "fused@1",
+    "B": "compiled@1"
+   },
+   "fail": {
+    "eval": 227,
+    "timed": 229,
+    "only_timed": 2,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 39928,
+     "timed": 39928,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 7,
+   "type": "S-B",
+   "decoder": "S -> B",
+   "S": "S55",
+   "B": "C14",
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096",
+    "B": "compiled@4096"
+   },
+   "fail": {
+    "eval": 227,
+    "timed": 227,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 39928,
+     "timed": 39928,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 8,
+   "type": "S-B-R",
+   "decoder": "S -> B -> R",
+   "S": "S55",
+   "B": "C14",
+   "mode": "single",
+   "paths": {
+    "S": "fused@1",
+    "B": "compiled@1"
+   },
+   "fail": {
+    "eval": 197,
+    "timed": 197,
+    "only_timed": 1,
+    "only_eval": 1,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 39928,
+     "timed": 39928,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    },
+    "to_R": {
+     "eval": 99,
+     "timed": 98,
+     "only_timed": 2,
+     "only_eval": 3,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 8,
+   "type": "S-B-R",
+   "decoder": "S -> B -> R",
+   "S": "S55",
+   "B": "C14",
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096",
+    "B": "compiled@4096"
+   },
+   "fail": {
+    "eval": 197,
+    "timed": 196,
+    "only_timed": 0,
+    "only_eval": 1,
+    "pass": true
+   },
+   "routing": {
+    "to_B": {
+     "eval": 39928,
+     "timed": 39928,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    },
+    "to_R": {
+     "eval": 99,
+     "timed": 99,
+     "only_timed": 2,
+     "only_eval": 2,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 9,
+   "type": "S-R",
+   "decoder": "S -> R",
+   "S": "S55",
+   "B": null,
+   "mode": "single",
+   "paths": {
+    "S": "fused@1"
+   },
+   "fail": {
+    "eval": 390,
+    "timed": 390,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 2009,
+     "timed": 2009,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 9,
+   "type": "S-R",
+   "decoder": "S -> R",
+   "S": "S55",
+   "B": null,
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096"
+   },
+   "fail": {
+    "eval": 390,
+    "timed": 390,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 2009,
+     "timed": 2009,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 10,
+   "type": "S-R",
+   "decoder": "r12 -> R",
+   "S": "r12",
+   "B": null,
+   "mode": "single",
+   "paths": {
+    "S": "fused@1"
+   },
+   "fail": {
+    "eval": 403,
+    "timed": 403,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 2048,
+     "timed": 2048,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  },
+  {
+   "p": 0.003,
+   "kind_seed": 12,
+   "shots": 100000,
+   "what": "routed",
+   "config": 10,
+   "type": "S-R",
+   "decoder": "r12 -> R",
+   "S": "r12",
+   "B": null,
+   "mode": "batched",
+   "paths": {
+    "S": "fused@4096"
+   },
+   "fail": {
+    "eval": 403,
+    "timed": 403,
+    "only_timed": 0,
+    "only_eval": 0,
+    "pass": true
+   },
+   "routing": {
+    "to_R": {
+     "eval": 2048,
+     "timed": 2048,
+     "only_timed": 0,
+     "only_eval": 0,
+     "pass": true
+    }
+   },
+   "S_bitwise": true,
+   "pass": true
+  }
+ ],
+ "decoders": {
+  "C14 alone": true,
+  "C6 alone": true,
+  "S55 alone": true,
+  "S55p alone": true,
+  "S55p_deep alone": true,
+  "r11 alone": true,
+  "r12 alone": true,
+  "C6 compiled read": true,
+  "C6p compiled read": true,
+  "config 2": true,
+  "config 3": true,
+  "config 4": true,
+  "config 5": true,
+  "config 7": true,
+  "config 8": true,
+  "config 9": true,
+  "config 10": true
+ }
+}

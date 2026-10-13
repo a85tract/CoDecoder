@@ -1,0 +1,3 @@
+# G5 replica 735 (arch/README.md section 14): ConvLines b3 at d = 11 from G4's d = 13 b3 replica 733 final EMA (sha256
+# checked), all three blocks copied, 2e8 fresh true-label samples, G2's recipe; --no-val; numeric plateau / collapse stops
+$PY -m arch.train --run d11_b3t_r735 --run-id 735 --d 11 --phase truth --init-transfer $A/ckpt/d13_b3t_r733/final_ema.pt --init-sha 68588b00dccecd37a81081d3b3e2d7157d8d5fe96dc3d9df931821c568cdfef6 --samples 2e8 --lr 1e-3 --warmup 1000 --wd 0.01 --batch 1024 --eval-every 1e7 --workers 8 --compile --ema 0.999 --blocks 3 --no-val --plateau-kill 1.2 --collapse-kill 1.2

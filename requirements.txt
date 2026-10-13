@@ -1,0 +1,20 @@
+# Pinned versions of the paper's tests (Python 3.12.14, Linux x86-64). Install torch first:
+#   pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cu126    # the surface studies' build (triton 3.6.0)
+#   or --index-url https://download.pytorch.org/whl/cu128, which the BB, Cascade and output-head runs used and Blackwell
+#   GPUs need (README, "Installation")
+numpy==2.2.6
+scipy==1.18.1
+stim==1.16.0
+PyMatching==2.4.0
+torch==2.11.0
+safetensors==0.8.0
+matplotlib==3.11.2
+# Extras, by part (README, "Installation"):
+#   BB codes and the Cascade comparison: relay-bp==0.2.2, and Relay-BP's repository at d185194 for the circuits
+#          (QND_RELAY=<dir> bash training/bb/qldpc_neural/scripts/fetch_relay.sh)
+#   Training with BP-OSD as the strong decoder: ldpc==2.4.1
+#   Ising opponents: NVIDIA Ising-Decoding at 3ce4379 plus the rest of its code/requirements_public_inference.txt; tested
+#          with hydra-core==1.3.7 omegaconf==2.3.1 ldpc==2.4.1 beliefmatching==0.2.0
+#   BP-OSD opponent: cudaq-qec-cu12==0.8.0 on an NVIDIA GPU (the studies used a separate environment with numpy 2.5.3)
+#   Ising's TensorRT plans (evaluation/timing/ising_trt.py): the Ising extras plus tensorrt_cu12==10.14.1.48.post1
+#          nvidia-modelopt==0.47.0 onnx==1.21.0 onnxruntime-gpu==1.24.4 and the rest of results/surface/SURFACE.md's list

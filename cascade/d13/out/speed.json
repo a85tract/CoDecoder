@@ -1,0 +1,199 @@
+{
+ "identity": {
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "torch": "2.11.0+cu128",
+  "real_executable": "/usr/local/bin/python3.12",
+  "prefix": "<cluster-scratch>/bb/venv_cu128",
+  "packages_sha256": "6fd0f5933f01c59c288002bd9e9c623e718068be18c143b78995bb6c0f24a964",
+  "code": {
+   "commit": "a43103277aca60e82d959255fd8e514d28f20cc8",
+   "release": "8d65844a1dae1530ed158eac2cf1f75c1dcc955a",
+   "clean": true,
+   "files": 86,
+   "digest": "b15af28f3e162378"
+  },
+  "driver": "590.48.01",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "triton": "3.6.0",
+  "tree": "a43103277aca60e82d959255fd8e514d28f20cc8 release 8d65844a1dae1530ed158eac2cf1f75c1dcc955a"
+ },
+ "drivers": [
+  "590.48.01"
+ ],
+ "kcache": {
+  "digest": "46c6069894fa4844",
+  "files": 1248
+ },
+ "rows": "<cluster-scratch>/cascade_w5/eval/screen.jsonl",
+ "rows_sha256": "4a7eb053239a0221bfa910e10796ffd1ef54995db7023408b1f85d492881610a",
+ "nets": {
+  "S": {
+   "sha256": "cbd2b84a47dd6bf71c62eb0cae4d660e2811db5efb9b55b695dd9337d141f12a",
+   "paths": {
+    "engine@1": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 62.55586380277923,
+     "a_dev_us": 47.846998396645965,
+     "t1_us": 63.649244187399745,
+     "p999_us": 69.46505350060761,
+     "gpu_us": 47.11520004272461
+    },
+    "engine@16": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 19.202066473430808,
+     "a_dev_us": 18.050624124717924
+    },
+    "engine@64": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 16.887168499124527,
+     "a_dev_us": 16.59896787246152
+    },
+    "engine@256": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 16.10454828402058,
+     "a_dev_us": 15.986880851510103
+    },
+    "engine@1024": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 15.773214698810989,
+     "a_dev_us": 15.695360900735977
+    },
+    "engine@4096": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 16.223853057883986,
+     "a_dev_us": 16.173579574729757
+    }
+   }
+  },
+  "B": {
+   "sha256": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659",
+   "paths": {
+    "compiled@1": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 406.8880241976604,
+     "a_dev_us": 393.6177083415949,
+     "t1_us": 408.1475794839207,
+     "p999_us": 413.89004670782015,
+     "gpu_us": 392.9122543334961
+    },
+    "compiled@16": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 139.26266745055833,
+     "a_dev_us": 138.38841095198444
+    },
+    "compiled@64": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 147.88429976946375,
+     "a_dev_us": 147.58984411434574
+    },
+    "compiled@256": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 158.8371488553873,
+     "a_dev_us": 158.71046351938796
+    },
+    "compiled@1024": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 158.03623285037816,
+     "a_dev_us": 157.9741350710151
+    },
+    "compiled@4096": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 185.88333508340327,
+     "a_dev_us": 185.8364489137898
+    },
+    "graph@1": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 938.3334920389319,
+     "a_dev_us": 926.3793578914677,
+     "t1_us": 937.9551970108878,
+     "p999_us": 943.4092589071952,
+     "gpu_us": 925.4680938720703
+    },
+    "graph@16": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 204.65647980632025,
+     "a_dev_us": 203.85524452082447
+    },
+    "graph@64": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 319.2608795031377,
+     "a_dev_us": 319.03336057964157
+    },
+    "graph@256": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 341.2771422593626,
+     "a_dev_us": 341.1468292616367
+    },
+    "graph@1024": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 340.6298520474138,
+     "a_dev_us": 340.5833793905799
+    },
+    "graph@4096": {
+     "processes": 3,
+     "reproducible": true,
+     "a_us": 339.5615488592796,
+     "a_dev_us": 339.5383580322431
+    }
+   }
+  }
+ },
+ "frozen": {
+  "S": {
+   "single": "engine@1",
+   "batched": "engine@4096"
+  },
+  "B": {
+   "single": "compiled@1",
+   "amortized": "compiled@16"
+  }
+ },
+ "components": {
+  "S": {
+   "t1_us": 63.649244187399745,
+   "p999_us": 69.46505350060761,
+   "a_us": 16.223853057883986
+  },
+  "B": {
+   "t1_us": 408.1475794839207,
+   "p999_us": 413.89004670782015,
+   "a_us": 139.26266745055833,
+   "b_star": 16
+  }
+ },
+ "M": {
+  "0.006": {
+   "single_us": 180.22469806310255,
+   "processes_single": 3,
+   "p999_us": 435.4103802470491,
+   "batched_us": 12.275974120013416,
+   "processes_batched": 3
+  },
+  "0.0035": {
+   "single_us": 83.84101139672566,
+   "processes_single": 3,
+   "p999_us": 196.08013454126197,
+   "batched_us": 5.899101796094328,
+   "processes_batched": 3
+  }
+ },
+ "flags": []
+}
