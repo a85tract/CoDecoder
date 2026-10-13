@@ -1,0 +1,10 @@
+node cpu-node-13 cpus 11 job RJ56 RT=<cluster-scratch>/retest/code/freeze
+rt_x2: {"NPZ_SHA": {"0.002": "69dcad1fb8bf0c6b672761b24bfd9db181fc0b20c1677108ef5ac52c765ec270", "0.003": "48d47b86947cc919f6dcf0e0cf98d9bac91572f0b338baf9f89d5581e686443f"}, "REG": {"0.002": {"routed": 219891, "S": 10398, "C": 8063, "breaks": 8, "repairs": 90, "both": 254}, "0.003": {"routed": 1699201, "S": 112101, "C": 75957, "breaks": 88, "repairs": 345, "both": 1995}}, "tau1": {"0.002": 7.3331888389587405, "0.003": 7.60439167022705}}
+p = 0.002: 11,000,000 rows, 1100 chunk digests ok (3 s)
+p = 0.002: counts as D1 {'routed': 219891, 'S': 10398, 'C': 8063, 'breaks': 8, 'repairs': 90, 'both': 254}; compiled {'single': {'C': 8074, 'breaks': 8, 'repairs': 96, 'both': 254}, 'batched': {'C': 8073, 'breaks': 8, 'repairs': 97, 'both': 254}}; 23,772 selected; 19 s
+p = 0.003: 17,000,000 rows, 1700 chunk digests ok (4 s)
+p = 0.003: counts as D1 {'routed': 1699201, 'S': 112101, 'C': 75957, 'breaks': 88, 'repairs': 345, 'both': 1995}; compiled {'single': {'C': 75979, 'breaks': 90, 'repairs': 329, 'both': 1993}, 'batched': {'C': 75973, 'breaks': 90, 'repairs': 328, 'both': 1993}}; 147,451 selected; 30 s
+p = 0.002: cells {'S only fails, kept (breaks)': 8, 'C only fails, kept (repairs)': 90, 'both fail, kept': 254, 'S only fails, routed': 4710, 'C only fails, routed': 2293, 'both fail, routed': 5426}; C kept share 0.043; S routed share 0.975
+p = 0.003: cells {'S only fails, kept (breaks)': 88, 'C only fails, kept (repairs)': 345, 'both fail, kept': 1995, 'S only fails, routed': 54543, 'C only fails, routed': 18142, 'both fail, routed': 55475}; C kept share 0.031; S routed share 0.981
+Tue Oct 13 01:01:09 MDT 2026
+JOBDONE
