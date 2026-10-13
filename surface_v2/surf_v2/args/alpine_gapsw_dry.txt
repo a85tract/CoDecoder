@@ -1,0 +1,34 @@
+# CPU dry run (acpu, 8 cores, about 40 min; never a result) of every gap-switching step on the dry set (chunks 0-1 as
+# calibration, 2-3 as test) with a CPU dry pipeline's outputs (DRY=<its job id>: alpine_dry_cpu.txt in
+# $E/dry/w_<job>/dryout, its calcost, freeze record, reads and analysis; E0's dry pass in $E/dry_e0 still holds the d = 9
+# replica, which config.json no longer names): the front end on the dry calibration chunks with its refs, the q rule
+# (--dry), the test reads in shares, the masks, one repetition of each CPU term and the timing job's record, and the
+# analysis twice (byte-identical) -> $O. The timing directory is made by alpine_gapsw_cpu.txt's own start lines (with $O
+# for $E, so $O/gapsw/cpu), and once its job.json exists a second start, into a fresh directory, must be refused.
+W=$E/dry/w_${DRY:?the job id of alpine_dry_cpu.txt}/dryout; G=$O; mkdir -p $G/ref $G/cal $G/pol
+START=$(sed -n '/^C=\${GSCPU:-/,/mkdir -p \$C\/masks$/p' surf_v2/args/alpine_gapsw_cpu.txt)
+env E=$G bash -euo pipefail -c "$START"; GC=$G/gapsw/cpu; [ -d $GC/masks ]
+C=$(awk '/Cpus_allowed_list/{print $2}' /proc/self/status | cut -d, -f1 | cut -d- -f1)
+for d in 7 9 11 13 15 17; do
+  for r in 1 2 3; do $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core $C --out $G/ref; done
+  $PY -m surf_v2.gapsw cal --d $d --set sv2dry --chunks 0-1 --shots $E/shots/sv2dry --ref $G/ref --core $C --out $G/cal
+  $PY -m surf_v2.gapsw fit --dry --cal $G/cal/gapcal_d$d.npz --calcost $W/cc/calcost_d$d.npz --out $G/pol/policy_d$d.json
+done
+$PY -m surf_v2.gapsw shares --set sv2dry --chunks 2-3 --size 2 --shots $E/shots/sv2dry --save $G/reads --logs $G/logs \
+  --jobs ${SLURM_CPUS_PER_TASK:-4}
+for d in 7 9 11 13 15 17; do
+  $PY -m surf_v2.gapsw mask --dry --policies $G/pol --d $d --val $E/shots/val --out $GC/masks
+  $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep 1 --core $C --out $GC
+  $PY -m surf_v2.gapsw fe --d $d --val $E/shots/val --rep 1 --core $C --out $GC
+  $PY -m timing.cpu_term term --d $d --val $E/shots/val --mask $GC/masks/val_gapsw_d$d.npz --rep 1 --core $C --out $GC
+done
+$PY -c "from surf_v2 import gapsw_analysis; gapsw_analysis.write_job('$GC')"
+rc=0; env E=$G GSCPU=$G/gapsw/cpu2 bash -euo pipefail -c "$START" || rc=$?
+[ $rc = 7 ] && [ ! -e $G/gapsw/cpu2 ] || { echo "a second timing job started after $GC/job.json (exit $rc)"; exit 1; }
+rc=0; env E=$G GSCPU=$G/elsewhere bash -euo pipefail -c "$START" > /dev/null || rc=$?
+[ $rc = 7 ] && [ ! -e $G/elsewhere ] || { echo "a timing job started outside $G/gapsw/cpu* (exit $rc)"; exit 1; }
+echo "second starts refused (exit 7): into a fresh directory once $GC/job.json exists, and outside $G/gapsw/cpu*"
+for k in 1 2; do $PY -m surf_v2.gapsw_analysis --dry --freeze $W/freeze.json --reads $W/reads $G/reads --shots $E/shots/sv2dry \
+  --cpu $GC --policies $G/pol --main $W/an1/analysis.json --out $G/an$k; done
+diff -r $G/an1 $G/an2 && echo "BYTE-IDENTICAL: the two runs' $(ls $G/an1 | wc -l) files"
+cat $G/an1/gapsw_tables.md

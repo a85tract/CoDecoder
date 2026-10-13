@@ -1,0 +1,239 @@
+{
+ "stage": "study 4 at d = 17: accuracy and speed per decoder, from the registered records of its re-registration S4-R3 (eight opponents, 16 cells)",
+ "d": 17,
+ "t5_shots": 1000000,
+ "bposd_subset_shots": 200000,
+ "arms": {
+  "ours (d17_b5_r787, FROZEN, 4 stages)": {
+   "failures": 2687,
+   "shots": 1000000,
+   "failures_on_bposd_subset": 542,
+   "routed": 100797,
+   "speed_us": {
+    "grace": 151.34507676043953,
+    "m4": 104.15182974579527
+   },
+   "components_us": {
+    "a_gpu": 66.65951348304749,
+    "b_grace": 83.14234844032976,
+    "b_m4": 35.94910142568551,
+    "b_node": 91.26163206491582,
+    "c": 1.5432148370622656
+   }
+  },
+  "Ising M1 + PM": {
+   "failures": 12843,
+   "shots": 1000000,
+   "part_for_speed": "M1_fp8_L3_B1",
+   "plan": "fp8 L3",
+   "plan_us": 62.6,
+   "pm_share_grace_us": 98.730013822027,
+   "rows": 5,
+   "failures_min_over_rows": 12843,
+   "failures_max_over_rows": 12873,
+   "failures_torch": 12864,
+   "speed_us": {
+    "grace": 161.330013822027,
+    "m4": 115.11309759914876
+   }
+  },
+  "Ising M1 + correlated PM": {
+   "failures": 12419,
+   "shots": 1000000,
+   "part_for_speed": "M1_fp8_L3_B1_corr",
+   "plan": "fp8 L3",
+   "plan_us": 62.6,
+   "corr_pm_share_grace_us": 234.90843224425652,
+   "rows": 5,
+   "failures_min_over_rows": 12419,
+   "failures_max_over_rows": 12449,
+   "failures_torch": 12449,
+   "speed_us": {
+    "grace": 297.50843224425654,
+    "m4": 187.5444718152517
+   }
+  },
+  "Ising M4 + PM": {
+   "failures": 8081,
+   "shots": 1000000,
+   "part_for_speed": "M4_fp8_L3_B1",
+   "plan": "fp8 L3",
+   "plan_us": 84.688,
+   "pm_share_grace_us": 81.2819940318491,
+   "rows": 5,
+   "failures_min_over_rows": 8081,
+   "failures_max_over_rows": 8094,
+   "failures_torch": 8092,
+   "speed_us": {
+    "grace": 165.9699940318491,
+    "m4": 127.26728999140859
+   }
+  },
+  "Ising M4 + correlated PM": {
+   "failures": 7917,
+   "shots": 1000000,
+   "part_for_speed": "M4_fp8_L3_B1_corr",
+   "plan": "fp8 L3",
+   "plan_us": 84.688,
+   "corr_pm_share_grace_us": 191.106250452198,
+   "rows": 5,
+   "failures_min_over_rows": 7903,
+   "failures_max_over_rows": 7918,
+   "failures_torch": 7912,
+   "speed_us": {
+    "grace": 275.794250452198,
+    "m4": 184.7983449059883
+   }
+  },
+  "plain PM": {
+   "failures": 15556,
+   "shots": 1000000,
+   "speed_us": {
+    "grace": 325.23,
+    "m4": 124.58420004695655
+   }
+  },
+  "correlated PM": {
+   "failures": 2907,
+   "shots": 1000000,
+   "speed_us": {
+    "grace": 714.05,
+    "m4": 300.146175455302
+   }
+  },
+  "min-LLR BP-OSD": {
+   "failures": 2070,
+   "shots": 200000,
+   "ours_failures_same_shots": 542,
+   "speed_us": {
+    "unconverted": 444502.44386913255
+   },
+   "reps_us": [
+    444502.44386913255,
+    446954.24188510515,
+    447895.62137564644
+   ]
+  },
+  "BP 60 BP-OSD": {
+   "failures": 3016,
+   "shots": 200000,
+   "ours_failures_same_shots": 542,
+   "speed_us": {
+    "unconverted": 619208.9958651923
+   },
+   "reps_us": [
+    622945.097074844,
+    619208.9958651923,
+    622937.3405582737
+   ]
+  }
+ },
+ "notes": [
+  "Grace basis: the registered composite (a) + (b) converted with the same-node ratio + (c); plain and correlated PM's Grace values and every PM share after Ising are extrapolations (README, speed).",
+  "M4 basis (measured on an Apple M4 core, decides nothing): ours with (b) measured on the M4 (the slowest of three processes); plain and correlated PM on the M4; Ising with the plain- or correlated-PM share measured on the M4 (the registered medians, unconverted).",
+  "BP-OSD speeds: the fastest of three repetitions at batch 1 on the session host (GPU BP + host OSD), unconverted; their failures are on the registered subset (the first 200,000 T5 shots), where ours failed 542 times.",
+  "Ising: the speed row is the fastest validated TensorRT plan at batch 1 (of 8 timed: M1 / M4 x FP16 / FP8 x builder level 3 / 5) plus the PM share; every timed plan and the PyTorch numerics is its own accuracy row, with plain and with correlated PM (failures_min_over_rows / failures_max_over_rows). Study 4 registered Ising M1 / M4 + correlated PM as opponents; at d = 7-15 they are post hoc controls.",
+  "Session: one single-GPU H100 SXM pod on 2026-10-07; the GPU-side gate passed at the start and the end; the host load was recorded and did not gate (session.host_load)."
+ ],
+ "composite_inputs": {
+  "a_gpu": 66.65951348304749,
+  "a_processes": [
+   66.65582384347915,
+   66.62360769987106,
+   66.65951348304749,
+   66.62697492361069,
+   66.62826628684998
+  ],
+  "a_rule": "the slowest of 5 accepted fresh processes",
+  "b_node_reps": [
+   90.13051193592219,
+   90.78160974488128,
+   91.26163206491582
+  ],
+  "b_node": 91.26163206491582,
+  "ratio": {
+   "numerator": 714.05,
+   "node_reps": [
+    771.0838728055024,
+    783.7807037976745,
+    785.0080202935716
+   ],
+   "node_median": 783.7807037976745,
+   "ratio": 0.9110328903737915
+  },
+  "b_grace": 83.14234844032976,
+  "c_allowance": 1.1,
+  "c_measured": 1.5432148370622656,
+  "c_measured_detail": {
+   "complete_raw": 174.553903805,
+   "device_only_b1": 69.76547341793776,
+   "routed_fraction": 0.099785,
+   "routed_pm_raw_mean": 1034.6767104274188,
+   "estimate": 1.5432148370622656
+  },
+  "c_handoff": 1.5432148370622656,
+  "composite_grace": 151.34507676043953,
+  "cpu_term_node": "AMD EPYC 7713 64-Core Processor",
+  "cpu_term_date": "2026-10-06",
+  "frozen_stages": 4,
+  "opponents_grace": {
+   "Ising M1 + PM": 161.330013822027,
+   "Ising M1 + correlated PM": 297.50843224425654,
+   "Ising M4 + PM": 165.9699940318491,
+   "Ising M4 + correlated PM": 275.794250452198,
+   "plain PM": 325.23,
+   "correlated PM": 714.05,
+   "min-LLR BP-OSD": 444502.44386913255,
+   "BP 60 BP-OSD": 619208.9958651923
+  },
+  "ising_plans": {
+   "Ising M1 + PM": {
+    "plan": "fp8 L3",
+    "plan_us": 62.6,
+    "pm_share_grace": 98.730013822027
+   },
+   "Ising M1 + correlated PM": {
+    "plan": "fp8 L3",
+    "plan_us": 62.6,
+    "corr_pm_share_grace": 234.90843224425652
+   },
+   "Ising M4 + PM": {
+    "plan": "fp8 L3",
+    "plan_us": 84.688,
+    "pm_share_grace": 81.2819940318491
+   },
+   "Ising M4 + correlated PM": {
+    "plan": "fp8 L3",
+    "plan_us": 84.688,
+    "corr_pm_share_grace": 191.106250452198
+   }
+  }
+ },
+ "session": {
+  "gpu": "NVIDIA H100 80GB HBM3 (SXM), one single-GPU pod",
+  "host_cpu": "Intel Xeon Platinum 8470",
+  "date": "2026-10-07",
+  "host_load": {
+   "samples": 2411,
+   "seconds": 2476,
+   "loadavg_1min": {
+    "min": 16.63,
+    "median": 20.27,
+    "max": 58.18
+   },
+   "host_busy_fraction": {
+    "median": 0.099,
+    "p95": 0.188
+   },
+   "host_steal_fraction": {
+    "median": 0.0,
+    "max": 0.0
+   },
+   "timed_core_busy_fraction": {
+    "median": 0.058,
+    "p95": 1.0
+   }
+  },
+  "host_load_note": "the host's /proc/stat as the container saw it (208 visible CPUs); recorded, not gating"
+ }
+}

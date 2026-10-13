@@ -1,0 +1,23 @@
+# CPU (acpu, 4 cores; before E0): E0's inputs in $E/dry_e0 (never a result). exports: real networks of the new
+# networks' sizes under their names: A1's S-V seed 1 at d = 9 and DRYNETS (name=final_ema.pt: the T1 preflight's
+# dry-chain stages once mirrored to $A/ckpt/surface, else the Alpine smoke run's sv2dryramp_N7 and sv2dry_N11 and, at
+# d = 13, 15 and 17, the deployed networks' own research checkpoints r775, r782 and r787 (real networks of those sizes,
+# with their line read-out dropped), so that E0 reads, fits, freezes and times all six new names. cc: the dry calcost (sv2dry chunks 0-1, refs on validation chunk 0).
+# E0X: another directory than $E/dry_e0; EXPORTS_ONLY=1: the exports alone (to check a change of surf_v2.export).
+X=${E0X:-$E/dry_e0}; mkdir -p $X/exports $X/cc/ref; A=/scratch/alpine/$USER/surf_v2; SM=$A/smoke/33947563
+A1=/scratch/alpine/$USER/rev_a1/ckpt/surface; RC=$(ls -d $A/code_at/b6368efa*); IC=/scratch/alpine/$USER/ising_arch/ckpt
+first() { for f in "$@"; do [ -e "$f" ] && { echo $f; return; }; done; }
+DRYNETS=${DRYNETS:-"d7_b1w64_sv2=$(first $A/ckpt/surface/sv2dry_N7/final_ema.pt $SM/s2/ckpt/surface/sv2dryramp_N7/final_ema.pt)
+  d11_b5_sv2=$(first $A/ckpt/surface/sv2dry_N11/final_ema.pt $SM/u/ckpt/surface/sv2dry_N11/final_ema.pt)
+  d13_b5_sv2=$(first $A/ckpt/surface/sv2dry_N13/final_ema.pt $IC/d13_b5t_r775/final_ema.pt)
+  d15_b5_sv2=$(first $A/ckpt/surface/sv2dry_N15a/final_ema.pt $IC/d15_b5t_r782/final_ema.pt)
+  d17_b5_sv2=$(first $A/ckpt/surface/sv2dry_N17/final_ema.pt $IC/d17_b5t_r787/final_ema.pt)"}
+for x in d9_b3_sv2s1=$A1/a1_S-V_s1/final_ema.pt $DRYNETS; do
+  [ -n "${x#*=}" ] || { echo "${x%%=*}: no dry network, not exported"; continue; }
+  [ -e $X/exports/${x%%=*}.safetensors ] || ICMP_NV=$I/ext/ising_nv/code $PY -m surf_v2.export --ckpt ${x#*=} \
+    --name ${x%%=*} --out $X/exports --check-arch $RC/ising_compare --shots $E/shots/sv2dry; done
+C=$(awk '/Cpus_allowed_list/{print $2}' /proc/self/status | cut -d, -f1 | cut -d- -f1)
+[ -n "${EXPORTS_ONLY:-}" ] || for d in 7 9 11 13 15 17; do
+  for r in 1 2 3; do $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core $C --out $X/cc/ref; done
+  $PY -m surf_v2.calcost --d $d --set sv2dry --chunks 0-1 --shots $E/shots/sv2dry --ref $X/cc/ref --core $C --out $X/cc; done
+(cd $X && sha256sum exports/* && { [ -n "${EXPORTS_ONLY:-}" ] || sha256sum cc/*.npz cc/*.json; })

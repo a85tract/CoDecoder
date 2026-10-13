@@ -1,0 +1,12 @@
+# CPU (acpu, 4 cores, 64 GB, about 30 min; after every read): the one-time analysis from the frozen tree, then the same
+# command again into a second directory, only to show byte-identical outputs. The timing sessions are every session
+# directory pulled from a pod ($E/pod/session, and $E/pod2/session after a technical failure of the first): the analysis
+# orders them by their start checks' times, labels them session 1 and 2, counts one without attempts.json as lost, and
+# counts a second session only when session 1 did not qualify; two sessions on one GPU, or more than two directories,
+# count none, and family B is then not established. CPU: the directory of the first CPU-term job that completed
+# (alpine_cpu_term.txt's CPU; default $E/cpu).
+for k in 1 2; do $PY -m surf_v2.analysis --freeze surf_v2/freeze.json --reads $E/pod/reads/cal $E/pod/reads/test $E/reads/test \
+  --shots $E/shots/sv2test --cal-shots $E/shots/sv2cal --sessions $E/pod*/session --cpu ${CPU:-$E/cpu} \
+  --out $E/analysis/run$k; done
+diff -r $E/analysis/run1 $E/analysis/run2 && echo "BYTE-IDENTICAL: the second run's $(ls $E/analysis/run1 | wc -l) files"
+(cd $E/analysis/run1 && sha256sum *)

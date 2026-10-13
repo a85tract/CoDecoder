@@ -1,0 +1,5 @@
+# CPU (one amem node, 64 cores, about 1 h, after the draw and the commit of testsets/sv2test.json): plain and correlated
+# PM on every test shot (convlines.opponents, PyMatching 2.4.0) in shares of 10 chunks, 60 processes at a time
+# -> $E/reads/test (each share its own read files; run the job again to finish shares a stopped job left).
+$PY -m surf_v2.shares --opponents "plain PM" "correlated PM" --shots $E/shots/sv2test --save $E/reads/test \
+  --logs $E/logs/pm_$SLURM_JOB_ID --jobs ${JOBS:-60} --size 10

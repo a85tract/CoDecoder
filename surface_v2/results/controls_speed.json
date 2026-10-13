@@ -1,0 +1,598 @@
+{
+ "what": "The post hoc controls Ising M1 + correlated PM and Ising M4 + correlated PM: speed in us per shot at batch 1 (README, 'The two post hoc controls')",
+ "status": "post hoc: measured after studies 2 and 3 on their sealed test sets, read logged and audited; not a registered claim",
+ "rule": "speed = Ising's registered TensorRT plan time at batch 1 (results/s2_composite.json opponents.plan_us; results/results_accuracy_speed_d15.json composite_inputs.ising_plans) + the correlated-PM share on the Grace basis = the node's correlated PM per block on Ising's residual detectors of validation chunk 0 x factor. Ising's rows carry no handoff, as registered, so the value is the same on both boundaries. A composite estimate: the accuracy is the official PyTorch numerics, the time the TensorRT plan's",
+ "timing_node": {
+  "cpu": "AMD EPYC 9534 64-Core Processor",
+  "date": "2026-10-06",
+  "how": "one exclusive CPU node of an HPC cluster; one fresh single-threaded process per measurement, pinned to one core (core 0); three repetitions interleaved over every measurement; the median counts (timing.cpu_term's loop: 50 untimed warm-ups, then perf_counter around each decode)",
+  "versions": {
+   "python": "3.12.14",
+   "numpy": "2.2.6",
+   "stim": "1.16.0",
+   "pymatching": "2.4.0"
+  }
+ },
+ "residuals": {
+  "how": "Ising M1 / M4 with the official PyTorch numerics (TF32 as NVIDIA's runner sets it) on an NVIDIA H100 80GB HBM3; validation chunk 0 (10,000 shots): at d = 7-13 the studies' validation shots, sampled on ARM64 (x86-64 regenerates other shots from the same seeds), at d = 15 the shots convlines.testset val regenerates; content sha256 = sha256 of the uint8 arrays' bytes",
+  "check": "decoded with plain PM, the residuals give the registered validation predictions of M1 and M4 on all 10,000 shots at every d"
+ },
+ "factors": {
+  "primary": {
+   "M1": {
+    "value": 0.986377497423787,
+    "grace_share_d13_us": 39.65,
+    "node_plain_share_d13_us": 40.19759179782341,
+    "source": "timing/grace_basis.csv d = 13 'PM share after Ising M1' (NVIDIA's Ising paper, Table VII) / the node's plain PM per block on M1's residual detectors of validation chunk 0 at d = 13"
+   },
+   "M4": {
+    "value": 0.984740040580032,
+    "grace_share_d13_us": 33.15,
+    "node_plain_share_d13_us": 33.66370679968895,
+    "source": "timing/grace_basis.csv d = 13 'PM share after Ising M4' (NVIDIA's Ising paper, Table VII) / the node's plain PM per block on M4's residual detectors of validation chunk 0 at d = 13"
+   }
+  },
+  "beside": {
+   "value": 1.1980040622418346,
+   "grace_corr_d13_us": 279.63,
+   "node_corr_ref_d13_us": 233.41323190234107,
+   "source": "timing/grace_basis.csv d = 13 'correlated PM' (NVIDIA's Ising paper, Table IX) / the node's correlated PM per block on the raw detectors of validation chunk 0 at d = 13"
+  },
+  "note": "normalisation assumptions, not validated bounds: the paper gives no correlated-PM time after the pre-decoders, so a d = 13 ratio is applied at every d"
+ },
+ "m4_basis": {
+  "cpu": "Apple M4",
+  "date": "2026-10-06",
+  "session": "one session, 22:53:01-22:53:22 (UTC-07), on an otherwise idle machine: no other Python process ran, load average 1.43 at the start (the desktop's background)",
+  "how": "one core of an Apple M4 under macOS 26.2, which has no CPU-affinity call, so each process ran unpinned; one fresh single-threaded process per measurement; three repetitions interleaved over every measurement; the slowest counts, as for the M4 basis' other CPU parts (timing.cpu_term's loop: 50 untimed warm-ups, then perf_counter around each decode)",
+  "versions": {
+   "python": "3.12.14",
+   "numpy": "2.2.6",
+   "stim": "1.16.0",
+   "pymatching": "2.4.0"
+  },
+  "rule": "speed on the M4 basis = the same registered plan time + the M4 core's correlated-PM share on the same residual detectors, not converted; the M4-basis figures decide nothing"
+ },
+ "d": {
+  "7": {
+   "M1": {
+    "test_set": "T2",
+    "plan": "fp8 L3",
+    "plan_us": 43.386,
+    "node_corr_share": {
+     "median_us": 10.094323592420551,
+     "reps_us": [
+      10.094323592420551,
+      10.034187202472822,
+      10.570475796885148
+     ],
+     "load1": [
+      0.49,
+      1.1,
+      1.14
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 6.288771902745793,
+     "reps_us": [
+      6.288771902745793,
+      6.358842904410267,
+      6.258149402128765
+     ],
+     "load1": [
+      0.45,
+      1.11,
+      1.15
+     ]
+    },
+    "share_grace_us": 9.956813643277675,
+    "share_grace_beside_us": 12.09304066930341,
+    "grace_us": 53.34281364327768,
+    "grace_beside_us": 55.479040669303416,
+    "m4_corr_share": {
+     "slowest_us": 4.996869330352638,
+     "reps_us": [
+      4.985590322758071,
+      4.996869330352638,
+      4.968324740184471
+     ],
+     "load1": [
+      1.43,
+      1.48,
+      1.63
+     ]
+    },
+    "m4_us": 48.38286933035264,
+    "residuals_content_sha256": "63bcd363d95ce3aea319336cf02381e82c142dd1661e3df6582d0948ea2bdc57",
+    "pre_L_content_sha256": "77f3fb72eaa81a776a591bd28e27fcf3d551d196c96790665663133adaf237ae",
+    "residual_defects_per_shot": 1.6784,
+    "input_defects_per_shot": 27.5446
+   },
+   "M4": {
+    "test_set": "T2",
+    "plan": "fp8 L5",
+    "plan_us": 56.48,
+    "node_corr_share": {
+     "median_us": 8.72630790590847,
+     "reps_us": [
+      8.612362595977174,
+      8.812340001895791,
+      8.72630790590847
+     ],
+     "load1": [
+      0.49,
+      1.1,
+      1.13
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 5.689341595461883,
+     "reps_us": [
+      5.689341595461883,
+      5.736047799018706,
+      5.636465796669654
+     ],
+     "load1": [
+      0.45,
+      1.11,
+      1.15
+     ]
+    },
+    "share_grace_us": 8.59314480137816,
+    "share_grace_beside_us": 10.454152319651385,
+    "grace_us": 65.07314480137816,
+    "grace_beside_us": 66.93415231965139,
+    "m4_corr_share": {
+     "slowest_us": 4.327359888702631,
+     "reps_us": [
+      4.267013759817928,
+      4.273573948012199,
+      4.327359888702631
+     ],
+     "load1": [
+      1.43,
+      1.48,
+      1.63
+     ]
+    },
+    "m4_us": 60.80735988870263,
+    "residuals_content_sha256": "7e5e0abe56a931b8d3a452f80504bcc77435c16c6f03416129edead9ec994ade",
+    "pre_L_content_sha256": "8ddbba839d4cb80b78b3e307e6c8a5c3f59a4d4b026d29bbaec7dcfb98a8e10f",
+    "residual_defects_per_shot": 1.2727,
+    "input_defects_per_shot": 27.5446
+   }
+  },
+  "9": {
+   "M1": {
+    "test_set": "T2",
+    "plan": "fp8 L3",
+    "plan_us": 44.771,
+    "node_corr_share": {
+     "median_us": 24.007848793007724,
+     "reps_us": [
+      23.954274100469775,
+      24.007848793007724,
+      24.230699401596212
+     ],
+     "load1": [
+      0.7,
+      1.07,
+      1.17
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 12.341514396757702,
+     "reps_us": [
+      12.228400797630457,
+      12.395865802500339,
+      12.341514396757702
+     ],
+     "load1": [
+      0.65,
+      1.08,
+      1.12
+     ]
+    },
+    "share_grace_us": 23.680801810975645,
+    "share_grace_beside_us": 28.76150037971098,
+    "grace_us": 68.45180181097564,
+    "grace_beside_us": 73.53250037971098,
+    "m4_corr_share": {
+     "slowest_us": 12.962242371577304,
+     "reps_us": [
+      12.833031121408567,
+      12.962242371577304,
+      12.928609584923834
+     ],
+     "load1": [
+      1.43,
+      1.48,
+      1.63
+     ]
+    },
+    "m4_us": 57.733242371577305,
+    "residuals_content_sha256": "b4089ac49a8f1c7c60a00e01ce0f34e5d41c32124d5f42c4b574212703de9cb0",
+    "pre_L_content_sha256": "e1e37471c9d733e0ed6af28f872c75daa4fea9cc67a7729bfc3fa49abdf0de75",
+    "residual_defects_per_shot": 3.8212,
+    "input_defects_per_shot": 62.6518
+   },
+   "M4": {
+    "test_set": "T2",
+    "plan": "fp8 L5",
+    "plan_us": 58.293,
+    "node_corr_share": {
+     "median_us": 20.244905004528846,
+     "reps_us": [
+      20.67764411085591,
+      20.244905004528846,
+      19.970635101799417
+     ],
+     "load1": [
+      0.7,
+      1.07,
+      1.16
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 10.7519683974715,
+     "reps_us": [
+      10.766596097528236,
+      10.7519683974715,
+      10.709511601089616
+     ],
+     "load1": [
+      0.65,
+      1.08,
+      1.19
+     ]
+    },
+    "share_grace_us": 19.935968575698627,
+    "share_grace_beside_us": 24.253478435125604,
+    "grace_us": 78.22896857569863,
+    "grace_beside_us": 82.54647843512561,
+    "m4_corr_share": {
+     "slowest_us": 10.601281284471042,
+     "reps_us": [
+      10.601281284471042,
+      10.507835513271857,
+      10.482415350270458
+     ],
+     "load1": [
+      1.43,
+      1.48,
+      1.63
+     ]
+    },
+    "m4_us": 68.89428128447105,
+    "residuals_content_sha256": "e2041d4bb69bf7566278a8c489cfc2c014c648aed7baf0a66d05f3db8b3db6de",
+    "pre_L_content_sha256": "7f794763e7c666e9eda5143cc4ade4cd2a547c9eb897755685c690fe516629bc",
+    "residual_defects_per_shot": 2.7197,
+    "input_defects_per_shot": 62.6518
+   }
+  },
+  "11": {
+   "M1": {
+    "test_set": "T2",
+    "plan": "fp8 L3",
+    "plan_us": 45.943,
+    "node_corr_share": {
+     "median_us": 51.808120103396504,
+     "reps_us": [
+      51.808120103396504,
+      51.85488900397104,
+      51.58067639777073
+     ],
+     "load1": [
+      0.84,
+      1.12,
+      1.19
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 23.38548690386233,
+     "reps_us": [
+      23.36384270038252,
+      23.530425905300945,
+      23.38548690386233
+     ],
+     "load1": [
+      0.73,
+      1.14,
+      1.23
+     ]
+    },
+    "share_grace_us": 51.102363853819234,
+    "share_grace_beside_us": 62.06633834098187,
+    "grace_us": 97.04536385381923,
+    "grace_beside_us": 108.00933834098187,
+    "m4_corr_share": {
+     "slowest_us": 27.659938522265293,
+     "reps_us": [
+      27.659938522265293,
+      27.42525372595992,
+      27.35479981638491
+     ],
+     "load1": [
+      1.43,
+      1.6,
+      1.63
+     ]
+    },
+    "m4_us": 73.60293852226529,
+    "residuals_content_sha256": "c779e83029fd8c46ddf2bf538e95072b9249772fe21f0cd181b6315242080747",
+    "pre_L_content_sha256": "8142b01c0430c0dc8259b75cd9b3d4aa3c70a9f195f591a6c553fb77f551fd2d",
+    "residual_defects_per_shot": 7.1631,
+    "input_defects_per_shot": 118.8444
+   },
+   "M4": {
+    "test_set": "T2",
+    "plan": "fp8 L3",
+    "plan_us": 59.366,
+    "node_corr_share": {
+     "median_us": 42.24528229387943,
+     "reps_us": [
+      42.41423380499327,
+      42.24528229387943,
+      42.1221123991927
+     ],
+     "load1": [
+      0.94,
+      1.11,
+      1.19
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 19.90687590387097,
+     "reps_us": [
+      19.90687590387097,
+      19.920802200522303,
+      19.88756780319818
+     ],
+     "load1": [
+      0.83,
+      1.13,
+      1.23
+     ]
+    },
+    "share_grace_us": 41.60062100038973,
+    "share_grace_beside_us": 50.610019798620606,
+    "grace_us": 100.96662100038972,
+    "grace_beside_us": 109.9760197986206,
+    "m4_corr_share": {
+     "slowest_us": 22.625821498513687,
+     "reps_us": [
+      22.305927390698344,
+      22.53019313357072,
+      22.625821498513687
+     ],
+     "load1": [
+      1.43,
+      1.6,
+      1.63
+     ]
+    },
+    "m4_us": 81.99182149851369,
+    "residuals_content_sha256": "474da6eeccf239073b161498de1f36cdcf60a7fa28ce22f0d1e314a751b81870",
+    "pre_L_content_sha256": "ac5009b6077c24b177027067903954327bfee9058d476c1a67521cc94998326e",
+    "residual_defects_per_shot": 4.8958,
+    "input_defects_per_shot": 118.8444
+   }
+  },
+  "13": {
+   "M1": {
+    "test_set": "T2",
+    "plan": "fp8 L3",
+    "plan_us": 50.612,
+    "node_corr_share": {
+     "median_us": 94.70055029933064,
+     "reps_us": [
+      94.70055029933064,
+      94.93464929819311,
+      94.04144779373382
+     ],
+     "load1": [
+      0.96,
+      1.17,
+      1.2
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 40.19759179782341,
+     "reps_us": [
+      40.124462900985236,
+      40.19759179782341,
+      40.40802990011798
+     ],
+     "load1": [
+      0.95,
+      1.1,
+      1.24
+     ]
+    },
+    "share_grace_us": 93.41049180890923,
+    "share_grace_beside_us": 113.4516439551353,
+    "grace_us": 144.02249180890922,
+    "grace_beside_us": 164.0636439551353,
+    "m4_corr_share": {
+     "slowest_us": 49.90203562192619,
+     "reps_us": [
+      49.90203562192619,
+      49.75063001620583,
+      49.79038201854564
+     ],
+     "load1": [
+      1.43,
+      1.6,
+      1.63
+     ]
+    },
+    "m4_us": 100.51403562192618,
+    "residuals_content_sha256": "8fd489d87692cf6c6fd2a6a27b4b6fab73b13c2c7cc681bff7527089e97e133c",
+    "pre_L_content_sha256": "da63aeddef463ac3051cbb6f1525f62783736e4747b349e9aaf1c038f13e0b2b",
+    "residual_defects_per_shot": 12.2253,
+    "input_defects_per_shot": 202.325
+   },
+   "M4": {
+    "test_set": "T2",
+    "plan": "fp8 L5",
+    "plan_us": 65.192,
+    "node_corr_share": {
+     "median_us": 75.80671540008552,
+     "reps_us": [
+      75.70206260134,
+      75.9575779026818,
+      75.80671540008552
+     ],
+     "load1": [
+      0.96,
+      1.15,
+      1.18
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 33.66370679968895,
+     "reps_us": [
+      33.66370679968895,
+      33.979258103772736,
+      33.55952289803099
+     ],
+     "load1": [
+      0.95,
+      1.09,
+      1.24
+     ]
+    },
+    "share_grace_us": 74.64990799931915,
+    "share_grace_beside_us": 90.8167529945131,
+    "grace_us": 139.84190799931915,
+    "grace_beside_us": 156.0087529945131,
+    "m4_corr_share": {
+     "slowest_us": 40.063591954822186,
+     "reps_us": [
+      40.063591954822186,
+      39.792978928016964,
+      39.7955049877055
+     ],
+     "load1": [
+      1.43,
+      1.6,
+      1.63
+     ]
+    },
+    "m4_us": 105.25559195482218,
+    "residuals_content_sha256": "c1f911e7e7ed03c255fd372951714a070172039d55218ffad8d6afa9a21fd7ea",
+    "pre_L_content_sha256": "7b028fb765b1fdcedcba529ace7289e0361b9365e730a40ca6640714b856c1fc",
+    "residual_defects_per_shot": 8.0992,
+    "input_defects_per_shot": 202.325
+   }
+  },
+  "15": {
+   "M1": {
+    "test_set": "T3",
+    "plan": "fp8 L5",
+    "plan_us": 57.348,
+    "node_corr_share": {
+     "median_us": 160.73868050443707,
+     "reps_us": [
+      160.67226450368256,
+      160.73868050443707,
+      161.23449670312766
+     ],
+     "load1": [
+      1.03,
+      1.18,
+      1.2
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 64.66358999814474,
+     "reps_us": [
+      64.66358999814474,
+      64.53824369891663,
+      64.78793570086054
+     ],
+     "load1": [
+      1.04,
+      1.13,
+      1.23
+     ]
+    },
+    "share_grace_us": 158.5490174151683,
+    "share_grace_beside_us": 192.565592203708,
+    "grace_us": 215.8970174151683,
+    "grace_beside_us": 249.913592203708,
+    "m4_corr_share": {
+     "slowest_us": 83.47609102202114,
+     "reps_us": [
+      83.03098505421076,
+      83.18426770420047,
+      83.47609102202114
+     ],
+     "load1": [
+      1.43,
+      1.6,
+      1.66
+     ]
+    },
+    "m4_us": 140.82409102202115,
+    "residuals_content_sha256": "6d69da7bc8bf2542c01a975b756d0a8e0e998df5e2df7dc0d9b08e00ae7f40d1",
+    "pre_L_content_sha256": "e2485201f509d34c5444956747ff6acbb2c40e466079ab61764d14dc02d36d5f",
+    "residual_defects_per_shot": 18.9932,
+    "input_defects_per_shot": 316.3501
+   },
+   "M4": {
+    "test_set": "T3",
+    "plan": "fp8 L5",
+    "plan_us": 74.711,
+    "node_corr_share": {
+     "median_us": 130.56832860102077,
+     "reps_us": [
+      130.56832860102077,
+      131.08541999872614,
+      130.3005670053608
+     ],
+     "load1": [
+      1.03,
+      1.17,
+      1.18
+     ]
+    },
+    "node_plain_share": {
+     "median_us": 54.36905749656945,
+     "reps_us": [
+      54.28449649589311,
+      54.38716829667101,
+      54.36905749656945
+     ],
+     "load1": [
+      1.04,
+      1.12,
+      1.23
+     ]
+    },
+    "share_grace_us": 128.57586120503615,
+    "share_grace_beside_us": 156.4213880641496,
+    "grace_us": 203.28686120503613,
+    "grace_beside_us": 231.1323880641496,
+    "m4_corr_share": {
+     "slowest_us": 67.47881116170902,
+     "reps_us": [
+      67.43955078563886,
+      67.32218640099745,
+      67.47881116170902
+     ],
+     "load1": [
+      1.48,
+      1.6,
+      1.66
+     ]
+    },
+    "m4_us": 142.18981116170903,
+    "residuals_content_sha256": "1cf53dd0364fe16ce20f2dca68801d0be7f576e9fa870b9605aa4549e9be4baa",
+    "pre_L_content_sha256": "9a169c0cf7e801590819b4f3da8f305c0894e9460ce674bd32346d57bdb31ee7",
+    "residual_defects_per_shot": 12.4282,
+    "input_defects_per_shot": 316.3501
+   }
+  }
+ }
+}

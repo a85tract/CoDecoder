@@ -1,0 +1,8 @@
+# E1, once training has ended (the exported weights in rel/weights, the calibration set in $W/shots/sv2cal): every
+# network's calibration read, the network alone (--tau none) through its deployed engine at batch one -> $W/reads/cal.
+# SKIP names a new network under a training-failure exception (it has no weights).
+NETS=$($PY -c "import json; c = json.load(open('surf_v2/config.json')); print(' '.join(f'{d}:{n}' for d in c['distances'] for n in c['networks'][str(d)].values()))")
+for x in $NETS; do d=${x%%:*}; n=${x#*:}; case " ${SKIP:-} " in *" $n "*) continue ;; esac
+  $PY -m convlines.evaluate --set sv2cal --d $d --chunks 0-19 --shots $W/shots/sv2cal --net $n --tau none \
+    --routing deployed --build $B --opponents --save $W/reads/cal 2>&1 | tail -2; done
+(cd $W/reads/cal && sha256sum *.npz *.json)

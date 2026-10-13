@@ -1,0 +1,187 @@
+{
+ "bar_us": 205.53,
+ "cal": "gapcal_d15.npz",
+ "cal_record_sha256": "a13f031b10cb42d833e81adab5782f1eef47ed032f26fae22241727d1d45e361",
+ "cal_sha256": "3e33f386c0013ec3a6717e89d3317bf1bc1ca81891a6f95f2b71fa20c8a50456",
+ "calcost": "calcost_d15.npz",
+ "calcost_ratio": 0.9280636426933793,
+ "calcost_sha256": "cff000bb6eef1c724c575f285151ae086fe170571ffe6c11807ab9acf901b086",
+ "chosen": {
+  "admissible": false,
+  "cost_us": 545.6065288460584,
+  "failures": 961,
+  "projected_us": 1417.7876139777359,
+  "q": 0.16,
+  "routed": 32000,
+  "routed_fraction": 0.16,
+  "tau": 6.002344052429958
+ },
+ "chunks": "0-19",
+ "config_sha256": "f8308f536e0fb8818187d17f93224d159d8f62f73cbcb6ce46dece286cd142aa",
+ "d": 15,
+ "dry": false,
+ "front_node_us": 1429.2904102485045,
+ "front_ratio": 0.9308749011553502,
+ "front_us": 1330.4905693623666,
+ "gapsw_sha256": "7c652b0c966af77911b20acb61a940d00780e8d5eb329e01e9f658aa6e3b1f94",
+ "grid": [
+  0.0,
+  0.01,
+  0.02,
+  0.04,
+  0.06,
+  0.08,
+  0.1,
+  0.12,
+  0.14,
+  0.16
+ ],
+ "limit": 721.9000624219968,
+ "margin": 802,
+ "no_bar": {
+  "chosen": {
+   "admissible": false,
+   "cost_us": 545.6065288460584,
+   "failures": 961,
+   "projected_us": 1417.7876139777359,
+   "q": 0.16,
+   "routed": 32000,
+   "routed_fraction": 0.16,
+   "tau": 6.002344052429958
+  },
+  "eligible": true,
+  "outcome": "routed pair",
+  "qualifies": false
+ },
+ "operative": "no_bar",
+ "outcome": "routed pair",
+ "plain_failures": 3827,
+ "plain_node_us": 197.32201779261231,
+ "plain_us": 183.68211380847225,
+ "pm_corr_failures": 903,
+ "q": 0.16,
+ "registered": {
+  "chosen": {
+   "admissible": true,
+   "cost_us": null,
+   "failures": 3827,
+   "projected_us": 183.68211380847225,
+   "q": 0.0,
+   "routed": 0,
+   "routed_fraction": 0.0,
+   "tau": 0.0
+  },
+  "eligible": true,
+  "outcome": "q = 0: plain PM alone",
+  "qualifies": false
+ },
+ "registered_corr_pm_us": 464.95,
+ "registered_plain_pm_us": 208.53,
+ "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the admissible q with the fewest calibration failures (ties: the smaller q); no admissible q: no policy (the network alone, labelled)",
+ "set": "sv2cal",
+ "shots": 200000,
+ "table": [
+  {
+   "admissible": true,
+   "cost_us": null,
+   "failures": 3827,
+   "projected_us": 183.68211380847225,
+   "q": 0.0,
+   "routed": 0,
+   "routed_fraction": 0.0,
+   "tau": 0.0
+  },
+  {
+   "admissible": false,
+   "cost_us": 594.6657231806937,
+   "failures": 3018,
+   "projected_us": 1336.4372265941736,
+   "q": 0.01,
+   "routed": 2000,
+   "routed_fraction": 0.01,
+   "tau": 0.6111355788389039
+  },
+  {
+   "admissible": false,
+   "cost_us": 590.7206253918429,
+   "failures": 2428,
+   "projected_us": 1342.3049818702034,
+   "q": 0.02,
+   "routed": 4000,
+   "routed_fraction": 0.02,
+   "tau": 1.194204463937017
+  },
+  {
+   "admissible": false,
+   "cost_us": 580.8892903600561,
+   "failures": 1754,
+   "projected_us": 1353.7261409767689,
+   "q": 0.04,
+   "routed": 8000,
+   "routed_fraction": 0.04,
+   "tau": 2.2606181526015643
+  },
+  {
+   "admissible": false,
+   "cost_us": 572.2878760615587,
+   "failures": 1382,
+   "projected_us": 1364.82784192606,
+   "q": 0.06,
+   "routed": 12000,
+   "routed_fraction": 0.06,
+   "tau": 3.1513810988860222
+  },
+  {
+   "admissible": false,
+   "cost_us": 565.3330972819298,
+   "failures": 1201,
+   "projected_us": 1375.717217144921,
+   "q": 0.08,
+   "routed": 16000,
+   "routed_fraction": 0.08,
+   "tau": 3.8843740871391357
+  },
+  {
+   "admissible": false,
+   "cost_us": 559.3843668926305,
+   "failures": 1087,
+   "projected_us": 1386.4290060516296,
+   "q": 0.1,
+   "routed": 20000,
+   "routed_fraction": 0.1,
+   "tau": 4.496491775664549
+  },
+  {
+   "admissible": false,
+   "cost_us": 554.2755547934416,
+   "failures": 1037,
+   "projected_us": 1397.0036359375797,
+   "q": 0.12,
+   "routed": 24000,
+   "routed_fraction": 0.12,
+   "tau": 5.051277948300953
+  },
+  {
+   "admissible": false,
+   "cost_us": 549.7799196257617,
+   "failures": 987,
+   "projected_us": 1407.4570092103752,
+   "q": 0.14,
+   "routed": 27999,
+   "routed_fraction": 0.139995,
+   "tau": 5.558888790963692
+  },
+  {
+   "admissible": false,
+   "cost_us": 545.6065288460584,
+   "failures": 961,
+   "projected_us": 1417.7876139777359,
+   "q": 0.16,
+   "routed": 32000,
+   "routed_fraction": 0.16,
+   "tau": 6.002344052429958
+  }
+ ],
+ "tau": 6.002344052429958,
+ "what": "SURF-v2 gap switching: the routed fraction on the calibration shots (surf_v2/gapsw.py fit)"
+}

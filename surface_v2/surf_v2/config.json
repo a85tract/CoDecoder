@@ -1,0 +1,490 @@
+{
+ "what": "SURF-v2's frozen analysis configuration (surf_v2/REGISTRATION.md; the research plan revision/SURF_V2_PLAN.md sections 4.3-4.7 and its addendum revision/SURF_V2_EVAL.md). surf_v2/analysis.py and surf_v2/qrule.py read nothing else that decides a result.",
+ "distances": [
+  7,
+  9,
+  11,
+  13,
+  15,
+  17
+ ],
+ "networks": {
+  "7": {
+   "new": "d7_b1w64_sv2",
+   "deployed": "d7_b1w64_r740"
+  },
+  "9": {
+   "new": "d9_b3_sv2s1",
+   "deployed": "d9_b3_r764"
+  },
+  "11": {
+   "new": "d11_b5_sv2",
+   "deployed": "d11_b5_r777"
+  },
+  "13": {
+   "new": "d13_b5_sv2",
+   "deployed": "d13_b5_r775"
+  },
+  "15": {
+   "new": "d15_b5_sv2",
+   "deployed": "d15_b5_r782"
+  },
+  "17": {
+   "new": "d17_b5_sv2",
+   "deployed": "d17_b5_r787_q08"
+  }
+ },
+ "deployed_tau_note": "the deployed networks at their published tau: the studies' at d = 7-15 (weights/configs.json), R17's 4.539173126220703 (q = 8 %) at d = 17 (weights/configs_sv2.json d17_b5_r787_q08)",
+ "qrule": {
+  "source": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+  "grid": {
+   "7": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16
+   ],
+   "9": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16
+   ],
+   "11": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16
+   ],
+   "13": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16
+   ],
+   "15": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16
+   ],
+   "17": [
+    0.0,
+    0.01,
+    0.02,
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12,
+    0.14,
+    0.16,
+    0.18,
+    0.2,
+    0.22,
+    0.24,
+    0.26,
+    0.28,
+    0.3
+   ]
+  },
+  "M": {
+   "7": 3401,
+   "9": 2500,
+   "11": 1750,
+   "13": 1200,
+   "15": 802,
+   "17": 554
+  },
+  "bar_us": {
+   "7": 15.16,
+   "9": 33.99,
+   "11": 65.32,
+   "13": 86.66,
+   "15": 205.53,
+   "17": 322.23
+  },
+  "projection": {
+   "7": {
+    "kind": "path",
+    "source": "ising-arch:ising_compare/data/arch/g6_path_d7_r740.json (sha256 db334a71ae833ef227d89bbfbc5ab67981f01dae18a1310710e08ebce10bd5dd): measured complete paths, router included, locked before the d = 7 fit (arch/README.md 15.7)",
+    "path_us": {
+     "0.0": 10.5,
+     "0.01": 11.62,
+     "0.02": 11.62,
+     "0.04": 12.72,
+     "0.06": 13.71,
+     "0.08": 14.79,
+     "0.1": 15.72,
+     "0.12": null,
+     "0.14": null,
+     "0.16": null
+    }
+   },
+   "9": {
+    "kind": "frontier",
+    "net_us": 31.44,
+    "router_us": 1.1,
+    "source": "data/arch/policy_d9b3_r764.json admissibility"
+   },
+   "11": {
+    "kind": "frontier",
+    "net_us": 52.31,
+    "router_us": 1.1,
+    "source": "data/arch/policy_d11b5_r777.json admissibility"
+   },
+   "13": {
+    "kind": "frontier",
+    "net_us": 52.31,
+    "router_us": 1.1,
+    "source": "data/arch/policy_d13b5_r775.json admissibility"
+   },
+   "15": {
+    "kind": "frontier",
+    "net_us": 55.77154946088791,
+    "router_us": 1.1,
+    "source": "data/arch/policy_d15b5_r782.json admissibility"
+   },
+   "17": {
+    "kind": "frontier",
+    "net_us": 73.54281725168228,
+    "router_us": 1.1,
+    "source": "data/arch/policy_d17b5_r787.json admissibility"
+   }
+  },
+  "cost": "frontier projection: projected(0) = net_us; projected(q) = net_us + router_us + r_q x cost(q), cost(q) = the mean over the shots routed at q of correlated PM's time per shot on the calibration set (one pinned core of an EPYC 7713 node, surf_v2/calcost.py), converted to the Grace basis by the CPU term's ratio G(d) / (the same node's correlated PM per block on validation chunk 0, median of three; timing/cpu_term.py ref)",
+  "fallback": {
+   "7": "largest",
+   "9": "argmin",
+   "11": "argmin",
+   "13": "argmin",
+   "15": "argmin",
+   "17": "argmin"
+  },
+  "fallback_source": "each distance's registered policy (registered_choices policy_file, checked by sha256 in qrule reproduce): at d = 7 policy_d7s9_r740.json, fitted on 2 October 18:06 PDT before G7 (ising-arch README 16.1, registered 19:12) with the rule 'else the largest admissible q' (policy.py fit --fallback largest), which G7 left as it was because the policy met the limit; at d = 9-17 the policies' fallback 'argmin' (README 16.1). The research plan's 4.3 wrote argmin at every d; at d = 7 this is the registered policy's rule instead (SURF_V2_EVAL.md section 9)"
+ },
+ "registered_choices": {
+  "what": "the studies' registered choices that surf_v2/qrule.py reproduce must give from their calibration records (Alpine /scratch/alpine/$USER/ising_arch/out/policy); q, tau, routed shots, calibration failures, projected time and whether the choice met the limit, as the policies recorded them",
+  "7": {
+   "q": 0.04,
+   "tau": 1.3934324979782104,
+   "policy": "data/arch/policy_d7s9_r740.json",
+   "policy_file": "d7s9/policy_d7s9_r740.json",
+   "policy_sha256": "9b827c6be88134c2232ebae76758b2357733c5addbcae66bf6fe77c2994f2fbd",
+   "calib": "d7s9/calib_d7s9_r740.npz",
+   "calib_sha256": "23b8fc3afc64a0b1ea8dcf6bb814973df1040fef50465bdd9415388020ee05b5",
+   "routed": 8000,
+   "failures": 3204,
+   "projected_us": 12.72,
+   "qualifies": true
+  },
+  "9": {
+   "q": 0.01,
+   "tau": 0.6820775270462036,
+   "policy": "data/arch/policy_d9b3_r764.json",
+   "policy_file": "policy_d9b3_r764.json",
+   "policy_sha256": "42e79ec2708b7565681ff8cf7ca097fecb37a40c64c46bfe9260a8c8137c09dd",
+   "calib": "calib_d9b3_r764.npz",
+   "calib_sha256": "c6ac0018ddd77c181caa1212cc44f3aa09ddf83096f8646c24cbf26671986797",
+   "frontier": "frontier_d9b3_r764.json",
+   "frontier_sha256": "c000959a8dfe103d61ea0a928f54ffa7190cbb19437e21f5aa5d81e5e679cc47",
+   "routed": 2000,
+   "failures": 2188,
+   "projected_us": 33.590646927872385,
+   "qualifies": true
+  },
+  "11": {
+   "q": 0.01,
+   "tau": 1.0014245510101318,
+   "policy": "data/arch/policy_d11b5_r777.json",
+   "policy_file": "policy_d11b5_r777.json",
+   "policy_sha256": "212d59ebf0cfd409b6cc0bcfd603d1eed6468da31d8f96128f2b372d63485a8f",
+   "calib": "calib_d11b5_r777.npz",
+   "calib_sha256": "3fad62c52c5a41c859f41d461967efc555fddfc0cc5b9e2d3ac67e42f9a01927",
+   "frontier": "frontier_d11b5_r777.json",
+   "frontier_sha256": "627fce65d58dd23e71667fa2b7287b3ee874057d2d82b21ca3784cdaaa7c3fbd",
+   "routed": 2000,
+   "failures": 1408,
+   "projected_us": 55.68451273884722,
+   "qualifies": true
+  },
+  "13": {
+   "q": 0.02,
+   "tau": 1.8486117124557495,
+   "policy": "data/arch/policy_d13b5_r775.json",
+   "policy_file": "policy_d13b5_r775.json",
+   "policy_sha256": "b3f7b7f6d94c80e62bdb9c1219f954190166d983c8edda4d3401ef19c659035d",
+   "calib": "calib_d13b5_r775.npz",
+   "calib_sha256": "dd75e5c9b7861adc2c6b366636d01abc9ed6d73f4cc6e322e799103a2ebf6d4f",
+   "frontier": "frontier_d13b5_r775.json",
+   "frontier_sha256": "c68c6ee606589a72b8dde9929626da0cc5ed53761095f48cce32e18056811597",
+   "routed": 4000,
+   "failures": 1082,
+   "projected_us": 61.095473376421964,
+   "qualifies": true
+  },
+  "15": {
+   "q": 0.06,
+   "tau": 3.9547388553619385,
+   "policy": "data/arch/policy_d15b5_r782.json",
+   "policy_file": "policy_d15b5_r782.json",
+   "policy_sha256": "1f6d4cb2b665343475280a64cad51ce04303b80598af1d14e3e99e6809ef7005",
+   "calib": "calib_d15b5_r782.npz",
+   "calib_sha256": "43f95065546097aa7fe551fe04b2216e4b2b55ad8935e2c4f739de82c4ffd00d",
+   "frontier": "frontier_d15b5_r782.json",
+   "frontier_sha256": "b3dc25ad7de72e8d735e4c44ffd3124f13798ba85ea69984650fb30517a4abfc",
+   "routed": 12000,
+   "failures": 806,
+   "projected_us": 92.11459989808785,
+   "qualifies": false
+  },
+  "17": {
+   "q": 0.1,
+   "tau": 5.121974468231201,
+   "policy": "data/arch/policy_d17b5_r787.json",
+   "policy_file": "policy_d17b5_r787.json",
+   "policy_sha256": "e555016664603d798ed74e9e559ec8d352befea14b7917332f7038b88d065f53",
+   "calib": "calib_d17b5_r787.npz",
+   "calib_sha256": "23878f95b37a73c9b19581ed80ec591f7d651eb23749d23d54097e8ecbf1e2c4",
+   "frontier": "frontier_d17b5_r787.json",
+   "frontier_sha256": "ac1eeaf1b1d047aeb4e9e2a6f58f2d8b1acdd84a032335270d61965f1b856cdd",
+   "routed": 20000,
+   "failures": 560,
+   "projected_us": 159.65424528580692,
+   "qualifies": false
+  }
+ },
+ "baselines": {
+  "plain_pm": "plain PM",
+  "corr_pm": "correlated PM",
+  "ising_m1_pm": "Ising M1 + PM",
+  "ising_m4_pm": "Ising M4 + PM",
+  "ising_m1_corr": "Ising M1 + correlated PM",
+  "ising_m4_corr": "Ising M4 + correlated PM",
+  "bposd_minllr": "min-LLR BP-OSD",
+  "bposd_bp60": "BP 60 BP-OSD"
+ },
+ "ising_label": "Ising accuracy read with NVIDIA's official PyTorch numerics only (no TensorRT plan); Ising's speed is the studies' historical TensorRT composite",
+ "test": {
+  "set": "sv2test",
+  "chunks": {
+   "7": "0-199",
+   "9": "0-99",
+   "11": "0-99",
+   "13": "0-99",
+   "15": "0-99",
+   "17": "0-99"
+  },
+  "bposd_chunks": {
+   "7": "0-199",
+   "9": "0-99",
+   "11": "0-99",
+   "13": "0-99",
+   "15": "0-19",
+   "17": "0-19"
+  }
+ },
+ "calibration": {
+  "set": "sv2cal",
+  "chunks": "0-19",
+  "shots": 200000
+ },
+ "families": {
+  "A": {
+   "what": "the new pair against each baseline, accuracy",
+   "alpha": 0.025,
+   "test": "exact two-sided McNemar test on the discordant shots and Newcombe's method-8 interval of LER(pair) - LER(baseline) at 1 - alpha (convlines.stats.paired)",
+   "verdict": "better when p < alpha and the whole interval lies below 0; else not shown",
+   "subset": "BP-OSD on its subset (test.bposd_chunks)"
+  },
+  "B": {
+   "what": "the new pair against each baseline, speed",
+   "test": "the pair's composite time strictly below the baseline's registered time on the Grace basis; no statistical test",
+   "verdict": "holds or not; 'not established (timing session not qualified)' when no session qualified"
+  },
+  "C": {
+   "what": "new against deployed, per d: each network alone (q = 0), and each pair at its own q (the deployed at its published tau)",
+   "alpha_familywise": 0.05,
+   "test": "exact two-sided McNemar test, Holm over the tests of the six distances (12, fewer under a training-failure exception); Newcombe 95 % interval reported beside it (pointwise, not simultaneous)",
+   "verdict": "better (worse) when Holm rejects and the new network fails on fewer (more) shots; else inconclusive, reported as inconclusive and never as 'no difference'"
+  },
+  "claim": "a distance's claim against the baselines holds when all 16 of its comparisons in A and B hold (intersection-union, no further correction); C reports both directions"
+ },
+ "registered_times_us": {
+  "what": "each baseline's registered time per shot on the Grace basis (release main: timing.composite rows from results/, and results/controls_speed.json grace_us at d = 7-15 for Ising + correlated PM, the post hoc controls; study 4's registered opponents at d = 17); surf_v2/tests check them against those files",
+  "7": {
+   "plain_pm": 17.16,
+   "corr_pm": 35.71,
+   "ising_m1_pm": 48.756,
+   "ising_m4_pm": 61.41,
+   "ising_m1_corr": 53.34281364327768,
+   "ising_m4_corr": 65.07314480137816,
+   "bposd_minllr": 2864.199187606573,
+   "bposd_bp60": 5668.339245021343
+  },
+  "9": {
+   "plain_pm": 36.99,
+   "corr_pm": 67.59,
+   "ising_m1_pm": 56.401,
+   "ising_m4_pm": 68.083,
+   "ising_m1_corr": 68.45180181097564,
+   "ising_m4_corr": 78.22896857569863,
+   "bposd_minllr": 9353.559892624617,
+   "bposd_bp60": 18211.254235357046
+  },
+  "11": {
+   "plain_pm": 72.02,
+   "corr_pm": 155.61,
+   "ising_m1_pm": 68.633,
+   "ising_m4_pm": 78.666,
+   "ising_m1_corr": 97.04536385381923,
+   "ising_m4_corr": 100.96662100038972,
+   "bposd_minllr": 25202.851984649897,
+   "bposd_bp60": 46430.190987885
+  },
+  "13": {
+   "plain_pm": 129.61,
+   "corr_pm": 279.63,
+   "ising_m1_pm": 90.262,
+   "ising_m4_pm": 98.34199999999998,
+   "ising_m1_corr": 144.02249180890922,
+   "ising_m4_corr": 139.84190799931915,
+   "bposd_minllr": 68177.06406116486,
+   "bposd_bp60": 115302.0166233182
+  },
+  "15": {
+   "plain_pm": 208.53,
+   "corr_pm": 464.95,
+   "ising_m1_pm": 122.84605708118423,
+   "ising_m4_pm": 129.6314679088311,
+   "ising_m1_corr": 215.8970174151683,
+   "ising_m4_corr": 203.28686120503613,
+   "bposd_minllr": 197370.3820258379,
+   "bposd_bp60": 294550.8127473295
+  },
+  "17": {
+   "plain_pm": 325.23,
+   "corr_pm": 714.05,
+   "ising_m1_pm": 161.330013822027,
+   "ising_m4_pm": 165.9699940318491,
+   "ising_m1_corr": 297.50843224425654,
+   "ising_m4_corr": 275.794250452198,
+   "bposd_minllr": 444502.44386913255,
+   "bposd_bp60": 619208.9958651923
+  }
+ },
+ "nvidia_basis_d17": {
+  "what": "described only: d = 17 on the NVIDIA-distance basis (timing/R17_GRACE_NOTE.md, the table of R17's cells): every CPU time converted at d = 17 by NVIDIA's distance-specific values; ours' CPU term by G'(17) = 860.71 us over the node's correlated PM per block",
+  "G17_us": 860.71,
+  "times_us": {
+   "plain_pm": 313.59,
+   "corr_pm": 860.71,
+   "ising_m1_pm": 170.47,
+   "ising_m4_pm": 173.87,
+   "ising_m1_corr": 319.26,
+   "ising_m4_corr": 294.37,
+   "bposd_minllr": 444502.44386913255,
+   "bposd_bp60": 619208.9958651923
+  }
+ },
+ "registered_composites_us": {
+  "what": "the deployed networks' registered composites at their published tau (README section 4; d = 17: R17's), shown beside the same networks timed again in this session",
+  "7": {
+   "a": 8.442882880000003,
+   "b_grace": 2.2403747745203733,
+   "c": 2.2402656317460288,
+   "composite": 12.923523286266404
+  },
+  "9": {
+   "a": 27.906761281490326,
+   "b_grace": 1.042391873524079,
+   "c": 1.1,
+   "composite": 30.049153155014405
+  },
+  "11": {
+   "a": 40.613390369415285,
+   "b_grace": 2.211993927293793,
+   "c": 1.1,
+   "composite": 43.925384296709076
+  },
+  "13": {
+   "a": 49.15251747608185,
+   "b_grace": 7.704789934866089,
+   "c": 1.1,
+   "composite": 57.95730741094794
+  },
+  "15": {
+   "a": 50.8848875951767,
+   "b_grace": 33.860148883332556,
+   "c": 1.3352362411056617,
+   "composite": 86.08027271961492
+  },
+  "17": {
+   "a": 66.65951348304749,
+   "b_grace": 66.81599175327881,
+   "c": 1.5432148370622656,
+   "composite": 135.01872007338855
+  }
+ },
+ "timing": {
+  "gpu_processes": 5,
+  "max_replacements": 2,
+  "gpu_model": "NVIDIA H100 80GB HBM3",
+  "val_shots": 200000,
+  "sm_clock_min_frac": 0.97,
+  "throttle_ok": [
+   "0x0000000000000000",
+   "0x0000000000000001"
+  ],
+  "handoff_allowance_us": 1.1,
+  "handoff_processes_d7": 5,
+  "handoff_processes_d9_17": 1,
+  "cpu_reps": 3,
+  "cpu_core": 8,
+  "gpu_check": "surf_v2/gpucheck.py at the session's start and end: 1 GiB held, 3 s of fp16 matrix products, nvidia-smi every 100 ms: median SM clock >= 97 % of the maximum, throttle reasons none or idle, no other process on the GPU before, during or after, under 64 MiB in use before",
+  "qualification": "a session qualifies when its GPU check passes at the start and at the end and every network, new and deployed, has five accepted GPU-term processes and its accepted handoff process(es) within two replacements; a third rejected process of any network, a failed GPU check or a lost pod disqualifies it; at most two sessions, the second only after a technical failure, on a new secure host, timing every network again; the first qualifying session counts; if neither qualifies, the second's accepted processes are reported as unqualified and family B as 'not established (timing session not qualified)'"
+ },
+ "pair_curves": {
+  "what": "described: each network's pair failures on the test set at every q of its distance's grid, tau_q fitted on the new calibration set (the rule's tau_q), new and deployed side by side; and the calibration frontiers (F_cal(q) against the projected time) of the new networks"
+ },
+ "paper_rows": {
+  "rule": "the paper's surface rows are the new networks' pairs at every distance, whatever their results (D4); the one exception is a distance under the training-failure exception of the freeze (freeze.json exceptions), whose row is the deployed network's pair read on the fresh test set, labelled as the exception; the deployed networks' registered results stay in the provenance table as the earlier tests"
+ },
+ "dry": {
+  "what": "dry runs only (never a result): the sv2dry set stands in for both the calibration and the test set",
+  "set": "sv2dry",
+  "cal_chunks": "0-1",
+  "test_chunks": "2-3",
+  "bposd_chunks": "2-2"
+ }
+}

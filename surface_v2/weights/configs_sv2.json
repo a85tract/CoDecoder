@@ -1,0 +1,313 @@
+{
+ "what": "SURF-v2's networks (surf_v2/REGISTRATION.md): the six networks retrained without line supervision, and R17's d = 17 policy for the deployed network; convlines.decoder.config reads this file after weights/configs.json. sha256, final_ema_sha256 and policy are set by the freeze (surf_v2/freeze.py); before it a weight file is read unchecked, and a read needing tau refuses a network without a policy.",
+ "networks": {
+  "d7_b1w64_sv2": {
+   "d": 7,
+   "stage": "N7",
+   "file": "d7_b1w64_sv2.safetensors",
+   "sha256": "8a7a128ff346669892d8b78d1376c0c97b052c04b1892805f80f524eb3a2c723",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 64,
+    "bott": 16,
+    "blocks": 1,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 90257,
+   "grid": {
+    "geometry": "weights/grid_d7.npz",
+    "shape_t_i_j": [
+     8,
+     8,
+     8
+    ],
+    "detectors": 336
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N7 (run id 1,307; ramp 1,357), from scratch",
+    "final_ema_sha256": "2bc81c3aeee37b1aacc716410ba2b94f3509eca5e81e532736c01f9b77e03d19"
+   },
+   "deployed_executable": "timing/d7 (a hand-written persistent CUDA kernel for sm_90a with the weights resident in shared memory, and its compiled router; built by timing/d7/build.sh)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.02,
+    "tau": 0.90324866771698,
+    "tau_repr": "0.90324866771698",
+    "outcome": "routed pair",
+    "calibration_failures": 3077,
+    "shots": 200000
+   }
+  },
+  "d9_b3_sv2s1": {
+   "d": 9,
+   "stage": "N9b",
+   "file": "d9_b3_sv2s1.safetensors",
+   "sha256": "7dd879cf5eeb6f8b39ddd5a5d1bdaac34ffffe17e3ed5dafdcebedab5fb63aa0",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 3,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 389395,
+   "grid": {
+    "geometry": "weights/grid_d9.npz",
+    "shape_t_i_j": [
+     10,
+     10,
+     10
+    ],
+    "detectors": 720
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N9b (run id 1,309; ramp 1,359), continued from N9 = A1's a1_S-V_s1 (final_ema.pt sha256 bda0ca608ab854d84783f2611084de587c588e5be32120f7341ccb83af9ac43e) on 2e8 shots, 4e8 in all (plan 12.3)",
+    "final_ema_sha256": "03ffb60289bd434394d8fe43fe7d35382a561865afd5d7c6aa9f2c5323a390dc"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.0,
+    "tau": 0.0,
+    "tau_repr": "0.0",
+    "outcome": "q = 0: the network alone",
+    "calibration_failures": 2005,
+    "shots": 200000
+   }
+  },
+  "d11_b5_sv2": {
+   "d": 11,
+   "stage": "N11b",
+   "file": "d11_b5_sv2.safetensors",
+   "sha256": "f09e87d8357e7c89ce8640487f0668968a7d596f49ef3d123fffeaa6b0662e61",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 517669,
+   "grid": {
+    "geometry": "weights/grid_d11.npz",
+    "shape_t_i_j": [
+     12,
+     12,
+     12
+    ],
+    "detectors": 1320
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N11b (run id 1,312; ramp 1,362), continued from N11 (run id 1,311; ramp 1,361; transferred from N9) on 4e8 shots, 8e8 in all (plan 12.3)",
+    "final_ema_sha256": "d49c04b67d4772cf8efcd35198e41a1a725de63ab5e59f175e0ed83ab4727117"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.0,
+    "tau": 0.0,
+    "tau_repr": "0.0",
+    "outcome": "q = 0: the network alone",
+    "calibration_failures": 1350,
+    "shots": 200000
+   }
+  },
+  "d13_b5_sv2": {
+   "d": 13,
+   "stage": "N13",
+   "file": "d13_b5_sv2.safetensors",
+   "sha256": "68069bdaedef94c9fa2dce1f2e8ba605bee899179123cc2a43d4d5ada3e40433",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518007,
+   "grid": {
+    "geometry": "weights/grid_d13.npz",
+    "shape_t_i_j": [
+     14,
+     14,
+     14
+    ],
+    "detectors": 2184
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N13 (run id 1,313; ramp 1,363), transferred from N11",
+    "final_ema_sha256": "fd88ddf68b50edeb15fca5d827c257165a2fa5fa7c7a0f29191dcd06e6b6d0ec"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.0,
+    "tau": 0.0,
+    "tau_repr": "0.0",
+    "outcome": "q = 0: the network alone",
+    "calibration_failures": 1075,
+    "shots": 200000
+   }
+  },
+  "d15_b5_sv2": {
+   "d": 15,
+   "stage": "N15",
+   "file": "d15_b5_sv2.safetensors",
+   "sha256": "bb16284c4abf5372df8a2e7a9e7aac6cce9d4ed6f9b92c33ef5d06bf1f1d625d",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518345,
+   "grid": {
+    "geometry": "weights/grid_d15.npz",
+    "shape_t_i_j": [
+     16,
+     16,
+     16
+    ],
+    "detectors": 3360
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N15 (run id 1,316; ramp 1,366), the second stage on N15a (run id 1,315; ramp 1,365)",
+    "final_ema_sha256": "2f0b5256ba055965746393ea345497c9cd51fec10a6779c70195972ff544e9c9"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.01,
+    "tau": 1.9195706844329834,
+    "tau_repr": "1.9195706844329834",
+    "outcome": "routed pair",
+    "calibration_failures": 605,
+    "shots": 200000
+   }
+  },
+  "d17_b5_sv2": {
+   "d": 17,
+   "stage": "N17",
+   "file": "d17_b5_sv2.safetensors",
+   "sha256": "e11d084750f1e24ba0b0f0976a86878cfde73a0d02514d3d1073c2f41012d73c",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A): the final_ema.pt state of the stage without the training-only read-out (surf_v2/export.py)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518683,
+   "grid": {
+    "geometry": "weights/grid_d17.npz",
+    "shape_t_i_j": [
+     18,
+     18,
+     18
+    ],
+    "detectors": 4896
+   },
+   "training": {
+    "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+    "source": "sv2_N17 (run id 1,317; ramp 1,367), transferred from N15a",
+    "final_ema_sha256": "2df68df60597762439aee248c341494dc759420608a7c54ed38c9ccd64b1f00e"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 4 pipeline stages)",
+   "policy": {
+    "rule": "ising-arch:ising_compare/arch/policy.py fit (lines 117-165), executed as written: tau_q = float(np.quantile(|c|, q)) for q > 0 (numpy's default interpolation on the float32 |c|), tau_0 = 0; a shot is routed when |c| < tau_q (float32 |c| against tau_q); r_q = routed / N; F_cal(q) = failures with the routed shots taking correlated PM's calibration answer; admissible when projected(q) <= bar; limit L = M - 2 sqrt(2 M); the smallest admissible q with F_cal(q) <= L, else the fallback of the distance's registered policy (fallback): the largest admissible q at d = 7, the admissible q with the fewest calibration failures (ties: the smaller q) at d = 9-17; no admissible q: no policy (the network alone, labelled)",
+    "q": 0.01,
+    "tau": 2.2122440338134766,
+    "tau_repr": "2.2122440338134766",
+    "outcome": "routed pair",
+    "calibration_failures": 464,
+    "shots": 200000
+   },
+   "engine": {
+    "stages": 4
+   }
+  },
+  "d17_b5_r787_q08": {
+   "base": "d17_b5_r787",
+   "sha256": "0c3a65ab5f767224bb3ad29f33bdc98df8f947ce4d8e03b052921f069a0c53fb",
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.08,
+    "tau": 4.539173126220703,
+    "tau_repr": "4.539173126220703",
+    "fit": "R17's threshold (r17/policy_d17b5_r787_q08.json): the C4.2 rule on deep17's calibration set K17d, the paper's current d = 17 row"
+   }
+  }
+ }
+}

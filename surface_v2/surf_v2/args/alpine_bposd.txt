@@ -1,0 +1,7 @@
+# GPU (A100 80GB cards or H200 3g.71gb slices, --nice=1000; pods as the fallback, plan 3.2): the two BP-OSD arms
+# (CUDA-Q QEC 0.8.0, the studies' settings) on the BP-OSD subset (every test shot at d = 7-13, chunks 0-19 at d = 15 and
+# 17) in shares of 5 chunks, JOBS processes spread over the job's GPUs (R17: 4 per A100) -> $E/reads/test. DS splits
+# the distances between jobs (e.g. DS=7, DS=9,11, DS=13, DS=15,17), so that no two jobs read the same share.
+G=$(nvidia-smi --query-gpu=index --format=csv,noheader | paste -sd, -)
+$PYCQ -m surf_v2.shares --bposd --d ${DS:-all} --opponents "min-LLR BP-OSD" "BP 60 BP-OSD" --shots $E/shots/sv2test \
+  --save $E/reads/test --logs $E/logs/bposd_$SLURM_JOB_ID --jobs ${JOBS:-4} --gpus ${GPUS:-$G} --size 5

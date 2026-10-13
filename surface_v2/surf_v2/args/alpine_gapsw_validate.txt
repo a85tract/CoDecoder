@@ -1,0 +1,5 @@
+# CPU (acpu, 4 cores, about 20 min): gap switching's unit tests, then the complementary gap against an exhaustive search
+# at d = 3 and 5 (NVIDIA's MemoryCircuit, the verdict circuits' generator) and at d = 7 (the verdict circuit, which the
+# generator must reproduce) -> $E/gapsw/validate (surf_v2/gapsw_validate.py; the log ends "VALIDATION PASSED").
+$PY -m surf_v2.tests.test_gapsw
+mkdir -p $E/gapsw; $PY -m surf_v2.gapsw_validate --d 3 5 7 --shots 5000 5000 5000 --out $E/gapsw/validate

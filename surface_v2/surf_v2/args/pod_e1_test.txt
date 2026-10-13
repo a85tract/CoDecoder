@@ -1,0 +1,16 @@
+# E1, last (the test set drawn and in $W/shots/sv2test, its manifest committed, $REL at that commit): every network's
+# test read at its frozen tau through its deployed engine at batch one, and at every d the four Ising rows (NVIDIA's
+# official PyTorch numerics; + PM and + correlated PM), each d's Ising read in its own process beside the networks' reads
+# -> $W/reads/test. SKIP as in pod_e1_cal.txt.
+NETS=$($PY -c "import json; c = json.load(open('surf_v2/config.json')); print(' '.join(f'{d}:{n}' for d in c['distances'] for n in c['networks'][str(d)].values()))")
+CH() { [ $1 = 7 ] && echo 0-199 || echo 0-99; }
+P=""
+for d in 7 9 11 13 15 17; do
+  $PY -m convlines.evaluate --set sv2test --d $d --chunks $(CH $d) --shots $W/shots/sv2test --net none --opponents \
+    "Ising M1 + PM" "Ising M4 + PM" "Ising M1 + correlated PM" "Ising M4 + correlated PM" --save $W/reads/test \
+    > $W/logs/ising_d$d.log 2>&1 & P="$P $!"; done
+for x in $NETS; do d=${x%%:*}; n=${x#*:}; case " ${SKIP:-} " in *" $n "*) continue ;; esac
+  $PY -m convlines.evaluate --set sv2test --d $d --chunks $(CH $d) --shots $W/shots/sv2test --net $n \
+    --routing deployed --build $B --opponents --save $W/reads/test 2>&1 | tail -1; done
+for p in $P; do wait $p || { echo "an Ising read failed ($p): see $W/logs/ising_d*.log"; exit 1; }; done
+tail -n 2 $W/logs/ising_d*.log; (cd $W/reads/test && sha256sum *.npz *.json)

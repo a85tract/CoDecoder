@@ -1,0 +1,9 @@
+# CPU (acpu, 4 cores, 64 GB, about 15 min; after alpine_analysis.txt, alpine_gapsw_test.txt and alpine_gapsw_cpu.txt): the
+# secondary comparison from the frozen tree (surf_v2/GAPSW_REGISTRATION.md), then the same command again into a second
+# directory, only to show byte-identical outputs. GSCPU: the timing directory that counts, if not $E/gapsw/cpu (the first
+# timing job that completed).
+for k in 1 2; do $PY -m surf_v2.gapsw_analysis --freeze surf_v2/freeze.json --reads $E/pod/reads/test $E/reads/test \
+  $E/gapsw/reads/test --shots $E/shots/sv2test --cpu ${GSCPU:-$E/gapsw/cpu} --main $E/analysis/run1/analysis.json \
+  --out $E/gapsw/analysis/run$k; done
+diff -r $E/gapsw/analysis/run1 $E/gapsw/analysis/run2 && echo "BYTE-IDENTICAL: the second run's $(ls $E/gapsw/analysis/run1 | wc -l) files"
+(cd $E/gapsw/analysis/run1 && sha256sum *)

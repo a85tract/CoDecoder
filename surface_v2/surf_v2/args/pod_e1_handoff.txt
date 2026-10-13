@@ -1,0 +1,14 @@
+# E1, after the freeze ($REL at the freeze commit: every network has its frozen tau): the routing masks at the frozen
+# tau ($W/masks/frozen, the CPU term's masks; their c equal to $W/masks/pre's bit for bit), then the handoff processes
+# and the GPU check at the end -> $W/session. surf_v2.session leaves out the freeze record's exceptions (SKIP, if
+# set, must name the same networks).
+$PY -m surf_v2.session masks --val $W/shots/val --out $W/masks/frozen --build $B
+$PY - $W/masks/pre $W/masks/frozen <<'PYEOF'
+import sys, glob, os, numpy as np
+pre, fro = sys.argv[1:3]
+for f in sorted(glob.glob(os.path.join(fro, "val_*.npz"))):
+    a, b = np.load(f), np.load(os.path.join(pre, os.path.basename(f)))
+    assert np.array_equal(a["c"].view(np.uint32), b["c"].view(np.uint32)), f"{f}: c differs from the GPU term's reference"
+    print(os.path.basename(f), "tau", float(a["tau"]), "routed", int(a["routed"].sum()))
+PYEOF
+$PY -m surf_v2.session handoff --val $W/shots/val --masks $W/masks/frozen --out $W/session --build $B

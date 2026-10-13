@@ -1,0 +1,28 @@
+# CPU (acpu, 4 cores, minutes; after training): every new network's final_ema.pt (the outcomes of N7, N9b, N11b, N13,
+# N15 and N17 in the SURF-v2 records, mirrored to $A/ckpt/surface; the paper's d = 9 and d = 11 networks are the
+# continuation stages N9b and N11b, plan 12.3, and N9 and N11 are intermediate; there is no d = 9 replica) exported
+# into $E/weights (surf_v2.export: the safetensors file the calibration reads, the timing, the freeze and the test
+# reads all use), each with the research code's logits on 2,000 dry shots equal bit for bit. The networks are the
+# stages' outcomes ($A/done/sv2_<stage>.end: main or ramp, the network's path under $A and its sha256, checked; failed
+# or skipped: not exported, a training-failure exception); the pods' stages' runs and outcomes must be mirrored to $A
+# first. NETS (name=final_ema.pt path ...) overrides the outcomes.
+RC=$(ls -d /scratch/alpine/$USER/surf_v2/code_at/b6368efa*)
+A=${SV2A:-/scratch/alpine/$USER/surf_v2}
+[ -n "${NETS:-}" ] || NETS=$($PY - $A <<'PYEOF'
+import hashlib, json, os, sys
+A = sys.argv[1]
+for stage, name in (("N7", "d7_b1w64_sv2"), ("N9b", "d9_b3_sv2s1"), ("N11b", "d11_b5_sv2"), ("N13", "d13_b5_sv2"),
+                    ("N15", "d15_b5_sv2"), ("N17", "d17_b5_sv2")):
+    e = json.load(open(os.path.join(A, "done", f"sv2_{stage}.end")))
+    if e["outcome"] not in ("main", "ramp"):
+        print(f"{name}: stage {stage} {e['outcome']}: not exported (a training-failure exception)", file=sys.stderr)
+        continue
+    f = os.path.join(A, e["network"])
+    assert hashlib.sha256(open(f, "rb").read()).hexdigest() == e["sha256"], f"{f}: not the network of {stage}'s outcome"
+    print(f"{name}={f}")
+PYEOF
+)
+for x in $NETS; do
+  ICMP_NV=$I/ext/ising_nv/code $PY -m surf_v2.export --ckpt ${x#*=} --name ${x%%=*} --out $E/weights \
+    --check-arch $RC/ising_compare --shots $E/shots/sv2dry; done
+(cd $E/weights && sha256sum *.safetensors)

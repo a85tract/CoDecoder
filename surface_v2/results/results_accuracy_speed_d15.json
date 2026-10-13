@@ -1,0 +1,156 @@
+{
+ "stage": "study 3 at d = 15: accuracy and speed per decoder, from the registered records",
+ "d": 15,
+ "t3_shots": 1000000,
+ "bposd_subset_shots": 200000,
+ "arms": {
+  "ours (d15_b5_r782, FROZEN, 3 stages)": {
+   "failures": 3911,
+   "shots": 1000000,
+   "failures_on_bposd_subset": 768,
+   "speed_us": {
+    "grace": 86.08027271961492,
+    "m4": 66.63107511352348
+   },
+   "components_us": {
+    "a_gpu": 50.8848875951767,
+    "b_grace": 33.860148883332556,
+    "b_m4": 14.41095127724111,
+    "b_node": 28.642082711448893,
+    "c": 1.3352362411056617
+   }
+  },
+  "Ising M1 + PM": {
+   "failures": 15232,
+   "shots": 1000000,
+   "part_for_speed": "M1_fp8_L5_B1",
+   "plan": "fp8 L5",
+   "plan_us": 57.348,
+   "pm_share_grace_us": 65.49805708118423,
+   "rows": 13,
+   "failures_min_over_rows": 15232,
+   "failures_max_over_rows": 15288,
+   "failures_torch": 15288,
+   "speed_us": {
+    "grace": 122.84605708118423,
+    "m4": 92.18548994767667
+   }
+  },
+  "Ising M4 + PM": {
+   "failures": 10130,
+   "shots": 1000000,
+   "part_for_speed": "M4_fp8_L5_B1",
+   "plan": "fp8 L5",
+   "plan_us": 74.711,
+   "pm_share_grace_us": 54.92046790883109,
+   "rows": 15,
+   "failures_min_over_rows": 10077,
+   "failures_max_over_rows": 10130,
+   "failures_torch": 10081,
+   "speed_us": {
+    "grace": 129.6314679088311,
+    "m4": 103.48089617943764
+   }
+  },
+  "plain PM": {
+   "failures": 18442,
+   "shots": 1000000,
+   "speed_us": {
+    "grace": 208.53,
+    "m4": 81.60277511924507
+   }
+  },
+  "correlated PM": {
+   "failures": 4311,
+   "shots": 1000000,
+   "speed_us": {
+    "grace": 464.95,
+    "m4": 191.96340749040246
+   }
+  },
+  "min-LLR BP-OSD": {
+   "failures": 2318,
+   "shots": 200000,
+   "ours_failures_same_shots": 768,
+   "speed_us": {
+    "unconverted": 197370.3820258379
+   }
+  },
+  "BP 60 BP-OSD": {
+   "failures": 3247,
+   "shots": 200000,
+   "ours_failures_same_shots": 768,
+   "speed_us": {
+    "unconverted": 294550.8127473295
+   }
+  }
+ },
+ "rtx_pro_6000_beside_us": {
+  "a": 55.77154946088791,
+  "b_grace": 33.860148883332556,
+  "b_m4": 14.41095127724111,
+  "c": 2.582,
+  "grace": 92.21369834422046,
+  "m4": 72.76450073812902
+ },
+ "notes": [
+  "Grace basis: the registered composite (a) + (b) converted with the same-node ratio + (c); the opponents' Grace values are extrapolations (README, speed).",
+  "M4 basis (measured on an Apple M4 core, decides nothing): ours with (b) measured on the M4; plain and correlated PM on the M4; Ising with the PM share measured on the M4.",
+  "BP-OSD speeds: the fastest repetition at batch 1 on the session host (GPU BP + host OSD), unconverted; their failures are on the registered subset (the first 200,000 T3 shots), where ours failed 768 times.",
+  "Ising: the speed row is the fastest validated TensorRT plan at batch 1 plus the PM share; every Ising plan is its own accuracy row (failures_min_over_rows / failures_max_over_rows; some plans' outputs are identical).",
+  "The RTX PRO 6000 row is a development measurement and decides nothing."
+ ],
+ "composite_inputs": {
+  "a_gpu": 50.8848875951767,
+  "b_node_reps": [
+   28.642082711448893,
+   28.252409192500636,
+   28.508233175380155
+  ],
+  "b_node": 28.642082711448893,
+  "ratio": {
+   "numerator": 464.95,
+   "node_reps": [
+    389.5423661917448,
+    393.29822212457657,
+    393.3337538735941
+   ],
+   "node_median": 393.29822212457657,
+   "ratio": 1.1821817995727624
+  },
+  "b_grace": 33.860148883332556,
+  "c_allowance": 1.1,
+  "c_measured": 1.3352362411056617,
+  "c_measured_detail": {
+   "complete_raw": 98.65381906500001,
+   "device_only_b1": 53.92195224389434,
+   "routed_fraction": 0.05911,
+   "routed_pm_raw_mean": 734.1673249873119,
+   "estimate": 1.3352362411056617
+  },
+  "c_handoff": 1.3352362411056617,
+  "composite_grace": 86.08027271961492,
+  "cpu_term_node": "AMD EPYC 7443 24-Core Processor",
+  "frozen_stages": 3,
+  "opponents_grace": {
+   "Ising M1 + PM": 122.84605708118423,
+   "Ising M4 + PM": 129.6314679088311,
+   "plain PM": 208.53,
+   "correlated PM": 464.95,
+   "min-LLR BP-OSD": 197370.3820258379,
+   "BP 60 BP-OSD": 294550.8127473295
+  },
+  "ising_plans": {
+   "Ising M1 + PM": {
+    "plan": "fp8 L5",
+    "plan_us": 57.348,
+    "pm_share_grace": 65.49805708118423
+   },
+   "Ising M4 + PM": {
+    "plan": "fp8 L5",
+    "plan_us": 74.711,
+    "pm_share_grace": 54.92046790883109
+   }
+  }
+ }
+}

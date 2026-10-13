@@ -1,0 +1,54 @@
+# GPU slice (ah200, one h200_2g.35gb, 8 cores, about 1 h; a dry pass, never a result): E0's list with one new network
+# under a training-failure exception (SKIP, default d13_b5_sv2), through the timing session and the analysis, on a
+# shared GPU, in a writable copy W of the pinned tree. Inputs: E0's run-4 reads ($E/dry_e0/pod/dry/reads: the dry set as
+# calibration, chunks 0-1, and as test, chunks 2-3, with PM and the Ising rows), its BP-OSD reads ($E/dry_e0/bposd), the
+# new networks' stand-in exports ($E/dry_e0/exports, which also holds E0's d = 9 replica, not copied; the skipped
+# network's left out, so anything that reaches it fails) and the dry calcost ($E/dry_e0/cc); the d = 7 engine built on
+# Alpine (BUILD: timing/d7/build.sh with nvcc 12.6, not the studies' cubin). The q rule on the other new names and a dry
+# freeze with the exception; session masks, gpu (--limit 2000 --dry), masks at tau (c equal to the first masks bit for
+# bit) and handoff (--limit 20000 --dry), each leaving SKIP out; the CPU term on those masks (this job, three
+# repetitions, the session's networks); the analysis twice.
+SKIP=${SKIP:-d13_b5_sv2}; export SKIP; BUILD=${BUILD:-$E/dry_skip/build/d7}; V=$E/shots/val
+X=$E/dry_skip/run_$SLURM_JOB_ID; W=$X/w; R=$E/dry_e0/pod/dry/reads; mkdir -p $X/pol $X/cpu $X/cal
+cp $R/sv2dry_d*_0-1.* $X/cal/                      # the calibration reads alone, as the freeze sees them on a pod
+cp -r $T $W; chmod -R u+w $W; cd $W; export PYTHONPATH=$W
+for n in $($PY -c "import json; c = json.load(open('surf_v2/config.json')); print(' '.join(v['new'] for v in c['networks'].values()))"); do
+  case " $SKIP " in *" $n "*) continue ;; esac; cp $E/dry_e0/exports/$n.safetensors $E/dry_e0/exports/$n.export.json weights/; done
+$PY - $SKIP $X/exc.json <<'PYEOF'
+import json, sys
+c = json.load(open("surf_v2/config.json"))
+d = next(k for k, v in c["networks"].items() if v["new"] == sys.argv[1])
+with open(sys.argv[2], "x") as fh:
+    json.dump({d: dict(why=f"dry pass: {sys.argv[1]} stands for a network that did not train", checks="none (dry)",
+                       row_network=c["networks"][d]["deployed"], ancestry="dry")}, fh, indent=1)
+PYEOF
+for x in 7:d7_b1w64_sv2 9:d9_b3_sv2s1 11:d11_b5_sv2 13:d13_b5_sv2 15:d15_b5_sv2 17:d17_b5_sv2; do
+  d=${x%%:*}; n=${x#*:}; case " $SKIP " in *" $n "*) continue ;; esac
+  $PY -m surf_v2.qrule fit --dry --net $n --read $X/cal/sv2dry_d${d}_${n}_0-1.npz --calcost $E/dry_e0/cc/calcost_d$d.npz \
+    --out $X/pol/policy_$n.json | tail -1; done
+$PY -m surf_v2.freeze make --dry --policies $X/pol --cal-reads $X/cal --exports weights --research-commit dry \
+  --exceptions $X/exc.json --out $X/freeze.json
+$PY -m surf_v2.session masks --val $V --out $X/masks_pre --build $BUILD
+$PY -m surf_v2.session gpu --val $V --masks $X/masks_pre --out $X/session --build $BUILD --limit 2000 --dry
+$PY -m surf_v2.session masks --val $V --out $X/masks --build $BUILD
+$PY - $X/masks_pre $X/masks <<'PYEOF'
+import sys, glob, os, numpy as np
+pre, fro = sys.argv[1:3]
+for f in sorted(glob.glob(os.path.join(fro, "val_*.npz"))):
+    a, b = np.load(f), np.load(os.path.join(pre, os.path.basename(f)))
+    assert np.array_equal(a["c"].view(np.uint32), b["c"].view(np.uint32)), f"{f}: c differs from the GPU term's reference"
+print(len(glob.glob(os.path.join(fro, "val_*.npz"))), "masks, c equal to the first masks bit for bit")
+PYEOF
+$PY -m surf_v2.session handoff --val $V --masks $X/masks --out $X/session --build $BUILD --limit 20000 --dry
+$PY -c "import json; a = json.load(open('$X/session/attempts.json')); print(len(a), 'networks:', {n: ''.join('+' if x['accepted'] else '-' for x in r) for n, r in a.items()})"
+C=$(awk '/Cpus_allowed_list/{print $2}' /proc/self/status | cut -d, -f1 | cut -d- -f1)
+NETS=$($PY -c "from surf_v2 import session; print(' '.join(f'{d}:{n}' for d, n in session.networks()))")
+for r in 1 2 3; do
+  for d in 7 9 11 13 15 17; do $PY -m timing.cpu_term ref --d $d --val $V --rep $r --core $C --out $X/cpu; done
+  for x in $NETS; do d=${x%%:*}; n=${x#*:}
+    $PY -m timing.cpu_term term --d $d --val $V --mask $X/masks/val_$n.npz --rep $r --core $C --out $X/cpu; done; done
+for k in 1 2; do $PY -m surf_v2.analysis --dry --freeze $X/freeze.json --reads $R $E/dry_e0/bposd --shots $E/shots/sv2dry \
+  --sessions $X/session --cpu $X/cpu --out $X/an$k; done
+diff -r $X/an1 $X/an2 && echo "BYTE-IDENTICAL: the second run's $(ls $X/an1 | wc -l) files"
+$PY -c "import json; r = json.load(open('$X/an1/analysis.json')); t = r['timing']; print('exceptions', {k: v['exception'] and v['exception']['row_network'] for k, v in r['distances'].items()}, '| family C left out', r['family_C']['left_out'], 'tests', r['family_C']['m'], '| sessions', [(s['label'], s['source'], s['qualified'], s['gpu_uuid']) for s in t['sessions']], '| counted', t['counting_session'])"
+head -12 $X/an1/tables.md

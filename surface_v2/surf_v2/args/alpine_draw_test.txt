@@ -1,0 +1,8 @@
+# CPU (acpu, x86-64 with AVX2, about 30 min): the test set sv2test, once, after the freeze commit was pushed to GitHub
+# and the beacon record fetched (python -m convlines.beacon fetch, on the box): BEACON is that record. The draw checks
+# the record first (chain, round fixed by the push time, two agreeing endpoints, randomness = SHA-256(signature)), then
+# draws chunks 0-199 at d = 7 and 0-99 at d = 9-17 into $E/shots/sv2test and the manifest to $O. Commit the record as
+# surf_v2/beacon.json and the manifest as testsets/sv2test.json, push, then the test reads.
+$PY -m convlines.beacon check --beacon ${BEACON:?}
+$PY -m convlines.testset draw --set sv2test --d all --beacon $BEACON --out $E/shots/sv2test --manifest $O/sv2test.json
+(cd $E/shots/sv2test && ls | wc -l && du -sh .)

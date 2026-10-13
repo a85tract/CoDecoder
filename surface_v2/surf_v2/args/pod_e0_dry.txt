@@ -1,0 +1,48 @@
+# E0, the GPU dry pass (during the chain; never a result), in a writable copy of the release at the pinned commit: the
+# dry set as calibration (chunks 0-1) and test (chunks 2-3). Stand-ins for the new networks are real networks of the
+# right sizes: A1's S-V seed 1 at d = 9 and the T1 preflight's dry-chain stages (sv2dry_N7, sv2dry_N11, ..._N17,
+# 10^6 shots each), exported under the new names. $W/shots/sv2dry and $W/dry/exports (surf_v2.export's files, made on
+# Alpine by alpine_e0_prep.txt) and $W/dry/cc (dry calcost) come from Alpine.
+# 1. the engines' c against the fp32 reference on the dry calibration chunks (decisions and max |c difference|)
+# 2. the calibration reads, the q rule, a dry freeze (also packed as the freeze job's freeze_files.tgz, for
+#    surf_v2/public.sh), the test reads at tau, the Ising rows (each read timed)
+# 3. the timing tools on 2,000 validation shots (the handoffs on 20,000, which d = 7's reads): masks, the GPU-term
+#    session (12 networks x 5 processes), the handoffs, both GPU checks; every process accepted and every output equal
+#    to its engine's c
+DR=$W/dry; RD=$DR/reads; mkdir -p $RD $DR/pol; cp $DR/exports/*.safetensors $DR/exports/*.export.json weights/
+NETS=$($PY -c "import json; c = json.load(open('surf_v2/config.json')); print(' '.join(f'{d}:{n}' for d in c['distances'] for n in c['networks'][str(d)].values()))")
+for x in $NETS; do d=${x%%:*}; n=${x#*:}; s=$(date +%s)
+  $PY -m convlines.evaluate --set sv2dry --d $d --chunks 0-1 --shots $W/shots/sv2dry --net $n --tau none \
+    --routing deployed --build $B --opponents --save $RD 2>&1 | tail -1; echo "$n deployed read: $(( $(date +%s) - s )) s"
+  [ $n = d17_b5_r787_q08 ] || $PY - $RD/sv2dry_d${d}_${n}_0-1.npz $W/shots/sv2dry $d $n <<'PYEOF'
+import sys, numpy as np
+from convlines import decoder, testset
+z = np.load(sys.argv[1]); d, n = int(sys.argv[3]), sys.argv[4]
+det, obs = testset.load_chunks("sv2dry", d, [0, 1], sys.argv[2])
+m, _ = decoder.load_network(n, "cuda")
+c = decoder.logits(m, det, "cuda")
+print(f"{n}: engine vs fp32 on {len(c)} shots: decisions differ {int(((c > 0) != (z['c'] > 0)).sum())}, max |dc| "
+      f"{float(np.abs(c.astype(np.float64) - z['c']).max()):.3g}")
+PYEOF
+done
+for x in 7:d7_b1w64_sv2 9:d9_b3_sv2s1 11:d11_b5_sv2 13:d13_b5_sv2 15:d15_b5_sv2 17:d17_b5_sv2; do
+  d=${x%%:*}; n=${x#*:}; $PY -m surf_v2.qrule fit --dry --net $n --read $RD/sv2dry_d${d}_${n}_0-1.npz \
+  --calcost $DR/cc/calcost_d$d.npz --out $DR/pol/policy_$n.json | tail -1; done
+$PY -m surf_v2.freeze make --dry --policies $DR/pol --cal-reads $RD --exports weights --research-commit dry --out $DR/freeze.json
+# the dry freeze's files as the freeze job packs them (alpine_freeze.txt), for a dry run of surf_v2/public.sh freeze
+FZ=$DR/freeze_files; mkdir -p $FZ/weights $FZ/surf_v2; cp -r surf_v2/policies $DR/freeze.json $FZ/surf_v2/
+cp weights/configs_sv2.json weights/*_sv2*.safetensors weights/*_sv2*.export.json $FZ/weights/
+(cd $FZ && tar czf ../freeze_files.tgz weights surf_v2 && find weights surf_v2 -type f | sort | xargs sha256sum > ../freeze_files.sha256)
+for x in $NETS; do d=${x%%:*}; n=${x#*:}; s=$(date +%s)
+  $PY -m convlines.evaluate --set sv2dry --d $d --chunks 2-3 --shots $W/shots/sv2dry --net $n --routing deployed \
+    --build $B --opponents --save $RD 2>&1 | tail -1; echo "$n test read: $(( $(date +%s) - s )) s"; done
+for d in 7 9 11 13 15 17; do s=$(date +%s)
+  $PY -m convlines.evaluate --set sv2dry --d $d --chunks 2-3 --shots $W/shots/sv2dry --net none --opponents \
+    "Ising M1 + PM" "Ising M4 + PM" "Ising M1 + correlated PM" "Ising M4 + correlated PM" --save $RD 2>&1 | tail -1
+  echo "d$d Ising (4 rows, 20,000 shots): $(( $(date +%s) - s )) s"; done
+$PY -m surf_v2.session masks --val $W/shots/val --out $DR/masks_pre --build $B
+$PY -m surf_v2.session gpu --val $W/shots/val --masks $DR/masks_pre --out $DR/session --build $B --limit 2000
+$PY -m surf_v2.session masks --val $W/shots/val --out $DR/masks --build $B
+$PY -m surf_v2.session handoff --val $W/shots/val --masks $DR/masks --out $DR/session --build $B --limit 20000
+$PY -c "import json, glob; a = json.load(open('$DR/session/attempts.json')); print({n: [(x['kind'], x['accepted']) for x in r] for n, r in a.items()})"
+tar czf $W/e0_dry.tgz -C $W dry; sha256sum $W/e0_dry.tgz

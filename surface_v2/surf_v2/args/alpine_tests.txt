@@ -1,0 +1,7 @@
+# CPU (acpu, 2 cores, about 10 min): the environment, SURF-v2's unit tests and gap switching's, and the q rule's
+# reproduction of the studies' registered choices (q = 4, 1, 1, 2, 6 and 10 % at d = 7-17) from their calibration
+# records and frontiers.
+$PY -c "import sys, numpy, scipy, stim, pymatching, torch, safetensors, matplotlib; print('python', sys.version.split()[0], 'numpy', numpy.__version__, 'scipy', scipy.__version__, 'stim', stim.__version__, 'pymatching', pymatching.__version__, 'torch', torch.__version__, 'safetensors', safetensors.__version__, 'matplotlib', matplotlib.__version__)"
+$PY -m surf_v2.tests.test_surf_v2
+$PY -m surf_v2.tests.test_gapsw
+$PY -m surf_v2.qrule reproduce --dir /scratch/alpine/$USER/ising_arch/out/policy --out $O/reproduce.json

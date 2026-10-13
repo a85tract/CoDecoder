@@ -1,0 +1,10 @@
+# Every timing pod (E1, and a second session's pod), right after pod_setup.txt and before anything is read or timed on
+# it: the GPU check (surf_v2/gpucheck.py, the session's check at its start and end) five times on the idle GPU, 6 s
+# apart -> $W/prescreen/check_<k>.json. The pod passes when all five pass. At the first failure the list stops: the
+# host goes into BAD_PODS and a new pod replaces it from step 5a (surf_v2/REGISTRATION.md, Timing). A screened-out pod
+# holds no session and is not a technical failure.
+mkdir -p $W/prescreen
+for k in 1 2 3 4 5; do [ $k = 1 ] || sleep 6
+  $PY -m surf_v2.gpucheck --when prescreen --out $W/prescreen/check_$k.json ||
+    { echo "PRE-SCREEN FAILED at check $k of 5: replace this pod before anything runs on it"; exit 1; }; done
+echo "PRE-SCREEN PASSED: 5 of 5 GPU checks on the idle pod"

@@ -1,0 +1,17 @@
+# CPU (acpu, 2 cores, minutes; once every calibration read is pulled from E1 to $E/pod/reads/cal, while E1 runs the GPU
+# term alone): the q rule on every new network (surf_v2.qrule fit on its calibration read, with
+# calcost's correlated-PM answers and Grace-basis times), then the freeze record (surf_v2.freeze make), in a writable
+# copy of the pinned tree. The files the freeze commit adds go to $O/freeze_files.tgz (list in freeze_files.sha256), to
+# be unpacked in the box's clone at the pinned commit, committed and pushed. RESEARCH: the research hub's commit with
+# the training records; EXC: the training-failure exceptions file, if any (its networks also in SKIP).
+W=$E/freeze/w_$SLURM_JOB_ID; mkdir -p $E/freeze; cp -r $T $W; chmod -R u+w $W; cd $W; export PYTHONPATH=$W
+R=${CAL:-$E/pod/reads/cal}; mkdir -p $O/pol
+for x in 7:d7_b1w64_sv2 9:d9_b3_sv2s1 11:d11_b5_sv2 13:d13_b5_sv2 15:d15_b5_sv2 17:d17_b5_sv2; do
+  d=${x%%:*}; n=${x#*:}; case " ${SKIP:-} " in *" $n "*) continue ;; esac
+  $PY -m surf_v2.qrule fit --net $n --read $R/sv2cal_d${d}_${n}_0-19.npz --calcost $E/calcost/calcost_d$d.npz \
+    --out $O/pol/policy_$n.json | tail -2; done
+$PY -m surf_v2.freeze make --policies $O/pol --cal-reads $R --exports $E/weights --research-commit ${RESEARCH:?} \
+  ${EXC:+--exceptions $EXC}
+for f in $(cd $E/weights && ls *.export.json); do if [ -e weights/${f%.export.json}.safetensors ]; then cp $E/weights/$f weights/; fi; done
+F="weights/configs_sv2.json $(ls weights/*_sv2*.safetensors weights/*_sv2*.export.json) surf_v2/policies surf_v2/freeze.json"
+tar czf $O/freeze_files.tgz $F; find $F -type f | sort | xargs sha256sum | tee $O/freeze_files.sha256

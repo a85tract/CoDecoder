@@ -1,0 +1,6 @@
+# CPU (one amem node, 64 cores, about 15 min; after the draw and the commit of testsets/sv2test.json, deployed from B or
+# later): the front end (plain PM and the complementary gap) on every test shot in shares of 10 chunks, 60 processes at a
+# time -> $E/gapsw/reads/test (each share its own read files; run the job again to finish shares a stopped job left).
+#   sbatch -p amem --qos=mem-normal --nice=1000 -c 64 --mem=256G -t 01:00:00 -J sv2e_gswtest ...
+$PY -m surf_v2.gapsw shares --set sv2test --shots $E/shots/sv2test --save $E/gapsw/reads/test \
+  --logs $E/logs/gsw_$SLURM_JOB_ID --jobs ${JOBS:-60} --size 10

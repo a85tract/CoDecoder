@@ -1,0 +1,17 @@
+# CPU (one whole amem node with an AMD EPYC 7713, exclusive, about 30 min; after alpine_calcost.txt): per d, three
+# fresh-process repetitions of the node's correlated PM per block on validation chunk 0 (timing.cpu_term ref), then the
+# front end (plain PM and the complementary gap) on every calibration shot one at a time and plain PM alone, with every
+# answer, gap and weight checked against the batch decodes (surf_v2.gapsw cal), all single-threaded on core 8; then the
+# q rule on the gap against calcost's correlated-PM answers and times (surf_v2.gapsw fit) -> $E/gapsw/cal and
+# $E/gapsw/policies (copied into surf_v2/gapsw/ and committed before the freeze).
+#   sbatch -p amem --qos=mem-normal --nice=1000 -N 1 --exclusive --mem=256G --constraint=epyc-7713 -t 01:30:00 -J sv2e_gswcal ...
+[ "${SLURM_JOB_PARTITION:-}" = amem ] && scontrol show job $SLURM_JOB_ID | grep -q "OverSubscribe=NO" &&
+  grep -q "AMD EPYC 7713 64-Core" /proc/cpuinfo || { echo "not one exclusive amem node with an EPYC 7713: stop"; exit 6; }
+echo "core 8 siblings $(cat /sys/devices/system/cpu/cpu8/topology/thread_siblings_list); load $(cat /proc/loadavg)"
+G=$E/gapsw; mkdir -p $G/cal/ref $G/policies
+for d in 7 9 11 13 15 17; do
+  for r in 1 2 3; do $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core 8 --out $G/cal/ref; done
+  $PY -m surf_v2.gapsw cal --d $d --shots $E/shots/sv2cal --ref $G/cal/ref --core 8 --out $G/cal
+  $PY -m surf_v2.gapsw fit --cal $G/cal/gapcal_d$d.npz --calcost $E/calcost/calcost_d$d.npz --out $G/policies/policy_d$d.json
+done
+(cd $G && sha256sum cal/gapcal_d*.npz cal/gapcal_d*.json cal/ref/*.json policies/*.json)

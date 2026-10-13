@@ -1,0 +1,17 @@
+# CPU (acpu, x86-64 with AVX2): the dry set sv2dry (chunks 0-3 at every d, never in a result) drawn once in this
+# release's format into $E/shots/sv2dry, its manifest to $O (then committed as testsets/sv2dry.json), and every chunk
+# compared with the training code's draw of the same seeds (a1.sets, $A/sets/sv2_d<d>_dry_<j>.npz): equal bits.
+$PY -m convlines.testset draw --set sv2dry --d all --out $E/shots/sv2dry --manifest $O/sv2dry.json
+$PY - $E/shots/sv2dry /scratch/alpine/$USER/surf_v2/sets <<'PYEOF'
+import sys, os, numpy as np
+from convlines import testset
+new, old = sys.argv[1:3]
+for d in testset.SV2_DISTANCES:
+    for j in range(4):
+        a = np.load(os.path.join(new, testset.name("sv2dry", d, j)))
+        b = np.load(os.path.join(old, f"sv2_d{d}_dry_{j:03d}.npz"))
+        assert int(a["seed"]) == int(b["seed"]) == 89_000_000 + 10_000 * d + j
+        assert np.array_equal(a["det"], b["det"]), (d, j, "det")
+        assert np.array_equal(a["obs"], np.unpackbits(b["obs"], axis=1, count=int(b["k"]))[:, 0]), (d, j, "obs")
+print("sv2dry: every chunk equal to a1.sets' draw of the same seed (24 chunks)")
+PYEOF

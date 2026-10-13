@@ -1,0 +1,123 @@
+# CPU dry run (acpu, 16 cores, about 30 min; never a result) of everything a CPU can run, in a writable copy W of the
+# pinned tree: the dry set as calibration (chunks 0-1) and as test (chunks 2-3); A1's S-V seed 1 (N9) exported as
+# d9_b3_sv2s1 (with the research code's logits compared bit for bit); every fp32 read the release can make (the deployed
+# d = 7-15 networks and d9_b3_sv2s1), plain and correlated PM, calcost with its refs; stand-ins for the rest
+# (surf_v2.dry); the q rule on every new network; the dry freeze; the test reads at tau; the analysis twice,
+# byte-identical; then the analysis without a timing session, and the CPU-term job's failure rule.
+W=$E/dry/w_$SLURM_JOB_ID; mkdir -p $E/dry; cp -r $T $W; chmod -R u+w $W; cd $W; export PYTHONPATH=$W
+S=$E/shots/sv2dry; D=$W/dryout; R=$D/reads; mkdir -p $R $D/val $D/ref $D/cc $D/pol
+A1=/scratch/alpine/$USER/rev_a1/ckpt/surface; RC=$(ls -d /scratch/alpine/$USER/surf_v2/code_at/b6368efa*)
+NT=${SLURM_CPUS_PER_TASK:-1}; C=$(awk '/Cpus_allowed_list/{print $2}' /proc/self/status | cut -d, -f1 | cut -d- -f1)
+FROM=${FROM:-${ANALYSE:-}}
+if [ -n "${FROM:-}" ]; then   # after a fix downstream: dry job FROM's exports, real reads, refs and calcost, as they were
+  cp $E/dry/w_$FROM/weights/d9_b3_sv2s1.* $W/weights/; cp -r $E/dry/w_$FROM/dryout/{reads,val,ref,cc} $D/
+else
+ICMP_NV=$I/ext/ising_nv/code OMP_NUM_THREADS=$NT $PY -m surf_v2.export --ckpt $A1/a1_S-V_s1/final_ema.pt --name d9_b3_sv2s1 \
+  --out $W/weights --check-arch $RC/ising_compare --shots $S
+for d in 7 9 11 13 15; do OMP_NUM_THREADS=$NT $PY -m convlines.evaluate --set sv2dry --d $d --chunks 0-1 --shots $S \
+  --routing fp32 --tau none --opponents "correlated PM" --save $R | tail -1; done
+OMP_NUM_THREADS=$NT $PY -m convlines.evaluate --set sv2dry --d 9 --chunks 0-1 --shots $S \
+  --net d9_b3_sv2s1 --routing fp32 --tau none --opponents --save $R | tail -1
+$PY -m convlines.evaluate --set sv2dry --d 17 --chunks 0-1 --shots $S --net none --opponents "correlated PM" --save $R
+for d in 7 9 11 13 15 17; do $PY -m convlines.evaluate --set sv2dry --d $d --chunks 2-3 --shots $S --net none \
+  --opponents "plain PM" "correlated PM" --save $R | tail -1; done
+for d in 7 9 11 13 15 17; do $PY -m convlines.testset val --d $d --chunks 0 --out $D/val
+  for r in 1 2 3; do $PY -m timing.cpu_term ref --d $d --val $D/val --rep $r --core $C --out $D/ref; done
+  $PY -m surf_v2.calcost --d $d --set sv2dry --chunks 0-1 --shots $S --ref $D/ref --core $C --out $D/cc; done
+fi
+if [ -n "${ANALYSE:-}" ]; then   # after a fix in the analysis alone: dry job ANALYSE's outputs, as they were
+  cp -r $E/dry/w_$ANALYSE/dryout/{reads,pol,session,cpu,freeze.json} $D/; cp -r $E/dry/w_$ANALYSE/surf_v2/policies surf_v2/
+else
+$PY -m surf_v2.dry cal --reads $R --exports $W/weights
+for x in 7:d7_b1w64_sv2 9:d9_b3_sv2s1 11:d11_b5_sv2 13:d13_b5_sv2 15:d15_b5_sv2 17:d17_b5_sv2; do
+  d=${x%%:*}; n=${x#*:}; $PY -m surf_v2.qrule fit --dry --net $n --read $R/sv2dry_d${d}_${n}_0-1.npz \
+  --calcost $D/cc/calcost_d$d.npz --out $D/pol/policy_$n.json | tail -2; done
+$PY -m surf_v2.freeze make --dry --policies $D/pol --cal-reads $R --exports $W/weights --research-commit dry \
+  --out $D/freeze.json
+for x in 7:d7_b1w64_r740 9:d9_b3_r764 11:d11_b5_r777 13:d13_b5_r775 15:d15_b5_r782 9:d9_b3_sv2s1; do
+  d=${x%%:*}; n=${x#*:}; OMP_NUM_THREADS=$NT $PY -m convlines.evaluate --set sv2dry --d $d --chunks 2-3 --shots $S \
+  --net $n --routing fp32 --opponents --save $R | tail -1; done
+$PY -m surf_v2.dry test --reads $R --exports $W/weights --freeze $D/freeze.json --session $D/session --cpu $D/cpu
+fi
+for k in 1 2; do $PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/session \
+  --cpu $D/cpu --out $D/an$k; done
+diff -r $D/an1 $D/an2 && echo "BYTE-IDENTICAL: the two runs' $(ls $D/an1 | wc -l) files"
+(cd $D/an1 && sha256sum *) ; cp -r $D/an1 $O/analysis_dry; cp $D/freeze.json $D/pol/*.json $O/; cat $D/an1/tables.md
+# No timing session (the stage gate's finding 2: E1 lost before its session was pulled, so no directory and no CPU
+# term): the analysis twice, byte-identical, with families A and C equal to the run's above and family B "not
+# established"; then no session beside this job's CPU term, and this job's session without a CPU term; then (the second
+# review's finding 4) two sessions on one GPU and three session directories, copies of this job's session.
+for k in 1 2; do $PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/nosuch*/session \
+  --cpu $D/nocpu --out $D/nosession$k; done
+diff -r $D/nosession1 $D/nosession2 && echo "BYTE-IDENTICAL (no session): the two runs' $(ls $D/nosession1 | wc -l) files"
+$PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions --cpu $D/cpu --out $D/nosession_cpu
+$PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/session --cpu $D/nocpu \
+  --out $D/session_nocpu
+mkdir -p $D/s2 $D/s3; cp -r $D/session $D/s2/; cp -r $D/session $D/s3/
+$PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/session $D/s2/session \
+  --cpu $D/cpu --out $D/onegpu
+$PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/session $D/s2/session \
+  $D/s3/session --cpu $D/cpu --out $D/threesessions
+$PY - $D/an1 $D/nosession1 $D/nosession_cpu $D/session_nocpu $D/onegpu $D/threesessions <<'PYEOF'
+import json, os, sys
+full, *rest = (json.load(open(os.path.join(p, "analysis.json"))) for p in sys.argv[1:])
+for p, x in zip(sys.argv[2:], rest):
+    for k, v in x["distances"].items():
+        assert v["family_A"] == full["distances"][k]["family_A"], f"{p}: d = {k}'s family A differs"
+        assert all(b["verdict"].startswith("not established") or b["verdict"] == "fails (no admissible q)"
+                   for b in v["family_B"].values()), f"{p}: d = {k}'s family B {v['family_B']}"
+    assert x["family_C"] == full["family_C"] and not x["timing"]["family_B_established"], p
+    print(f"{os.path.basename(p)}: families A and C as with the session; family B not established "
+          f"({x['timing']['family_B_not_established_because']}); counted {x['timing']['counting_session']}; "
+          f"{len(x['timing']['cpu_problems'])} CPU-term problems")
+PYEOF
+grep -m1 "timing session counted" $D/nosession1/tables.md
+# The CPU-term job's failure rule (the second review's finding 1): alpine_cpu_term.txt's commands after its node check,
+# on this job's core, in this tree with the dry freeze as surf_v2/freeze.json and stand-in masks at its tau that route as
+# many validation shots as the dry session's handoffs. A first job dies at a missing mask; a second, into its directory,
+# is refused and leaves the directory as it was; a third, into a fresh directory, completes. The analysis reports family
+# B "not established" on the first job's directory, and on the third's families A and C as above and B from that job.
+cp $D/freeze.json surf_v2/freeze.json; mkdir -p $D/masks $D/nomasks
+JOB=$(sed -n '/^C=\${CPU:-/,$p' surf_v2/args/alpine_cpu_term.txt | sed "s/--core 8 /--core $C /g")
+$PY - $D/freeze.json $E/shots/val $D/masks <<'PYEOF'
+import json, os, sys
+import numpy as np
+from convlines import testset
+from surf_v2 import session
+from timing import deployed
+fz, val, out = json.load(open(sys.argv[1])), sys.argv[2], sys.argv[3]
+for d, name in session.networks():
+    sh = [testset.load(os.path.join(val, testset.name("val", d, j)), d) for j in range(20)]
+    det, obs = np.concatenate([s[0] for s in sh]), np.concatenate([s[1] for s in sh])
+    routed = np.zeros(len(det), np.uint8)
+    routed[np.random.default_rng(d).choice(len(det), int(200000 * fz["networks"][name]["q"]), replace=False)] = 1
+    np.savez(os.path.join(out, f"val_{name}.npz"), routed=routed, tau=fz["networks"][name]["tau"], network=name, d=d,
+             logits="standin", shots_sha256=deployed.shots_sha256(det, obs))
+print(len(session.networks()), "stand-in masks at the dry freeze's tau", flush=True)
+PYEOF
+rc=0; env E=$E PY="$PY" CPU=$D/cpu_dead MASKS=$D/nomasks bash -euo pipefail -c "$JOB" > $D/cpu_dead.log 2>&1 || rc=$?
+[ $rc != 0 ] && [ $rc != 7 ] || { echo "CPU-term job 1 did not die at its missing mask (exit $rc)"; exit 1; }
+echo "CPU-term job 1 died (exit $rc: $(tail -1 $D/cpu_dead.log | cut -c1-90)) with $(ls $D/cpu_dead | wc -l) records"
+H=$(cd $D/cpu_dead && sha256sum * | sha256sum); rc=0
+env E=$E PY="$PY" CPU=$D/cpu_dead MASKS=$D/masks bash -euo pipefail -c "$JOB" || rc=$?
+[ $rc = 7 ] && [ "$(cd $D/cpu_dead && sha256sum * | sha256sum)" = "$H" ] || { echo "CPU-term job 2 ran (exit $rc)"; exit 1; }
+echo "CPU-term job 2, into job 1's directory: refused (exit 7), the directory as it was"
+env E=$E PY="$PY" CPU=$D/cpu_rerun MASKS=$D/masks bash -euo pipefail -c "$JOB" > $D/cpu_rerun.log
+echo "CPU-term job 3, into a fresh directory: $(ls $D/cpu_rerun | wc -l) records"
+for x in dead rerun; do $PY -m surf_v2.analysis --dry --freeze $D/freeze.json --reads $R --shots $S --sessions $D/session \
+  --cpu $D/cpu_$x --out $D/cpujob_$x > /dev/null; done
+$PY - $D/an1 $D/cpujob_dead $D/cpujob_rerun $D/cpu_rerun <<'PYEOF'
+import glob, json, os, sys
+full, dead, rerun = (json.load(open(os.path.join(p, "analysis.json"))) for p in sys.argv[1:4])
+for p, x in (("dead", dead), ("rerun", rerun)):
+    for k, v in x["distances"].items():
+        assert v["family_A"] == full["distances"][k]["family_A"], f"{p}: d = {k}'s family A differs"
+    assert x["family_C"] == full["family_C"], f"{p}: family C differs"
+assert not dead["timing"]["family_B_established"] and rerun["timing"]["family_B_established"], \
+    (dead["timing"]["family_B_not_established_because"], rerun["timing"]["family_B_not_established_because"])
+recs = [json.load(open(f)) for f in sorted(glob.glob(os.path.join(sys.argv[4], "*.json")))]
+assert {r["slurm_job"] for r in recs} == {os.environ["SLURM_JOB_ID"]} and len(rerun["timing"]["cpu"]) == 12
+print(f"job 1's directory: family B not established ({dead['timing']['family_B_not_established_because']}; "
+      f"{len(dead['timing']['cpu_problems'])} CPU-term problems); job 3's: families A and C as above, family B "
+      f"established from its {len(recs)} records (job {os.environ['SLURM_JOB_ID']}), 12 networks")
+PYEOF

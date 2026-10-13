@@ -1,0 +1,7 @@
+# CPU (acpu, x86-64 with AVX2, about 10 min): the calibration set sv2cal (chunks 0-19 at every d, seeds 81,000,000 +
+# 10,000 d + j) drawn once into $E/shots/sv2cal, its manifest to $O; commit it as testsets/sv2cal.json before any read.
+# The studies' validation shots for the timing and calcost's refs into $E/shots/val, each set's digest equal to the
+# studies' (routing/manifest.json): val_legacy copied at d = 7-13, V15 and V17b regenerated.
+$PY -m convlines.testset draw --set sv2cal --d all --out $E/shots/sv2cal --manifest $O/sv2cal.json
+for d in 7 9 11 13; do $PY -m surf_v2.valshots --d $d --src $I/shots --out $E/shots/val; done
+for d in 15 17; do $PY -m surf_v2.valshots --d $d --src regen --out $E/shots/val; done

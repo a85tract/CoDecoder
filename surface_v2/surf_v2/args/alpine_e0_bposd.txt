@@ -1,0 +1,4 @@
+# GPU (one A100 80GB or an H200 slice, --nice=1000; any time before alpine_e0_dry.txt): the two BP-OSD arms on dry
+# test chunk 2 (the dry pass's BP-OSD subset) -> $E/dry_e0/bposd, and each chunk's time in the shares' log.
+$PYCQ -m surf_v2.shares --set sv2dry --chunks 2-2 --size 1 --bposd --opponents "min-LLR BP-OSD" "BP 60 BP-OSD" \
+  --shots $E/shots/sv2dry --save $E/dry_e0/bposd --logs $E/dry_e0/logs_bposd --jobs 1

@@ -1,0 +1,19 @@
+# Every evaluation pod first (E0 and E1): the environment, one H100 alone, the d = 7 engine built (the studies' cubin,
+# byte for byte, with nvcc 12.1.105) and the validation shots' digests (the studies' shots, routing/manifest.json).
+$PY -c "import sys, torch, triton, stim, pymatching, numpy, scipy, safetensors, omegaconf; print('python', sys.version.split()[0], 'torch', torch.__version__, 'triton', triton.__version__, 'stim', stim.__version__, 'pymatching', pymatching.__version__, 'numpy', numpy.__version__, 'scipy', scipy.__version__, 'safetensors', safetensors.__version__, torch.cuda.get_device_name())"
+$PY -c "import torch, stim, pymatching, numpy; assert (torch.__version__.split('+')[0], stim.__version__, pymatching.__version__, numpy.__version__) == ('2.11.0', '1.16.0', '2.4.0', '2.2.6'), 'not the frozen recipe'"
+nvidia-smi --query-gpu=name,memory.used,clocks.max.sm --format=csv; nvidia-smi --query-compute-apps=pid --format=csv,noheader
+[ -e $B/kernel_sm90a.cubin ] || NVCC=${NVCC:-/usr/local/cuda-12.1/bin/nvcc} bash timing/d7/build.sh $B
+[ "$(sha256sum < $B/kernel_sm90a.cubin | cut -c1-64)" = 8f4180d7ffe607c0f8ac023afdb6ec2fbce9f9a59a5ff873e71908e067ea2c2d ] ||
+  { echo "d = 7 cubin: not the studies' (nvcc 12.1.105 builds it byte for byte; push.sh venv installs it)"; exit 1; }
+echo "d = 7 cubin: the studies' (sha256 8f4180d7...)"
+$PY - $W/shots/val <<'PYEOF'
+import sys, os, numpy as np
+from convlines import decoder, testset
+from timing import deployed
+for d in (7, 9, 11, 13, 15, 17):
+    sh = [testset.load(os.path.join(sys.argv[1], testset.name("val", d, j)), d) for j in range(20)]
+    got = deployed.shots_sha256(np.concatenate([s[0] for s in sh]), np.concatenate([s[1] for s in sh]))
+    assert got == decoder.routing_manifest()["val"][str(d)]["shots_sha256"], f"d = {d}: not the studies' validation shots"
+print("validation shots: the studies' at every d")
+PYEOF

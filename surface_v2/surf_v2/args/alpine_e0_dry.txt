@@ -1,0 +1,19 @@
+# CPU (acpu, 8 cores; after E0, its tarball unpacked in $E/dry_e0/pod): the rest of the dry pass on E0's reads (never a
+# result): plain and correlated PM on the dry test chunks (2-3), the CPU term of every network on E0's masks at the dry
+# freeze's tau (one repetition each, plus refs; three as in the run), then the analysis twice on E0's real reads,
+# byte-identical. BP-OSD on one chunk is alpine_e0_bposd.txt's ($X/bposd, a GPU job) and must have run first.
+# ANALYSE=<tag>: the analysis alone (twice, into $X/an_<tag>1 and _<tag>2) on the PM shares and CPU terms already
+# made, e.g. from a deployment of a public commit's surface_v2/ (surf_v2/public.sh), to compare with $X/an1.
+X=$E/dry_e0; P=$X/pod/dry; R=$P/reads; A=${ANALYSE:+_$ANALYSE}
+[ -n "$A" ] || $PY -m surf_v2.shares --set sv2dry --chunks 2-3 --size 2 --opponents "plain PM" "correlated PM" --shots $E/shots/sv2dry \
+  --save $R --logs $X/logs_pm --jobs 6
+NETS=$($PY -c "import json; c = json.load(open('surf_v2/config.json')); print(' '.join(f'{d}:{n}' for d in c['distances'] for n in c['networks'][str(d)].values()))")
+C=$(awk '/Cpus_allowed_list/{print $2}' /proc/self/status | cut -d, -f1 | cut -d- -f1); mkdir -p $X/cpu
+[ -n "$A" ] || for r in 1 2 3; do for d in 7 9 11 13 15 17; do $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core $C --out $X/cpu; done
+  for x in $NETS; do d=${x%%:*}; n=${x#*:}; [ -e $P/masks/val_$n.npz ] || continue
+    $PY -m timing.cpu_term term --d $d --val $E/shots/val --mask $P/masks/val_$n.npz --rep $r --core $C --out $X/cpu; done; done
+W=$E/dry/e0_$SLURM_JOB_ID; cp -r $T $W; chmod -R u+w $W; cd $W; export PYTHONPATH=$W
+mkdir -p surf_v2/policies; cp $P/pol/*.json surf_v2/policies/
+for k in 1 2; do $PY -m surf_v2.analysis --dry --freeze $P/freeze.json --reads $R $X/bposd --shots $E/shots/sv2dry \
+  --sessions $P/session --cpu $X/cpu --out $X/an$A$k; done
+diff -r $X/an${A}1 $X/an${A}2 && echo "BYTE-IDENTICAL: the second run's $(ls $X/an${A}1 | wc -l) files"; cat $X/an${A}1/tables.md

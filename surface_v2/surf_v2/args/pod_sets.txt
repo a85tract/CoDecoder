@@ -1,0 +1,16 @@
+# Every pod, for each set of SETS once its manifest is committed and $REL is at that commit (E1: SETS=sv2cal before
+# pod_e1_cal.txt, SETS=sv2test before pod_e1_test.txt; E0's sv2dry comes with push.sh inputs): the set regenerated from
+# testsets/<set>.json (each chunk's seed and sha256; Stim 1.16.0 on x86-64 with AVX2, as drawn) into $W/shots/<set>,
+# one process per d. Every chunk must be present and equal to its manifest's sha256; if not, stop and copy the set from
+# Alpine instead (push.sh shots <set>, the regenerated directory moved aside first).
+grep -qw avx2 /proc/cpuinfo; [ "$(uname -m)" = x86_64 ]
+for s in ${SETS:?sv2cal or sv2test}; do
+  P=""
+  for d in 7 9 11 13 15 17; do
+    $PY -m convlines.testset regen --set $s --d $d --out $W/shots/$s \
+      --chunks $($PY -c "import json; print(json.load(open('testsets/$s.json'))['chunks']['$d'])") > $W/logs/regen_${s}_d$d.log 2>&1 &
+    P="$P $!"; done
+  for p in $P; do wait $p; done
+  $PY -m convlines.testset check --set $s --dir $W/shots/$s | tee $W/logs/regen_$s.check
+  [ "$(ls $W/shots/$s | wc -l)" = "$($PY -c "import json; print(len(json.load(open('testsets/$s.json'))['files']))")" ]
+done

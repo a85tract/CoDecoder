@@ -1,0 +1,357 @@
+{
+ "what": "the six ConvLines networks of the registered studies (d = 7-13: study 2, d = 15: study 3, d = 17: study 4; d = 17 in its deployed form only)",
+ "load": "convlines.decoder.load_network(name): ConvLines(d, grid, **arch) + load_state_dict(safetensors); a network with \"tables\" instead of \"file\" (d = 17): convlines.decoder.load_tables(name), the deploy tables for timing/engine.py",
+ "networks": {
+  "d7_b1w64_r740": {
+   "d": 7,
+   "study": 2,
+   "file": "d7_b1w64_r740.safetensors",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A)",
+   "arch": {
+    "width": 64,
+    "bott": 16,
+    "blocks": 1,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 90257,
+   "grid": {
+    "geometry": "weights/grid_d7.npz",
+    "shape_t_i_j": [
+     8,
+     8,
+     8
+    ],
+    "detectors": 336
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.04,
+    "tau": 1.3934324979782104,
+    "tau_repr": "1.3934324979782104",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-16 %",
+    "calibration_failures": {
+     "network_alone": 4260,
+     "correlated_pm_alone": 3433,
+     "routed_at_q": 3204,
+     "routed_shots": 8000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 199999488,
+    "initialisation": "random initialisation",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/d7 (a hand-written persistent CUDA kernel for sm_90a with the weights resident in shared memory, and its compiled router; built by timing/d7/build.sh)",
+   "provenance": {
+    "final_ema_checkpoint_sha256": "caca97c3de7603513aaaa2272b2429a2db2ef240e04ebf3866a391d374e20f87",
+    "deployed_artifact_sha256": "e77007951c180680035d3e3aec5528a0e2a2e6ae2b7710283b92a59d3061d00a",
+    "note": "the safetensors file holds the checkpoint's state dict unchanged"
+   }
+  },
+  "d9_b3_r764": {
+   "d": 9,
+   "study": 2,
+   "file": "d9_b3_r764.safetensors",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 3,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 389395,
+   "grid": {
+    "geometry": "weights/grid_d9.npz",
+    "shape_t_i_j": [
+     10,
+     10,
+     10
+    ],
+    "detectors": 720
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.01,
+    "tau": 0.6820775270462036,
+    "tau_repr": "0.6820775270462036",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-16 %",
+    "calibration_failures": {
+     "network_alone": 2484,
+     "correlated_pm_alone": 2562,
+     "routed_at_q": 2188,
+     "routed_shots": 2000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 199999488,
+    "initialisation": "a d = 9 two-block network (same width) plus a third block initialised to the identity",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "provenance": {
+    "final_ema_checkpoint_sha256": "462ffb294ab2022bc1d4b276227a62270e6e4dde4fab186958c11881fcfffb40",
+    "deployed_artifact_sha256": "2af97dacc59b6678bf89443e5a23a0c51fcd74686c8d5ec5862a50b8dbc81602",
+    "note": "the safetensors file holds the checkpoint's state dict unchanged"
+   }
+  },
+  "d11_b5_r777": {
+   "d": 11,
+   "study": 2,
+   "file": "d11_b5_r777.safetensors",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 517669,
+   "grid": {
+    "geometry": "weights/grid_d11.npz",
+    "shape_t_i_j": [
+     12,
+     12,
+     12
+    ],
+    "detectors": 1320
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.01,
+    "tau": 1.0014245510101318,
+    "tau_repr": "1.0014245510101318",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-16 %",
+    "calibration_failures": {
+     "network_alone": 1682,
+     "correlated_pm_alone": 1855,
+     "routed_at_q": 1408,
+     "routed_shots": 2000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 199999488,
+    "initialisation": "a d = 11 three-block network plus two blocks initialised to the identity (that network itself transferred from d = 13)",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "provenance": {
+    "final_ema_checkpoint_sha256": "4b303acd200a2d94ebc6f06a8688d7e9b88cb7b2d61ddae9f8d113f762fb4d14",
+    "deployed_artifact_sha256": "36852e2ae6cfeee8d83a72ebd0af243f73527088e7026727ba02a5c27c98ff39",
+    "note": "the safetensors file holds the checkpoint's state dict unchanged"
+   }
+  },
+  "d13_b5_r775": {
+   "d": 13,
+   "study": 2,
+   "file": "d13_b5_r775.safetensors",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518007,
+   "grid": {
+    "geometry": "weights/grid_d13.npz",
+    "shape_t_i_j": [
+     14,
+     14,
+     14
+    ],
+    "detectors": 2184
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.02,
+    "tau": 1.8486117124557495,
+    "tau_repr": "1.8486117124557495",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-16 %",
+    "calibration_failures": {
+     "network_alone": 1626,
+     "correlated_pm_alone": 1259,
+     "routed_at_q": 1082,
+     "routed_shots": 4000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 199999488,
+    "initialisation": "a d = 13 three-block network plus two blocks initialised to the identity (that network itself transferred from d = 9)",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "provenance": {
+    "final_ema_checkpoint_sha256": "44b131d29362699cdb8dd343434242dd0d1e4cdb8e35f5c59ffa1a49b26840b6",
+    "deployed_artifact_sha256": "44337d18e2de45b72cf80e732e8794fac949c2b8b39297d0b12c42baac2774d1",
+    "note": "the safetensors file holds the checkpoint's state dict unchanged"
+   }
+  },
+  "d15_b5_r782": {
+   "d": 15,
+   "study": 3,
+   "file": "d15_b5_r782.safetensors",
+   "format": "safetensors, fp32 state dict of convlines.net.ConvLines (including the buffer A)",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518345,
+   "grid": {
+    "geometry": "weights/grid_d15.npz",
+    "shape_t_i_j": [
+     16,
+     16,
+     16
+    ],
+    "detectors": 3360
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.06,
+    "tau": 3.9547388553619385,
+    "tau_repr": "3.9547388553619385",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-16 %",
+    "calibration_failures": {
+     "network_alone": 1737,
+     "correlated_pm_alone": 891,
+     "routed_at_q": 806,
+     "routed_shots": 12000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 99999744,
+    "initialisation": "a d = 15 five-block network (itself transferred from d = 13), trained further",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+   "provenance": {
+    "final_ema_checkpoint_sha256": "3017a705bc6d6d9a6d12825cb43f774c2230019cc8d7e470dfac4bdb5e7dd76f",
+    "deployed_artifact_sha256": "c8be9335dad492a3053619948dfce1660f20f890e63022095a81db81767abec2",
+    "note": "the safetensors file holds the checkpoint's state dict unchanged"
+   }
+  },
+  "d17_b5_r787": {
+   "d": 17,
+   "study": 4,
+   "tables": "d17_b5_r787_deployed.safetensors",
+   "format": "safetensors: the deploy tables of convlines.net.deploy_tables (fp32, engine site order) exactly as study 4's deployed artifact held them; tensors under dotted names (P, blocks.0.Wd, head.Wsc, ...), the other entries in the header's \"tables\" JSON (convlines.decoder.read_tables). The fp32 network (state dict) is not in this release",
+   "arch": {
+    "width": 128,
+    "bott": 32,
+    "blocks": 5,
+    "heads": 4,
+    "stem_k": [
+     3,
+     5,
+     5
+    ],
+    "block_k": [
+     3,
+     3,
+     3
+    ],
+    "mlp": 2
+   },
+   "parameters": 518683,
+   "grid": {
+    "geometry": "weights/grid_d17.npz",
+    "shape_t_i_j": [
+     18,
+     18,
+     18
+    ],
+    "detectors": 4896
+   },
+   "policy": {
+    "rule": "route a shot to correlated PyMatching iff |c| < tau (float32 c compared in double precision), else flip = (c > 0)",
+    "q": 0.1,
+    "tau": 5.121974468231201,
+    "tau_repr": "5.121974468231201",
+    "fit": "tau routes the fraction q of 200,000 calibration shots (the least confident), fitted before any test shot existed; q chosen by a registered rule from the grid 0-30 %: no q met the rule's failure limit (487.4 calibration failures), so its fallback took the q with the fewest calibration failures",
+    "calibration_failures": {
+     "network_alone": 1719,
+     "correlated_pm_alone": 615,
+     "routed_at_q": 560,
+     "routed_shots": 20000,
+     "shots": 200000
+    }
+   },
+   "training": {
+    "samples_last_stage": 199999488,
+    "initialisation": "a d = 15 five-block network (the one d15_b5_r782 was trained further from), transferred to d = 17",
+    "weights": "exponential moving average (0.999) at the last step"
+   },
+   "deployed_executable": "timing/engine.py (FROZEN Triton engine, 4 pipeline stages)",
+   "engine": {
+    "stages": 4
+   },
+   "provenance": {
+    "final_ema_checkpoint_sha256": "3627e74337533c214a8eaec276a42bde60ca2de62f1d49dc4e1a8b5d2b1b4268",
+    "deployed_artifact_sha256": "bc00eb30fb2be3f14f0499f0e96bb25ce7dc4817284a09c037c9f3b66275ef45",
+    "note": "the safetensors file holds the deployed artifact's tables unchanged (every tensor bit for bit); the artifact was folded from the final EMA checkpoint, which is not included"
+   }
+  }
+ }
+}

@@ -1,0 +1,29 @@
+# CPU (one whole amem node with an AMD EPYC 7713, exclusive, about 40 min; after the freeze): gap switching's composite,
+# timed as the CPU term is: per d the validation shots routed at the frozen tau (surf_v2.gapsw mask, once), then three
+# interleaved repetitions, each a fresh single-threaded process on core 8, of the node's correlated PM per block on
+# validation chunk 0 (timing.cpu_term ref), the front end on the 200,000 validation shots (surf_v2.gapsw fe) and
+# correlated PM on the routed ones (timing.cpu_term term) -> ${GSCPU:-$E/gapsw/cpu} (surf_v2.gapsw_analysis: the slowest
+# repetition of each times G(d) over the median ref). Run from a deployment of the freeze commit F or of B, into a fresh
+# directory, every file written once; the last step writes job.json (the Slurm job, the deployed commit, every file with
+# its sha256), which the analysis requires. A failed job runs again into a fresh directory (GSCPU, a directory
+# $E/gapsw/cpu*), and the first job that completes counts (surf_v2/GAPSW_REGISTRATION.md): no job starts once any
+# $E/gapsw/cpu*/job.json exists.
+#   sbatch -p amem --qos=mem-normal --nice=1000 -N 1 --exclusive --mem=256G --constraint=epyc-7713 -t 02:00:00 -J sv2e_gswcpu ...
+[ "${SLURM_JOB_PARTITION:-}" = amem ] && scontrol show job $SLURM_JOB_ID | grep -q "OverSubscribe=NO" &&
+  grep -q "AMD EPYC 7713 64-Core" /proc/cpuinfo || { echo "not one exclusive amem node with an EPYC 7713: stop"; exit 6; }
+echo "core 8 siblings $(cat /sys/devices/system/cpu/cpu8/topology/thread_siblings_list); load $(cat /proc/loadavg)"
+C=${GSCPU:-$E/gapsw/cpu}
+[[ $C == $E/gapsw/cpu* && $C != $E/gapsw/cpu*/* ]] || { echo "$C: a timing job writes into $E/gapsw/cpu*"; exit 7; }
+for j in $E/gapsw/cpu*/job.json; do
+  [ ! -e $j ] || { echo "$j exists: a timing job completed, and the first that completes counts"; exit 7; }; done
+[ ! -e $C ] || { echo "$C exists: a timing job writes into a fresh directory (GSCPU=...)"; exit 7; }; mkdir -p $C/masks
+for d in 7 9 11 13 15 17; do $PY -m surf_v2.gapsw mask --d $d --val $E/shots/val --out $C/masks; done
+for r in 1 2 3; do
+  for d in 7 9 11 13 15 17; do
+    $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core 8 --out $C
+    $PY -m surf_v2.gapsw fe --d $d --val $E/shots/val --rep $r --core 8 --out $C
+    $PY -m timing.cpu_term term --d $d --val $E/shots/val --mask $C/masks/val_gapsw_d$d.npz --rep $r --core 8 --out $C
+  done
+done
+(cd $C && sha256sum *.json masks/*.npz)
+$PY -c "from surf_v2 import gapsw_analysis; gapsw_analysis.write_job('$C')"

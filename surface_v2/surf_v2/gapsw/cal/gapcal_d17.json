@@ -1,0 +1,90 @@
+{
+ "arrays": {
+  "dec": {
+   "dtype": "uint8",
+   "sha256": "6de650a382ecc26d4ff8da9f63a3e590b8d9b4b731a85d415ffb1da5608ba22f"
+  },
+  "gap": {
+   "dtype": "float64",
+   "sha256": "9f85b5c118a1ec004eb696089d9bb98196f7ad2427147965c13971d043c14525"
+  },
+  "obs": {
+   "dtype": "uint8",
+   "sha256": "429d18b4319fff1a749af100e1f08e22f014b4a4f9551c30b2e4a2d2c7b5768c"
+  },
+  "time_front_us": {
+   "dtype": "float64",
+   "sha256": "a3b19647965f8000f9c01da9da99c64a39214a5fde8af88594e41437b421aff8"
+  },
+  "time_plain_in_front_us": {
+   "dtype": "float64",
+   "sha256": "c5e87389957ff7e0d711748eb1e26d7aa1822732b20e7916310a50e4c60ec05d"
+  },
+  "time_plain_us": {
+   "dtype": "float64",
+   "sha256": "864822510b4deca542e54119fa75a61165fc1327edeb76fb694a15a4bd896f8f"
+  },
+  "weight": {
+   "dtype": "float64",
+   "sha256": "82025f28e359db05380309e53e0375ca5d5f4cccdd9ea316793ec3d47572cce2"
+  }
+ },
+ "build_s": 0.8048549589584582,
+ "checks": "single shot = batch (answer, weight, gap); plain alone = in the front end; w(best) = the split graph's least weight in plain PM's class; gap = the other class's least weight - w(best) >= 0; the split decode's observable is the class it was set to",
+ "chunks": "0-19",
+ "code_digest": "90737ea045a90a879180189cf48301a2851b88ce6ef2093f39aaa1a00d45cc12",
+ "core": 8,
+ "d": 17,
+ "ended": "2026-10-12T20:31:10-0600",
+ "gap_distinct": 137636,
+ "gap_zero": 3,
+ "gapsw_sha256": "7c652b0c966af77911b20acb61a940d00780e8d5eb329e01e9f658aa6e3b1f94",
+ "grace_numerator_source": "CPU-node time 762.77 x that node's d = 13 ratio 0.9361 (paper / node); band 712.03-840.31",
+ "grace_numerator_us": 714.05,
+ "host": {
+  "cpu": "AMD EPYC 7713 64-Core Processor",
+  "machine": "x86_64",
+  "node": "c3mem-a7-u38-4",
+  "python": "3.12.14",
+  "simd": [
+   "avx",
+   "avx2",
+   "sse2",
+   "sse4_1",
+   "sse4_2"
+  ]
+ },
+ "manifest_sha256": "de3c47211b7f7db69359ba0b7e19da01a19c94fd91b3599f3eabcbdc1a9434cb",
+ "mean_front_us": 2864.9854094709735,
+ "mean_plain_in_front_us": 323.63569577486487,
+ "mean_plain_us": 304.9199213890824,
+ "node_median_us": 785.831094707828,
+ "npz": "gapcal_d17.npz",
+ "npz_sha256": "9bab347e96c40ee4287d0a3a0883705d6d20b3a467d512cd18b3909335fbfa4f",
+ "pinned": true,
+ "plain_failures": 3088,
+ "ratio": 0.9086558228718141,
+ "ref_files": [
+  "ref_d17_rep1.json",
+  "ref_d17_rep2.json",
+  "ref_d17_rep3.json"
+ ],
+ "ref_reps_us": [
+  787.9230953229126,
+  778.0504993046634,
+  785.831094707828
+ ],
+ "release_commit": "fbd023339e1203ded8d08911db5e73c71e63a2aa",
+ "set": "sv2cal",
+ "shots": 200000,
+ "split_colour_ones": 0,
+ "split_to_b": 153,
+ "started": "2026-10-12T20:20:35-0600",
+ "versions": {
+  "numpy": "2.2.6",
+  "pymatching": "2.4.0",
+  "scipy": "1.18.1",
+  "stim": "1.16.0"
+ },
+ "what": "SURF-v2 gap switching: the front end on every calibration shot (surf_v2/gapsw.py cal)"
+}

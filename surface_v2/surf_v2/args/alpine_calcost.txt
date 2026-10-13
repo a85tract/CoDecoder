@@ -1,0 +1,11 @@
+# CPU (one whole amem node with an AMD EPYC 7713, exclusive, about 1 h; after alpine_draw_cal.txt and the commit of
+# testsets/sv2cal.json): per d, three fresh-process repetitions of the node's correlated PM per block on validation
+# chunk 0 (timing.cpu_term ref), then correlated PM's answer and time on every calibration shot (surf_v2.calcost), all
+# single-threaded on core 8 -> $E/calcost (the q rule's inputs).
+#   sbatch -p amem --qos=mem-normal --nice=1000 -N 1 --exclusive --mem=256G --constraint=epyc-7713 -t 02:00:00 -J sv2e_calcost ...
+grep -q "AMD EPYC 7713 64-Core" /proc/cpuinfo || { echo "not an EPYC 7713 node: stop"; exit 6; }
+mkdir -p $E/calcost/ref
+for d in 7 9 11 13 15 17; do
+  for r in 1 2 3; do $PY -m timing.cpu_term ref --d $d --val $E/shots/val --rep $r --core 8 --out $E/calcost/ref; done
+  $PY -m surf_v2.calcost --d $d --shots $E/shots/sv2cal --ref $E/calcost/ref --core 8 --out $E/calcost; done
+(cd $E/calcost && sha256sum calcost_d*.npz calcost_d*.json ref/*.json)
