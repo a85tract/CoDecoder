@@ -34,3 +34,8 @@ The released BB and gross networks under `weights/bb/` are the original checkpoi
 code checks their sha256. The gross network's training record keeps one path of the rented pod it trained on
 (`/workspace/g2/ckpt/...`), which names no host or user. No other checkpoint's metadata holds an absolute path, a host
 name or an id.
+
+The SPEED-RT stage-1 records under `speed_rt/cascade/records/` follow these rules with two exceptions, published byte for
+byte: `H100/R4/derived_lock.json` and `H100/R4/session.json`. They keep their cluster paths (the lock's checkpoint
+entries), the pod's home directory and, in `session.json`, the pod's host name, because the frozen analysis checks their
+sha256; `speed_rt/cascade/results/README.md` says more.
