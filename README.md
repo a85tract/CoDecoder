@@ -346,7 +346,7 @@ for RETEST, run from the repository root.
 
    ```bash
    cd surface_v2
-   gh api 'repos/a85tract/Convlines_Public/activity?per_page=100' > activity.json    # one page: under 100 records
+   gh api 'repos/a85tract/convlines/activity?per_page=100' > activity.json    # one page: under 100 records
    jq '.[] | select(.after == "f94f4edb843b4a0b4762c556d79782cf2a2167e2") | {id, activity_type, ref, timestamp}' activity.json
    ```
 
@@ -723,7 +723,7 @@ their own licenses.
   title  = {A Small Network Makes Quantum Decoders Up to 100x Faster and More Accurate},
   author = {Guang, Yicheng and Xiong, Yuliang and Gao, Xun and Chen, Yueqi},
   year   = {2026},
-  note   = {Code, weights and records: \url{https://github.com/a85tract/Convlines_Public}}
+  note   = {Code, weights and records: \url{https://github.com/a85tract/convlines}}
 }
 ```
 
