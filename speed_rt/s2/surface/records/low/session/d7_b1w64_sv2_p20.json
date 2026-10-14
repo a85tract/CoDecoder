@@ -1,0 +1,118 @@
+{
+ "network": "d7_b1w64_sv2",
+ "network_sha256": "8a7a128ff346669892d8b78d1376c0c97b052c04b1892805f80f524eb3a2c723",
+ "code_digest": "61b3f4f96edb85a82c76339ef6d5707ed1a2ca756183951394f569558a980f21",
+ "d": 7,
+ "proc": 20,
+ "core": 169,
+ "pid": 278471,
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "torch": "2.11.0+cu126",
+ "clocks_where": "off",
+ "limit": null,
+ "handoff": false,
+ "load_start": [
+  "109.75",
+  "104.03",
+  "104.21"
+ ],
+ "apps_before": [],
+ "start": "2026-10-14T04:50:37+0000",
+ "own_pids": [
+  "278471"
+ ],
+ "per_shot_mean": 8.371133760000001,
+ "shots": 200000,
+ "passes": 3175,
+ "requests_per_pass": 1000,
+ "targets_per_pass": 63,
+ "device_detect_to_publish": {
+  "n": 200000,
+  "mean": 8.371133760000001,
+  "p50": 8.384,
+  "p99": 8.448,
+  "max": 8.832,
+  "min": 8.224,
+  "p999": 8.672,
+  "std": 0.03665976361438249
+ },
+ "host_round_trip_stamps_on": {
+  "n": 200000,
+  "mean": 10.744776275,
+  "p50": 10.519,
+  "p99": 17.15501000000001,
+  "max": 239.377,
+  "min": 9.656,
+  "p999": 32.49400800000015,
+  "std": 1.710403119341205
+ },
+ "handoff_per_request": {
+  "n": 200000,
+  "mean": 2.3736425149999993,
+  "p50": 2.1500000000000004,
+  "p99": 8.778040000000036,
+  "max": 230.993,
+  "min": 1.3659999999999997,
+  "p999": 24.058052000000952,
+  "std": 1.709923090153319
+ },
+ "device_within_host": 200000,
+ "clocks": {
+  "where": "off",
+  "samples": 354,
+  "sm_min": 1980.0,
+  "sm_median": 1980.0,
+  "sm_max_clock": 1980.0,
+  "sm_min_frac": 1.0,
+  "throttle_seen": [
+   "0x0000000000000000"
+  ],
+  "power_max": 138.65
+ },
+ "launch_to_ready_us": {
+  "n": 3175,
+  "mean": 36.8521537007874,
+  "p50": 28.889,
+  "p99": 146.9634999999999,
+  "max": 922.879,
+  "min": 15.995
+ },
+ "engine_cfg": {
+  "kernel": "s9_serve_l1",
+  "body": 1,
+  "nl": 1,
+  "npoll": 1,
+  "gap": 0,
+  "classic": 0,
+  "check": 0,
+  "fwd": 1,
+  "relax": 1,
+  "smem": 176000,
+  "regs": 128,
+  "threads": 416,
+  "ctas": 7,
+  "cubin": "kernel_sm90a.cubin",
+  "dbg": true,
+  "zout": false,
+  "staging_tau": null
+ },
+ "shots_set": "validation chunks 0-19 of d = 7 in order",
+ "outputs_checked": 200000,
+ "outputs_equal_deployed": true,
+ "load_end": [
+  "103.45",
+  "102.47",
+  "103.65"
+ ],
+ "end": "2026-10-14T04:51:14+0000",
+ "apps_after": [
+  "278471, <pod-work>/venv/bin/python"
+ ],
+ "acceptance": {
+  "clocks": true,
+  "gpu_alone": true,
+  "outputs_equal_deployed": true,
+  "device_within_host": true
+ },
+ "accepted": true
+}

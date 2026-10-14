@@ -1,0 +1,105 @@
+{
+ "item": "G5-trtexec",
+ "plan": "M4_d15_fp16_official.plan",
+ "plan_sha256": "c9fed1244e90d80bbbe85c364bd5e44d81856df06c3d98f432136d78e5058da6",
+ "d": 15,
+ "model": "M4",
+ "precision": "fp16",
+ "build": "official",
+ "level": null,
+ "rep": 4,
+ "cmd": [
+  "<trt-dir>/bin/trtexec",
+  "--loadEngine=<pod-work>/work/plans/M4_d15_fp16_official.plan",
+  "--useCudaGraph",
+  "--noDataTransfers",
+  "--useSpinWait",
+  "--loadInputs=dets:<pod-work>/inputs/dets_d15.bin",
+  "--shapes=dets:1x3360"
+ ],
+ "input_sha256": "697be1a4a413ef52464ee7717f502b790a56f1c5ac4dfad7f91d411862a20313",
+ "exit": 0,
+ "gpu_compute_ms": {
+  "min": 0.224091,
+  "max": 0.244019,
+  "mean": 0.224889,
+  "median": 0.224854
+ },
+ "us_call_mean": 224.889,
+ "window": {
+  "window_s": 3.382,
+  "host": {
+   "core": 222,
+   "window_ticks": 336,
+   "core_busy": 1.0,
+   "own_cpu_s": 3.3777,
+   "tick_allow_s": 0.02,
+   "core_other_busy": 0.0,
+   "core_steal": 0.0,
+   "siblings": [
+    110
+   ],
+   "sibling_busy": [
+    0.005917159763313609
+   ],
+   "others_busy": 0.015994659546061416,
+   "loadavg": [
+    "3.04",
+    "3.98",
+    "3.55"
+   ],
+   "ok": true
+  },
+  "clocks": {
+   "rule": "floor",
+   "samples": 34,
+   "sm_min": 1980.0,
+   "sm_max_clock": 1980.0,
+   "sm_median": 1980.0,
+   "sm_min_frac": 1.0,
+   "throttle_seen": [
+    "0x0000000000000000"
+   ],
+   "power_cap_samples": 0,
+   "power_max": 219.95,
+   "ok": true,
+   "workload_power_cap": false
+  },
+  "apps_before": [],
+  "apps_after": [],
+  "gpu_alone": true,
+  "accepted": true,
+  "cmd": [
+   "<trt-dir>/bin/trtexec",
+   "--loadEngine=<pod-work>/work/plans/M4_d15_fp16_official.plan",
+   "--useCudaGraph",
+   "--noDataTransfers",
+   "--useSpinWait",
+   "--loadInputs=dets:<pod-work>/inputs/dets_d15.bin",
+   "--shapes=dets:1x3360"
+  ],
+  "exit": 0,
+  "marker": "Starting inference",
+  "marker_seen": true,
+  "core": 222,
+  "rule": "floor",
+  "child_cpu_s": 3.3777,
+  "start": "2026-10-14T05:13:48+0000",
+  "end": "2026-10-14T05:13:52+0000"
+ },
+ "trtexec_settings": {
+  "Batch": "Explicit",
+  "Iterations": "10",
+  "Duration": "3s (+ 200ms warm up)",
+  "Inference Streams": "1",
+  "Data transfers": "Disabled",
+  "Spin-wait": "Enabled",
+  "Multithreading": "Disabled",
+  "CUDA Graph": "Enabled"
+ },
+ "loaded_inputs": [
+  "dets<-<pod-work>/inputs/dets_d15.bin"
+ ],
+ "accepted": true,
+ "log": "trtexec_M4_d15_fp16_official_rep4.log"
+}

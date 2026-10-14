@@ -39,3 +39,11 @@ The SPEED-RT stage-1 records under `speed_rt/cascade/records/` follow these rule
 byte: `H100/R4/derived_lock.json` and `H100/R4/session.json`. They keep their cluster paths (the lock's checkpoint
 entries), the pod's home directory and, in `session.json`, the pod's host name, because the frozen analysis checks their
 sha256; `speed_rt/cascade/results/README.md` says more.
+
+The SPEED-RT stage-2 records under `speed_rt/s2/` follow these rules, with one map of replacements for all three
+families. The stage's analyses then ran on the sanitized records, so their published outputs carry the same labels;
+`speed_rt/s2/README.md` says more. The labels new there: the Linux workstation's host name became `linux-workstation`,
+the GPUs' UUIDs `<uuid-1>` to `<uuid-3>` (`GPU-<uuid-N>` where the record keeps NVIDIA's prefix), a GPU's serial number
+`<gpu-serial-1>`, the root file system's UUID `<fs-uuid>` and the BB draw's Slurm job `AJ41`. In the hosts' process
+lists, the process name of a tool that ran the studies became `<tool>`. The files whose sha256 the frozen analyses
+check are published byte for byte, and none of them held an identifier.

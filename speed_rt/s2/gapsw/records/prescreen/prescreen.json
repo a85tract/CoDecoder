@@ -1,0 +1,76 @@
+{
+ "cgroup_cpu": null,
+ "checks": {
+  "cpus": true,
+  "disk": true,
+  "probe_ref_is_reference": true,
+  "sessionref_median": true,
+  "sessionref_processes": true,
+  "slots": true
+ },
+ "core": null,
+ "cpu": "AMD Ryzen 9 9950X 16-Core Processor",
+ "cpus_allowed": 24,
+ "cpus_ok": true,
+ "cpus_online": 24,
+ "end": "2026-10-14T04:18:21+0000",
+ "failed": [],
+ "idle": {
+  "note": "each process keeps its own 5 s idle check (pre_idle in rec.json)",
+  "ok": null
+ },
+ "item": "pre-screen",
+ "limits": {
+  "core_busy": 0.05,
+  "core_steal": 0.01,
+  "idle_s": 5.0,
+  "probe_passes": 3,
+  "probe_rel": 1.1,
+  "probe_spread": 0.06,
+  "tick_slack": 2
+ },
+ "node": "linux-workstation",
+ "passed": true,
+ "pick": {
+  "rule": "per attempt: the vCPU of the window's slot (topo slots), SMT sibling idle"
+ },
+ "probe": {
+  "ok": true,
+  "ref_us": 17.3229,
+  "spread": 0.013143689872923359,
+  "values_us": [
+   17.325012432411313,
+   17.32223010621965,
+   17.26096502970904,
+   17.3061948036775,
+   17.29685692116618,
+   17.267983546480536,
+   17.321062576957047,
+   17.253761831671,
+   17.371891671791673,
+   17.39840297959745,
+   17.261724616400898,
+   17.379193054512143,
+   17.324736225418746,
+   17.356678936630487,
+   17.38860032055527,
+   17.31052475515753,
+   17.281626421026886,
+   17.344551743008196,
+   17.294233990833163,
+   17.32363346964121,
+   17.2790547600016,
+   17.415476869791746,
+   17.480539926327765,
+   17.3442579805851
+  ]
+ },
+ "selftest": {
+  "note": "cpu_ws runs no /proc/stat selftest",
+  "ok": null,
+  "run": false
+ },
+ "session_reference_us": 17.32293178793043,
+ "source": "cpu_ws: the session reference (sessionref.json) and topo.json; windows/<w>.json hold the window verdicts",
+ "start": "2026-10-14T04:18:18+0000"
+}

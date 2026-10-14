@@ -1,0 +1,435 @@
+{
+ "item": "G5",
+ "d": 11,
+ "order": "fwd",
+ "rep": 1,
+ "core": 169,
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "trt": "10.14.1.48.post1",
+ "torch": "2.11.0+cu126",
+ "shots_set": "the first shot of the timing set's chunk 0 at d = 11",
+ "window": {
+  "window_s": 1.052,
+  "host": {
+   "core": 169,
+   "window_ticks": 105,
+   "core_busy": 0.9904761904761905,
+   "own_cpu_s": 1.0449,
+   "tick_allow_s": 0.02,
+   "core_other_busy": 0.0,
+   "core_steal": 0.0,
+   "siblings": [
+    65
+   ],
+   "sibling_busy": [
+    0.19230769230769232
+   ],
+   "others_busy": 0.4378947368421053,
+   "loadavg": [
+    "96.05",
+    "90.73",
+    "101.03"
+   ],
+   "ok": true
+  },
+  "clocks": {
+   "rule": "floor",
+   "samples": 11,
+   "sm_min": 1980.0,
+   "sm_max_clock": 1980.0,
+   "sm_median": 1980.0,
+   "sm_min_frac": 1.0,
+   "throttle_seen": [
+    "0x0000000000000000"
+   ],
+   "power_cap_samples": 0,
+   "power_max": 176.89,
+   "ok": true,
+   "workload_power_cap": false
+  },
+  "apps_before": [
+   "276549, <pod-work>/venv/bin/python"
+  ],
+  "apps_after": [
+   "276549, <pod-work>/venv/bin/python"
+  ],
+  "gpu_alone": true,
+  "accepted": true
+ },
+ "rows": [
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp16",
+   "kind": "L3",
+   "order": "fwd",
+   "position": 0,
+   "plan": "M1_d11_fp16_L3_B1.plan",
+   "timed": true,
+   "plan_sha256": "4472babc483eaed8815baa80d4645f05c64decd32f160fb8db362f246a8d1069",
+   "us_call_reps": [
+    52.1242,
+    52.1187,
+    52.9059,
+    52.1178,
+    52.2573
+   ],
+   "us_call_min": 52.11775779724121,
+   "us_call_median": 52.12416172027588,
+   "t0": 1791953149.516532,
+   "t1": 1791953149.564584,
+   "clock": {
+    "samples": 2,
+    "inside": 0,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp16",
+   "kind": "L5",
+   "order": "fwd",
+   "position": 1,
+   "plan": "M1_d11_fp16_L5_B1.plan",
+   "timed": true,
+   "plan_sha256": "ae10d13832919d694114af2f65e193a9a88c646db3cdb5aff3b8b8b0188a5936",
+   "us_call_reps": [
+    50.455,
+    50.0234,
+    49.9491,
+    49.96,
+    49.9651
+   ],
+   "us_call_min": 49.94912147521973,
+   "us_call_median": 49.96511936187744,
+   "t0": 1791953149.5841057,
+   "t1": 1791953149.6212106,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp16",
+   "kind": "official",
+   "order": "fwd",
+   "position": 2,
+   "plan": "M1_d11_fp16_official.plan",
+   "timed": true,
+   "plan_sha256": "35331d9b08fe7fb56f543a487d08964dc5f279fb80703003e4edc313f7bb0c2f",
+   "us_call_reps": [
+    142.5037,
+    142.313,
+    143.0947,
+    142.0819,
+    142.1542
+   ],
+   "us_call_min": 142.08191871643066,
+   "us_call_median": 142.31295585632324,
+   "t0": 1791953149.6471753,
+   "t1": 1791953149.7520912,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp8",
+   "kind": "L3",
+   "order": "fwd",
+   "position": 3,
+   "plan": "M1_d11_fp8_L3_B1.plan",
+   "timed": true,
+   "plan_sha256": "4334cdc8d4d0b42ca5a300f6ed13ce3d8bc39f71e3847b654bab0c1ff7b902dc",
+   "us_call_reps": [
+    47.3171,
+    47.3056,
+    47.2858,
+    47.3216,
+    47.0013
+   ],
+   "us_call_min": 47.001280784606934,
+   "us_call_median": 47.30559825897217,
+   "t0": 1791953149.7694454,
+   "t1": 1791953149.8048854,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp8",
+   "kind": "L5",
+   "order": "fwd",
+   "position": 4,
+   "plan": "M1_d11_fp8_L5_B1.plan",
+   "timed": true,
+   "plan_sha256": "c680ad552fe1bef36cdfbfe7c7f36d4160513680a5abcacf18bce4f31fd6940c",
+   "us_call_reps": [
+    47.1766,
+    47.1859,
+    47.1584,
+    47.153,
+    47.1728
+   ],
+   "us_call_min": 47.152957916259766,
+   "us_call_median": 47.1727991104126,
+   "t0": 1791953149.8162136,
+   "t1": 1791953149.8512106,
+   "clock": {
+    "samples": 2,
+    "inside": 0,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M1",
+   "precision": "fp8",
+   "kind": "official",
+   "order": "fwd",
+   "position": 5,
+   "plan": "M1_d11_fp8_official.plan",
+   "timed": true,
+   "plan_sha256": "c1b12346d57b5aed6011564776ebbb827acfb327b2f5dd63754561962f562a90",
+   "us_call_reps": [
+    96.0605,
+    96.2483,
+    96.1037,
+    96.1018,
+    96.1389
+   ],
+   "us_call_min": 96.06047630310059,
+   "us_call_median": 96.10367774963379,
+   "t0": 1791953149.8735993,
+   "t1": 1791953149.9445777,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp16",
+   "kind": "L3",
+   "order": "fwd",
+   "position": 6,
+   "plan": "M4_d11_fp16_L3_B1.plan",
+   "timed": true,
+   "plan_sha256": "0d1e4b0f5cd3897e275ac0ef34b91352813005401be85be79b2e58a5ad395d7c",
+   "us_call_reps": [
+    74.5514,
+    74.416,
+    74.3686,
+    74.1043,
+    74.0954
+   ],
+   "us_call_min": 74.09535884857178,
+   "us_call_median": 74.36863899230957,
+   "t0": 1791953149.9615538,
+   "t1": 1791953150.0161915,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp16",
+   "kind": "L5",
+   "order": "fwd",
+   "position": 7,
+   "plan": "M4_d11_fp16_L5_B1.plan",
+   "timed": true,
+   "plan_sha256": "c4b1094b86c88450d521133d8cb38cea1b4347b48a2aad8eb0f2317dce55ef2d",
+   "us_call_reps": [
+    68.1114,
+    67.5334,
+    67.4992,
+    67.4922,
+    67.6262
+   ],
+   "us_call_min": 67.49216079711914,
+   "us_call_median": 67.53344058990479,
+   "t0": 1791953150.0323806,
+   "t1": 1791953150.0844615,
+   "clock": {
+    "samples": 2,
+    "inside": 0,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp16",
+   "kind": "official",
+   "order": "fwd",
+   "position": 8,
+   "plan": "M4_d11_fp16_official.plan",
+   "timed": true,
+   "plan_sha256": "da59d3864773994eda4d23c4c62566240ff7893f6ec9d9184a919e4e20ce2e7e",
+   "us_call_reps": [
+    211.4029,
+    210.8058,
+    209.2714,
+    209.2637,
+    209.1405
+   ],
+   "us_call_min": 209.14047241210938,
+   "us_call_median": 209.27135467529297,
+   "t0": 1791953150.112595,
+   "t1": 1791953150.2638123,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp8",
+   "kind": "L3",
+   "order": "fwd",
+   "position": 9,
+   "plan": "M4_d11_fp8_L3_B1.plan",
+   "timed": true,
+   "plan_sha256": "ad8f870a1daee4f02f163a110bb82ca0161d9d210fa34cf3b0e28031e5e79c15",
+   "us_call_reps": [
+    61.3923,
+    61.3341,
+    61.3731,
+    61.4083,
+    61.3443
+   ],
+   "us_call_min": 61.33408069610596,
+   "us_call_median": 61.37311935424805,
+   "t0": 1791953150.284753,
+   "t1": 1791953150.3302224,
+   "clock": {
+    "samples": 3,
+    "inside": 1,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp8",
+   "kind": "L5",
+   "order": "fwd",
+   "position": 10,
+   "plan": "M4_d11_fp8_L5_B1.plan",
+   "timed": true,
+   "plan_sha256": "1be1fa8025c079099297dcac55584f7c8966a8debf860596ded85c13860b3556",
+   "us_call_reps": [
+    61.2387,
+    61.4176,
+    61.2656,
+    61.287,
+    61.2093
+   ],
+   "us_call_min": 61.20927810668945,
+   "us_call_median": 61.265602111816406,
+   "t0": 1791953150.3448865,
+   "t1": 1791953150.3900871,
+   "clock": {
+    "samples": 2,
+    "inside": 0,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  },
+  {
+   "d": 11,
+   "model": "M4",
+   "precision": "fp8",
+   "kind": "official",
+   "order": "fwd",
+   "position": 11,
+   "plan": "M4_d11_fp8_official.plan",
+   "timed": true,
+   "plan_sha256": "9434f3af804682ca67b41b63137f854f78867b43ba9b5d13604fef474d1c0aa2",
+   "us_call_reps": [
+    121.4429,
+    121.3898,
+    121.417,
+    121.4227,
+    121.4003
+   ],
+   "us_call_min": 121.38976097106934,
+   "us_call_median": 121.41695976257324,
+   "t0": 1791953150.4194117,
+   "t1": 1791953150.5075824,
+   "clock": {
+    "samples": 2,
+    "inside": 0,
+    "sm_min_frac": 1.0,
+    "throttle": [
+     "0x0000000000000000"
+    ]
+   },
+   "accepted": true
+  }
+ ],
+ "end": "2026-10-14T04:45:50+0000",
+ "wall_s": 2.0
+}

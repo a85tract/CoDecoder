@@ -1,0 +1,3555 @@
+{
+ "B10": {
+  "descriptive": true,
+  "graph32": {
+   "gpu_term": {
+    "all_ms": [
+     3.429184143066406,
+     3.4080407104492187,
+     3.4067545776367187,
+     3.4082062377929687,
+     3.4293116455078123
+    ],
+    "max_ms": 3.4293116455078123,
+    "min_ms": 3.4067545776367187,
+    "n": 5,
+    "pod": "gpu",
+    "processes": [
+     "gpu-pod:3780:8131a9f2",
+     "gpu-pod:4176:e3552b49",
+     "gpu-pod:4556:cab5057f",
+     "gpu-pod:4656:d9bc41a5",
+     "gpu-pod:4768:b369cba0"
+    ],
+    "spread": 0.006621277628616751,
+    "value_ms": 3.4293116455078123
+   },
+   "handoff": {
+    "all_ms": [
+     0.03095799684524536,
+     0.02276165783405304,
+     0.01928059756755829,
+     0.019776515662670135,
+     0.01962350681424141
+    ],
+    "max_ms": 0.03095799684524536,
+    "min_ms": 0.01928059756755829,
+    "n": 5,
+    "pod": "gpu",
+    "processes": [
+     "gpu-pod:3780:8131a9f2",
+     "gpu-pod:4176:e3552b49",
+     "gpu-pod:4556:cab5057f",
+     "gpu-pod:4656:d9bc41a5",
+     "gpu-pod:4768:b369cba0"
+    ],
+    "spread": 0.6056554646073611,
+    "value_ms": 0.03095799684524536
+   }
+  },
+  "graph32_gpu_term_ms": 3.4293116455078123,
+  "graph32_handoff_ms": 0.03095799684524536,
+  "graph32_over_gross": 13.481029674541395,
+  "gross_below_graph32": true,
+  "gross_gpu_term_ms": 0.25438054275512695,
+  "pod": "gpu",
+  "r11_gpu_term_us": 89.62080001831055
+ },
+ "B5": {
+  "bb72_p0.002": {
+   "accurate_below_full_dem": true,
+   "accurate_ms": 0.4223740231152688,
+   "full_dem_ms": 52.784412743728026,
+   "full_dem_over_accurate": 124.9707838432166
+  },
+  "bb72_p0.003": {
+   "accurate_below_full_dem": true,
+   "accurate_ms": 4.864004856737386,
+   "full_dem_ms": 85.37025565290239,
+   "full_dem_over_accurate": 17.551433061307822
+  },
+  "gross_p0.004": {
+   "accurate_below_full_dem": true,
+   "accurate_ms": 427.54107883211486,
+   "full_dem_ms": 3811.239695675505,
+   "full_dem_over_accurate": 8.914323989840723
+  },
+  "range": {
+   "max": 124.9707838432166,
+   "min": 8.914323989840723,
+   "n": 3
+  }
+ },
+ "B6": [
+  {
+   "baseline": "cudaq",
+   "baseline_ms": 0.8908505116899809,
+   "holds": true,
+   "name": "fast p0.003 vs the fastest baseline (paper: a ninth of CUDA-Q)",
+   "ours_ms": 0.09072080001831055,
+   "ours_over_baseline": 0.10183616535866313,
+   "relation": "below"
+  },
+  {
+   "baseline": "cudaq",
+   "baseline_ms": 0.5395639687776566,
+   "holds": true,
+   "name": "fast p0.002 vs the fastest baseline (paper: a fifth of ldpc)",
+   "ours_ms": 0.08940841541290284,
+   "ours_over_baseline": 0.16570494063095279,
+   "relation": "below"
+  },
+  {
+   "baseline": "cudaq",
+   "baseline_ms": 13.701195331911245,
+   "holds": true,
+   "name": "gross network alone vs the fastest baseline (paper: a fiftieth of CUDA-Q)",
+   "ours_ms": 0.25548054275512694,
+   "ours_over_baseline": 0.018646587875445517,
+   "relation": "below"
+  },
+  {
+   "baseline": "cudaq",
+   "baseline_ms": 0.8908505116899809,
+   "holds": true,
+   "name": "accurate p0.003 slower than CUDA-Q (paper: slower)",
+   "ours_ms": 4.864004856737386,
+   "ours_over_baseline": 5.459956292229282,
+   "relation": "above"
+  },
+  {
+   "baseline": "sector",
+   "baseline_ms": 127.60670068867721,
+   "holds": true,
+   "name": "gross balanced vs sector Relay-BP",
+   "ours_ms": 20.3521118077132,
+   "ours_over_baseline": 0.15949093345314494,
+   "relation": "below"
+  },
+  {
+   "baseline": "cudaq",
+   "baseline_ms": 13.701195331911245,
+   "holds": false,
+   "name": "gross balanced vs the fastest baseline",
+   "ours_ms": 20.3521118077132,
+   "ours_over_baseline": 1.4854260022343748,
+   "relation": "below"
+  }
+ ],
+ "B7": {
+  "full_dem_over_sector": 25.857404308710304,
+  "full_dem_p0003_ms": 85.37025565290239,
+  "sector_p0003_ms": 3.3015787135348553
+ },
+ "B8": {
+  "gross_full_dem_ms": 3811.239695675505,
+  "seconds_per_shot": true
+ },
+ "B9": {
+  "bb72_p0.002 accurate": {
+   "baseline": "full_dem",
+   "baseline_ms": 52.784412743728026,
+   "cpu_share": 0.788319331872115,
+   "mean_ms_routed": 134.98605717663483,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 2.5573090645528533
+  },
+  "bb72_p0.002 balanced": {
+   "baseline": "sector",
+   "baseline_ms": 1.9865508363233182,
+   "cpu_share": 0.2348474300415277,
+   "mean_ms_routed": 11.12514560416812,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 5.600232020620419
+  },
+  "bb72_p0.003 accurate": {
+   "baseline": "full_dem",
+   "baseline_ms": 85.37025565290239,
+   "cpu_share": 0.981618354001218,
+   "mean_ms_routed": 245.73321880208357,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 2.878440704232906
+  },
+  "bb72_p0.003 balanced": {
+   "baseline": "sector",
+   "baseline_ms": 3.3015787135348553,
+   "cpu_share": 0.7844422752133083,
+   "mean_ms_routed": 16.745688065745426,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 5.072024482438146
+  },
+  "gross_p0.004 accurate": {
+   "baseline": "full_dem",
+   "baseline_ms": 3811.239695675505,
+   "cpu_share": 0.999402442115146,
+   "mean_ms_routed": 21378.532269314193,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 5.6093381619560025
+  },
+  "gross_p0.004 balanced": {
+   "baseline": "sector",
+   "baseline_ms": 127.60670068867721,
+   "cpu_share": 0.9874469762563753,
+   "mean_ms_routed": 2089.0469090393008,
+   "pod": "gpu",
+   "routed_over_baseline_mean": 16.37098128675829
+  },
+  "ranges": {
+   "cpu_share": [
+    0.2348474300415277,
+    0.999402442115146
+   ],
+   "full_dem": [
+    2.5573090645528533,
+    5.6093381619560025
+   ],
+   "sector": [
+    5.072024482438146,
+    16.37098128675829
+   ],
+   "what": "each routed-over-baseline ratio is computed inside the CPU worker's session (both on the Grace basis, one factor); the CPU share divides the Grace-basis CPU term by the composite (GPU pod + the Linux workstation)"
+  }
+ },
+ "baselines": {
+  "bb72_p0.002": {
+   "cudaq": {
+    "all_ms": [
+     0.5855966359376907,
+     0.5502848078807195,
+     0.5395639687776566
+    ],
+    "max_ms": 0.5855966359376907,
+    "min_ms": 0.5395639687776566,
+    "n": 3,
+    "pod": "gpu",
+    "processes": [
+     "gpu-pod:3558:2010476d",
+     "gpu-pod:3954:90c129f8",
+     "gpu-pod:4322:606a3ef5"
+    ],
+    "spread": 0.0853145684733505,
+    "value_ms": 0.5395639687776566
+   },
+   "fastest_gating": {
+    "name": "cudaq",
+    "value_ms": 0.5395639687776566
+   },
+   "full_dem": {
+    "all_ms": [
+     52.92309879346174,
+     53.00317077817955,
+     52.784412743728026
+    ],
+    "max_ms": 53.00317077817955,
+    "min_ms": 52.784412743728026,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671251:9e3cdff1",
+     "linux-workstation:3752474:3e23d4e6",
+     "linux-workstation:3795032:83b18d8c"
+    ],
+    "spread": 0.00414436806398899,
+    "value_ms": 52.784412743728026
+   },
+   "ldpc": {
+    "all_ms": [
+     0.6907695455295018,
+     0.6930616848370974,
+     0.7006241502469345
+    ],
+    "max_ms": 0.7006241502469345,
+    "min_ms": 0.6907695455295018,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3712149:2b6cb025",
+     "linux-workstation:3765947:bbd16f96",
+     "linux-workstation:3803721:5bd4ed14"
+    ],
+    "spread": 0.014266125050256484,
+    "value_ms": 0.6907695455295018
+   },
+   "sector": {
+    "all_ms": [
+     1.998154044867982,
+     1.9982954566568434,
+     1.9865508363233182
+    ],
+    "max_ms": 1.9982954566568434,
+    "min_ms": 1.9865508363233182,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671255:ab196315",
+     "linux-workstation:3752478:f7b696a1",
+     "linux-workstation:3795036:e939c842"
+    ],
+    "spread": 0.005912066340704403,
+    "value_ms": 1.9865508363233182
+   }
+  },
+  "bb72_p0.003": {
+   "cudaq": {
+    "all_ms": [
+     0.8998109896977743,
+     0.8908505116899809,
+     0.8982257048288982
+    ],
+    "max_ms": 0.8998109896977743,
+    "min_ms": 0.8908505116899809,
+    "n": 3,
+    "pod": "gpu",
+    "processes": [
+     "gpu-pod:3508:5d3ef0af",
+     "gpu-pod:3904:fd14d55b",
+     "gpu-pod:4272:9d762ea7"
+    ],
+    "spread": 0.010058340754381945,
+    "value_ms": 0.8908505116899809
+   },
+   "fastest_gating": {
+    "name": "cudaq",
+    "value_ms": 0.8908505116899809
+   },
+   "full_dem": {
+    "all_ms": [
+     85.44780956614471,
+     85.37025565290239,
+     85.62673601406121
+    ],
+    "max_ms": 85.62673601406121,
+    "min_ms": 85.37025565290239,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671249:1d744dec",
+     "linux-workstation:3752472:5c9d6dde",
+     "linux-workstation:3795030:7d116540"
+    ],
+    "spread": 0.003004329308812448,
+    "value_ms": 85.37025565290239
+   },
+   "ldpc": {
+    "all_ms": [
+     1.8194520702120487,
+     1.8386289448824482,
+     1.8181692793270992
+    ],
+    "max_ms": 1.8386289448824482,
+    "min_ms": 1.8181692793270992,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671254:04a9c0c4",
+     "linux-workstation:3752477:0a9a497b",
+     "linux-workstation:3795035:89f083ee"
+    ],
+    "spread": 0.01125289365956128,
+    "value_ms": 1.8181692793270992
+   },
+   "sector": {
+    "all_ms": [
+     3.3177824477402167,
+     3.303080982496714,
+     3.3015787135348553
+    ],
+    "max_ms": 3.3177824477402167,
+    "min_ms": 3.3015787135348553,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671253:6fc9125a",
+     "linux-workstation:3752476:232876d3",
+     "linux-workstation:3795034:7391c2dc"
+    ],
+    "spread": 0.004907874568894632,
+    "value_ms": 3.3015787135348553
+   }
+  },
+  "gross_p0.004": {
+   "cudaq": {
+    "all_ms": [
+     14.208978799482185,
+     13.721646182239056,
+     13.701195331911245
+    ],
+    "max_ms": 14.208978799482185,
+    "min_ms": 13.701195331911245,
+    "n": 3,
+    "pod": "gpu",
+    "processes": [
+     "gpu-pod:3630:a2625119",
+     "gpu-pod:4026:0143f986",
+     "gpu-pod:4406:b035ac80"
+    ],
+    "spread": 0.03706125307098351,
+    "value_ms": 13.701195331911245
+   },
+   "fastest_gating": {
+    "name": "cudaq",
+    "value_ms": 13.701195331911245
+   },
+   "full_dem": {
+    "all_ms": [
+     3831.5839285754155,
+     3811.239695675505,
+     3840.677153647567
+    ],
+    "max_ms": 3840.677153647567,
+    "min_ms": 3811.239695675505,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671248:ca8a4055",
+     "linux-workstation:3752471:585cdb57",
+     "linux-workstation:3795029:2c3d49fb"
+    ],
+    "spread": 0.007723853738578423,
+    "value_ms": 3811.239695675505
+   },
+   "ldpc": {
+    "all_ms": [
+     114.07578049075732,
+     114.32282133890065,
+     114.00066045169214
+    ],
+    "max_ms": 114.32282133890065,
+    "min_ms": 114.00066045169214,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671252:fac443f8",
+     "linux-workstation:3752475:b3a51c35",
+     "linux-workstation:3795033:365c8dd7"
+    ],
+    "spread": 0.0028259563228147933,
+    "value_ms": 114.00066045169214
+   },
+   "sector": {
+    "all_ms": [
+     128.12427839060487,
+     127.60670068867721,
+     127.67034534089385
+    ],
+    "max_ms": 128.12427839060487,
+    "min_ms": 127.60670068867721,
+    "n": 3,
+    "pod": "cpu",
+    "processes": [
+     "linux-workstation:3671250:57fdab29",
+     "linux-workstation:3752473:c468845a",
+     "linux-workstation:3795031:455071ce"
+    ],
+    "spread": 0.004056038586801147,
+    "value_ms": 127.60670068867721
+   }
+  }
+ },
+ "basis": "accepted attempts of the qualified GPU pod session and accepted processes of the CPU worker's session (Grace basis)",
+ "complete": true,
+ "cpu_raw": [
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3831.5839285754155,
+   "item": "relay_full",
+   "p": 0.004,
+   "proc": "1",
+   "process": "linux-workstation:3671248:ca8a4055",
+   "raw_ms": 2537.8752328424407,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 85.44780956614471,
+   "item": "relay_full",
+   "p": 0.003,
+   "proc": "1",
+   "process": "linux-workstation:3671249:1d744dec",
+   "raw_ms": 56.59692796529271,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 128.12427839060487,
+   "item": "relay",
+   "p": 0.004,
+   "proc": "1",
+   "process": "linux-workstation:3671250:57fdab29",
+   "raw_ms": 84.86397242359817,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 52.92309879346174,
+   "item": "relay_full",
+   "p": 0.002,
+   "proc": "1",
+   "process": "linux-workstation:3671251:9e3cdff1",
+   "raw_ms": 35.053968326654285,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 114.07578049075732,
+   "item": "bposd",
+   "p": 0.004,
+   "proc": "1",
+   "process": "linux-workstation:3671252:fac443f8",
+   "raw_ms": 75.55885591218248,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3.3177824477402167,
+   "item": "relay",
+   "p": 0.003,
+   "proc": "1",
+   "process": "linux-workstation:3671253:6fc9125a",
+   "raw_ms": 2.1975553867639976,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.8194520702120487,
+   "item": "bposd",
+   "p": 0.003,
+   "proc": "1",
+   "process": "linux-workstation:3671254:04a9c0c4",
+   "raw_ms": 1.205126243457198,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.998154044867982,
+   "item": "relay",
+   "p": 0.002,
+   "proc": "1",
+   "process": "linux-workstation:3671255:ab196315",
+   "raw_ms": 1.3234906911617146,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 426.7205824333326,
+   "item": "G-4F",
+   "p": 0.004,
+   "proc": "1",
+   "process": "linux-workstation:3689114:991d6353",
+   "raw_ms": 282.6412308040717,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 19.96156496111383,
+   "item": "G-4R",
+   "p": 0.004,
+   "proc": "1",
+   "process": "linux-workstation:3689115:e07abe01",
+   "raw_ms": 13.221676013872848,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 4.7745964413244835,
+   "item": "BB72-3F",
+   "p": 0.003,
+   "proc": "1",
+   "process": "linux-workstation:3689116:2d0a101b",
+   "raw_ms": 3.162485875589391,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.33147864023399637,
+   "item": "BB72-2F",
+   "p": 0.002,
+   "proc": "1",
+   "process": "linux-workstation:3689117:534240b3",
+   "raw_ms": 0.21955709360617523,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.32536871911743365,
+   "item": "BB72-3S",
+   "p": 0.003,
+   "proc": "1",
+   "process": "linux-workstation:3689118:114c4202",
+   "raw_ms": 0.21551014650403755,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.027196897593611297,
+   "item": "BB72-2S",
+   "p": 0.002,
+   "proc": "1",
+   "process": "linux-workstation:3689119:66377a36",
+   "raw_ms": 0.018014046958026785,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.6907695455295018,
+   "item": "bposd",
+   "p": 0.002,
+   "proc": "1",
+   "process": "linux-workstation:3712149:2b6cb025",
+   "raw_ms": 0.4575358269270509,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 426.1777753826333,
+   "item": "G-4F",
+   "p": 0.004,
+   "proc": "2",
+   "process": "linux-workstation:3722999:eb12f236",
+   "raw_ms": 282.2816989248642,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 19.966316979522617,
+   "item": "G-4R",
+   "p": 0.004,
+   "proc": "2",
+   "process": "linux-workstation:3723000:966b36d6",
+   "raw_ms": 13.22482354503763,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 4.765552105583332,
+   "item": "BB72-3F",
+   "p": 0.003,
+   "proc": "2",
+   "process": "linux-workstation:3723001:008f2866",
+   "raw_ms": 3.156495299341329,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.3316796637407946,
+   "item": "BB72-2F",
+   "p": 0.002,
+   "proc": "2",
+   "process": "linux-workstation:3723002:c2693300",
+   "raw_ms": 0.2196902428699347,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.32392550800009634,
+   "item": "BB72-3S",
+   "p": 0.003,
+   "proc": "2",
+   "process": "linux-workstation:3723003:f1be467d",
+   "raw_ms": 0.2145542259712424,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.027442025823614692,
+   "item": "BB72-2S",
+   "p": 0.002,
+   "proc": "2",
+   "process": "linux-workstation:3723004:449119a3",
+   "raw_ms": 0.01817640928008283,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3811.239695675505,
+   "item": "relay_full",
+   "p": 0.004,
+   "proc": "2",
+   "process": "linux-workstation:3752471:585cdb57",
+   "raw_ms": 2524.40009416081,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 85.37025565290239,
+   "item": "relay_full",
+   "p": 0.003,
+   "proc": "2",
+   "process": "linux-workstation:3752472:5c9d6dde",
+   "raw_ms": 56.54555961233564,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 127.60670068867721,
+   "item": "relay",
+   "p": 0.004,
+   "proc": "2",
+   "process": "linux-workstation:3752473:c468845a",
+   "raw_ms": 84.52115137223154,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 53.00317077817955,
+   "item": "relay_full",
+   "p": 0.002,
+   "proc": "2",
+   "process": "linux-workstation:3752474:3e23d4e6",
+   "raw_ms": 35.10700454108883,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 114.32282133890065,
+   "item": "bposd",
+   "p": 0.004,
+   "proc": "2",
+   "process": "linux-workstation:3752475:b3a51c35",
+   "raw_ms": 75.72248506965116,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3.303080982496714,
+   "item": "relay",
+   "p": 0.003,
+   "proc": "2",
+   "process": "linux-workstation:3752476:232876d3",
+   "raw_ms": 2.1878177729668096,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.8386289448824482,
+   "item": "bposd",
+   "p": 0.003,
+   "proc": "2",
+   "process": "linux-workstation:3752477:0a9a497b",
+   "raw_ms": 1.217828174610622,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.9982954566568434,
+   "item": "relay",
+   "p": 0.002,
+   "proc": "2",
+   "process": "linux-workstation:3752478:f7b696a1",
+   "raw_ms": 1.323584356205538,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.6930616848370974,
+   "item": "bposd",
+   "p": 0.002,
+   "proc": "2",
+   "process": "linux-workstation:3765947:bbd16f96",
+   "raw_ms": 0.45905404072254896,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 427.2855982893597,
+   "item": "G-4F",
+   "p": 0.004,
+   "proc": "3",
+   "process": "linux-workstation:3776930:5e3f2818",
+   "raw_ms": 283.0154728339749,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 20.096631264958074,
+   "item": "G-4R",
+   "p": 0.004,
+   "proc": "3",
+   "process": "linux-workstation:3776931:7d5957db",
+   "raw_ms": 13.311138083269649,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 4.759565646557106,
+   "item": "BB72-3F",
+   "p": 0.003,
+   "proc": "3",
+   "process": "linux-workstation:3776932:06e0534c",
+   "raw_ms": 3.1525301281801865,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.33296560770236594,
+   "item": "BB72-2F",
+   "p": 0.002,
+   "proc": "3",
+   "process": "linux-workstation:3776933:b76bbe12",
+   "raw_ms": 0.22054199645062908,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.3251371453495496,
+   "item": "BB72-3S",
+   "p": 0.003,
+   "proc": "3",
+   "process": "linux-workstation:3776934:bd2fe58c",
+   "raw_ms": 0.21535676207059062,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.0271792356485571,
+   "item": "BB72-2S",
+   "p": 0.002,
+   "proc": "3",
+   "process": "linux-workstation:3776935:e8982de7",
+   "raw_ms": 0.018002348450633386,
+   "role": "cpu_term"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3840.677153647567,
+   "item": "relay_full",
+   "p": 0.004,
+   "proc": "3",
+   "process": "linux-workstation:3795029:2c3d49fb",
+   "raw_ms": 2543.898191265762,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 85.62673601406121,
+   "item": "relay_full",
+   "p": 0.003,
+   "proc": "3",
+   "process": "linux-workstation:3795030:7d116540",
+   "raw_ms": 56.71544109436218,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 127.67034534089385,
+   "item": "relay",
+   "p": 0.004,
+   "proc": "3",
+   "process": "linux-workstation:3795031:455071ce",
+   "raw_ms": 84.56330683315173,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 52.784412743728026,
+   "item": "relay_full",
+   "p": 0.002,
+   "proc": "3",
+   "process": "linux-workstation:3795032:83b18d8c",
+   "raw_ms": 34.96210869436618,
+   "role": "opponent"
+  },
+  {
+   "code": "bb144",
+   "factor": 1.5097605583565314,
+   "grace_ms": 114.00066045169214,
+   "item": "bposd",
+   "p": 0.004,
+   "proc": "3",
+   "process": "linux-workstation:3795033:365c8dd7",
+   "raw_ms": 75.50909965205938,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 3.3015787135348553,
+   "item": "relay",
+   "p": 0.003,
+   "proc": "3",
+   "process": "linux-workstation:3795034:7391c2dc",
+   "raw_ms": 2.1868227350758387,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.8181692793270992,
+   "item": "bposd",
+   "p": 0.003,
+   "proc": "3",
+   "process": "linux-workstation:3795035:89f083ee",
+   "raw_ms": 1.2042765783378855,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 1.9865508363233182,
+   "item": "relay",
+   "p": 0.002,
+   "proc": "3",
+   "process": "linux-workstation:3795036:e939c842",
+   "raw_ms": 1.3158052284037693,
+   "role": "opponent"
+  },
+  {
+   "code": "bb72",
+   "factor": 1.5097605583565314,
+   "grace_ms": 0.7006241502469345,
+   "item": "bposd",
+   "p": 0.002,
+   "proc": "3",
+   "process": "linux-workstation:3803721:5bd4ed14",
+   "raw_ms": 0.46406309024896475,
+   "role": "opponent"
+  }
+ ],
+ "dry": false,
+ "grace": {
+  "applied": {
+   "corr": 1.5097605583565314,
+   "other": 1.5097605583565314,
+   "plain": 1.5097605583565314
+  },
+  "bb_factor": 1.5097605583565314,
+  "common": true,
+  "factors": {
+   "common": 1.5097605583565314,
+   "corr": 1.5382954582053154,
+   "plain": 1.4542688804744373
+  },
+  "points": [
+   {
+    "d": 5,
+    "decoder": "corr",
+    "grace_us_per_shot": 5.75,
+    "p": 0.003,
+    "ratio": 1.5215638719439877,
+    "residual_ln": 0.007787601433957736,
+    "xeon_us_per_shot": 3.7790066562592983
+   },
+   {
+    "d": 5,
+    "decoder": "corr",
+    "grace_us_per_shot": 8.9,
+    "p": 0.006,
+    "ratio": 1.446919722504988,
+    "residual_ln": -0.042514100090932594,
+    "xeon_us_per_shot": 6.150997779332101
+   },
+   {
+    "d": 9,
+    "decoder": "corr",
+    "grace_us_per_shot": 30.150000000000002,
+    "p": 0.003,
+    "ratio": 1.5810257060718054,
+    "residual_ln": 0.04612274984174025,
+    "xeon_us_per_shot": 19.069898664020002
+   },
+   {
+    "d": 9,
+    "decoder": "corr",
+    "grace_us_per_shot": 67.59,
+    "p": 0.006,
+    "ratio": 1.526783648055571,
+    "residual_ln": 0.011212264257952853,
+    "xeon_us_per_shot": 44.26953359507024
+   },
+   {
+    "d": 13,
+    "decoder": "corr",
+    "grace_us_per_shot": 118.82000000000001,
+    "p": 0.003,
+    "ratio": 1.616099906077892,
+    "residual_ln": 0.06806471362757094,
+    "xeon_us_per_shot": 73.52268232498318
+   },
+   {
+    "d": 13,
+    "decoder": "corr",
+    "grace_us_per_shot": 279.63,
+    "p": 0.006,
+    "ratio": 1.546081769549695,
+    "residual_ln": 0.02377277217938012,
+    "xeon_us_per_shot": 180.86365514900535
+   },
+   {
+    "d": 17,
+    "decoder": "corr",
+    "grace_us_per_shot": 410.04,
+    "p": 0.003,
+    "ratio": 2.119940886805359,
+    "residual_ln": 0.33943713708442047,
+    "xeon_us_per_shot": 193.42048759572208
+   },
+   {
+    "d": 17,
+    "decoder": "corr",
+    "grace_us_per_shot": 860.71,
+    "p": 0.006,
+    "ratio": 1.1662124522395805,
+    "residual_ln": -0.25818979026019573,
+    "xeon_us_per_shot": 738.0387667333707
+   },
+   {
+    "d": 21,
+    "decoder": "corr",
+    "grace_us_per_shot": 1044.75,
+    "p": 0.003,
+    "ratio": 1.6332229374032432,
+    "residual_ln": 0.0786042571908867,
+    "xeon_us_per_shot": 639.6860931068659
+   },
+   {
+    "d": 21,
+    "decoder": "corr",
+    "grace_us_per_shot": 1937.6699999999998,
+    "p": 0.006,
+    "ratio": 1.2828639323782793,
+    "residual_ln": -0.1628560418838072,
+    "xeon_us_per_shot": 1510.4251909302548
+   },
+   {
+    "d": 31,
+    "decoder": "corr",
+    "grace_us_per_shot": 4132.61,
+    "p": 0.003,
+    "ratio": 1.6971588144757823,
+    "residual_ln": 0.11700449967550952,
+    "xeon_us_per_shot": 2435.01666712109
+   },
+   {
+    "d": 31,
+    "decoder": "corr",
+    "grace_us_per_shot": 8395.73,
+    "p": 0.006,
+    "ratio": 1.504095453919204,
+    "residual_ln": -0.003759377413048881,
+    "xeon_us_per_shot": 5581.913021625951
+   },
+   {
+    "d": 13,
+    "decoder": "plain",
+    "grace_us_per_shot": 43.94,
+    "p": 0.003,
+    "ratio": 1.9082975697998203,
+    "residual_ln": 0.23426045225196468,
+    "xeon_us_per_shot": 23.025759030133486
+   },
+   {
+    "d": 13,
+    "decoder": "plain",
+    "grace_us_per_shot": 129.61,
+    "p": 0.006,
+    "ratio": 2.111975301059405,
+    "residual_ln": 0.33567260357311923,
+    "xeon_us_per_shot": 61.36908889748156
+   },
+   {
+    "d": 21,
+    "decoder": "plain",
+    "grace_us_per_shot": 281.61,
+    "p": 0.003,
+    "ratio": 2.226970509165032,
+    "residual_ln": 0.3886910781546149,
+    "xeon_us_per_shot": 126.454301411286
+   },
+   {
+    "d": 21,
+    "decoder": "plain",
+    "grace_us_per_shot": 628.9499999999999,
+    "p": 0.006,
+    "ratio": 1.1025347328047812,
+    "residual_ln": -0.31433923610792913,
+    "xeon_us_per_shot": 570.458218944259
+   },
+   {
+    "d": 31,
+    "decoder": "plain",
+    "grace_us_per_shot": 892.1800000000001,
+    "p": 0.003,
+    "ratio": 0.8994958555454635,
+    "residual_ln": -0.5178719007397454,
+    "xeon_us_per_shot": 991.8667156714946
+   },
+   {
+    "d": 31,
+    "decoder": "plain",
+    "grace_us_per_shot": 2822.86,
+    "p": 0.006,
+    "ratio": 1.0627409630459765,
+    "residual_ln": -0.3510996827754598,
+    "xeon_us_per_shot": 2656.207013898529
+   }
+  ],
+  "rule": "common factor: plain and correlated PyMatching agree within their spread",
+  "spread": {
+   "corr": 0.14566352969887308,
+   "plain": 0.4001230413033847
+  }
+ },
+ "hardware": {
+  "devices": {
+   "cpu": [
+    "AMD Ryzen 9 9950X 16-Core Processor"
+   ],
+   "cudaq": [
+    "NVIDIA H100 80GB HBM3"
+   ],
+   "gpu": [
+    "NVIDIA H100 80GB HBM3"
+   ]
+  },
+  "expected_cpu": "Ryzen 9 9950X",
+  "expected_gpu": "NVIDIA H100 80GB HBM3",
+  "ok": true
+ },
+ "inputs": {
+  "cpu/accepted.json": "8f2608485e6873889db3aec025baf857c137d084f777ec51c6912cdcf938895b",
+  "cpu/grace.json": "2269d469998dc558c7a9a61983ec6c8da902dc64c71f320ff59f94a1fa1be2e5",
+  "cpu/host.json": "26909c66adc4d35d40fc240868d7ace28d7778e4842b6010aa59afb21eb89b7d",
+  "cpu/rows.csv": "e7eed21c991b9b6e595cfafa21e21902ecbc78922eae73ac45f02007e9bb5dfb",
+  "cpu/session.json": "bdb793ba617c80c230e84be1407c9e093a7886985309017d9e7099285b367c9f",
+  "gpu/attempts.json": "0715d48b7f978bbe8541d4fa48ca5bb0a4ca78928ed61f05da019cede25d673d",
+  "gpu/prescreen/prescreen.json": "3620e57349f63a7d40b172a4b42a122961bc2c8264f42d6a140615e5d6b7cf91",
+  "gpu/rows.csv": "49ce7a8859b8e682c7515c2102174248bd29f89d69406b73863ac9250d51bc8e",
+  "gpu/session.json": "9656b10fc2766a244f1964d42e02051fd0a5af99631209af6594806845a67781"
+ },
+ "networks": {
+  "g2": {
+   "gpu_name": "fusedt:eb380295a6ec",
+   "sha256": "eb380295a6eccfde022d8e61ad1c3f2b9154d54b3c04cc5eea84e3f91c224692"
+  },
+  "r11": {
+   "gpu_name": "fused:58e60897c3f9",
+   "sha256": "58e60897c3f9302c2014e82257d0d08f80a6e8386d2dd5216a093230990b252f"
+  },
+  "r12": {
+   "gpu_name": "fused:f2821c327b4e",
+   "sha256": "f2821c327b4e233a4dd1a75c465ceb261448d981c2b55166862fc34a99ec3e96"
+  }
+ },
+ "pairs": {
+  "bb72_p0.002": {
+   "accurate": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.5395639687776566
+    },
+    "below_bar": true,
+    "composite_ms": 0.4223740231152688,
+    "composite_range_ms": [
+     0.40975348879051493,
+     0.4223740231152688
+    ],
+    "cpu_share": 0.788319331872115,
+    "cpu_term": {
+     "all_ms": [
+      0.33147864023399637,
+      0.3316796637407946,
+      0.33296560770236594
+     ],
+     "max_ms": 0.33296560770236594,
+     "min_ms": 0.33147864023399637,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689117:534240b3",
+      "linux-workstation:3723002:c2693300",
+      "linux-workstation:3776933:b76bbe12"
+     ],
+     "spread": 0.004485862097539428,
+     "value_ms": 0.33296560770236594
+    },
+    "fallback": "full_dem",
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.7828062056703431,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 134.98605717663483,
+     "routed": 740,
+     "routed_fraction": 0.0024666666666666665,
+     "shots": 300000,
+     "timed": 740
+    },
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.5395639687776566,
+     "holds": true,
+     "name": "bb72_p0.002 accurate vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.4223740231152688,
+     "ours_over_baseline": 0.7828062056703431,
+     "relation": "below"
+    }
+   },
+   "balanced": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.5395639687776566
+    },
+    "below_bar": true,
+    "composite_ms": 0.11685044123651753,
+    "composite_range_ms": [
+     0.10545408420507565,
+     0.11685044123651753
+    ],
+    "cpu_share": 0.2348474300415277,
+    "cpu_term": {
+     "all_ms": [
+      0.027196897593611297,
+      0.027442025823614692,
+      0.0271792356485571
+     ],
+     "max_ms": 0.027442025823614692,
+     "min_ms": 0.0271792356485571,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689119:66377a36",
+      "linux-workstation:3723004:449119a3",
+      "linux-workstation:3776935:e8982de7"
+     ],
+     "spread": 0.009668784599229374,
+     "value_ms": 0.027442025823614692
+    },
+    "fallback": "sector",
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.21656457435664916,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 11.12514560416812,
+     "routed": 740,
+     "routed_fraction": 0.0024666666666666665,
+     "shots": 300000,
+     "timed": 740
+    },
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.5395639687776566,
+     "holds": true,
+     "name": "bb72_p0.002 balanced vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.11685044123651753,
+     "ours_over_baseline": 0.21656457435664916,
+     "relation": "below"
+    }
+   },
+   "fast": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.5395639687776566
+    },
+    "below_bar": true,
+    "composite_ms": 0.08940841541290284,
+    "composite_range_ms": [
+     0.07827484855651856,
+     0.08940841541290284
+    ],
+    "cpu_share": 0.0,
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.16570494063095279,
+    "pod": "gpu",
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.5395639687776566,
+     "holds": true,
+     "name": "bb72_p0.002 fast vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.08940841541290284,
+     "ours_over_baseline": 0.16570494063095279,
+     "relation": "below"
+    }
+   }
+  },
+  "bb72_p0.003": {
+   "accurate": {
+    "bar": {
+     "gating_set": null,
+     "name": "full_dem",
+     "pod": "cpu",
+     "value_ms": 85.37025565290239
+    },
+    "below_bar": true,
+    "composite_ms": 4.864004856737386,
+    "composite_range_ms": [
+     4.837840495113625,
+     4.864004856737386
+    ],
+    "cpu_share": 0.981618354001218,
+    "cpu_term": {
+     "all_ms": [
+      4.7745964413244835,
+      4.765552105583332,
+      4.759565646557106
+     ],
+     "max_ms": 4.7745964413244835,
+     "min_ms": 4.759565646557106,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689116:2d0a101b",
+      "linux-workstation:3723001:008f2866",
+      "linux-workstation:3776932:06e0534c"
+     ],
+     "spread": 0.003158018164588272,
+     "value_ms": 4.7745964413244835
+    },
+    "fallback": "full_dem",
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.05697540460126315,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 245.73321880208357,
+     "routed": 3886,
+     "routed_fraction": 0.01943,
+     "shots": 200000,
+     "timed": 1000
+    },
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.8908505116899809,
+     "holds": false,
+     "name": "bb72_p0.003 accurate vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 4.864004856737386,
+     "ours_over_baseline": 5.459956292229282,
+     "relation": "below"
+    }
+   },
+   "balanced": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.8908505116899809
+    },
+    "below_bar": true,
+    "composite_ms": 0.4147771345303365,
+    "composite_range_ms": [
+     0.4022003565566149,
+     0.4147771345303365
+    ],
+    "cpu_share": 0.7844422752133083,
+    "cpu_term": {
+     "all_ms": [
+      0.32536871911743365,
+      0.32392550800009634,
+      0.3251371453495496
+     ],
+     "max_ms": 0.32536871911743365,
+     "min_ms": 0.32392550800009634,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689118:114c4202",
+      "linux-workstation:3723003:f1be467d",
+      "linux-workstation:3776934:bd2fe58c"
+     ],
+     "spread": 0.004455379652709812,
+     "value_ms": 0.32536871911743365
+    },
+    "fallback": "sector",
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.4655967854174398,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 16.745688065745426,
+     "routed": 3886,
+     "routed_fraction": 0.01943,
+     "shots": 200000,
+     "timed": 1000
+    },
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.8908505116899809,
+     "holds": true,
+     "name": "bb72_p0.003 balanced vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.4147771345303365,
+     "ours_over_baseline": 0.4655967854174398,
+     "relation": "below"
+    }
+   },
+   "fast": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.8908505116899809
+    },
+    "below_bar": true,
+    "composite_ms": 0.09072080001831055,
+    "composite_range_ms": [
+     0.07837251243591309,
+     0.09072080001831055
+    ],
+    "cpu_share": 0.0,
+    "gpu_term": {
+     "all_ms": [
+      0.0774767370223999,
+      0.07798918437957764,
+      0.07727251243591308,
+      0.08962080001831055,
+      0.0777392635345459
+     ],
+     "max_ms": 0.08962080001831055,
+     "min_ms": 0.07727251243591308,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3414:47a67679",
+      "gpu-pod:3826:b124ccff",
+      "gpu-pod:4206:32407161",
+      "gpu-pod:4586:d9155675",
+      "gpu-pod:4686:b564fb0b"
+     ],
+     "spread": 0.1598018130009513,
+     "value_ms": 0.08962080001831055
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r11",
+    "over_bar": 0.10183616535866313,
+    "pod": "gpu",
+    "transfer": {
+     "all_ms": [
+      0.01775847002863884,
+      0.01921088621020317,
+      0.018413659185171127,
+      0.019447829574346542,
+      0.017218180000782013
+     ],
+     "max_ms": 0.019447829574346542,
+     "min_ms": 0.017218180000782013,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3414:47a67679",
+      "gpu-pod:3826:b124ccff",
+      "gpu-pod:4206:32407161",
+      "gpu-pod:4586:d9155675",
+      "gpu-pod:4686:b564fb0b"
+     ],
+     "spread": 0.1294939170959568,
+     "value_ms": 0.019447829574346542
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.8908505116899809,
+     "holds": true,
+     "name": "bb72_p0.003 fast vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.09072080001831055,
+     "ours_over_baseline": 0.10183616535866313,
+     "relation": "below"
+    }
+   },
+   "second_network_alone": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 0.8908505116899809
+    },
+    "below_bar": true,
+    "composite_ms": 0.08940841541290284,
+    "composite_range_ms": [
+     0.07827484855651856,
+     0.08940841541290284
+    ],
+    "cpu_share": 0.0,
+    "gpu_term": {
+     "all_ms": [
+      0.0772290563583374,
+      0.07758707237243652,
+      0.07799667263031006,
+      0.08830841541290284,
+      0.07717484855651856
+     ],
+     "max_ms": 0.08830841541290284,
+     "min_ms": 0.07717484855651856,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.1442641879398141,
+     "value_ms": 0.08830841541290284
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "r12",
+    "over_bar": 0.10036298373258082,
+    "pod": "gpu",
+    "transfer": {
+     "all_ms": [
+      0.018871624022722244,
+      0.01746535301208496,
+      0.01910831406712532,
+      0.017686542123556137,
+      0.016877081245183945
+     ],
+     "max_ms": 0.01910831406712532,
+     "min_ms": 0.016877081245183945,
+     "n": 5,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3461:592777fc",
+      "gpu-pod:3859:873a5751",
+      "gpu-pod:4239:7acb16de",
+      "gpu-pod:4619:6f1e0e3a",
+      "gpu-pod:4719:0c6173ac"
+     ],
+     "spread": 0.13220489903004307,
+     "value_ms": 0.01910831406712532
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 0.8908505116899809,
+     "holds": true,
+     "name": "bb72_p0.003 second_network_alone vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.08940841541290284,
+     "ours_over_baseline": 0.10036298373258082,
+     "relation": "below"
+    }
+   }
+  },
+  "gross_p0.004": {
+   "accurate": {
+    "bar": {
+     "gating_set": null,
+     "name": "full_dem",
+     "pod": "cpu",
+     "value_ms": 3811.239695675505
+    },
+    "below_bar": true,
+    "composite_ms": 427.54107883211486,
+    "composite_range_ms": [
+     426.43236971780783,
+     427.54107883211486
+    ],
+    "cpu_share": 0.999402442115146,
+    "cpu_term": {
+     "all_ms": [
+      426.7205824333326,
+      426.1777753826333,
+      427.2855982893597
+     ],
+     "max_ms": 427.2855982893597,
+     "min_ms": 426.1777753826333,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689114:991d6353",
+      "linux-workstation:3722999:eb12f236",
+      "linux-workstation:3776930:5e3f2818"
+     ],
+     "spread": 0.0025994384754854938,
+     "value_ms": 427.2855982893597
+    },
+    "fallback": "full_dem",
+    "gpu_term": {
+     "all_ms": [
+      0.25349433517456055,
+      0.25406719970703123,
+      0.25438054275512695
+     ],
+     "max_ms": 0.25438054275512695,
+     "min_ms": 0.25349433517456055,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0034959660142155347,
+     "value_ms": 0.25438054275512695
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "g2",
+    "over_bar": 0.11217900551288663,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 21378.532269314193,
+     "routed": 2998,
+     "routed_fraction": 0.019986666666666666,
+     "shots": 150000,
+     "timed": 25
+    },
+    "transfer": {
+     "all_ms": [
+      0.019167102873325348,
+      0.018306255340576172,
+      0.017480280250310898
+     ],
+     "max_ms": 0.019167102873325348,
+     "min_ms": 0.017480280250310898,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0964986029319781,
+     "value_ms": 0.019167102873325348
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 13.701195331911245,
+     "holds": false,
+     "name": "gross_p0.004 accurate vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 427.54107883211486,
+     "ours_over_baseline": 31.20465539501765,
+     "relation": "below"
+    }
+   },
+   "balanced": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 13.701195331911245
+    },
+    "below_bar": false,
+    "composite_ms": 20.3521118077132,
+    "composite_range_ms": [
+     20.21615929628839,
+     20.3521118077132
+    ],
+    "cpu_share": 0.9874469762563753,
+    "cpu_term": {
+     "all_ms": [
+      19.96156496111383,
+      19.966316979522617,
+      20.096631264958074
+     ],
+     "max_ms": 20.096631264958074,
+     "min_ms": 19.96156496111383,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3689115:e07abe01",
+      "linux-workstation:3723000:966b36d6",
+      "linux-workstation:3776931:7d5957db"
+     ],
+     "spread": 0.006766318377710467,
+     "value_ms": 20.096631264958074
+    },
+    "fallback": "sector",
+    "gpu_term": {
+     "all_ms": [
+      0.25349433517456055,
+      0.25406719970703123,
+      0.25438054275512695
+     ],
+     "max_ms": 0.25438054275512695,
+     "min_ms": 0.25349433517456055,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0034959660142155347,
+     "value_ms": 0.25438054275512695
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "g2",
+    "over_bar": 1.4854260022343748,
+    "pod": "gpu",
+    "slowest_cpu_process": {
+     "mean_ms_routed": 2089.0469090393008,
+     "routed": 1443,
+     "routed_fraction": 0.00962,
+     "shots": 150000,
+     "timed": 300
+    },
+    "transfer": {
+     "all_ms": [
+      0.019167102873325348,
+      0.018306255340576172,
+      0.017480280250310898
+     ],
+     "max_ms": 0.019167102873325348,
+     "min_ms": 0.017480280250310898,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0964986029319781,
+     "value_ms": 0.019167102873325348
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 13.701195331911245,
+     "holds": false,
+     "name": "gross_p0.004 balanced vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 20.3521118077132,
+     "ours_over_baseline": 1.4854260022343748,
+     "relation": "below"
+    }
+   },
+   "network_alone": {
+    "bar": {
+     "gating_set": [
+      "sector",
+      "ldpc",
+      "cudaq"
+     ],
+     "name": "cudaq",
+     "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+     "value_ms": 13.701195331911245
+    },
+    "below_bar": true,
+    "composite_ms": 0.25548054275512694,
+    "composite_range_ms": [
+     0.25459433517456054,
+     0.25548054275512694
+    ],
+    "cpu_share": 0.0,
+    "gpu_term": {
+     "all_ms": [
+      0.25349433517456055,
+      0.25406719970703123,
+      0.25438054275512695
+     ],
+     "max_ms": 0.25438054275512695,
+     "min_ms": 0.25349433517456055,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0034959660142155347,
+     "value_ms": 0.25438054275512695
+    },
+    "handoff": {
+     "all_ms": [],
+     "floor_ms": 0.0011,
+     "max_ms": 0.0011,
+     "min_ms": 0.0011,
+     "n": 0,
+     "value_ms": 0.0011,
+     "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+    },
+    "network": "g2",
+    "over_bar": 0.018646587875445517,
+    "pod": "gpu",
+    "transfer": {
+     "all_ms": [
+      0.019167102873325348,
+      0.018306255340576172,
+      0.017480280250310898
+     ],
+     "max_ms": 0.019167102873325348,
+     "min_ms": 0.017480280250310898,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3597:9a9e3abc",
+      "gpu-pod:3993:ff17f8d5",
+      "gpu-pod:4373:909d505a"
+     ],
+     "spread": 0.0964986029319781,
+     "value_ms": 0.019167102873325348
+    },
+    "vs_fastest_gating": {
+     "baseline": "cudaq",
+     "baseline_ms": 13.701195331911245,
+     "holds": true,
+     "name": "gross_p0.004 network_alone vs the fastest of sector, ldpc, CUDA-Q",
+     "ours_ms": 0.25548054275512694,
+     "ours_over_baseline": 0.018646587875445517,
+     "relation": "below"
+    }
+   }
+  }
+ },
+ "pods": {
+  "cpu": {
+   "attempts": {
+    "accepted": 45
+   },
+   "card": null,
+   "core": null,
+   "cpu_model": "AMD Ryzen 9 9950X 16-Core Processor",
+   "cpuset": null,
+   "not_accepted": [],
+   "not_established": [],
+   "prescreen_passed": null,
+   "quota_cpus": null,
+   "reason_withheld": null,
+   "role": "cpu",
+   "session_qualified": true,
+   "steal_pct_5s": null,
+   "window_host_numbers": null,
+   "window_other_busy_max": null,
+   "window_steal_max": null,
+   "windows": 0
+  },
+  "gpu": {
+   "attempts": {
+    "accepted": 27
+   },
+   "card": "NVIDIA H100 80GB HBM3, 580.126.09, Disabled, 81559, 1980, 700.00, 700.00, 700.00",
+   "core": 207,
+   "cpu_model": "Intel(R) Xeon(R) Platinum 8470",
+   "cpuset": "0-207",
+   "not_accepted": [],
+   "not_established": [],
+   "prescreen_passed": true,
+   "quota_cpus": 22.1,
+   "reason_withheld": null,
+   "role": "gpu",
+   "session_qualified": true,
+   "steal_pct_5s": 0.0,
+   "window_host_numbers": "recorded, not judged (a pod times GPU work only)",
+   "window_other_busy_max": 0.0011994897959184102,
+   "window_steal_max": 0.0,
+   "windows": 27
+  }
+ },
+ "sensitivity_raw_xeon": {
+  "B5": {
+   "bb72_p0.002": {
+    "accurate_below_full_dem": true,
+    "accurate_ms": 0.3099504118635319,
+    "full_dem_ms": 34.96210869436618,
+    "full_dem_over_accurate": 112.79903931781078
+   },
+   "bb72_p0.003": {
+    "accurate_below_full_dem": true,
+    "accurate_ms": 3.251894291002294,
+    "full_dem_ms": 56.54555961233564,
+    "full_dem_over_accurate": 17.388498687916222
+   },
+   "gross_p0.004": {
+    "accurate_below_full_dem": true,
+    "accurate_ms": 283.27095337673006,
+    "full_dem_ms": 2524.40009416081,
+    "full_dem_over_accurate": 8.91160941165591
+   },
+   "range": {
+    "max": 112.79903931781078,
+    "min": 8.91160941165591,
+    "n": 3
+   }
+  },
+  "B6": [
+   {
+    "baseline": "cudaq",
+    "baseline_ms": 0.8908505116899809,
+    "holds": true,
+    "name": "fast p0.003 vs the fastest baseline (paper: a ninth of CUDA-Q)",
+    "ours_ms": 0.09072080001831055,
+    "ours_over_baseline": 0.10183616535866313,
+    "relation": "below"
+   },
+   {
+    "baseline": "ldpc",
+    "baseline_ms": 0.4575358269270509,
+    "holds": true,
+    "name": "fast p0.002 vs the fastest baseline (paper: a fifth of ldpc)",
+    "ours_ms": 0.08940841541290284,
+    "ours_over_baseline": 0.19541292758076853,
+    "relation": "below"
+   },
+   {
+    "baseline": "cudaq",
+    "baseline_ms": 13.701195331911245,
+    "holds": true,
+    "name": "gross network alone vs the fastest baseline (paper: a fiftieth of CUDA-Q)",
+    "ours_ms": 0.25548054275512694,
+    "ours_over_baseline": 0.018646587875445517,
+    "relation": "below"
+   },
+   {
+    "baseline": "cudaq",
+    "baseline_ms": 0.8908505116899809,
+    "holds": true,
+    "name": "accurate p0.003 slower than CUDA-Q (paper: slower)",
+    "ours_ms": 3.251894291002294,
+    "ours_over_baseline": 3.650325445549011,
+    "relation": "above"
+   },
+   {
+    "baseline": "sector",
+    "baseline_ms": 84.52115137223154,
+    "holds": true,
+    "name": "gross balanced vs sector Relay-BP",
+    "ours_ms": 13.566618626024775,
+    "ours_over_baseline": 0.1605115217406034,
+    "relation": "below"
+   },
+   {
+    "baseline": "cudaq",
+    "baseline_ms": 13.701195331911245,
+    "holds": true,
+    "name": "gross balanced vs the fastest baseline",
+    "ours_ms": 13.566618626024775,
+    "ours_over_baseline": 0.9901777397791688,
+    "relation": "below"
+   }
+  ],
+  "B7": {
+   "full_dem_over_sector": 25.8574043087103,
+   "full_dem_p0003_ms": 56.54555961233564,
+   "sector_p0003_ms": 2.1868227350758387
+  },
+  "B8": {
+   "gross_full_dem_ms": 2524.40009416081,
+   "seconds_per_shot": true
+  },
+  "B9": {
+   "bb72_p0.002 accurate": {
+    "baseline": "full_dem",
+    "baseline_ms": 34.96210869436618,
+    "cpu_share": 0.7115396141100517,
+    "mean_ms_routed": 89.40891747998477,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 2.557309064552854
+   },
+   "bb72_p0.002 balanced": {
+    "baseline": "sector",
+    "baseline_ms": 1.3158052284037693,
+    "cpu_share": 0.16894956451295773,
+    "mean_ms_routed": 7.368814573006553,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 5.600232020620418
+   },
+   "bb72_p0.003 accurate": {
+    "baseline": "full_dem",
+    "baseline_ms": 56.54555961233564,
+    "cpu_share": 0.9725057436029553,
+    "mean_ms_routed": 162.76304043177515,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 2.878440704232906
+   },
+   "bb72_p0.003 balanced": {
+    "baseline": "sector",
+    "baseline_ms": 2.1868227350758387,
+    "cpu_share": 0.706779361509459,
+    "mean_ms_routed": 11.091618451057002,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 5.072024482438146
+   },
+   "gross_p0.004 accurate": {
+    "baseline": "full_dem",
+    "baseline_ms": 2524.40009416081,
+    "cpu_share": 0.9990981054015257,
+    "mean_ms_routed": 14160.21378422156,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 5.609338161956003
+   },
+   "gross_p0.004 balanced": {
+    "baseline": "sector",
+    "baseline_ms": 84.52115137223154,
+    "cpu_share": 0.9811684436779966,
+    "mean_ms_routed": 1383.6941874500674,
+    "pod": "gpu",
+    "routed_over_baseline_mean": 16.37098128675829
+   },
+   "ranges": {
+    "cpu_share": [
+     0.16894956451295773,
+     0.9990981054015257
+    ],
+    "full_dem": [
+     2.557309064552854,
+     5.609338161956003
+    ],
+    "sector": [
+     5.072024482438146,
+     16.37098128675829
+    ],
+    "what": "each routed-over-baseline ratio is computed inside the CPU worker's session (both on the Grace basis, one factor); the CPU share divides the Grace-basis CPU term by the composite (GPU pod + the Linux workstation)"
+   }
+  },
+  "baselines": {
+   "bb72_p0.002": {
+    "cudaq": {
+     "all_ms": [
+      0.5855966359376907,
+      0.5502848078807195,
+      0.5395639687776566
+     ],
+     "max_ms": 0.5855966359376907,
+     "min_ms": 0.5395639687776566,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3558:2010476d",
+      "gpu-pod:3954:90c129f8",
+      "gpu-pod:4322:606a3ef5"
+     ],
+     "spread": 0.0853145684733505,
+     "value_ms": 0.5395639687776566
+    },
+    "fastest_gating": {
+     "name": "ldpc",
+     "value_ms": 0.4575358269270509
+    },
+    "full_dem": {
+     "all_ms": [
+      35.053968326654285,
+      35.10700454108883,
+      34.96210869436618
+     ],
+     "max_ms": 35.10700454108883,
+     "min_ms": 34.96210869436618,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671251:9e3cdff1",
+      "linux-workstation:3752474:3e23d4e6",
+      "linux-workstation:3795032:83b18d8c"
+     ],
+     "spread": 0.004144368063989212,
+     "value_ms": 34.96210869436618
+    },
+    "ldpc": {
+     "all_ms": [
+      0.4575358269270509,
+      0.45905404072254896,
+      0.46406309024896475
+     ],
+     "max_ms": 0.46406309024896475,
+     "min_ms": 0.4575358269270509,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3712149:2b6cb025",
+      "linux-workstation:3765947:bbd16f96",
+      "linux-workstation:3803721:5bd4ed14"
+     ],
+     "spread": 0.014266125050256484,
+     "value_ms": 0.4575358269270509
+    },
+    "sector": {
+     "all_ms": [
+      1.3234906911617146,
+      1.323584356205538,
+      1.3158052284037693
+     ],
+     "max_ms": 1.323584356205538,
+     "min_ms": 1.3158052284037693,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671255:ab196315",
+      "linux-workstation:3752478:f7b696a1",
+      "linux-workstation:3795036:e939c842"
+     ],
+     "spread": 0.005912066340704403,
+     "value_ms": 1.3158052284037693
+    }
+   },
+   "bb72_p0.003": {
+    "cudaq": {
+     "all_ms": [
+      0.8998109896977743,
+      0.8908505116899809,
+      0.8982257048288982
+     ],
+     "max_ms": 0.8998109896977743,
+     "min_ms": 0.8908505116899809,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3508:5d3ef0af",
+      "gpu-pod:3904:fd14d55b",
+      "gpu-pod:4272:9d762ea7"
+     ],
+     "spread": 0.010058340754381945,
+     "value_ms": 0.8908505116899809
+    },
+    "fastest_gating": {
+     "name": "cudaq",
+     "value_ms": 0.8908505116899809
+    },
+    "full_dem": {
+     "all_ms": [
+      56.59692796529271,
+      56.54555961233564,
+      56.71544109436218
+     ],
+     "max_ms": 56.71544109436218,
+     "min_ms": 56.54555961233564,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671249:1d744dec",
+      "linux-workstation:3752472:5c9d6dde",
+      "linux-workstation:3795030:7d116540"
+     ],
+     "spread": 0.003004329308812448,
+     "value_ms": 56.54555961233564
+    },
+    "ldpc": {
+     "all_ms": [
+      1.205126243457198,
+      1.217828174610622,
+      1.2042765783378855
+     ],
+     "max_ms": 1.217828174610622,
+     "min_ms": 1.2042765783378855,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671254:04a9c0c4",
+      "linux-workstation:3752477:0a9a497b",
+      "linux-workstation:3795035:89f083ee"
+     ],
+     "spread": 0.01125289365956128,
+     "value_ms": 1.2042765783378855
+    },
+    "sector": {
+     "all_ms": [
+      2.1975553867639976,
+      2.1878177729668096,
+      2.1868227350758387
+     ],
+     "max_ms": 2.1975553867639976,
+     "min_ms": 2.1868227350758387,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671253:6fc9125a",
+      "linux-workstation:3752476:232876d3",
+      "linux-workstation:3795034:7391c2dc"
+     ],
+     "spread": 0.00490787456889441,
+     "value_ms": 2.1868227350758387
+    }
+   },
+   "gross_p0.004": {
+    "cudaq": {
+     "all_ms": [
+      14.208978799482185,
+      13.721646182239056,
+      13.701195331911245
+     ],
+     "max_ms": 14.208978799482185,
+     "min_ms": 13.701195331911245,
+     "n": 3,
+     "pod": "gpu",
+     "processes": [
+      "gpu-pod:3630:a2625119",
+      "gpu-pod:4026:0143f986",
+      "gpu-pod:4406:b035ac80"
+     ],
+     "spread": 0.03706125307098351,
+     "value_ms": 13.701195331911245
+    },
+    "fastest_gating": {
+     "name": "cudaq",
+     "value_ms": 13.701195331911245
+    },
+    "full_dem": {
+     "all_ms": [
+      2537.8752328424407,
+      2524.40009416081,
+      2543.898191265762
+     ],
+     "max_ms": 2543.898191265762,
+     "min_ms": 2524.40009416081,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671248:ca8a4055",
+      "linux-workstation:3752471:585cdb57",
+      "linux-workstation:3795029:2c3d49fb"
+     ],
+     "spread": 0.007723853738578423,
+     "value_ms": 2524.40009416081
+    },
+    "ldpc": {
+     "all_ms": [
+      75.55885591218248,
+      75.72248506965116,
+      75.50909965205938
+     ],
+     "max_ms": 75.72248506965116,
+     "min_ms": 75.50909965205938,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671252:fac443f8",
+      "linux-workstation:3752475:b3a51c35",
+      "linux-workstation:3795033:365c8dd7"
+     ],
+     "spread": 0.002825956322814571,
+     "value_ms": 75.50909965205938
+    },
+    "sector": {
+     "all_ms": [
+      84.86397242359817,
+      84.52115137223154,
+      84.56330683315173
+     ],
+     "max_ms": 84.86397242359817,
+     "min_ms": 84.52115137223154,
+     "n": 3,
+     "pod": "cpu",
+     "processes": [
+      "linux-workstation:3671250:57fdab29",
+      "linux-workstation:3752473:c468845a",
+      "linux-workstation:3795031:455071ce"
+     ],
+     "spread": 0.004056038586801147,
+     "value_ms": 84.52115137223154
+    }
+   }
+  },
+  "pairs": {
+   "bb72_p0.002": {
+    "accurate": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "ldpc",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.4575358269270509
+     },
+     "below_bar": true,
+     "composite_ms": 0.3099504118635319,
+     "composite_range_ms": [
+      0.29783194216269376,
+      0.3099504118635319
+     ],
+     "cpu_share": 0.7115396141100517,
+     "cpu_term": {
+      "all_ms": [
+       0.21955709360617523,
+       0.2196902428699347,
+       0.22054199645062908
+      ],
+      "max_ms": 0.22054199645062908,
+      "min_ms": 0.21955709360617523,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689117:534240b3",
+       "linux-workstation:3723002:c2693300",
+       "linux-workstation:3776933:b76bbe12"
+      ],
+      "spread": 0.004485862097539428,
+      "value_ms": 0.22054199645062908
+     },
+     "fallback": "full_dem",
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.677434189023519,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 89.40891747998477,
+      "routed": 740,
+      "routed_fraction": 0.0024666666666666665,
+      "shots": 300000,
+      "timed": 740
+     },
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "ldpc",
+      "baseline_ms": 0.4575358269270509,
+      "holds": true,
+      "name": "bb72_p0.002 accurate vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.3099504118635319,
+      "ours_over_baseline": 0.677434189023519,
+      "relation": "below"
+     }
+    },
+    "balanced": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "ldpc",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.4575358269270509
+     },
+     "below_bar": true,
+     "composite_ms": 0.10758482469298566,
+     "composite_range_ms": [
+      0.09627719700715194,
+      0.10758482469298566
+     ],
+     "cpu_share": 0.16894956451295773,
+     "cpu_term": {
+      "all_ms": [
+       0.018014046958026785,
+       0.01817640928008283,
+       0.018002348450633386
+      ],
+      "max_ms": 0.01817640928008283,
+      "min_ms": 0.018002348450633386,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689119:66377a36",
+       "linux-workstation:3723004:449119a3",
+       "linux-workstation:3776935:e8982de7"
+      ],
+      "spread": 0.009668784599229374,
+      "value_ms": 0.01817640928008283
+     },
+     "fallback": "sector",
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.23513967292038726,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 7.368814573006553,
+      "routed": 740,
+      "routed_fraction": 0.0024666666666666665,
+      "shots": 300000,
+      "timed": 740
+     },
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "ldpc",
+      "baseline_ms": 0.4575358269270509,
+      "holds": true,
+      "name": "bb72_p0.002 balanced vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.10758482469298566,
+      "ours_over_baseline": 0.23513967292038726,
+      "relation": "below"
+     }
+    },
+    "fast": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "ldpc",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.4575358269270509
+     },
+     "below_bar": true,
+     "composite_ms": 0.08940841541290284,
+     "composite_range_ms": [
+      0.07827484855651856,
+      0.08940841541290284
+     ],
+     "cpu_share": 0.0,
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.19541292758076853,
+     "pod": "gpu",
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "ldpc",
+      "baseline_ms": 0.4575358269270509,
+      "holds": true,
+      "name": "bb72_p0.002 fast vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.08940841541290284,
+      "ours_over_baseline": 0.19541292758076853,
+      "relation": "below"
+     }
+    }
+   },
+   "bb72_p0.003": {
+    "accurate": {
+     "bar": {
+      "gating_set": null,
+      "name": "full_dem",
+      "pod": "cpu",
+      "value_ms": 56.54555961233564
+     },
+     "below_bar": true,
+     "composite_ms": 3.251894291002294,
+     "composite_range_ms": [
+      3.230804976736705,
+      3.251894291002294
+     ],
+     "cpu_share": 0.9725057436029553,
+     "cpu_term": {
+      "all_ms": [
+       3.162485875589391,
+       3.156495299341329,
+       3.1525301281801865
+      ],
+      "max_ms": 3.162485875589391,
+      "min_ms": 3.1525301281801865,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689116:2d0a101b",
+       "linux-workstation:3723001:008f2866",
+       "linux-workstation:3776932:06e0534c"
+      ],
+      "spread": 0.00315801816458805,
+      "value_ms": 3.162485875589391
+     },
+     "fallback": "full_dem",
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.057509277709807655,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 162.76304043177515,
+      "routed": 3886,
+      "routed_fraction": 0.01943,
+      "shots": 200000,
+      "timed": 1000
+     },
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 0.8908505116899809,
+      "holds": false,
+      "name": "bb72_p0.003 accurate vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 3.251894291002294,
+      "ours_over_baseline": 3.650325445549011,
+      "relation": "below"
+     }
+    },
+    "balanced": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "cudaq",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.8908505116899809
+     },
+     "below_bar": true,
+     "composite_ms": 0.3049185619169404,
+     "composite_range_ms": [
+      0.29282907452776097,
+      0.3049185619169404
+     ],
+     "cpu_share": 0.706779361509459,
+     "cpu_term": {
+      "all_ms": [
+       0.21551014650403755,
+       0.2145542259712424,
+       0.21535676207059062
+      ],
+      "max_ms": 0.21551014650403755,
+      "min_ms": 0.2145542259712424,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689118:114c4202",
+       "linux-workstation:3723003:f1be467d",
+       "linux-workstation:3776934:bd2fe58c"
+      ],
+      "spread": 0.00445537965270959,
+      "value_ms": 0.21551014650403755
+     },
+     "fallback": "sector",
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.3422780342108095,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 11.091618451057002,
+      "routed": 3886,
+      "routed_fraction": 0.01943,
+      "shots": 200000,
+      "timed": 1000
+     },
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 0.8908505116899809,
+      "holds": true,
+      "name": "bb72_p0.003 balanced vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.3049185619169404,
+      "ours_over_baseline": 0.3422780342108095,
+      "relation": "below"
+     }
+    },
+    "fast": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "cudaq",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.8908505116899809
+     },
+     "below_bar": true,
+     "composite_ms": 0.09072080001831055,
+     "composite_range_ms": [
+      0.07837251243591309,
+      0.09072080001831055
+     ],
+     "cpu_share": 0.0,
+     "gpu_term": {
+      "all_ms": [
+       0.0774767370223999,
+       0.07798918437957764,
+       0.07727251243591308,
+       0.08962080001831055,
+       0.0777392635345459
+      ],
+      "max_ms": 0.08962080001831055,
+      "min_ms": 0.07727251243591308,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3414:47a67679",
+       "gpu-pod:3826:b124ccff",
+       "gpu-pod:4206:32407161",
+       "gpu-pod:4586:d9155675",
+       "gpu-pod:4686:b564fb0b"
+      ],
+      "spread": 0.1598018130009513,
+      "value_ms": 0.08962080001831055
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r11",
+     "over_bar": 0.10183616535866313,
+     "pod": "gpu",
+     "transfer": {
+      "all_ms": [
+       0.01775847002863884,
+       0.01921088621020317,
+       0.018413659185171127,
+       0.019447829574346542,
+       0.017218180000782013
+      ],
+      "max_ms": 0.019447829574346542,
+      "min_ms": 0.017218180000782013,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3414:47a67679",
+       "gpu-pod:3826:b124ccff",
+       "gpu-pod:4206:32407161",
+       "gpu-pod:4586:d9155675",
+       "gpu-pod:4686:b564fb0b"
+      ],
+      "spread": 0.1294939170959568,
+      "value_ms": 0.019447829574346542
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 0.8908505116899809,
+      "holds": true,
+      "name": "bb72_p0.003 fast vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.09072080001831055,
+      "ours_over_baseline": 0.10183616535866313,
+      "relation": "below"
+     }
+    },
+    "second_network_alone": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "cudaq",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 0.8908505116899809
+     },
+     "below_bar": true,
+     "composite_ms": 0.08940841541290284,
+     "composite_range_ms": [
+      0.07827484855651856,
+      0.08940841541290284
+     ],
+     "cpu_share": 0.0,
+     "gpu_term": {
+      "all_ms": [
+       0.0772290563583374,
+       0.07758707237243652,
+       0.07799667263031006,
+       0.08830841541290284,
+       0.07717484855651856
+      ],
+      "max_ms": 0.08830841541290284,
+      "min_ms": 0.07717484855651856,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.1442641879398141,
+      "value_ms": 0.08830841541290284
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "r12",
+     "over_bar": 0.10036298373258082,
+     "pod": "gpu",
+     "transfer": {
+      "all_ms": [
+       0.018871624022722244,
+       0.01746535301208496,
+       0.01910831406712532,
+       0.017686542123556137,
+       0.016877081245183945
+      ],
+      "max_ms": 0.01910831406712532,
+      "min_ms": 0.016877081245183945,
+      "n": 5,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3461:592777fc",
+       "gpu-pod:3859:873a5751",
+       "gpu-pod:4239:7acb16de",
+       "gpu-pod:4619:6f1e0e3a",
+       "gpu-pod:4719:0c6173ac"
+      ],
+      "spread": 0.13220489903004307,
+      "value_ms": 0.01910831406712532
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 0.8908505116899809,
+      "holds": true,
+      "name": "bb72_p0.003 second_network_alone vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.08940841541290284,
+      "ours_over_baseline": 0.10036298373258082,
+      "relation": "below"
+     }
+    }
+   },
+   "gross_p0.004": {
+    "accurate": {
+     "bar": {
+      "gating_set": null,
+      "name": "full_dem",
+      "pod": "cpu",
+      "value_ms": 2524.40009416081
+     },
+     "below_bar": true,
+     "composite_ms": 283.27095337673006,
+     "composite_range_ms": [
+      282.53629326003875,
+      283.27095337673006
+     ],
+     "cpu_share": 0.9990981054015257,
+     "cpu_term": {
+      "all_ms": [
+       282.6412308040717,
+       282.2816989248642,
+       283.0154728339749
+      ],
+      "max_ms": 283.0154728339749,
+      "min_ms": 282.2816989248642,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689114:991d6353",
+       "linux-workstation:3722999:eb12f236",
+       "linux-workstation:3776930:5e3f2818"
+      ],
+      "spread": 0.0025994384754854938,
+      "value_ms": 283.0154728339749
+     },
+     "fallback": "full_dem",
+     "gpu_term": {
+      "all_ms": [
+       0.25349433517456055,
+       0.25406719970703123,
+       0.25438054275512695
+      ],
+      "max_ms": 0.25438054275512695,
+      "min_ms": 0.25349433517456055,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0034959660142155347,
+      "value_ms": 0.25438054275512695
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "g2",
+     "over_bar": 0.11221317652140962,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 14160.21378422156,
+      "routed": 2998,
+      "routed_fraction": 0.019986666666666666,
+      "shots": 150000,
+      "timed": 25
+     },
+     "transfer": {
+      "all_ms": [
+       0.019167102873325348,
+       0.018306255340576172,
+       0.017480280250310898
+      ],
+      "max_ms": 0.019167102873325348,
+      "min_ms": 0.017480280250310898,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0964986029319781,
+      "value_ms": 0.019167102873325348
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 13.701195331911245,
+      "holds": false,
+      "name": "gross_p0.004 accurate vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 283.27095337673006,
+      "ours_over_baseline": 20.67490802915334,
+      "relation": "below"
+     }
+    },
+    "balanced": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "cudaq",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 13.701195331911245
+     },
+     "below_bar": true,
+     "composite_ms": 13.566618626024775,
+     "composite_range_ms": [
+      13.47627034904741,
+      13.566618626024775
+     ],
+     "cpu_share": 0.9811684436779966,
+     "cpu_term": {
+      "all_ms": [
+       13.221676013872848,
+       13.22482354503763,
+       13.311138083269649
+      ],
+      "max_ms": 13.311138083269649,
+      "min_ms": 13.221676013872848,
+      "n": 3,
+      "pod": "cpu",
+      "processes": [
+       "linux-workstation:3689115:e07abe01",
+       "linux-workstation:3723000:966b36d6",
+       "linux-workstation:3776931:7d5957db"
+      ],
+      "spread": 0.006766318377710467,
+      "value_ms": 13.311138083269649
+     },
+     "fallback": "sector",
+     "gpu_term": {
+      "all_ms": [
+       0.25349433517456055,
+       0.25406719970703123,
+       0.25438054275512695
+      ],
+      "max_ms": 0.25438054275512695,
+      "min_ms": 0.25349433517456055,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0034959660142155347,
+      "value_ms": 0.25438054275512695
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "g2",
+     "over_bar": 0.9901777397791688,
+     "pod": "gpu",
+     "slowest_cpu_process": {
+      "mean_ms_routed": 1383.6941874500674,
+      "routed": 1443,
+      "routed_fraction": 0.00962,
+      "shots": 150000,
+      "timed": 300
+     },
+     "transfer": {
+      "all_ms": [
+       0.019167102873325348,
+       0.018306255340576172,
+       0.017480280250310898
+      ],
+      "max_ms": 0.019167102873325348,
+      "min_ms": 0.017480280250310898,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0964986029319781,
+      "value_ms": 0.019167102873325348
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 13.701195331911245,
+      "holds": true,
+      "name": "gross_p0.004 balanced vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 13.566618626024775,
+      "ours_over_baseline": 0.9901777397791688,
+      "relation": "below"
+     }
+    },
+    "network_alone": {
+     "bar": {
+      "gating_set": [
+       "sector",
+       "ldpc",
+       "cudaq"
+      ],
+      "name": "cudaq",
+      "pod": "cpu (sector, ldpc), gpu (CUDA-Q)",
+      "value_ms": 13.701195331911245
+     },
+     "below_bar": true,
+     "composite_ms": 0.25548054275512694,
+     "composite_range_ms": [
+      0.25459433517456054,
+      0.25548054275512694
+     ],
+     "cpu_share": 0.0,
+     "gpu_term": {
+      "all_ms": [
+       0.25349433517456055,
+       0.25406719970703123,
+       0.25438054275512695
+      ],
+      "max_ms": 0.25438054275512695,
+      "min_ms": 0.25349433517456055,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0034959660142155347,
+      "value_ms": 0.25438054275512695
+     },
+     "handoff": {
+      "all_ms": [],
+      "floor_ms": 0.0011,
+      "max_ms": 0.0011,
+      "min_ms": 0.0011,
+      "n": 0,
+      "value_ms": 0.0011,
+      "what": "the frozen host-side allowance (DESIGN 5.3 (c)); the measured CPU-GPU transfer is context, see transfer"
+     },
+     "network": "g2",
+     "over_bar": 0.018646587875445517,
+     "pod": "gpu",
+     "transfer": {
+      "all_ms": [
+       0.019167102873325348,
+       0.018306255340576172,
+       0.017480280250310898
+      ],
+      "max_ms": 0.019167102873325348,
+      "min_ms": 0.017480280250310898,
+      "n": 3,
+      "pod": "gpu",
+      "processes": [
+       "gpu-pod:3597:9a9e3abc",
+       "gpu-pod:3993:ff17f8d5",
+       "gpu-pod:4373:909d505a"
+      ],
+      "spread": 0.0964986029319781,
+      "value_ms": 0.019167102873325348
+     },
+     "vs_fastest_gating": {
+      "baseline": "cudaq",
+      "baseline_ms": 13.701195331911245,
+      "holds": true,
+      "name": "gross_p0.004 network_alone vs the fastest of sector, ldpc, CUDA-Q",
+      "ours_ms": 0.25548054275512694,
+      "ours_over_baseline": 0.018646587875445517,
+      "relation": "below"
+     }
+    }
+   }
+  }
+ },
+ "warnings": []
+}

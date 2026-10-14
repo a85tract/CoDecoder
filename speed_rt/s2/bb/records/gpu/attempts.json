@@ -1,0 +1,1670 @@
+{
+ "attempts": [
+  {
+   "at": "2026-10-14T04:17:08+0000",
+   "attempt": 1,
+   "cmd": "r11: -m bb.latency --ckpt weights/bb/r11_final_ema.pt --engine fused --p 0.003 --proc 1 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r11",
+   "kind": "gpu",
+   "log": "logs/r11_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3414:47a67679"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "1",
+     "process": "gpu-pod:3414:47a67679",
+     "role": "gpu_term",
+     "value_ms": "0.0774767370223999"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "1",
+     "process": "gpu-pod:3414:47a67679",
+     "role": "handoff",
+     "value_ms": "0.01775847002863884"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.3197,
+    "clocks": {
+     "ok": true,
+     "samples": 53,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.985239852398524,
+     "core_other_busy": 5.276752767536345e-05,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.3197
+    },
+    "rule": "throttle",
+    "window_s": 5.423
+   },
+   "watch_file": "r11_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:15+0000",
+   "attempt": 1,
+   "cmd": "r12: -m bb.latency --ckpt weights/bb/r12_final_ema.pt --engine fused --p 0.003 --proc 1 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r12",
+   "kind": "gpu",
+   "log": "logs/r12_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3461:592777fc"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "1",
+     "process": "gpu-pod:3461:592777fc",
+     "role": "gpu_term",
+     "value_ms": "0.0772290563583374"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "1",
+     "process": "gpu-pod:3461:592777fc",
+     "role": "handoff",
+     "value_ms": "0.018871624022722244"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.3809,
+    "clocks": {
+     "ok": true,
+     "samples": 53,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9817184643510055,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.3809
+    },
+    "rule": "throttle",
+    "window_s": 5.485
+   },
+   "watch_file": "r12_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:20+0000",
+   "attempt": 1,
+   "cmd": "cq72p3: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.003 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 1",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p3",
+   "kind": "gpu",
+   "log": "logs/cq72p3_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3508:5d3ef0af"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.003",
+     "proc": "1",
+     "process": "gpu-pod:3508:5d3ef0af",
+     "role": "opponent",
+     "value_ms": "0.8998109896977743"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.5868,
+    "clocks": {
+     "ok": true,
+     "samples": 37,
+     "sm_min_frac": 0.19696969696969696,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9497354497354498,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.5868
+    },
+    "rule": "throttle",
+    "window_s": 3.802
+   },
+   "watch_file": "cq72p3_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:26+0000",
+   "attempt": 1,
+   "cmd": "cq72p2: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.002 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 1",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p2",
+   "kind": "gpu",
+   "log": "logs/cq72p2_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3558:2010476d"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.002",
+     "proc": "1",
+     "process": "gpu-pod:3558:2010476d",
+     "role": "opponent",
+     "value_ms": "0.5855966359376907"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.7787,
+    "clocks": {
+     "ok": true,
+     "samples": 38,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9742268041237113,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.7787
+    },
+    "rule": "throttle",
+    "window_s": 3.893
+   },
+   "watch_file": "cq72p2_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:34+0000",
+   "attempt": 1,
+   "cmd": "g2: -m bb.fast lat --ckpt weights/bb/g2_D12k113c10_final_ema.pt --kind fusedt --proc 1 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "g2",
+   "kind": "gpu",
+   "log": "logs/g2_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3597:9a9e3abc"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "1",
+     "process": "gpu-pod:3597:9a9e3abc",
+     "role": "gpu_term",
+     "value_ms": "0.25349433517456055"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "1",
+     "process": "gpu-pod:3597:9a9e3abc",
+     "role": "handoff",
+     "value_ms": "0.019167102873325348"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 6.1124,
+    "clocks": {
+     "ok": true,
+     "samples": 60,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9870759289176091,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 6.1124
+    },
+    "rule": "throttle",
+    "window_s": 6.197
+   },
+   "watch_file": "g2_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:46+0000",
+   "attempt": 1,
+   "cmd": "cqg: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb144 --p 0.004 --split test4 --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 1",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cqg",
+   "kind": "gpu",
+   "log": "logs/cqg_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3630:a2625119"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.004",
+     "proc": "1",
+     "process": "gpu-pod:3630:a2625119",
+     "role": "opponent",
+     "value_ms": "14.208978799482185"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 10.5401,
+    "clocks": {
+     "ok": true,
+     "samples": 105,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9887745556594949,
+     "core_other_busy": 0.0009235734331150852,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 10.5401
+    },
+    "rule": "throttle",
+    "window_s": 10.696
+   },
+   "watch_file": "cqg_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:17:55+0000",
+   "attempt": 1,
+   "cmd": "graph32: -m bb.latency --ckpt weights/bb/g2_D12k113c10_final_ema.pt --engine graph32 --p 0.004 --proc 1 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "graph32",
+   "kind": "gpu",
+   "log": "logs/graph32_r1_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3780:8131a9f2"
+   ],
+   "reason": "accepted",
+   "round": 1,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "1",
+     "process": "gpu-pod:3780:8131a9f2",
+     "role": "gpu_term",
+     "value_ms": "3.429184143066406"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "1",
+     "process": "gpu-pod:3780:8131a9f2",
+     "role": "handoff",
+     "value_ms": "0.03095799684524536"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 8.3382,
+    "clocks": {
+     "ok": true,
+     "samples": 83,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.982373678025852,
+     "core_other_busy": 0.00020893066980016552,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 8.3382
+    },
+    "rule": "throttle",
+    "window_s": 8.512
+   },
+   "watch_file": "graph32_r1_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:02+0000",
+   "attempt": 1,
+   "cmd": "r11: -m bb.latency --ckpt weights/bb/r11_final_ema.pt --engine fused --p 0.003 --proc 2 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r11",
+   "kind": "gpu",
+   "log": "logs/r11_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3826:b124ccff"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "2",
+     "process": "gpu-pod:3826:b124ccff",
+     "role": "gpu_term",
+     "value_ms": "0.07798918437957764"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "2",
+     "process": "gpu-pod:3826:b124ccff",
+     "role": "handoff",
+     "value_ms": "0.01921088621020317"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.4541,
+    "clocks": {
+     "ok": true,
+     "samples": 54,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9837837837837838,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.4541
+    },
+    "rule": "throttle",
+    "window_s": 5.559
+   },
+   "watch_file": "r11_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:09+0000",
+   "attempt": 1,
+   "cmd": "r12: -m bb.latency --ckpt weights/bb/r12_final_ema.pt --engine fused --p 0.003 --proc 2 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r12",
+   "kind": "gpu",
+   "log": "logs/r12_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3859:873a5751"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "2",
+     "process": "gpu-pod:3859:873a5751",
+     "role": "gpu_term",
+     "value_ms": "0.07758707237243652"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "2",
+     "process": "gpu-pod:3859:873a5751",
+     "role": "handoff",
+     "value_ms": "0.01746535301208496"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.4937,
+    "clocks": {
+     "ok": true,
+     "samples": 54,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9821109123434705,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.4937
+    },
+    "rule": "throttle",
+    "window_s": 5.598
+   },
+   "watch_file": "r12_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:15+0000",
+   "attempt": 1,
+   "cmd": "cq72p3: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.003 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 2",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p3",
+   "kind": "gpu",
+   "log": "logs/cq72p3_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3904:fd14d55b"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.003",
+     "proc": "2",
+     "process": "gpu-pod:3904:fd14d55b",
+     "role": "opponent",
+     "value_ms": "0.8908505116899809"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.8162,
+    "clocks": {
+     "ok": true,
+     "samples": 39,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9526184538653366,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.8162
+    },
+    "rule": "throttle",
+    "window_s": 4.023
+   },
+   "watch_file": "cq72p3_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:20+0000",
+   "attempt": 1,
+   "cmd": "cq72p2: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.002 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 2",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p2",
+   "kind": "gpu",
+   "log": "logs/cq72p2_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3954:90c129f8"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.002",
+     "proc": "2",
+     "process": "gpu-pod:3954:90c129f8",
+     "role": "opponent",
+     "value_ms": "0.5502848078807195"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.5249,
+    "clocks": {
+     "ok": true,
+     "samples": 35,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9696969696969697,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.5249
+    },
+    "rule": "throttle",
+    "window_s": 3.649
+   },
+   "watch_file": "cq72p2_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:27+0000",
+   "attempt": 1,
+   "cmd": "g2: -m bb.fast lat --ckpt weights/bb/g2_D12k113c10_final_ema.pt --kind fusedt --proc 2 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "g2",
+   "kind": "gpu",
+   "log": "logs/g2_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:3993:ff17f8d5"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "2",
+     "process": "gpu-pod:3993:ff17f8d5",
+     "role": "gpu_term",
+     "value_ms": "0.25406719970703123"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "2",
+     "process": "gpu-pod:3993:ff17f8d5",
+     "role": "handoff",
+     "value_ms": "0.018306255340576172"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.3946,
+    "clocks": {
+     "ok": true,
+     "samples": 54,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9854014598540146,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.3946
+    },
+    "rule": "throttle",
+    "window_s": 5.482
+   },
+   "watch_file": "g2_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:38+0000",
+   "attempt": 1,
+   "cmd": "cqg: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb144 --p 0.004 --split test4 --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 2",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cqg",
+   "kind": "gpu",
+   "log": "logs/cqg_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4026:0143f986"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.004",
+     "proc": "2",
+     "process": "gpu-pod:4026:0143f986",
+     "role": "opponent",
+     "value_ms": "13.721646182239056"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 9.6538,
+    "clocks": {
+     "ok": true,
+     "samples": 96,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9938271604938271,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 9.6538
+    },
+    "rule": "throttle",
+    "window_s": 9.726
+   },
+   "watch_file": "cqg_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:47+0000",
+   "attempt": 1,
+   "cmd": "graph32: -m bb.latency --ckpt weights/bb/g2_D12k113c10_final_ema.pt --engine graph32 --p 0.004 --proc 2 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "graph32",
+   "kind": "gpu",
+   "log": "logs/graph32_r2_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4176:e3552b49"
+   ],
+   "reason": "accepted",
+   "round": 2,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "2",
+     "process": "gpu-pod:4176:e3552b49",
+     "role": "gpu_term",
+     "value_ms": "3.4080407104492187"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "2",
+     "process": "gpu-pod:4176:e3552b49",
+     "role": "handoff",
+     "value_ms": "0.02276165783405304"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 7.3129,
+    "clocks": {
+     "ok": true,
+     "samples": 72,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9945578231292517,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 7.3129
+    },
+    "rule": "throttle",
+    "window_s": 7.358
+   },
+   "watch_file": "graph32_r2_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:18:54+0000",
+   "attempt": 1,
+   "cmd": "r11: -m bb.latency --ckpt weights/bb/r11_final_ema.pt --engine fused --p 0.003 --proc 3 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r11",
+   "kind": "gpu",
+   "log": "logs/r11_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4206:32407161"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "3",
+     "process": "gpu-pod:4206:32407161",
+     "role": "gpu_term",
+     "value_ms": "0.07727251243591308"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "3",
+     "process": "gpu-pod:4206:32407161",
+     "role": "handoff",
+     "value_ms": "0.018413659185171127"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.02,
+    "clocks": {
+     "ok": true,
+     "samples": 50,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.984375,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.02
+    },
+    "rule": "throttle",
+    "window_s": 5.123
+   },
+   "watch_file": "r11_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:01+0000",
+   "attempt": 1,
+   "cmd": "r12: -m bb.latency --ckpt weights/bb/r12_final_ema.pt --engine fused --p 0.003 --proc 3 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r12",
+   "kind": "gpu",
+   "log": "logs/r12_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4239:7acb16de"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "3",
+     "process": "gpu-pod:4239:7acb16de",
+     "role": "gpu_term",
+     "value_ms": "0.07799667263031006"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "3",
+     "process": "gpu-pod:4239:7acb16de",
+     "role": "handoff",
+     "value_ms": "0.01910831406712532"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.3091,
+    "clocks": {
+     "ok": true,
+     "samples": 53,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9584837545126353,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.3091
+    },
+    "rule": "throttle",
+    "window_s": 5.547
+   },
+   "watch_file": "r12_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:06+0000",
+   "attempt": 1,
+   "cmd": "cq72p3: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.003 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 3",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p3",
+   "kind": "gpu",
+   "log": "logs/cq72p3_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4272:9d762ea7"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.003",
+     "proc": "3",
+     "process": "gpu-pod:4272:9d762ea7",
+     "role": "opponent",
+     "value_ms": "0.8982257048288982"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.4108,
+    "clocks": {
+     "ok": true,
+     "samples": 35,
+     "sm_min_frac": 0.24242424242424243,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9744318181818182,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.4108
+    },
+    "rule": "throttle",
+    "window_s": 3.528
+   },
+   "watch_file": "cq72p3_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:11+0000",
+   "attempt": 1,
+   "cmd": "cq72p2: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb72 --p 0.002 --split test --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 3",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cq72p2",
+   "kind": "gpu",
+   "log": "logs/cq72p2_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4322:606a3ef5"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.002",
+     "proc": "3",
+     "process": "gpu-pod:4322:606a3ef5",
+     "role": "opponent",
+     "value_ms": "0.5395639687776566"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 3.2269,
+    "clocks": {
+     "ok": true,
+     "samples": 33,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9670658682634731,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 3.2269
+    },
+    "rule": "throttle",
+    "window_s": 3.35
+   },
+   "watch_file": "cq72p2_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:18+0000",
+   "attempt": 1,
+   "cmd": "g2: -m bb.fast lat --ckpt weights/bb/g2_D12k113c10_final_ema.pt --kind fusedt --proc 3 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "g2",
+   "kind": "gpu",
+   "log": "logs/g2_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4373:909d505a"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "3",
+     "process": "gpu-pod:4373:909d505a",
+     "role": "gpu_term",
+     "value_ms": "0.25438054275512695"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fusedt:eb380295a6ec",
+     "p": "0.004",
+     "proc": "3",
+     "process": "gpu-pod:4373:909d505a",
+     "role": "handoff",
+     "value_ms": "0.017480280250310898"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.2914,
+    "clocks": {
+     "ok": true,
+     "samples": 52,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.983271375464684,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.2914
+    },
+    "rule": "throttle",
+    "window_s": 5.387
+   },
+   "watch_file": "g2_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:29+0000",
+   "attempt": 1,
+   "cmd": "cqg: speed_rt/bb/srt_bb.py bb.gpu_bposd time --code bb144 --p 0.004 --split test4 --chunks 0 --batches 1 --reps1 300 --out gpu_bposd_detail.csv --timing-out rows.csv --proc 3",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "cqg",
+   "kind": "gpu",
+   "log": "logs/cqg_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4406:b035ac80"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "300",
+     "name": "gpu_bposd",
+     "p": "0.004",
+     "proc": "3",
+     "process": "gpu-pod:4406:b035ac80",
+     "role": "opponent",
+     "value_ms": "13.701195331911245"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 9.7082,
+    "clocks": {
+     "ok": true,
+     "samples": 96,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9938775510204082,
+     "core_other_busy": 0.0011994897959184102,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 9.7082
+    },
+    "rule": "throttle",
+    "window_s": 9.795
+   },
+   "watch_file": "cqg_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:38+0000",
+   "attempt": 1,
+   "cmd": "graph32: -m bb.latency --ckpt weights/bb/g2_D12k113c10_final_ema.pt --engine graph32 --p 0.004 --proc 3 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "graph32",
+   "kind": "gpu",
+   "log": "logs/graph32_r3_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4556:cab5057f"
+   ],
+   "reason": "accepted",
+   "round": 3,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "3",
+     "process": "gpu-pod:4556:cab5057f",
+     "role": "gpu_term",
+     "value_ms": "3.4067545776367187"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "3",
+     "process": "gpu-pod:4556:cab5057f",
+     "role": "handoff",
+     "value_ms": "0.01928059756755829"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 7.495,
+    "clocks": {
+     "ok": true,
+     "samples": 74,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9946949602122016,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 7.495
+    },
+    "rule": "throttle",
+    "window_s": 7.539
+   },
+   "watch_file": "graph32_r3_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:45+0000",
+   "attempt": 1,
+   "cmd": "r11: -m bb.latency --ckpt weights/bb/r11_final_ema.pt --engine fused --p 0.003 --proc 4 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r11",
+   "kind": "gpu",
+   "log": "logs/r11_r4_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4586:d9155675"
+   ],
+   "reason": "accepted",
+   "round": 4,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "4",
+     "process": "gpu-pod:4586:d9155675",
+     "role": "gpu_term",
+     "value_ms": "0.08962080001831055"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "4",
+     "process": "gpu-pod:4586:d9155675",
+     "role": "handoff",
+     "value_ms": "0.019447829574346542"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.4468,
+    "clocks": {
+     "ok": true,
+     "samples": 54,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9837837837837838,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.4468
+    },
+    "rule": "throttle",
+    "window_s": 5.55
+   },
+   "watch_file": "r11_r4_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:19:51+0000",
+   "attempt": 1,
+   "cmd": "r12: -m bb.latency --ckpt weights/bb/r12_final_ema.pt --engine fused --p 0.003 --proc 4 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r12",
+   "kind": "gpu",
+   "log": "logs/r12_r4_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4619:6f1e0e3a"
+   ],
+   "reason": "accepted",
+   "round": 4,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "4",
+     "process": "gpu-pod:4619:6f1e0e3a",
+     "role": "gpu_term",
+     "value_ms": "0.08830841541290284"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "4",
+     "process": "gpu-pod:4619:6f1e0e3a",
+     "role": "handoff",
+     "value_ms": "0.017686542123556137"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.35,
+    "clocks": {
+     "ok": true,
+     "samples": 54,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.981651376146789,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.35
+    },
+    "rule": "throttle",
+    "window_s": 5.45
+   },
+   "watch_file": "r12_r4_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:20:00+0000",
+   "attempt": 1,
+   "cmd": "graph32: -m bb.latency --ckpt weights/bb/g2_D12k113c10_final_ema.pt --engine graph32 --p 0.004 --proc 4 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "graph32",
+   "kind": "gpu",
+   "log": "logs/graph32_r4_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4656:d9bc41a5"
+   ],
+   "reason": "accepted",
+   "round": 4,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "4",
+     "process": "gpu-pod:4656:d9bc41a5",
+     "role": "gpu_term",
+     "value_ms": "3.4082062377929687"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "4",
+     "process": "gpu-pod:4656:d9bc41a5",
+     "role": "handoff",
+     "value_ms": "0.019776515662670135"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 7.5526,
+    "clocks": {
+     "ok": true,
+     "samples": 74,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9960474308300395,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 7.5526
+    },
+    "rule": "throttle",
+    "window_s": 7.589
+   },
+   "watch_file": "graph32_r4_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:20:07+0000",
+   "attempt": 1,
+   "cmd": "r11: -m bb.latency --ckpt weights/bb/r11_final_ema.pt --engine fused --p 0.003 --proc 5 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r11",
+   "kind": "gpu",
+   "log": "logs/r11_r5_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4686:b564fb0b"
+   ],
+   "reason": "accepted",
+   "round": 5,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "5",
+     "process": "gpu-pod:4686:b564fb0b",
+     "role": "gpu_term",
+     "value_ms": "0.0777392635345459"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:58e60897c3f9",
+     "p": "0.003",
+     "proc": "5",
+     "process": "gpu-pod:4686:b564fb0b",
+     "role": "handoff",
+     "value_ms": "0.017218180000782013"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 5.0729,
+    "clocks": {
+     "ok": true,
+     "samples": 50,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9806576402321083,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 5.0729
+    },
+    "rule": "throttle",
+    "window_s": 5.178
+   },
+   "watch_file": "r11_r5_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:20:14+0000",
+   "attempt": 1,
+   "cmd": "r12: -m bb.latency --ckpt weights/bb/r12_final_ema.pt --engine fused --p 0.003 --proc 5 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "r12",
+   "kind": "gpu",
+   "log": "logs/r12_r5_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4719:0c6173ac"
+   ],
+   "reason": "accepted",
+   "round": 5,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "5",
+     "process": "gpu-pod:4719:0c6173ac",
+     "role": "gpu_term",
+     "value_ms": "0.07717484855651856"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "fused:f2821c327b4e",
+     "p": "0.003",
+     "proc": "5",
+     "process": "gpu-pod:4719:0c6173ac",
+     "role": "handoff",
+     "value_ms": "0.016877081245183945"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 4.9859,
+    "clocks": {
+     "ok": true,
+     "samples": 50,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9803536345776032,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 4.9859
+    },
+    "rule": "throttle",
+    "window_s": 5.09
+   },
+   "watch_file": "r12_r5_a1.json"
+  },
+  {
+   "at": "2026-10-14T04:20:23+0000",
+   "attempt": 1,
+   "cmd": "graph32: -m bb.latency --ckpt weights/bb/g2_D12k113c10_final_ema.pt --engine graph32 --p 0.004 --proc 5 --out rows.csv",
+   "counted": true,
+   "host_wait_s": 0.0,
+   "hostcheck": null,
+   "item": "graph32",
+   "kind": "gpu",
+   "log": "logs/graph32_r5_a1.log",
+   "outcome": "accepted",
+   "processes": [
+    "gpu-pod:4768:b369cba0"
+   ],
+   "reason": "accepted",
+   "round": 5,
+   "rows": [
+    {
+     "accepted": true,
+     "n": "500",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "5",
+     "process": "gpu-pod:4768:b369cba0",
+     "role": "gpu_term",
+     "value_ms": "3.4293116455078123"
+    },
+    {
+     "accepted": true,
+     "n": "1000",
+     "name": "graph32:eb380295a6ec",
+     "p": "0.004",
+     "proc": "5",
+     "process": "gpu-pod:4768:b369cba0",
+     "role": "handoff",
+     "value_ms": "0.01962350681424141"
+    }
+   ],
+   "started": true,
+   "watch": {
+    "accepted": true,
+    "child_cpu_s": 7.3054,
+    "clocks": {
+     "ok": true,
+     "samples": 73,
+     "sm_min_frac": 0.17424242424242425,
+     "throttle_seen": [
+      "0x0000000000000000",
+      "0x0000000000000001"
+     ]
+    },
+    "exit": 0,
+    "gpu_alone": true,
+    "host": {
+     "core_busy": 0.9799196787148594,
+     "core_other_busy": 0.0,
+     "core_steal": 0.0,
+     "ok": true,
+     "own_cpu_s": 7.3054
+    },
+    "rule": "throttle",
+    "window_s": 7.475
+   },
+   "watch_file": "graph32_r5_a1.json"
+  }
+ ],
+ "format": 2
+}
