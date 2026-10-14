@@ -1,0 +1,26 @@
+{
+ "what": "SPEED-RT surface stage's frozen configuration (the stage's section): the pods' hardware, the session's counts and the items' sizes. The timing sets are in sets_surf.json, the Grace conversion's rule and NVIDIA's values in grace_fit.py, the reference circuits in circuits/ref_circuits.json.",
+ "hosts": {
+  "pod_gpu": "NVIDIA H100 80GB HBM3",
+  "pod_cpu": "the pod's host CPU (model and container quota recorded per session: META.json, prescreen.json) serves CUDA-Q's host-to-host BP-OSD only",
+  "cpu_worker": "every CPU part: the Linux workstation, AMD Ryzen 9 9950X (Ubuntu 24.04), the CPU worker; one fresh pinned process per slot"
+ },
+ "roles": {
+  "low": {"pod": "S-low", "ds": [7, 9, 11]},
+  "high": {"pod": "S-high", "ds": [13, 15, 17]}
+ },
+ "sessions": {
+  "S": {
+   "rounds": 5,
+   "handoff_processes_d7": 5,
+   "graph_rounds": {"fwd": 1, "rev": 2},
+   "bposd_rounds": 3,
+   "cpu_repetitions": 3,
+   "max_replacements": 2
+  }
+ },
+ "items": {
+  "G6": {"shots": 200, "warmup_calls": 10},
+  "ref": {"shots": 10000, "warmup_decodes": 50}
+ }
+}

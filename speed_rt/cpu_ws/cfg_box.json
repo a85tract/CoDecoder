@@ -1,0 +1,20 @@
+{
+ "what": "SPEED-RT CPU harness config for the Linux host (a shared Linux workstation, no WSL); paths are in its tmpfs",
+ "host": "linux",
+ "timed_ccd": 0,
+ "root": "/dev/shm/srt_box",
+ "python": "/dev/shm/srt_box/venv/bin/python",
+ "vars": {"code": "/dev/shm/srt_box/code", "data": "/dev/shm/srt_box/data", "relay": "/dev/shm/srt_box/relay",
+          "handoff": "/dev/shm/srt_box/handoff"},
+ "env": {"LD_LIBRARY_PATH": "{root}/lib", "LC_ALL": "C.UTF-8", "TZ": "UTC0"},
+ "ref": {"cwd": "{code}", "env": {"PYTHONPATH": "{code}/surface_v2:{code}", "PYTHONDONTWRITEBYTECODE": "1"},
+         "argv": ["{py}", "-m", "timing.cpu_term", "ref", "--plain", "--d", "9", "--val", "{data}/val", "--rep", "{rep}",
+                  "--core", "{core}", "--out", "{out}"]},
+ "filler": {"cwd": "{code}", "env": {"PYTHONPATH": "{code}/surface_v2:{code}", "PYTHONDONTWRITEBYTECODE": "1"},
+            "argv": ["{py}", "{root}/cpu_ws/filler.py", "{data}/val"]},
+ "slots": "auto",
+ "max_attempts": 3,
+ "save_to": "~/srt_box_io/out",
+ "handoff_from": "~/srt_box_io/in",
+ "limits": {"ref_rel": 1.10, "ref_spread": 1.06, "slots_max": 8}
+}

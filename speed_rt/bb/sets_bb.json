@@ -1,0 +1,8 @@
+{
+ "what": "SPEED-RT BB stage's timing sets (stage 2 of SPEED-RT: BB72 and the gross code). The three sets are drawn once on Alpine by speed_rt/bb/draw.sh after the stage's beacon; every chunk is 10,000 shots of the frozen bb.shots sampler (Stim 1.16.0) at the chunk's seed (speed_rt/sets.py: TAG 'convlines speed-rt <set>'). The stage's beacon record names this file (sets_file).",
+ "sets": {
+  "srt-bb72-p3": {"kind": "bb", "code": "bb72", "p": 0.003, "split": "test", "chunks": 20, "chunk_shots": 10000, "feeds": "pod BB72: the routing read (r12, chunks 0-19), the CPU terms BB72-3S and BB72-3F (routed shots in order), the baselines at p = 0.3 % (chunk 0), CUDA-Q (chunk 0)"},
+  "srt-bb72-p2": {"kind": "bb", "code": "bb72", "p": 0.002, "split": "test", "chunks": 30, "chunk_shots": 10000, "feeds": "pod BB72: the routing read (r12, chunks 0-29), the CPU terms BB72-2S and BB72-2F, the baselines at p = 0.2 % (chunk 0), CUDA-Q (chunk 0)"},
+  "srt-gross-p4": {"kind": "bb", "code": "bb144", "p": 0.004, "split": "test4", "chunks": 15, "chunk_shots": 10000, "feeds": "pods gross-balanced and gross-accurate: the routing read (g2, chunks 0-14), the CPU terms G-4R and G-4F, the baselines (chunk 0), CUDA-Q (chunk 0)"}
+ }
+}
