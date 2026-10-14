@@ -205,7 +205,7 @@ def main():
         from speed_rt import beacon as B
         beacon = B.load(a.beacon)
         assert beacon["randomness"] == man["beacon"]["randomness"] and beacon["round"] == man["beacon"]["round"], "manifest vs beacon"
-        assert man["files"].keys() == {G.ds_file(d, j) for d in G.DS_DISTANCES for j in range(20)}, "the manifest is not the full draw"
+        assert man["files"].keys() == {G.ds_file(d, j) for d in G.DS_DISTANCES for j in range(G.sets()[G.ds_set(d)]["chunks"])}, "the manifest is not the full draw"
     fit, fit_sha = load_fit(a.fit)
     sess, att = load_session(a.session, a.manifest, dry)
     assert dry or sess["deployed"] in a.commits, "the session ran from a deployment other than F or B"
