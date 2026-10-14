@@ -1,0 +1,6 @@
+# D9-SHALLOW's analysis (PLAN.md section 6).
+bash d9_shallow/collect_d9s.sh TREE POD CPU RECORDS
+# on an Alpine CPU node, from commit B's tree T (the archive of args/pod.args), twice; the outputs must be byte-identical:
+PYTHONPATH=$T/surface_v2:$T python $T/d9_shallow/analysis_d9s.py --records RECORDS --out OUT1 --commit F
+PYTHONPATH=$T/surface_v2:$T python $T/d9_shallow/analysis_d9s.py --records RECORDS --out OUT2 --commit F
+diff -r OUT1 OUT2

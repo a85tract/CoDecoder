@@ -1,0 +1,49 @@
+{
+ "d": 9,
+ "stage": "D9-SHALLOW arm B1 (1 block, width 64, bottleneck 16): d9_b3_sv2s1's two training stages with 1 block (D9B2_RESULTS.md); registered by d9_shallow/PLAN.md",
+ "file": "d9_b1w64_sh.safetensors",
+ "format": "safetensors, fp32 state dict of convlines.net.ConvLines (surf_v2/export.py)",
+ "arch": {
+  "width": 64,
+  "bott": 16,
+  "blocks": 1,
+  "heads": 4,
+  "stem_k": [
+   3,
+   5,
+   5
+  ],
+  "block_k": [
+   3,
+   3,
+   3
+  ],
+  "mlp": 2
+ },
+ "parameters": 90467,
+ "grid": {
+  "geometry": "weights/grid_d9.npz",
+  "shape_t_i_j": [
+   10,
+   10,
+   10
+  ],
+  "detectors": 720
+ },
+ "sha256": "28d17a86c169662a1377e9d14cabc184dbab6d706533c554f59da7de14fb2105",
+ "training": {
+  "loss": "BCE(c, y_0) alone (--head vote --line-weight 0)",
+  "source": "stage A as a1_S-V_s1 (2e8 shots), stage B as sv2_N9b (run id 1,309, 2e8 shots), 4e8 in all, on d9_b3_sv2s1's training streams",
+  "final_ema_sha256": "27a3632acdbd77c4e0f6554aaa46774d5958390349015ab21a1982cd934b0607"
+ },
+ "deployed_executable": "timing/engine.py (FROZEN Triton engine, 3 pipeline stages)",
+ "policy": {
+  "rule": "surf_v2/qrule.py fit_rule (config.json qrule at d = 9: grid {0, 1, 2, 4, 6, 8, 10, 12, 14, 16} %, M = 2500, bar 33.99 us, fallback argmin) on the exploratory calibration read (200,000 shots); no q met the limit L = 2,358.6 (best F_cal 2,508 at q = 6 %): argmin fallback; a shot is routed when |double(float32 c)| < tau",
+  "q": 0.06,
+  "tau": 2.337686538696289,
+  "tau_repr": "2.337686538696289",
+  "outcome": "q = 0.06: argmin fallback",
+  "calibration_failures": 2508,
+  "shots": 200000
+ }
+}

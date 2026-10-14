@@ -1,0 +1,103 @@
+{
+ "id": "D9-SHALLOW registered test of d = 9 B1 (d9_shallow/PLAN.md)",
+ "what": "The constants and bindings of the D9-SHALLOW registered test; nothing here changes after the freeze commit F",
+ "networks": {
+  "d9_b1w64_sh": {
+   "role": "the claim's network (B1)",
+   "file": "d9_shallow/weights/d9_b1w64_sh.safetensors",
+   "sha256": "28d17a86c169662a1377e9d14cabc184dbab6d706533c554f59da7de14fb2105",
+   "final_ema_sha256": "27a3632acdbd77c4e0f6554aaa46774d5958390349015ab21a1982cd934b0607",
+   "parameters": 90467,
+   "blocks": 1,
+   "width": 64,
+   "bottleneck": 16,
+   "q": 0.06,
+   "tau": 2.337686538696289,
+   "tau_repr": "2.337686538696289"
+  },
+  "d9_b3_sv2s1": {
+   "role": "descriptive (SURF-v2's registered 3-block network)",
+   "file": "surface_v2/weights/d9_b3_sv2s1.safetensors",
+   "sha256": "7dd879cf5eeb6f8b39ddd5a5d1bdaac34ffffe17e3ed5dafdcebedab5fb63aa0",
+   "parameters": 389395,
+   "q": 0.0,
+   "tau": 0.0
+  }
+ },
+ "circuit": {
+  "file": "surface_v2/circuits/d9_legacy.stim",
+  "sha256": "19390af8855ca9d885dfb12ff5d852c76f69eacf9600bebb26c6ff3286b77351",
+  "basis": "X",
+  "rounds": 9,
+  "p": 0.006,
+  "dem": {
+   "decompose_errors": true,
+   "approximate_disjoint_errors": true
+  },
+  "pm": "PyMatching 2.4.0 on the DEM (convlines.circuits.matcher)",
+  "corr_pm": "the same with enable_correlations=True"
+ },
+ "code_digest": "61b3f4f96edb85a82c76339ef6d5707ed1a2ca756183951394f569558a980f21",
+ "code_digest_rule": "convlines.provenance.code_digest(): the read path (convlines/*.py, timing/*.py, timing/d7/*, surf_v2/session.py, surf_v2/gpucheck.py) of surface_v2; equal to speed_rt/freeze_surf.json's",
+ "public_code": {
+  "commit": "7204673d07f67eaca8e20fbf327e835ace66f49e",
+  "list": "d9_shallow/PUBLIC.sha256",
+  "rule": "every listed public file is used unchanged, at its path, by sha256"
+ },
+ "cpu_ws_list_sha256_16": "2fd2afa5df2be2cd",
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "cpu": "AMD Ryzen 9 9950X 16-Core Processor",
+ "targets": {
+  "plain_pm_us": 26.296678815736907,
+  "corr_pm_us": 63.916141817786674,
+  "printed": {
+   "plain_pm_us": "26.297",
+   "corr_pm_us": "63.916"
+  },
+  "source": {
+   "speed_rt/s2/surface/results/rows.csv": "ce4df39edfb97ccd07781f7c850224fbefdb56db71b54943e1a6dc4704b24c66",
+   "speed_rt/s2/surface/results/table.md": "1a907cfa722b5a8ba5a31673d58fb85d86a684e3d6fd7d4ca396570cfb2e0acb"
+  },
+  "basis": "the speed re-test's Grace basis (fastest of three on the Linux workstation x its stage-2 fit, 1.5097605583565314); not timed again",
+  "raw_beside": {
+   "plain_pm_us": 17.417781031690538,
+   "corr_pm_us": 42.335283872671425
+  }
+ },
+ "claim": {
+  "alpha": 0.025,
+  "interval": "97.5 % Newcombe method 8 (convlines/stats.py paired)",
+  "test": "exact two-sided McNemar on the 1,000,000 test shots",
+  "criteria": [
+   "(1) composite a + b + c on the Grace basis strictly below plain PM's target",
+   "(2) fewer failures than plain PM: p < alpha and the whole 97.5 % interval of the difference below 0",
+   "(3) fewer failures than correlated PM (as 2) and the composite strictly below correlated PM's target"
+  ],
+  "joining": "intersection-union: the claim holds when every criterion holds; no further correction"
+ },
+ "sets": {
+  "test": {
+   "tag": "convlines d9-shallow test d9\n",
+   "chunks": 100,
+   "chunk_shots": 10000,
+   "shots": 1000000
+  },
+  "timing": {
+   "tag": "convlines d9-shallow timing d9\n",
+   "chunks": 20,
+   "chunk_shots": 10000,
+   "shots": 200000
+  }
+ },
+ "composite": {
+  "a": "the slowest of the 5 accepted GPU processes of B1 (timing.gpu_term on the 200,000 timing shots)",
+  "b": "the slowest of the 3 accepted CPU processes' term_us (correlated PM's time over the routed timing shots / all 200,000 timing shots), x this session's applied factor for correlated PM (speed_rt.analysis_s.fit_s2)",
+  "c": "max(1.1 us, the router's estimate) of the accepted handoff process (timing.gpu_term --handoff at B1's tau)"
+ },
+ "publication_rule": "The test and its outcome are published in the repository whatever the result. If the claim holds, the paper's d = 9 row becomes B1's pair (d9_b1w64_sh, q = 0.06). If it fails, or any timing part is not established, the paper keeps the 3-block row (d9_b3_sv2s1).",
+ "env": {
+  "pod": "d9_shallow/env/pod.txt",
+  "box": "d9_shallow/env/box.txt",
+  "analysis": "d9_shallow/env/analysis.txt"
+ }
+}

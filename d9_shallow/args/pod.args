@@ -1,0 +1,11 @@
+# D9-SHALLOW on the pod (PLAN.md section 4). W=/workspace/d9s; the tree in $W/rel is commit F's (then B's) archive:
+#   git archive --format=tar.gz COMMIT surface_v2 speed_rt d9_shallow ':!speed_rt/s2' ':!speed_rt/cascade' ':!surface_v2/routing/*.npz'
+# with $W/rel/DEPLOYED = the commit's 40-hex hash.
+bash d9_shallow/pod_run.sh setup
+bash d9_shallow/pod_run.sh prescreen
+# after the beacon record is fetched (python d9_shallow/beacon_d9s.py fetch --commit F --activity activity.json --push-source "$(cat push_source.txt)" --out d9_shallow/testsets/beacon_d9s.json):
+bash d9_shallow/pod_run.sh draw
+# after commit B is public (its d9_shallow/testsets/ in $W/rel):
+bash d9_shallow/pod_run.sh masks timed handoff pack reads
+# the pull list, then the pull (sha256 checked on arrival):
+cd $W && find shots/d9stest shots/d9stiming shots/manifests session reads pip_freeze.txt d7build.log -type f | LC_ALL=C sort | xargs sha256sum > PULL.sha256

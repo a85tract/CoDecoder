@@ -1,0 +1,10 @@
+# D9-SHALLOW's CPU session on the Linux workstation (PLAN.md section 5), after the authors' box settings.
+# The hand-off unit d9s, from the pod's pulled files (POD) and commit B's tree (TREE):
+U=$HOME/srt_box_io/in_d9s/d9s; mkdir -p $U/low $U/shots
+cp POD/session/handoff/surface/low/val_d9_b1w64_sh.npz POD/session/handoff/surface/low/HANDOFF_MASKS.json $U/low/
+cp POD/shots/d9stiming/*.npz $U/shots/ && cp TREE/d9_shallow/testsets/d9s_timing.json $U/
+(cd $U && sha256sum $(find . -type f | LC_ALL=C sort) > SHA256SUMS) && touch $U/DONE
+# the tree, without weights:
+git archive --format=tar.gz -o TREE_TGZ B surface_v2 speed_rt d9_shallow ':!speed_rt/s2' ':!speed_rt/cascade' ':!surface_v2/routing/*.npz' ':!surface_v2/weights' ':!d9_shallow/weights'
+# the session, detached:
+setsid -f bash TREE/d9_shallow/box_d9s.sh TREE_TGZ B $HOME/srt_box_io/in_d9s D9 > LOG 2>&1 < /dev/null
