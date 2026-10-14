@@ -1,0 +1,4680 @@
+{
+ "args": {
+  "force_bad": {},
+  "n_batched": 500000,
+  "n_single": 20000,
+  "only": [],
+  "reps": 3
+ },
+ "beacon": {
+  "dry": false,
+  "randomness": "87e90520a2c3f49618b50c142e51ae13735c5f440932e477bb0a548131113a43",
+  "round": 6552306
+ },
+ "card": "h100",
+ "dry": false,
+ "end": 1792006994.061121,
+ "env": {
+  "BB_PIDNS": "1",
+  "M2_CARD": "",
+  "SLURM_JOB_ID": "",
+  "SRT_CARD": "",
+  "SRT_DRY": "",
+  "SRT_KCACHE_BUILD": "",
+  "SRT_PIDNS": ""
+ },
+ "format": "ctrt-cas-attempts-1",
+ "gate": {
+  "burn_s": 0.0,
+  "max_attempts": 3,
+  "max_gap_s": 1.0,
+  "on": true,
+  "sm_floor": 0.9
+ },
+ "host": "gpu-pod",
+ "launchers": {
+  "ctrt_cas.py": "f96f4bcacc826e157ea4506b23db4fb18fb1631b293a2354a9c0c8268708eb09",
+  "ctrt_common.py": "01dd1321194b3301b45a81f11e78d10cd9fc19a16e0c2b7b3e9ac45813f92d68",
+  "ctrt_d13.py": "5f9a31a4587d8462f78ecf4fb99b8079146784267b83bf10cbe3fe65e35499e5",
+  "ctrt_drive.py": "c8930515e2b9cdb202c85e7211c37610ef242b1b650f8c41895b67e94f311a9e",
+  "srt_cas.py": "639daaa000e596d0eea4b0f52267e96829041c4dc978fb798551f1dd3efba914",
+  "srt_d13.py": "36a914c2cd2850936887e00970f4427cd141c56e3d702503847cba5aa1908ca1",
+  "srtlib.py": "6fcccc821362d41b9044ab0e75ab017fdc4282daf7d67aa54e51ca648f1011c7",
+  "trt_common.py": "4263d7a2653617a4ce1f04f40c3cc86e8ad75692d0cde15ed70a8f114c081e40"
+ },
+ "plans": {
+  "bb_b1.plan": "7d38d5ad75f1d36fdd19b13d599c00f4e4524ce932fca84dee24cdc13c4e95b4",
+  "bb_b4096.plan": "1a774165ba4a9067ffd91603e9887ec5b68e4959b4f718398278a0e02bda1698",
+  "d13_b1.plan": "fa12621a6985480d5e42ed45717736e03898ce4e93415465789c7d9613758683",
+  "d13_b16.plan": "4996aad8f5e058ed89f0c962494487f2d030f2276126ed6936f7fc3d4976b793"
+ },
+ "round": "r4",
+ "seeds_sha256": "df543be1398e29ef362f3a28117c450d59691f24170f0b710bac02eedd997830",
+ "session_sha256": "9f50a3cbbd67dec99e2a3b3ba91ffe0042733096e61849487d61e874b97811ba",
+ "sets_sha256": "65e9ee6b56b6061d047d948d13bba069f6c1cc642f1e5701258a176da2922f45",
+ "slots": [
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      126653
+     ],
+     "rows": 1,
+     "secs": 23.32546591758728,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005362.1328516,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.13399982452392578,
+       "hist": {
+        "1980": 26
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 126653,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 26,
+       "t0": 1792005378.7550566,
+       "t1": 1792005381.4582694,
+       "tag": "r4.rep1.p0.006.C5.single.cas-compiled.a0",
+       "window_s": 2.7032127380371094
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      126873
+     ],
+     "rows": 1,
+     "secs": 10.413936376571655,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005385.4609282,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.18400001525878906,
+       "hist": {
+        "1980": 22
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 126873,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 22,
+       "t0": 1792005391.5286877,
+       "t1": 1792005393.8828163,
+       "tag": "r4.rep1.p0.006.C5.single.cas-trt.a0",
+       "window_s": 2.35412859916687
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      126894
+     ],
+     "rows": 1,
+     "secs": 36.73243999481201,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005395.8769,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 76,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8863636363636364,
+       "forced": false,
+       "gap_max_s": 0.17599987983703613,
+       "hist": {
+        "1755": 2,
+        "1770": 9,
+        "1785": 6,
+        "1800": 6,
+        "1815": 10,
+        "1830": 5,
+        "1845": 6,
+        "1860": 1,
+        "1875": 7,
+        "1890": 13,
+        "1905": 3,
+        "1920": 8,
+        "1935": 19,
+        "1950": 26,
+        "1965": 8
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1755,
+       "other_pids": [],
+       "pid": 126894,
+       "power_capped": 129,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 129,
+       "t0": 1792005415.3328905,
+       "t1": 1792005428.6818936,
+       "tag": "r4.rep1.p0.006.C5.batched.cas-compiled.a0",
+       "window_s": 13.349003076553345
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127090
+     ],
+     "rows": 1,
+     "secs": 27.496573448181152,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005432.615164,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 86,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8333333333333334,
+       "forced": false,
+       "gap_max_s": 0.13700008392333984,
+       "hist": {
+        "1650": 2,
+        "1665": 1,
+        "1680": 3,
+        "1695": 3,
+        "1710": 10,
+        "1740": 1,
+        "1770": 5,
+        "1785": 1,
+        "1800": 4,
+        "1815": 2,
+        "1830": 8,
+        "1845": 9,
+        "1860": 7,
+        "1875": 8,
+        "1890": 6,
+        "1905": 4,
+        "1920": 12,
+        "1935": 16,
+        "1950": 20
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1650,
+       "other_pids": [],
+       "pid": 127090,
+       "power_capped": 122,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 122,
+       "t0": 1792005445.5005825,
+       "t1": 1792005458.1273136,
+       "tag": "r4.rep1.p0.006.C5.batched.cas-trt.a0",
+       "window_s": 12.626731157302856
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127124
+     ],
+     "rows": 1,
+     "secs": 19.15938091278076,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005460.1176925,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.15199995040893555,
+       "hist": {
+        "1980": 86
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127124,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 86,
+       "t0": 1792005467.143864,
+       "t1": 1792005475.9615462,
+       "tag": "r4.rep1.p0.006.C2.single.cas-compiled.a0",
+       "window_s": 8.817682266235352
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127216
+     ],
+     "rows": 1,
+     "secs": 12.45170545578003,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005479.292062,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "1980": 64
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127216,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 64,
+       "t0": 1792005483.6239176,
+       "t1": 1792005490.2107728,
+       "tag": "r4.rep1.p0.006.C2.single.cas-trt.a0",
+       "window_s": 6.586855173110962
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127249
+     ],
+     "rows": 1,
+     "secs": 75.20756340026855,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005491.7513382,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.2539999485015869,
+       "hist": {
+        "1980": 568
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127249,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 568,
+       "t0": 1792005504.4390244,
+       "t1": 1792005563.3873763,
+       "tag": "r4.rep1.p0.006.C2.batched.cas-compiled.a0",
+       "window_s": 58.94835186004639
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.006.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127389
+     ],
+     "rows": 1,
+     "secs": 65.73876810073853,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005566.9615614,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1659998893737793,
+       "hist": {
+        "1980": 507
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127389,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 507,
+       "t0": 1792005577.8935447,
+       "t1": 1792005630.2320268,
+       "tag": "r4.rep1.p0.006.C2.batched.cas-trt.a0",
+       "window_s": 52.33848214149475
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.006.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127426
+     ],
+     "rows": 1,
+     "secs": 11.503169775009155,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005632.7090433,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10499978065490723,
+       "hist": {
+        "1980": 18
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127426,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 18,
+       "t0": 1792005639.3481522,
+       "t1": 1792005641.1673098,
+       "tag": "r4.rep1.p0.0035.C5.single.cas-compiled.a0",
+       "window_s": 1.819157600402832
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127531
+     ],
+     "rows": 1,
+     "secs": 9.607585430145264,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005644.2231898,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "1980": 16
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127531,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 16,
+       "t0": 1792005649.532151,
+       "t1": 1792005651.2417927,
+       "tag": "r4.rep1.p0.0035.C5.single.cas-trt.a0",
+       "window_s": 1.709641695022583
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127552
+     ],
+     "rows": 1,
+     "secs": 25.06289553642273,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005653.847544,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 78,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.696969696969697,
+       "forced": false,
+       "gap_max_s": 0.13300013542175293,
+       "hist": {
+        "1380": 1,
+        "1545": 1,
+        "1590": 2,
+        "1620": 2,
+        "1635": 2,
+        "1650": 3,
+        "1665": 3,
+        "1680": 5,
+        "1695": 6,
+        "1710": 7,
+        "1725": 2,
+        "1740": 9,
+        "1755": 8,
+        "1770": 3,
+        "1800": 2,
+        "1815": 6,
+        "1830": 5,
+        "1845": 1,
+        "1860": 5,
+        "1875": 5,
+        "1935": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1380,
+       "other_pids": [],
+       "pid": 127552,
+       "power_capped": 79,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 79,
+       "t0": 1792005667.5936656,
+       "t1": 1792005675.7166388,
+       "tag": "r4.rep1.p0.0035.C5.batched.cas-compiled.a0",
+       "window_s": 8.122973203659058
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127660
+     ],
+     "rows": 1,
+     "secs": 23.09573459625244,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005678.9200735,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 78,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.7803030303030303,
+       "forced": false,
+       "gap_max_s": 0.16300010681152344,
+       "hist": {
+        "1545": 1,
+        "1605": 2,
+        "1635": 4,
+        "1650": 6,
+        "1665": 3,
+        "1680": 3,
+        "1695": 6,
+        "1710": 4,
+        "1725": 8,
+        "1740": 4,
+        "1755": 7,
+        "1770": 2,
+        "1785": 2,
+        "1800": 6,
+        "1815": 1,
+        "1830": 6,
+        "1845": 6,
+        "1860": 3,
+        "1875": 3,
+        "1890": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1545,
+       "other_pids": [],
+       "pid": 127660,
+       "power_capped": 78,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 78,
+       "t0": 1792005691.544305,
+       "t1": 1792005699.5923963,
+       "tag": "r4.rep1.p0.0035.C5.batched.cas-trt.a0",
+       "window_s": 8.048091173171997
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127681
+     ],
+     "rows": 1,
+     "secs": 18.101078033447266,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005702.0252314,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.15899991989135742,
+       "hist": {
+        "1980": 84
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127681,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 84,
+       "t0": 1792005708.8671489,
+       "t1": 1792005717.5352323,
+       "tag": "r4.rep1.p0.0035.C2.single.cas-compiled.a0",
+       "window_s": 8.668083429336548
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127789
+     ],
+     "rows": 1,
+     "secs": 13.76867938041687,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005720.134569,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.13300013542175293,
+       "hist": {
+        "1980": 68
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127789,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 68,
+       "t0": 1792005724.5702384,
+       "t1": 1792005731.5059593,
+       "tag": "r4.rep1.p0.0035.C2.single.cas-trt.a0",
+       "window_s": 6.935720920562744
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127806
+     ],
+     "rows": 1,
+     "secs": 75.34654116630554,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005733.9136076,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.17200016975402832,
+       "hist": {
+        "1980": 578
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127806,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 578,
+       "t0": 1792005746.6561484,
+       "t1": 1792005806.1503725,
+       "tag": "r4.rep1.p0.0035.C2.batched.cas-compiled.a0",
+       "window_s": 59.494224071502686
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep1.p0.0035.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127914
+     ],
+     "rows": 1,
+     "secs": 66.73319911956787,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005809.2718873,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.21200013160705566,
+       "hist": {
+        "1980": 509
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127914,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 509,
+       "t0": 1792005821.0931404,
+       "t1": 1792005873.482053,
+       "tag": "r4.rep1.p0.0035.C2.batched.cas-trt.a0",
+       "window_s": 52.38891267776489
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep1.p0.0035.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      127992
+     ],
+     "rows": 1,
+     "secs": 14.165043354034424,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005876.008901,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "1980": 26
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 127992,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 26,
+       "t0": 1792005884.0418172,
+       "t1": 1792005886.7168183,
+       "tag": "r4.rep2.p0.006.C5.single.cas-compiled.a0",
+       "window_s": 2.6750011444091797
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128084
+     ],
+     "rows": 1,
+     "secs": 9.660293579101562,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005890.186864,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10199999809265137,
+       "hist": {
+        "1980": 23
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128084,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 23,
+       "t0": 1792005895.6930618,
+       "t1": 1792005898.0378323,
+       "tag": "r4.rep2.p0.006.C5.single.cas-trt.a0",
+       "window_s": 2.3447704315185547
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128105
+     ],
+     "rows": 1,
+     "secs": 49.306589126586914,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005899.8590841,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 80,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8787878787878788,
+       "forced": false,
+       "gap_max_s": 0.14699983596801758,
+       "hist": {
+        "1740": 2,
+        "1755": 2,
+        "1770": 6,
+        "1785": 4,
+        "1800": 10,
+        "1815": 11,
+        "1830": 3,
+        "1845": 4,
+        "1860": 2,
+        "1875": 8,
+        "1890": 16,
+        "1905": 3,
+        "1920": 9,
+        "1935": 12,
+        "1950": 31,
+        "1965": 7
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1740,
+       "other_pids": [],
+       "pid": 128105,
+       "power_capped": 130,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 130,
+       "t0": 1792005932.9683037,
+       "t1": 1792005946.4769118,
+       "tag": "r4.rep2.p0.006.C5.batched.cas-compiled.a0",
+       "window_s": 13.508608102798462
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128197
+     ],
+     "rows": 1,
+     "secs": 26.865819454193115,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005949.1697385,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 104,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8257575757575758,
+       "forced": false,
+       "gap_max_s": 0.12900018692016602,
+       "hist": {
+        "1635": 1,
+        "1650": 1,
+        "1680": 3,
+        "1695": 6,
+        "1710": 13,
+        "1725": 5,
+        "1740": 7,
+        "1755": 1,
+        "1770": 6,
+        "1785": 4,
+        "1800": 3,
+        "1815": 1,
+        "1830": 3,
+        "1845": 5,
+        "1860": 10,
+        "1875": 10,
+        "1890": 4,
+        "1905": 5,
+        "1920": 16,
+        "1935": 8,
+        "1950": 10
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1635,
+       "other_pids": [],
+       "pid": 128197,
+       "power_capped": 122,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 122,
+       "t0": 1792005961.1332374,
+       "t1": 1792005973.713657,
+       "tag": "r4.rep2.p0.006.C5.batched.cas-trt.a0",
+       "window_s": 12.580419540405273
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128218
+     ],
+     "rows": 1,
+     "secs": 17.948094129562378,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005976.0422707,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10599994659423828,
+       "hist": {
+        "1980": 84
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128218,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 84,
+       "t0": 1792005982.9530745,
+       "t1": 1792005991.565323,
+       "tag": "r4.rep2.p0.006.C2.single.cas-compiled.a0",
+       "window_s": 8.612248659133911
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128326
+     ],
+     "rows": 1,
+     "secs": 13.895967721939087,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792005994.0044749,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.13100004196166992,
+       "hist": {
+        "1980": 67
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128326,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 67,
+       "t0": 1792005998.585493,
+       "t1": 1792006005.4928324,
+       "tag": "r4.rep2.p0.006.C2.single.cas-trt.a0",
+       "window_s": 6.907339334487915
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128356
+     ],
+     "rows": 1,
+     "secs": 73.78756952285767,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006007.905819,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1679999828338623,
+       "hist": {
+        "1980": 569
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128356,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 569,
+       "t0": 1792006020.412182,
+       "t1": 1792006079.1567829,
+       "tag": "r4.rep2.p0.006.C2.batched.cas-compiled.a0",
+       "window_s": 58.744600772857666
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.006.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128464
+     ],
+     "rows": 1,
+     "secs": 77.13298416137695,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006081.7059717,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1529998779296875,
+       "hist": {
+        "1980": 502
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128464,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 502,
+       "t0": 1792006105.009953,
+       "t1": 1792006156.7995903,
+       "tag": "r4.rep2.p0.006.C2.batched.cas-trt.a0",
+       "window_s": 51.789637327194214
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.006.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128559
+     ],
+     "rows": 1,
+     "secs": 12.13883352279663,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006158.8511262,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10199999809265137,
+       "hist": {
+        "1980": 17
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128559,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 17,
+       "t0": 1792006165.74225,
+       "t1": 1792006167.511926,
+       "tag": "r4.rep2.p0.0035.C5.single.cas-compiled.a0",
+       "window_s": 1.7696759700775146
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128651
+     ],
+     "rows": 1,
+     "secs": 9.803049564361572,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006171.0040827,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10199999809265137,
+       "hist": {
+        "1980": 17
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128651,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 17,
+       "t0": 1792006176.4784024,
+       "t1": 1792006178.1912603,
+       "tag": "r4.rep2.p0.0035.C5.single.cas-trt.a0",
+       "window_s": 1.712857961654663
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128672
+     ],
+     "rows": 1,
+     "secs": 29.80479621887207,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006180.8134162,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 74,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.7954545454545454,
+       "forced": false,
+       "gap_max_s": 0.17400002479553223,
+       "hist": {
+        "1575": 1,
+        "1605": 1,
+        "1620": 2,
+        "1635": 4,
+        "1650": 7,
+        "1665": 3,
+        "1680": 3,
+        "1695": 4,
+        "1710": 6,
+        "1725": 4,
+        "1740": 3,
+        "1755": 5,
+        "1770": 3,
+        "1785": 5,
+        "1800": 3,
+        "1815": 5,
+        "1830": 3,
+        "1845": 3,
+        "1860": 5,
+        "1875": 1,
+        "1890": 2,
+        "1920": 1,
+        "1950": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1575,
+       "other_pids": [],
+       "pid": 128672,
+       "power_capped": 75,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 75,
+       "t0": 1792006198.95748,
+       "t1": 1792006207.0659747,
+       "tag": "r4.rep2.p0.0035.C5.batched.cas-compiled.a0",
+       "window_s": 8.108494758605957
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128777
+     ],
+     "rows": 1,
+     "secs": 24.3445565700531,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006210.6233032,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 78,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.7878787878787878,
+       "forced": false,
+       "gap_max_s": 0.125,
+       "hist": {
+        "1560": 1,
+        "1575": 1,
+        "1605": 5,
+        "1635": 2,
+        "1650": 6,
+        "1665": 2,
+        "1680": 7,
+        "1695": 5,
+        "1710": 5,
+        "1725": 4,
+        "1740": 2,
+        "1755": 6,
+        "1770": 3,
+        "1785": 3,
+        "1800": 5,
+        "1815": 5,
+        "1830": 3,
+        "1845": 5,
+        "1860": 4,
+        "1875": 4
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1560,
+       "other_pids": [],
+       "pid": 128777,
+       "power_capped": 78,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 78,
+       "t0": 1792006224.576035,
+       "t1": 1792006232.6261861,
+       "tag": "r4.rep2.p0.0035.C5.batched.cas-trt.a0",
+       "window_s": 8.050151109695435
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128818
+     ],
+     "rows": 1,
+     "secs": 18.072824478149414,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006234.9824874,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "1980": 85
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128818,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 85,
+       "t0": 1792006241.229191,
+       "t1": 1792006249.9360814,
+       "tag": "r4.rep2.p0.0035.C2.single.cas-compiled.a0",
+       "window_s": 8.706890344619751
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 1,
+   "attempts": [
+    {
+     "accepted": false,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128910
+     ],
+     "rows": 1,
+     "secs": 16.703381299972534,
+     "slurm_job": "",
+     "soft": [
+      "sampler gap 3.06 s"
+     ],
+     "start": 1792006253.0699458,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": false,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 3.064051628112793,
+       "hist": {
+        "1980": 34
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128910,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "sampler gap 3.06 s",
+       "reasons": "0x0",
+       "samples": 34,
+       "t0": 1792006259.809207,
+       "t1": 1792006266.3670516,
+       "tag": "r4.rep2.p0.0035.C2.single.cas-trt.a0",
+       "window_s": 6.557844638824463
+      }
+     ]
+    },
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-trt/a1/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single.cas-trt/a1/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C2.single.cas-trt/a1",
+     "group": "repl1",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 1,
+     "rc": 0,
+     "row_pids": [
+      128927
+     ],
+     "rows": 1,
+     "secs": 14.420030355453491,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006269.7921748,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.14699983596801758,
+       "hist": {
+        "1980": 67
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128927,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 67,
+       "t0": 1792006274.2556639,
+       "t1": 1792006281.1141891,
+       "tag": "r4.rep2.p0.0035.C2.single.cas-trt.a1",
+       "window_s": 6.858525276184082
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      128944
+     ],
+     "rows": 1,
+     "secs": 76.34878158569336,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006284.2226877,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1770000457763672,
+       "hist": {
+        "1980": 565
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 128944,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 565,
+       "t0": 1792006299.121866,
+       "t1": 1792006357.7627885,
+       "tag": "r4.rep2.p0.0035.C2.batched.cas-compiled.a0",
+       "window_s": 58.64092254638672
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep2.p0.0035.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129068
+     ],
+     "rows": 1,
+     "secs": 65.97566342353821,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006360.586692,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.17699980735778809,
+       "hist": {
+        "1980": 503
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129068,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 503,
+       "t0": 1792006371.9130368,
+       "t1": 1792006423.8137982,
+       "tag": "r4.rep2.p0.0035.C2.batched.cas-trt.a0",
+       "window_s": 51.9007613658905
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep2.p0.0035.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129151
+     ],
+     "rows": 1,
+     "secs": 11.546269655227661,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006426.577678,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10399985313415527,
+       "hist": {
+        "1980": 26
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129151,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 26,
+       "t0": 1792006433.2561977,
+       "t1": 1792006435.8946888,
+       "tag": "r4.rep3.p0.006.C5.single.cas-compiled.a0",
+       "window_s": 2.638491153717041
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129275
+     ],
+     "rows": 1,
+     "secs": 9.218071222305298,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006438.1388686,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10199999809265137,
+       "hist": {
+        "1980": 22
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129275,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 22,
+       "t0": 1792006443.0717304,
+       "t1": 1792006445.3609867,
+       "tag": "r4.rep3.p0.006.C5.single.cas-trt.a0",
+       "window_s": 2.2892563343048096
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129296
+     ],
+     "rows": 1,
+     "secs": 29.786239624023438,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006447.3720274,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 83,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8863636363636364,
+       "forced": false,
+       "gap_max_s": 0.14899992942810059,
+       "hist": {
+        "1755": 4,
+        "1770": 5,
+        "1785": 8,
+        "1800": 11,
+        "1815": 6,
+        "1830": 5,
+        "1845": 7,
+        "1860": 3,
+        "1875": 7,
+        "1890": 12,
+        "1905": 4,
+        "1920": 11,
+        "1935": 14,
+        "1950": 21,
+        "1965": 11
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1755,
+       "other_pids": [],
+       "pid": 129296,
+       "power_capped": 129,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 129,
+       "t0": 1792006460.692361,
+       "t1": 1792006474.010742,
+       "tag": "r4.rep3.p0.006.C5.batched.cas-compiled.a0",
+       "window_s": 13.31838083267212
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129388
+     ],
+     "rows": 1,
+     "secs": 27.202304124832153,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006477.1701999,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 92,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.8333333333333334,
+       "forced": false,
+       "gap_max_s": 0.1419999599456787,
+       "hist": {
+        "1650": 1,
+        "1665": 1,
+        "1680": 1,
+        "1695": 3,
+        "1710": 4,
+        "1725": 3,
+        "1740": 3,
+        "1755": 3,
+        "1770": 4,
+        "1800": 1,
+        "1815": 5,
+        "1830": 9,
+        "1845": 5,
+        "1860": 7,
+        "1875": 13,
+        "1890": 13,
+        "1905": 2,
+        "1920": 14,
+        "1935": 16,
+        "1950": 14
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1650,
+       "other_pids": [],
+       "pid": 129388,
+       "power_capped": 122,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 122,
+       "t0": 1792006489.5922577,
+       "t1": 1792006502.2275074,
+       "tag": "r4.rep3.p0.006.C5.batched.cas-trt.a0",
+       "window_s": 12.635249614715576
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129409
+     ],
+     "rows": 1,
+     "secs": 18.801822900772095,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006504.3780563,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10599994659423828,
+       "hist": {
+        "1980": 85
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129409,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 85,
+       "t0": 1792006511.249477,
+       "t1": 1792006520.0039437,
+       "tag": "r4.rep3.p0.006.C2.single.cas-compiled.a0",
+       "window_s": 8.754466772079468
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129501
+     ],
+     "rows": 1,
+     "secs": 14.13578200340271,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006523.1957333,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.14800000190734863,
+       "hist": {
+        "1980": 65
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129501,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 65,
+       "t0": 1792006528.0791867,
+       "t1": 1792006534.7801938,
+       "tag": "r4.rep3.p0.006.C2.single.cas-trt.a0",
+       "window_s": 6.701007127761841
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129518
+     ],
+     "rows": 1,
+     "secs": 73.79617691040039,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006537.351793,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.22799992561340332,
+       "hist": {
+        "1980": 567
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129518,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 567,
+       "t0": 1792006549.7425826,
+       "t1": 1792006608.4260309,
+       "tag": "r4.rep3.p0.006.C2.batched.cas-compiled.a0",
+       "window_s": 58.68344831466675
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.006.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129635
+     ],
+     "rows": 1,
+     "secs": 65.52673411369324,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006611.1654441,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1510000228881836,
+       "hist": {
+        "1980": 505
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129635,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 505,
+       "t0": 1792006622.1455412,
+       "t1": 1792006674.147459,
+       "tag": "r4.rep3.p0.006.C2.batched.cas-trt.a0",
+       "window_s": 52.00191783905029
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.006.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C5.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129684
+     ],
+     "rows": 1,
+     "secs": 12.159915208816528,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006676.70335,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10300016403198242,
+       "hist": {
+        "1980": 17
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129684,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 17,
+       "t0": 1792006683.4701169,
+       "t1": 1792006685.268208,
+       "tag": "r4.rep3.p0.0035.C5.single.cas-compiled.a0",
+       "window_s": 1.798091173171997
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C5.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C5.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129776
+     ],
+     "rows": 1,
+     "secs": 9.379357099533081,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006688.873365,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.10299992561340332,
+       "hist": {
+        "1980": 16
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129776,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 16,
+       "t0": 1792006694.076856,
+       "t1": 1792006695.7795022,
+       "tag": "r4.rep3.p0.0035.C5.single.cas-trt.a0",
+       "window_s": 1.702646255493164
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C5.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C5.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129813
+     ],
+     "rows": 1,
+     "secs": 24.81546974182129,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006698.257731,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 78,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.7272727272727273,
+       "forced": false,
+       "gap_max_s": 0.12800002098083496,
+       "hist": {
+        "1440": 1,
+        "1605": 2,
+        "1620": 1,
+        "1635": 4,
+        "1650": 1,
+        "1665": 4,
+        "1680": 6,
+        "1695": 3,
+        "1710": 5,
+        "1725": 4,
+        "1740": 4,
+        "1755": 8,
+        "1770": 7,
+        "1785": 3,
+        "1800": 4,
+        "1815": 3,
+        "1830": 5,
+        "1845": 6,
+        "1860": 1,
+        "1875": 2,
+        "1890": 2,
+        "1905": 1,
+        "1920": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1440,
+       "other_pids": [],
+       "pid": 129813,
+       "power_capped": 78,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 78,
+       "t0": 1792006711.5735867,
+       "t1": 1792006719.672067,
+       "tag": "r4.rep3.p0.0035.C5.batched.cas-compiled.a0",
+       "window_s": 8.098480224609375
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C5.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C5.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129905
+     ],
+     "rows": 1,
+     "secs": 23.774264335632324,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006723.09188,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 77,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.7878787878787878,
+       "forced": false,
+       "gap_max_s": 0.1400001049041748,
+       "hist": {
+        "1560": 1,
+        "1605": 3,
+        "1620": 1,
+        "1635": 4,
+        "1650": 3,
+        "1665": 3,
+        "1680": 6,
+        "1695": 1,
+        "1710": 7,
+        "1725": 6,
+        "1740": 5,
+        "1755": 3,
+        "1770": 6,
+        "1785": 6,
+        "1800": 1,
+        "1815": 5,
+        "1830": 5,
+        "1845": 4,
+        "1860": 3,
+        "1875": 1,
+        "1890": 3,
+        "1950": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1560,
+       "other_pids": [],
+       "pid": 129905,
+       "power_capped": 78,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 78,
+       "t0": 1792006735.2967784,
+       "t1": 1792006743.3474762,
+       "tag": "r4.rep3.p0.0035.C5.batched.cas-trt.a0",
+       "window_s": 8.050697803497314
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C5.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C5",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C2.single.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      129955
+     ],
+     "rows": 1,
+     "secs": 18.64795184135437,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006746.8847554,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.17400002479553223,
+       "hist": {
+        "1980": 84
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 129955,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 84,
+       "t0": 1792006753.4260743,
+       "t1": 1792006762.11172,
+       "tag": "r4.rep3.p0.0035.C2.single.cas-compiled.a0",
+       "window_s": 8.685645818710327
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C2.single.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C2.single.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      130079
+     ],
+     "rows": 1,
+     "secs": 14.029805183410645,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006765.5514328,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.1530001163482666,
+       "hist": {
+        "1980": 67
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 130079,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 67,
+       "t0": 1792006770.3752081,
+       "t1": 1792006777.3135462,
+       "tag": "r4.rep3.p0.0035.C2.single.cas-trt.a0",
+       "window_s": 6.938338041305542
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C2.single.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched.cas-compiled/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched.cas-compiled/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C2.batched.cas-compiled/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      130096
+     ],
+     "rows": 1,
+     "secs": 124.26615047454834,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006779.6007757,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.16199994087219238,
+       "hist": {
+        "1980": 582
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 130096,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 582,
+       "t0": 1792006839.7102005,
+       "t1": 1792006899.5649364,
+       "tag": "r4.rep3.p0.0035.C2.batched.cas-compiled.a0",
+       "window_s": 59.85473585128784
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C2.batched.cas-compiled",
+   "meta": {
+    "cascade_engine": "compiled",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$ctrt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$derived_lock.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched.cas-trt/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched.cas-trt/a0/pipes"
+     ],
+     "card": "h100",
+     "dir": "slots/r4.rep3.p0.0035.C2.batched.cas-trt/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-pod",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      130208
+     ],
+     "rows": 1,
+     "secs": 90.15380358695984,
+     "slurm_job": "",
+     "soft": [],
+     "start": 1792006903.8865573,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 1.0,
+       "forced": false,
+       "gap_max_s": 0.17199993133544922,
+       "hist": {
+        "1980": 503
+       },
+       "low_uncapped": 0,
+       "max_mhz": 1980,
+       "min_mhz": 1980,
+       "other_pids": [],
+       "pid": 130208,
+       "power_capped": 0,
+       "power_default_w": 700.0,
+       "power_limit_w": 700.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 503,
+       "t0": 1792006939.370597,
+       "t1": 1792006991.2141225,
+       "tag": "r4.rep3.p0.0035.C2.batched.cas-trt.a0",
+       "window_s": 51.843525648117065
+      }
+     ]
+    }
+   ],
+   "card": "h100",
+   "id": "r4.rep3.p0.0035.C2.batched.cas-trt",
+   "meta": {
+    "cascade_engine": "trt",
+    "config": "C2",
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "ctrt-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  }
+ ],
+ "start": 1792005362.1295333,
+ "stopped_early": false,
+ "summary": {
+  "established": 48,
+  "failed": 0,
+  "not established": 0,
+  "pending": 0,
+  "recorded, flagged": 0
+ },
+ "tree_deployed": null
+}
