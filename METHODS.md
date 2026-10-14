@@ -171,9 +171,12 @@ For the surface and BB codes, our composite time per shot is
 
     composite = (a) GPU term + (c) handoff + (b) CPU term on the Grace basis        (per shot)
 
-The GPU term comes from the pod and the CPU term from the workstation, so no surface or BB number is measured end to
-end. As in NVIDIA's Ising paper, the CPU-GPU transfer over NVLink is treated as negligible, while our host-side handoff
-stays in every composite (C4).
+The GPU term comes from the pod and the CPU term from the workstation, so the stage-2 composites of our pairs, and
+Ising's with its PM share, are not measured end to end. CUDA-Q's BP-OSD is measured end to end: host to host on the pod,
+its OSD's host work included (2.3). NVIDIA's Ising paper (arXiv 2604.12841 v1, Section VI.3) estimates the transfer of
+syndrome data between the pre-decoder on the GB300 GPU and PyMatching on the Grace CPU with NVIDIA's NVQLink
+architecture, finds it negligible next to both runtimes and ignores it, and times its pre-decoders with host-device
+transfers disabled. We use the same setting and keep our host-side handoff in every composite (C4).
 
 - (a) GPU term: the network on the pod's H100 at batch one, with the input already on the GPU. Surface code: the
   release's `timing.gpu_term`, unchanged, over the 200,000 timing shots of the distance. At d = 9 to 17 each shot is one
@@ -186,8 +189,8 @@ stays in every composite (C4).
   largest of five processes), at d = 9 to 17 as the larger of 1.1 µs and the compiled router's estimate of the host-side
   work (`timing.deployed`). Whatever share of a CPU-GPU transfer this holds stays in the composite. BB codes: the
   registered host-side allowance of 1.1 µs per shot (routing decision, packing, indexing). The measured pinned-memory
-  round trip of one shot's copies, 16.9 to 19.4 µs, is the transfer: it is left out, as in NVIDIA's setting, and
-  published beside each composite (`speed_rt/s2/bb/results/numbers.json`, `pairs`). Adding 19.4 µs to every BB composite
+  round trip of one shot's copies, 16.9 to 19.5 µs, is the transfer: it is left out, as in NVIDIA's setting, and
+  published beside each composite (`speed_rt/s2/bb/results/numbers.json`, `pairs`). Adding 19.5 µs to every BB composite
   would change no verdict: the smallest margin of a comparison that holds against CUDA-Q is 117 µs (BB72, p = 0.2 %,
   the accurate pair).
 - (b) CPU term: the fallback on the routed shots, timed on the workstation one shot at a time, single-threaded and
@@ -237,11 +240,11 @@ iterations, or 60 iterations (`STAGE2_bb.md` 1.2 and section 1.2).
 | surface BP-OSD | 200 calls on chunk 0 |
 | BB72 sector Relay-BP and ldpc BP-OSD | the first 10,000 shots of chunk 0, at each p |
 | BB72 full-DEM Relay-BP | the first 2,000 shots of chunk 0, at each p |
-| BB72 pairs' CPU terms | the first 1,000 routed shots (balanced at both p, accurate at p = 0.3 %), up to 5,000 routed shots (accurate at p = 0.2 %); routed fractions over 200,000 (p = 0.3 %) and 300,000 (p = 0.2 %) timing shots |
+| BB72 pairs' CPU terms | timed, for both pairs: the first 1,000 of 3,886 routed shots at p = 0.3 % and all 740 routed shots at p = 0.2 % (`speed_rt/s2/bb/results/numbers.json`, `pairs`, `slowest_cpu_process`); registered caps: the first 1,000 routed shots (balanced at both p, accurate at p = 0.3 %) and the first 5,000 (accurate at p = 0.2 %); routed fractions over 200,000 (p = 0.3 %) and 300,000 (p = 0.2 %) timing shots |
 | gross code sector Relay-BP | the first 1,000 shots of chunk 0 |
 | gross code ldpc BP-OSD | the first 500 shots of chunk 0, cut from 1,000 |
 | gross code full-DEM Relay-BP | the first 75 shots of chunk 0, cut from 300 |
-| gross code pairs' CPU terms | the first 300 routed shots (balanced, cut from 1,000) and the first 25 (accurate, cut from 100); routed fractions over 150,000 timing shots |
+| gross code pairs' CPU terms | the first 300 of 1,443 routed shots (balanced, cut from 1,000) and the first 25 of 2,998 (accurate, cut from 100); routed fractions over 150,000 timing shots |
 | Decoder Switching | 50,000 shots per distance (5 chunks), cut from 200,000 |
 | Cascade | single mode 20,000 shots after 200 untimed ones; batched mode 500,000 shots |
 
@@ -251,20 +254,25 @@ in shot order.
 
 ### 2.5 Ising
 
-Each surface pod built 12 TensorRT 10.14.1 plans per distance, six per model (Ising-Fast, M1, and Ising-Accurate, M4):
-four registered builds, FP16 and FP8 at optimisation levels 3 and 5, and two built as NVIDIA's code builds them, FP16
-and FP8, with NVIDIA's dynamic profile up to batch 2048 (`speed_rt/STAGE2_surface.md` 1.13.2). FP8 plans were quantized
-by ModelOpt 0.47.0 on validation shots. Before the timed block, every plan was checked on 10,000 validation shots
-against NVIDIA's PyTorch numerics followed by plain PM: decision agreement at least 99.9 % (FP16) or 99 % (FP8), the
-paired test not "worse", the residual-detector density within 5 % of the reference, and for an FP8 plan every
-convolution that the recipe quantized running an FP8 kernel. A plan that failed was never timed. Each validated plan
-was timed at batch one on the first shot of the timing set's chunk 0, inside a CUDA graph (200 warm-up replays, then
-five repetitions of 100 replays between CUDA events, in two processes of opposite plan order) and with NVIDIA's
-command, `trtexec --loadEngine=PLAN --useCudaGraph --noDataTransfers --useSpinWait` with that shot as input (five
-repetitions, the "GPU Compute Time" mean of each). Ising's GPU time per model and distance is the fastest accepted
-repetition of any validated plan (`speed_rt/ising_select.py`), and the counted plan's residual detectors on chunk 0
-give the PM share. Ising's accuracy comes from SURF-v2's reads with NVIDIA's PyTorch numerics, so no single run
-measured both.
+For each distance 12 TensorRT 10.14.1 plans were built, six per model (Ising-Fast, M1, and Ising-Accurate, M4): four
+registered builds, FP16 and FP8 at optimisation levels 3 and 5, and two built as NVIDIA's code builds them, FP16 and
+FP8, with NVIDIA's dynamic profile up to batch 2048 (`speed_rt/STAGE2_surface.md` 1.13.2). FP8 plans were quantized by
+ModelOpt 0.47.0 on validation shots. The pod for d = 7, 9 and 11 built its plans after stage 2's freeze and then timed
+them. For d = 13, 15 and 17 an earlier H100 pod built the plans before the freeze, from tree files that the frozen
+analysis checks against the frozen tree, saved every build output with its sha256 and was released (`STAGE2_surface.md`
+1.13.7). The timing pod, with the same GPU model and the same TensorRT, CUDA and torch versions, loaded the 134 saved
+files (the 133 outputs that `speed_rt/s2/surface/records/high/session/BUILD_INPUTS.json` lists with their sha256, and
+that file) after checking each file's sha256; its build step skipped every plan already built and re-ran every check.
+Before the timed block, every plan was checked on 10,000 validation shots against NVIDIA's PyTorch numerics followed by
+plain PM: decision agreement at least 99.9 % (FP16) or 99 % (FP8), the paired test not "worse", the residual-detector
+density within 5 % of the reference, and for an FP8 plan every convolution that the recipe quantized running an FP8
+kernel. A plan that failed was never timed. Each validated plan was timed at batch one on the first shot of the timing
+set's chunk 0, inside a CUDA graph (200 warm-up replays, then five repetitions of 100 replays between CUDA events, in
+two processes of opposite plan order) and with NVIDIA's command,
+`trtexec --loadEngine=PLAN --useCudaGraph --noDataTransfers --useSpinWait` with that shot as input (five repetitions,
+the "GPU Compute Time" mean of each). Ising's GPU time per model and distance is the fastest accepted repetition of any
+validated plan (`speed_rt/ising_select.py`), and the counted plan's residual detectors on chunk 0 give the PM share.
+Ising's accuracy comes from SURF-v2's reads with NVIDIA's PyTorch numerics, so no single run measured both.
 
 ### 2.6 Acceptance and checks
 
@@ -272,8 +280,9 @@ measured both.
   runs 3 s of fp16 matrix products, passing when the median SM clock is at least 97 % of the maximum, the clock-event
   reasons are within GPU idle, applications clocks and SW power cap, the enforced power limit is the default, under 64
   MiB were in use before and no other process used the GPU; then CPU steal at most 1 % over 5 s and a container quota
-  of at least 20 CPUs (`speed_rt/gpu_prescreen.py`). A pod times GPU work only, one process at a time, pinned to one
-  timed core; host-side load is recorded and decides nothing.
+  of at least 20 CPUs (`speed_rt/gpu_prescreen.py`). A pod times only GPU pipelines, one process at a time, pinned to
+  one timed core: the networks, Ising's plans, and CUDA-Q's BP-OSD, whose OSD runs on that core and counts in its
+  host-to-host time. Host-side load is recorded and decides nothing.
 - GPU windows, stage 1 (`SPEED_RT.md` 1.4): a window is rejected for outside interference, that is, another compute
   application on the card, a gap of more than 1 s between `nvidia-smi` samples (every 100 ms), a clock-event reason
   other than GPU idle, applications clocks or SW power cap, an enforced power limit below the default, or an SM clock
@@ -298,25 +307,27 @@ measured both.
   it is withheld; no other value stands in. Nothing ran again because of a value it produced, and every attempt is
   published.
 - Outcome. Stage 1 established every slot on both cards (`speed_rt/cascade/results/stdout.txt`). On the H100, two
-  windows were rejected for another compute application on the card, and their processes were replaced; 78 of the
-  153 counted windows ran under the workload's own power cap at the default 700 W, with SM clocks down to 0.682 of the
+  windows were rejected for another compute application on the card, and their processes were replaced; 78 of the 153
+  counted windows ran under the workload's own power cap at the default 700 W, with SM clocks down to 0.682 of the
   maximum, and 77 had samples below 97 % of it. On the RTX PRO 6000, 44 of 153 windows had samples below 97 % (lowest
   0.938) and none was power-capped (`speed_rt/cascade/results/numbers.json`, `clock`). In stage 2, every slot of the
-  three pods was accepted at its first attempt, and the CPU session passed all 46 windows and accepted all 290 processes
-  at their first attempt (`speed_rt/s2/bb/records/cpu/session.json`, `speed_rt/s2/README.md`).
+  three timing pods was accepted at its first attempt, and the CPU session passed all 46 windows and accepted all 290
+  processes at their first attempt (`speed_rt/s2/bb/records/cpu/session.json`, `speed_rt/s2/README.md`).
 
 ### 2.7 Statistics and the Grace basis
 
 - Stage 2 (C6): our side takes the slowest accepted of its fresh processes (three for every CPU term; five for the
   GPU terms of the surface networks and of BB72's, three for the gross code's; for the surface handoff, the largest of
   five at d = 7 and one process at d = 9 to 17), and every baseline the fastest of its three; there are no medians.
-  Stage 1 (`SPEED_RT.md` 1.7): the slowest of three on both sides, the paper's statistic for Cascade, with sensitivity
-  rows that repeat every comparison with Cascade's fastest process and decide nothing.
+  Ising's GPU term is the exception: it is the smallest accepted repetition across all validated plans and both timing
+  methods (2.5), which favours Ising. Stage 1 (`SPEED_RT.md` 1.7): the slowest of three on both sides, the paper's
+  statistic for Cascade, with sensitivity rows that repeat every comparison with Cascade's fastest process and decide
+  nothing.
 - "X takes less time than Y" holds when X's value is strictly below Y's, on the Grace basis for CPU parts. There is no
-  statistical test. Speed-up = the baseline's time over ours. Ranges are rounded in the direction that weakens the
-  claim: speed-ups down, times and fractions of time up. A time per round is the time per shot over the number of
-  rounds: d on the surface code, 6 on BB72, 12 on the gross code. Every repetition's value and the range are published
-  beside each value.
+  statistical test. Speed-up = the baseline's time over ours. Ranges and ratios of times in the prose are rounded
+  against us: our times, and our time as a fraction of another decoder's, up; the other decoders' times, and speed-ups
+  (also when below 1), down. A time per round is the time per shot over the number of rounds: d on the surface code, 6
+  on BB72, 12 on the gross code. Every repetition's value and the range are published beside each value.
 - Grace basis (C3). NVIDIA's Ising paper (arXiv 2604.12841 v1, Tables VII and IX) times plain and correlated PyMatching
   on one Grace Neoverse-V2 core at 18 points: plain PM at d = 13, 21 and 31 and correlated PM at d = 5, 9, 13, 17, 21
   and 31, each at p = 0.3 % and 0.6 %, on NVIDIA's legacy memory circuits. The workstation timed the same 18 points in

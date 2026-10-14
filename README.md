@@ -18,8 +18,11 @@ behind the network, not rivals.
 
 A quantum error-correction decoder reads the detector bits of one shot (one run of the error-correction circuit) and
 decides which logical flip happened. The decoders that fail least, here called strong decoders, are slow. ConvLines
-decodes every shot and reports a confidence. The least confident shots, a fixed fraction q chosen on calibration shots
-before any test, go to the strong decoder, whose answer replaces the network's. The network's output head predicts the
+decodes every shot and reports a confidence. A shot whose confidence falls below a frozen threshold goes to the strong
+decoder, whose answer replaces the network's. Before any test, the threshold is set on calibration shots so that a
+target fraction q of them is routed; on other shots the routed share differs slightly from q. BB72 at p = 0.2 %, set
+for q = 0.25 %, routed 740 of SPEED-RT's 300,000 timing shots, 0.2467 % (`speed_rt/s2/bb/results/numbers.json`,
+`pairs`; q is `q_cal` in `bb/bb72/ising_compare/data/bb/stage3/cells.json`). The network's output head predicts the
 flips of many shifted copies of the logical operators and decides all logical qubits together.
 
 ## What the paper shows
@@ -48,8 +51,8 @@ On the surface code the registered rule chose q = 0 at d = 9, 11 and 13, so the 
 Against the other decoders of SURF-v2 (plain PM, NVIDIA's Ising pre-decoders Fast and Accurate followed by plain or
 correlated PM, and two BP-OSD settings), the pair was more accurate at every distance. It was also faster than each of
 them at every distance except against plain PM at d = 7 and 9, where the pair took 11.942 and 28.927 µs per shot and
-plain PM 11.890 and 26.297 µs, so plain PM took 0.996 and 0.909 of the pair's time. With the deployed networks, which
-SPEED-RT timed as well, the pair took 12.480 and 29.977 µs, and plain PM 0.953 and 0.877 of that. From d = 11 on, plain
+plain PM 11.890 and 26.297 µs, so plain PM took 0.995 and 0.909 of the pair's time. With the deployed networks, which
+SPEED-RT timed as well, the pair took 12.480 and 29.977 µs, and plain PM 0.952 and 0.877 of that. From d = 11 on, plain
 PM took 1.25 to 2.97 times as long as the pair (1.20 to 1.77 with the deployed networks). These numbers are in
 `speed_rt/s2/surface/results/table.md` (rows S1 and S4) and in the `ratio` column of `rows.csv` beside it.
 
@@ -67,7 +70,7 @@ accurate pair at p = 0.2 % took less time than CUDA-Q. These numbers are rows B1
 In the Cascade comparisons, the pair's 99.9th-percentile latency in single-shot mode is longer than that of Cascade
 alone on both cards, since a routed shot runs the network before Cascade. At d = 13 it was 486.2 and 499.5 µs against
 404.3 and 422.4 µs on the RTX PRO 6000 (p = 0.6 % and 0.35 %), and 626.4 and 573.9 µs against 564.9 and 554.5 µs on the
-H100. On BB72 the pair's was 7.0 % to 9.8 % above Cascade's on the RTX PRO 6000 and 8.4 % to 17.7 % above on the H100
+H100. On BB72 the pair's was 7.1 % to 9.9 % above Cascade's on the RTX PRO 6000 and 8.4 % to 17.8 % above on the H100
 (rows C8 and C10 of `speed_rt/cascade/results/table.json`).
 
 On BB72, the same network with a conventional head that predicts each logical qubit separately failed 3.8 to 5.0 times
@@ -76,7 +79,7 @@ as often when it decided every shot itself (RETEST).
 SURF-v2 also compared the pair with gap switching, our re-implementation of Decoder Switching, which uses plain PM as
 the front end, routes by its complementary gap and falls back to correlated PM; the pair failed less often at every
 distance (`surface_v2/surf_v2/GAPSW_REGISTRATION.md`). SPEED-RT timed gap switching on the CPU: 57.41 µs per shot at d =
-7 up to 2,402.31 µs at d = 17 on the Grace basis, against the pair's 11.942 to 81.579 µs. This comparison is descriptive
+7 up to 2,402.31 µs at d = 17 on the Grace basis, against the pair's 11.943 to 81.580 µs. This comparison is descriptive
 and has no verdict (`speed_rt/s2/gapsw/results/gs_tables.md`).
 
 Most tests were registered: the networks, thresholds, test sets and analyses were fixed before the test shots existed,
@@ -117,14 +120,17 @@ the records with byte-identical outputs, and the records and outputs were commit
 - Surface code and BB codes: our composite time per shot is the network's GPU term on the H100 at batch one, with the
   input already on the GPU, plus the handoff, plus the fallback's CPU time on the routed shots (the routed fraction
   times the mean time of a routed shot) on the Grace basis. The GPU and CPU terms come from two machines, as in the
-  paper's earlier composites; no surface or BB number is measured end to end.
-- As in NVIDIA's Ising paper, the CPU-GPU transfer over NVLink is treated as negligible, while our host-side handoff
-  stays in every composite. On the surface code the handoff is measured: at d = 7 the resident kernel's host round trip
-  minus its device time, at d = 9 to 17 the larger of 1.1 µs and the router's estimate, so whatever transfer it holds
-  stays in. On the BB codes it is the registered host-side allowance of 1.1 µs per shot, and the measured pinned-memory
-  round trip of one shot, 16.9 to 19.4 µs, is reported beside every composite and left out
-  (`speed_rt/s2/bb/results/numbers.json`, `pairs`). Adding the largest, 19.4 µs, to every BB composite would change no
-  verdict.
+  paper's earlier composites, so the stage-2 composites of our pairs, and Ising's with its PM share, are not measured
+  end to end. CUDA-Q's BP-OSD is measured end to end: host to host on the GPU pod, its OSD's host work included.
+- NVIDIA's Ising paper (arXiv 2604.12841 v1, Section VI.3) estimates the transfer of syndrome data between the
+  pre-decoder on the GB300 GPU and PyMatching on the Grace CPU with NVIDIA's NVQLink architecture, finds it negligible
+  next to both runtimes and ignores it, and times its pre-decoders with host-device transfers disabled. We use the same
+  setting and keep our host-side handoff in every composite. On the surface code the handoff is measured: at d = 7 the
+  resident kernel's host round trip minus its device time, at d = 9 to 17 the larger of 1.1 µs and the router's
+  estimate, so whatever transfer it holds stays in. On the BB codes it is the registered host-side allowance of 1.1 µs
+  per shot, and the measured pinned-memory round trip of one shot, 16.9 to 19.5 µs, is reported beside every composite
+  and left out (`speed_rt/s2/bb/results/numbers.json`, `pairs`). Adding the largest, 19.5 µs, to every BB composite
+  would change no verdict.
 - Baselines: plain and correlated PM, the PM share after Ising, Relay-BP and ldpc's BP-OSD are timed on the CPU and put
   on the Grace basis. Ising's GPU time is the fastest accepted repetition of any validated TensorRT plan on the pod: 12
   plans per distance, six per model (four registered builds, FP16 and FP8 at optimisation levels 3 and 5, and two built
@@ -141,9 +147,10 @@ the records with byte-identical outputs, and the records and outputs were commit
 
 - GPU parts: rented NVIDIA H100 80GB HBM3 SXM pods (RunPod, secure cloud), each pre-screened before anything was timed
   on it: five checks on the idle GPU, CPU steal at most 1 % over 5 s and a quota of at least 20 CPUs
-  (`speed_rt/gpu_prescreen.py`, `SPEED_RT.md` section 1.5). Stage 2 used one pod per role, with host CPUs Intel Xeon
+  (`speed_rt/gpu_prescreen.py`, `SPEED_RT.md` section 1.5). Stage 2 timed on one pod per role, with host CPUs Intel Xeon
   Platinum 8470 (surface code at d = 7, 9 and 11), AMD EPYC 9554 (d = 13, 15 and 17) and Intel Xeon Platinum 8470 (BB);
-  a pod timed GPU work only, one process at a time. Every slot of the three pods was accepted at its first attempt
+  a pod timed only GPU pipelines, one process at a time: the networks, Ising's plans, and CUDA-Q's BP-OSD with the host
+  work of its OSD. Every slot of the three timing pods was accepted at its first attempt
   (`speed_rt/s2/surface/records/low/session/` and `high/session/`, `META.json` and `attempts.json`;
   `speed_rt/s2/bb/records/gpu/`, `prescreen/prescreen.json` and `attempts.json`).
 - Cascade: both an NVIDIA RTX PRO 6000 Blackwell Server Edition (MIG off, host AMD EPYC 9555) and an H100 pod (host
@@ -188,12 +195,15 @@ after an earlier host that holds the raw basis). GPU terms, handoffs and CUDA-Q'
 
 - Stage 2: our side takes the slowest of its fresh processes (three for every CPU term, five for the GPU terms of the
   surface networks and of BB72's, three for the gross code's) and every baseline the fastest of its three, with no
-  medians (`STAGE2_common.md` C6). The Grace reference points take the slowest of three, which gives the smaller factor.
+  medians (`STAGE2_common.md` C6). Ising's GPU term is the exception: it is the smallest accepted repetition across all
+  validated plans and both timing methods (`STAGE2_surface.md` 1.13; [`METHODS.md`](METHODS.md) section 2.5), which
+  favours Ising. The Grace reference points take the slowest of three, which gives the smaller factor.
 - Stage 1: the slowest of three on both sides, as the paper's Cascade method did. Sensitivity rows repeat every Cascade
   comparison with Cascade's fastest process and decide nothing; the lowest speed-up is then 3.63 on the RTX PRO 6000
   and 3.17 on the H100 (`speed_rt/cascade/results/table.json`).
-- "X takes less time than Y" holds when X's value is strictly below Y's. There is no statistical test. Ranges are
-  rounded in the direction that weakens the claim: speed-ups down, times and fractions of time up.
+- "X takes less time than Y" holds when X's value is strictly below Y's. There is no statistical test. Ranges and
+  ratios of times in the prose are rounded against us: our times, and our time as a fraction of another decoder's, up;
+  the other decoders' times, and speed-ups (another decoder's time over ours, also when below 1), down.
 
 ### The re-measured times
 
@@ -210,7 +220,7 @@ Surface code: composite time per shot in µs on the Grace basis, with BP-OSD as 
 | 17 | 81.579 | 141.406 | 242.527 | 846.008 | 173.116 | 172.988 | 478767.2 | 647847.1 |
 
 Each network set has 48 registered comparisons (rows S4 and S10): these six baselines and two controls, Ising-Fast and
-Ising-Accurate followed by correlated PM (51.068 to 354.430 µs and 61.907 to 321.349 µs), at six distances. For each
+Ising-Accurate followed by correlated PM (51.067 to 354.429 µs and 61.907 to 321.348 µs), at six distances. For each
 set 46 hold; the two that do not are plain PM at d = 7 and 9.
 
 BB codes: time per shot in ms, with CPU times on the Grace basis and CUDA-Q as timed on the pod
@@ -421,16 +431,21 @@ the detectors it leaves, which gives the rows Ising M1 / M4 + PM and Ising M1 / 
   fp32 weights and TF32 as NVIDIA's runner enables it (`surface_v2/convlines/opponents.py`). SURF-v2 read all four Ising
   rows, with plain and with correlated PM, on every test shot (`surface_v2/surf_v2/args/pod_e1_test.txt`); their
   failures are in `surface_v2/surf_v2/analysis/tables.md` and `family_A.csv`.
-- Speed comes from SPEED-RT stage 2 (`speed_rt/STAGE2_surface.md` section 1.13). On each surface pod, 12 TensorRT
-  10.14.1 plans per distance were built, six per model: FP16 and FP8 at optimisation levels 3 and 5, and NVIDIA's own
-  build of each precision. Every plan was checked on validation shots against the PyTorch numerics above before it was
-  timed, an FP8 plan only if every convolution the recipe quantized ran an FP8 kernel. The plans were timed at batch 1
-  on the first timing shot, with CUDA-graph replays and with NVIDIA's `trtexec` command, and the fastest accepted
-  repetition of any validated plan counts as Ising's GPU time. The composite adds the PM share on the detectors Ising
-  leaves, timed on the Linux workstation and put on the Grace basis (rows S1 and S10 of
-  `speed_rt/s2/surface/results/table.md`). SURF-v2's own speed comparisons used the earlier registered times of
-  `results/surface/SURFACE.md` (section 4; `surface_v2/surf_v2/config.json`, `registered_times_us`), which SPEED-RT
-  supersedes.
+- Speed comes from SPEED-RT stage 2 (`speed_rt/STAGE2_surface.md` section 1.13). For each distance 12 TensorRT 10.14.1
+  plans were built, six per model: FP16 and FP8 at optimisation levels 3 and 5, and NVIDIA's own build of each
+  precision. The pod for d = 7, 9 and 11 built its plans after stage 2's freeze and then timed them. For d = 13, 15 and
+  17 an earlier H100 pod built the plans before the freeze, from tree files that the frozen analysis checks against the
+  frozen tree, saved every build output with its sha256 and was released. The timing pod, with the same GPU model and
+  the same TensorRT, CUDA and torch versions, loaded the 134 saved files (the 133 outputs that
+  `speed_rt/s2/surface/records/high/session/BUILD_INPUTS.json` lists with their sha256, and that file) after checking
+  each file's sha256, and re-ran every plan's check, as section 1.13.7 registers. Every plan was checked on validation
+  shots against the PyTorch numerics above before it was timed, an FP8 plan only if every convolution the recipe
+  quantized ran an FP8 kernel. The plans were timed at batch 1 on the first timing shot, with CUDA-graph replays and
+  with NVIDIA's `trtexec` command, and the fastest accepted repetition of any validated plan counts as Ising's GPU time.
+  The composite adds the PM share on the detectors Ising leaves, timed on the Linux workstation and put on the Grace
+  basis (rows S1 and S10 of `speed_rt/s2/surface/results/table.md`). SURF-v2's own speed comparisons used the earlier
+  registered times of `results/surface/SURFACE.md` (section 4; `surface_v2/surf_v2/config.json`, `registered_times_us`),
+  which SPEED-RT supersedes.
 
 An Ising row's accuracy and its time thus come from two numerics of the same model, and no single run measured both.
 The earlier surface-code tests also read every timed TensorRT plan for accuracy (`results/surface/s*_test_eval.csv`,
@@ -525,7 +540,7 @@ SPEED-RT, whose outputs the speed entries name ([How the speed was measured](#ho
 | Fig. 5 | routing frontiers on calibration shots | `results/surface/frontiers/`, `results/r17/policy_d17b5_r787_q08.json`, `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `bb/bb72/ising_compare/data/bb/policies/`, `bb/gross/ising_compare/data/bb/stage3_gross/frontierf_g2_D12k113c10.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md` | figures |
 | Table IV | paired accuracy against the closest baseline | `results/surface/s2_test_eval.csv`, `s3_test_eval.csv`, `s4_test_eval.csv`, `r17_test_eval.csv` | surface code |
 | Fig. 6 | BB codes: block failure rate against composite time | the records of Table I; speed: `speed_rt/s2/bb/results/` | figures; [SPEED-RT](#how-to-verify) |
-| Table V | where the composite time goes | `speed_rt/s2/surface/results/table.md` (row S6) and `speed_rt/s2/bb/results/table.json` (row B9); the earlier sessions' in `results/surface/s2_composite.json`, `results_accuracy_speed_d15.json`, `results_accuracy_speed_d17.json`, `results/r17/R17_RESULT.md` and the records of Table I | [SPEED-RT](#how-to-verify) |
+| Table V | where the composite time goes | `speed_rt/s2/surface/results/table.md` (row S6) and `speed_rt/s2/bb/results/table.json` (row B4); the earlier sessions' in `results/surface/s2_composite.json`, `results_accuracy_speed_d15.json`, `results_accuracy_speed_d17.json`, `results/r17/R17_RESULT.md` and the records of Table I | [SPEED-RT](#how-to-verify) |
 | Table VI | decoder settings and timing | the settings in `evaluation/convlines/opponents.py`, `bb/bb72/ising_compare/bb/opp.py` and `route.py`, `cascade/bb72/cascade_compare/phase_c/pc_common.py`, `cascade/d13/surface/sv_common.py`; the timing in `speed_rt/SPEED_RT.md` section 1, `STAGE2_surface.md` and `STAGE2_bb.md` | |
 | Table VII | the first registered test with our Cascade on BB72 | `cascade/bb72/cascade_compare/phase_c/` (`RESULTS.md`, `out/confirm_*.json`, `out/report/`) | Cascade |
 | Fig. 7 | failures of each output-head arm's pair against q | `head/results/{surface,bb72}/pair_curves.csv` | figures |
@@ -572,9 +587,13 @@ use it. [Registered tests and how to verify them](#registered-tests-and-how-to-v
 ### BB codes
 
 `bb/BB.md` gives, for BB72 and both gross-code tests, how each test ran, its disclosed changes, and the commands that
-rebuild its test shots, read the networks and the opponents, and analyse them. Each test's records hold every decoder's
-per-shot predictions (`test_outputs_*.npz`) and the timing rows, so the statistics can be checked without decoding
-again.
+rebuild its test shots, read the networks and the opponents, and analyse them. The records of these three tests hold
+every decoder's per-shot predictions (`test_outputs_BB72-2.npz` and `test_outputs_BB72-3.npz` in
+`bb/bb72/ising_compare/data/bb/stage3/`, `test_outputs_G-4.npz` in `bb/gross/ising_compare/data/bb/stage3_gross/` and
+`test4_outputs_G-4RF.npz` in `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`) and the timing rows, so the
+statistics can be checked without decoding again. RETEST's reruns of the BB72 test and of the gross code's stage-4
+test keep theirs in `retest/run/bb/stage3/outputs/` and `retest/run/bb/stage4/outputs/`. The other tests' full
+per-shot predictions are not in this repository ([What is not included](#what-is-not-included)).
 
 ### Cascade
 
@@ -679,8 +698,9 @@ Research Computing) and checked there with the commands above.
 
 ## What is not included
 
-- The per-shot outputs of the test reads and the test shots themselves. The shots are rebuilt from the manifests'
-  seeds; the per-shot outputs are archived by the authors.
+- The test shots, and the full per-shot outputs of every test read except the BB tests' ([BB codes](#bb-codes)). The
+  shots are rebuilt from the manifests' seeds. The per-shot outputs of the surface-code tests (SURF-v2 included), the
+  Cascade tests and the output-head study are archived by the authors.
 - SPEED-RT's timing shots. Stage 2's are rebuilt from the beacon's seeds and checked against the manifests in
   `speed_rt/testsets/`, `speed_rt/bb/` and `speed_rt/gapsw/`; stage 1's processes sampled their chunks during the run
   and recorded each chunk's seed and sha256.
