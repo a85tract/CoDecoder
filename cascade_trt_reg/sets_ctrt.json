@@ -1,0 +1,9 @@
+{
+ "what": "CASCADE-TRT-REG timing sets (cascade_trt_reg/RULES.md): stage 1's Cascade sets under fitted noise and at d = 13 (speed_rt/cascade/sets_cas.json, same kinds, p, chunks and chunk sizes) under new names, so every tag, TAG(set) = 'convlines speed-rt <set>' and a newline (speed_rt/sets.py), and every seed is new. No files are drawn: every Cascade process samples inside the run from the chunk seeds, chunk j of a set replacing chunk j of the original stream eval_seed(12, p, j, family) (BB72) or eval_seed(13, 12, p, j) (d = 13), as in stage 1.",
+ "sets": {
+  "ctrt-cas-dfm-p2":  {"kind": "cascade", "code": "bb72", "family": "depspam_fm", "p": 0.002,  "chunks": 50, "chunk_shots": 10000, "feeds": "the D1 deep pairs and the first registered test's pairs at 0.2 %, Cascade alone; the decision check (chunks 10-19); both cards"},
+  "ctrt-cas-dfm-p3":  {"kind": "cascade", "code": "bb72", "family": "depspam_fm", "p": 0.003,  "chunks": 50, "chunk_shots": 10000, "feeds": "the same at 0.3 %"},
+  "ctrt-cas-d13-p6":  {"kind": "cascade", "d": 13, "p": 0.006,  "chunks": 50, "chunk_shots": 10000, "feeds": "the d = 13 pair at 0.6 %, Cascade alone; the decision check (chunks 10-19); both cards"},
+  "ctrt-cas-d13-p35": {"kind": "cascade", "d": 13, "p": 0.0035, "chunks": 50, "chunk_shots": 10000, "feeds": "the same at 0.35 %"}
+ }
+}
