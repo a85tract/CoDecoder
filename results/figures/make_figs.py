@@ -1,4 +1,4 @@
-"""Data figures of the ConvLines paper, drawn at their printed size as vector PDFs.
+"""Data figures of the CoDecoder paper, drawn at their printed size as vector PDFs.
 
     python results/figures/make_figs.py    (writes the four PDFs below next to this file; about 5 s)
 
@@ -12,7 +12,7 @@ Figs. 1 and 2 are TikZ sources (overview.tex, output_head.tex) that main.tex inp
 make_why_fig.py draws why_pairs_win.pdf and why_class_gap.pdf from the inputs of the analysis of the
 discordant shots.
 
-One visual language: ConvLines vermillion with one marker per mode. Every fallback is blue wherever it appears,
+One visual language: CoDecoder vermillion with one marker per mode. Every fallback is blue wherever it appears,
 alone or in a pair: correlated PM on the surface code, sector and full-DEM Relay-BP on BB codes (and Cascade in
 make_why_fig.py). The other baselines are muted: PM grey, Ising purple, BP-OSD green. Text is serif STIX of at least
 7.5 pt at the printed size, and labels placed away from their markers get a thin leader line.
@@ -43,10 +43,10 @@ plt.rcParams.update({
     "axes.spines.right": False,
 })
 
-CL, FB = "#D55E00", "#0072B2"             # ConvLines, every fallback (correlated PM, both Relay-BP, Cascade)
+CL, FB = "#D55E00", "#0072B2"             # CoDecoder, every fallback (correlated PM, both Relay-BP, Cascade)
 ISP, BPG = "#CC79A7", "#009E73"           # Ising, BP-OSD
 PMC, GRID = "#8C8C8C", "#E6E6E6"          # PM, grid
-MODE = {"fast": "o", "balanced": "D", "accurate": "s"}   # ConvLines' mode markers in every figure
+MODE = {"fast": "o", "balanced": "D", "accurate": "s"}   # CoDecoder's mode markers in every figure
 LEAD = dict(arrowstyle="-", lw=0.45, shrinkA=1.0, shrinkB=2.6)   # leader line from a label to its marker
 
 
@@ -166,7 +166,7 @@ def fig_motivation(path):
     axR.set_ylim(-0.55, len(rows) - 0.45)
     fig.text(0.708, 0.004, "failure rate (%)", ha="center", va="bottom", fontsize=8)
     r2 = [i for i, r in enumerate(rows) if r[0].startswith("gross")][0]
-    axR.annotate("ConvLines", (rows[r2][2][0], r2), xytext=(0, 5), textcoords="offset points", ha="center",
+    axR.annotate("CoDecoder", (rows[r2][2][0], r2), xytext=(0, 5), textcoords="offset points", ha="center",
                  va="bottom", color=CL, fontsize=7.5)
     axR.annotate("fallback", (rows[r2][2][1], r2), xytext=(0, 5), textcoords="offset points", ha="center",
                  va="bottom", color=FB, fontsize=7.5)
@@ -187,10 +187,10 @@ def fig_motivation(path):
 # the network term plus the handoff with nothing routed (descriptive). Our Decoder Switching
 # (speed_rt/s2/gapsw/results/gs_times.csv): the cross is its frozen q with its composite, the curve its test failures at
 # every q >= 1 % of the grid (surface_v2/surf_v2/gapsw/analysis) with the time front end + (q / frozen q) x routed term.
-# One panel per distance, failure rate against composite time, with dotted lines through ConvLines. Every time axis
-# spans SPAN decades from 1.5 times below ConvLines' time, so horizontal distances (time ratios) compare across panels.
+# One panel per distance, failure rate against composite time, with dotted lines through CoDecoder. Every time axis
+# spans SPAN decades from 1.5 times below CoDecoder's time, so horizontal distances (time ratios) compare across panels.
 # BP-OSD (2.2-648 ms) lies beyond every axis and sits at its right edge; the paper's surface table gives its times.
-# d = 9: ConvLines and the network alone come from the second registered test, of a one-block network (public
+# d = 9: CoDecoder and the network alone come from the second registered test, of a one-block network (public
 # repository a85tract/convlines at 68947ee, d9_shallow/results/analysis.json): 11,978 and 18,305 failures in 1,000,000
 # other test shots, 21.234 us (q = 0.06) and 15.305 us (q = 0, network term plus the 1.1 us allowance). PM and
 # correlated PM at d = 9 take that test's counts on the same shots (27,028 and 12,802); the other d = 9 baselines keep
@@ -199,7 +199,7 @@ D = [7, 9, 11, 13, 15, 17]
 N = [2_000_000] + [1_000_000] * 5
 NB = [2_000_000] + [1_000_000] * 3 + [200_000] * 2
 SURF = {  # key: (label, colour, marker, filled, failures per d, shots per d, us per shot per d)
-    "ours": ("ConvLines + correlated PM", CL, MODE["balanced"], True, [31629, 11978, 6887, 5318, 3012, 2180], N,
+    "ours": ("CoDecoder + correlated PM", CL, MODE["balanced"], True, [31629, 11978, 6887, 5318, 3012, 2180], N,
              [11.942, 21.234, 41.482, 51.245, 59.552, 81.579]),   # d = 9: the second registered test (one-block network)
     "cpm": ("correlated PM", FB, "s", True, [35135, 12802, 9252, 6344, 4396, 2973], N,   # d = 9: second test's shots
             [27.598, 63.916, 137.889, 253.071, 562.655, 846.008]),
@@ -284,7 +284,7 @@ def fig_surface(path):
         left = d in (15, 17)   # a centred label would touch BP-OSD's marker at the right edge there
         ax.annotate("$q$ = 1%", (u1, 100 * f1 / n), xytext=(4, 2) if left else (0, 2), textcoords="offset points",
                     fontsize=7.5, ha="right" if left else "center", va="bottom", color=DSW, zorder=6)
-        f, us = NETALONE[d]   # our network alone (q = 0): an open diamond, larger than ConvLines' marker, which it
+        f, us = NETALONE[d]   # our network alone (q = 0): an open diamond, larger than CoDecoder's marker, which it
         # rings at d = 9-13, where the pair routes no shots (its Wilson interval is smaller than the marker)
         ax.plot([us], [100 * f / n], ls="none", marker=MODE["balanced"], ms=7.0, mfc="none", mec=CL, mew=0.8,
                 zorder=6)
@@ -304,7 +304,7 @@ def fig_surface(path):
     hs = [mark(SURF[k][1], SURF[k][2], SURF[k][3], 5.0 if k == "ours" else 4.0) for k in order]
     labs = [SURF[k][0] for k in order]
     hs.insert(0, mark(CL, MODE["balanced"], False, 6.0))
-    labs.insert(0, "ConvLines")
+    labs.insert(0, "CoDecoder")
     hs.insert(6, (mark(ISP, "^", False, 4.0), mark(ISP, "v", False, 4.0)))
     labs.insert(6, "Ising + correlated PM")
     hs.append((Line2D([], [], color=DSW, lw=0.7), mark(DSW, "X", True, 4.4)))
@@ -333,26 +333,26 @@ def fig_surface(path):
 # registered results. Full-DEM Relay-BP at p = 0.2 % is timed by the re-test (52.78 ms, filled marker like the others).
 BB = [  # title, shots, [(key, failures, ms, label, label offset in points, ha, va, leader line)]
     ("BB72, $p$ = 0.3 %", 200000, [
-        ("fast", 1376, 0.090721, "ConvLines, first network", (12, -12), "left", "top", True),
-        ("net2", 1398, 0.089408, "ConvLines, second network", (10, 16), "left", "bottom", True),
-        ("balanced", 1554, 0.414777, "ConvLines + sector Relay-BP", (6, 0), "left", "center", False),
-        ("accurate", 857, 4.8640, "ConvLines + full-DEM Relay-BP", (0, -7), "center", "top", False),
+        ("fast", 1376, 0.090721, "CoDecoder, first network", (12, -12), "left", "top", True),
+        ("net2", 1398, 0.089408, "CoDecoder, second network", (10, 16), "left", "bottom", True),
+        ("balanced", 1554, 0.414777, "CoDecoder + sector Relay-BP", (6, 0), "left", "center", False),
+        ("accurate", 857, 4.8640, "CoDecoder + full-DEM Relay-BP", (0, -7), "center", "top", False),
         ("rb", 2769, 3.3016, "sector Relay-BP", (6, 0), "left", "center", False),
         ("bposd", 3337, 1.8182, "BP-OSD, ldpc", (5, 4), "left", "bottom", False),
         ("gpu", 3342, 0.89085, "BP-OSD,\nCUDA-Q", (-6, 0), "right", "center", False),
         ("fd", 1107, 85.370, "full-DEM Relay-BP", (6, 6), "right", "bottom", False)]),
     ("BB72, $p$ = 0.2 %", 300000, [
-        ("fast", 269, 0.089408, "ConvLines", (-3, -30), "left", "top", True),
-        ("balanced", 297, 0.11685, "ConvLines +\nsector Relay-BP", (6, 3), "left", "bottom", False),
-        ("accurate", 204, 0.42237, "ConvLines +\nfull-DEM Relay-BP", (6, -2), "left", "top", False),
+        ("fast", 269, 0.089408, "CoDecoder", (-3, -30), "left", "top", True),
+        ("balanced", 297, 0.11685, "CoDecoder +\nsector Relay-BP", (6, 3), "left", "bottom", False),
+        ("accurate", 204, 0.42237, "CoDecoder +\nfull-DEM Relay-BP", (6, -2), "left", "top", False),
         ("rb", 767, 1.9866, "sector Relay-BP", (0, -7), "center", "top", False),
         ("bposd", 880, 0.69077, "BP-OSD, ldpc\nand CUDA-Q", (4, 3), "left", "bottom", False),
         ("gpu", 856, 0.53956, "", (0, 0), "left", "center", False),
         ("fd", 288, 52.784, "full-DEM Relay-BP", (-6, 0), "right", "center", False)]),
     ("gross, $p$ = 0.4 %", 150000, [
-        ("fastx", 1024, 0.25548, "ConvLines,\nnot a registered claim", (6, 7), "left", "bottom", True),
-        ("balanced", 407, 20.352, "ConvLines +\nsector Relay-BP", (-6, 0), "right", "center", False),
-        ("accurate", 234, 427.54, "ConvLines +\nfull-DEM Relay-BP", (-6, 0), "right", "center", False),
+        ("fastx", 1024, 0.25548, "CoDecoder,\nnot a registered claim", (6, 7), "left", "bottom", True),
+        ("balanced", 407, 20.352, "CoDecoder +\nsector Relay-BP", (-6, 0), "right", "center", False),
+        ("accurate", 234, 427.54, "CoDecoder +\nfull-DEM Relay-BP", (-6, 0), "right", "center", False),
         ("rb", 733, 127.61, "sector Relay-BP", (-6, 0), "right", "center", False),
         ("bposd", 3646, 114.00, "BP-OSD, ldpc", (6, 0), "left", "center", False),
         ("gpu", 3754, 13.701, "BP-OSD,\nCUDA-Q", (-6, 0), "right", "center", False),
@@ -463,7 +463,7 @@ def fig_frontier(path):
             ax.plot([qreg], [f[j]], "o", ms=7.5, mfc="none", mec="black", mew=0.7, zorder=4)
             x, y, ha, va = L[mode]
             fb = fallback if fallback else ("full-DEM Relay-BP" if mode == "accurate" else "sector Relay-BP")
-            ax.text(x, y, "ConvLines +\n" + fb, fontsize=7.5, ha=ha, va=va, color=CL, linespacing=1.0)
+            ax.text(x, y, "CoDecoder +\n" + fb, fontsize=7.5, ha=ha, va=va, color=CL, linespacing=1.0)
         ax.set_xlim(*xlim)
         ax.set_ylim(*FYLIM[i])
         ax.set_title(title, fontsize=8, pad=3)

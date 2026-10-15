@@ -1,4 +1,4 @@
-# ConvLines: code, weights and records
+# CoDecoder: code, weights and records
 
 This repository holds the artifacts of the paper "A Small Network Makes Quantum Decoders Up to 100× Faster and More
 Accurate" by Yicheng Guang, Yuliang Xiong, Xun Gao and Yueqi Chen (University of Colorado Boulder): the training method,
@@ -7,18 +7,22 @@ the trained networks and the test method, with the records that check every tabl
 [`METHODS.md`](METHODS.md) states how the accuracy and the speed were measured: the shots and their seeds, the decoders
 and their settings, the statistics, what was timed, on which hardware and in which session.
 
-## What ConvLines is
+## What CoDecoder is
 
-We did not invent a new strong decoder. ConvLines is a small network that sits in front of any strong decoder. It
+We did not invent a new strong decoder. CoDecoder is a small network that sits in front of any strong decoder. It
 decodes most shots itself and hands the least confident shots to that decoder. The pair is faster and more accurate
 than the strong decoder alone. The paper shows this in front of each strong decoder it tests: correlated PyMatching on
 the rotated surface code, Relay-BP on all detectors of two bivariate-bicycle codes, and two re-implementations of the
 neural decoder Cascade, one for the BB72 code and one for the surface code at d = 13. The strong decoders are fallbacks
-behind the network, not rivals. As in the paper, ConvLines names the network alone and ConvLines + X its pair with the
-strong decoder X, for example ConvLines + correlated PM.
+behind the network, not rivals. As in the paper, CoDecoder names the network alone and CoDecoder + X its pair with the
+strong decoder X, for example CoDecoder + correlated PM.
+
+CoDecoder was called ConvLines while the experiments ran. The code (`convlines/`, `convlines_train/`), the seed
+tags and the study documents and records keep the old name, because the frozen commands, seeds and sha256
+manifests refer to them.
 
 A quantum error-correction decoder reads the detector bits of one shot (one run of the error-correction circuit) and
-decides which logical flip happened. The decoders that fail least, here called strong decoders, are slow. ConvLines
+decides which logical flip happened. The decoders that fail least, here called strong decoders, are slow. CoDecoder
 decodes every shot and reports a confidence. A shot whose confidence falls below a frozen threshold goes to the strong
 decoder, whose answer replaces the network's. Before any test, the threshold is set on calibration shots so that a
 target fraction q of them is routed; on other shots the routed share differs slightly from q. BB72 at p = 0.2 %, set
@@ -53,7 +57,7 @@ speed-ups above are its sensitivity rows, in which Cascade alone takes its faste
 by more than 3.2 % and changes no outcome (`speed_rt/cascade/results/table.json`). With Cascade compiled by TensorRT,
 every pair still took 2.0 to 15.5 times less time per shot than Cascade alone on its faster engine ([CASCADE-TRT-REG](#cascade-trt-reg-cascade-on-tensorrt)).
 
-On the surface code the registered rule chose q = 0 at d = 11 and 13, so ConvLines alone decided every shot there. At
+On the surface code the registered rule chose q = 0 at d = 11 and 13, so CoDecoder alone decided every shot there. At
 d = 9 the pair is [D9-SHALLOW](#d9-shallow-the-network-at-d--9)'s one-block network with correlated PM at q = 6 %. Against the other
 decoders (plain PM, NVIDIA's Ising pre-decoders Fast and Accurate followed by plain or correlated PM, and two BP-OSD
 settings), the pair was more accurate at every distance (at d = 9 D9-SHALLOW compared it with plain and correlated
@@ -64,8 +68,8 @@ d = 9 the pair took 21.234 µs against plain PM's 26.297 µs. From d = 11 on, pl
 as the pair (1.20 to 1.77 with the deployed networks). These numbers are in `speed_rt/s2/surface/results/table.md`
 (rows S1 and S4), the `ratio` column of `rows.csv` beside it and `d9_shallow/results/table.md`.
 
-On BB72 and the gross code ConvLines runs in three modes (Table I): alone, balanced (ConvLines + sector Relay-BP, which
-decodes one type of check) and accurate (ConvLines + full-DEM Relay-BP); the table above gives the accurate mode. On the Grace basis, CUDA-Q's BP-OSD on the GPU, timed host to host, was the fastest decoder other than ours at all
+On BB72 and the gross code CoDecoder runs in three modes (Table I): alone, balanced (CoDecoder + sector Relay-BP, which
+decodes one type of check) and accurate (CoDecoder + full-DEM Relay-BP); the table above gives the accurate mode. On the Grace basis, CUDA-Q's BP-OSD on the GPU, timed host to host, was the fastest decoder other than ours at all
 three points, and the network alone took less time than it at each: 0.09072 against 0.8909 ms per shot on BB72 at p =
 0.3 %, 0.08941 against 0.5396 ms at 0.2 %, and 0.2555 against 13.70 ms on the gross code, 0.019 of CUDA-Q's time. A pair
 with a fallback is not always faster than CUDA-Q. On the gross code the balanced pair took 20.35 ms per shot against
@@ -396,7 +400,7 @@ for RETEST, run from the repository root.
 
    ```bash
    cd surface_v2
-   gh api 'repos/a85tract/convlines/activity?per_page=100' > activity.json    # one page: under 100 records
+   gh api 'repos/a85tract/CoDecoder/activity?per_page=100' > activity.json    # one page: under 100 records
    jq '.[] | select(.after == "f94f4edb843b4a0b4762c556d79782cf2a2167e2") | {id, activity_type, ref, timestamp}' activity.json
    ```
 
@@ -510,7 +514,7 @@ The earlier surface-code tests also read every timed TensorRT plan for accuracy 
 | `training/` | `convlines_train/` (train and tune a front end for any circuit), the frozen programs that trained the released networks (`surface/`, `bb/`), `TRAINING.md`, `LINEAGE.md` (every network's stages) and the smoke test |
 | `results/` | the surface-code records (`surface/`, with `SURFACE.md`), R17, the d = 17 re-registration (`r17/`), the analysis of the discordant shots (`discordant/`), the paper's figure scripts and figures (`figures/`), and a reproduction on a rented H100 (`reproduction/`) |
 | `bb/` | the BB72 test (`bb72/`), the gross-code tests (`gross/`, `gross_stage4/`), each a frozen code tree with its plans and records, and `BB.md` |
-| `cascade/` | ConvLines in front of our Cascade on BB72 (`bb72/`, with `CASCADE.md`) and on the surface code at d = 13 (`d13/`) |
+| `cascade/` | CoDecoder in front of our Cascade on BB72 (`bb72/`, with `CASCADE.md`) and on the surface code at d = 13 (`d13/`) |
 | `head/` | the output-head comparison: its code, read-out rules, training records and results (`A1_RESULT.md`) |
 | `RETEST.md`, `RETEST_RESULTS.md`, `retest/` | RETEST, the registered re-test on fresh shots: its plan, every re-tested number beside its original, and its beacon and seed code, shims, jobs, checks before the freeze (`retest/replay/`) and records (`retest/run/`) |
 | `surface_v2/` | SURF-v2, the registered test of the retrained surface-code networks: the evaluation package it ran from, with the new networks in `weights/`, and `surf_v2/` with the registrations, their code, the freeze and beacon records and both analyses |
@@ -584,10 +588,10 @@ SPEED-RT, whose outputs the speed entries name ([How the speed was measured](#ho
 
 | paper | what it shows | records | check |
 |---|---|---|---|
-| Fig. 1, Fig. 2 | ConvLines and a strong decoder as a pair; the output-head geometry (diagrams) | | |
+| Fig. 1, Fig. 2 | CoDecoder and a strong decoder as a pair; the output-head geometry (diagrams) | | |
 | Table I | BB codes: failures and composite time | `bb/bb72/ising_compare/data/bb/stage3/` (`results.json`, `results_amendment_S.json`), `bb/gross/ising_compare/data/bb/stage3_gross/`, `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`, RETEST's reruns in `retest/run/bb/`; speed: `speed_rt/s2/bb/results/` (rows B1 to B6) | BB codes; [SPEED-RT](#how-to-verify) |
 | Fig. 3 | surface code: failure rate against composite time per shot, d = 7-17 | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (rows S1 to S4), `speed_rt/s2/gapsw/results/` | surface code; figures; [SPEED-RT](#how-to-verify) |
-| Table II | ConvLines + Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`), RETEST's reruns in `retest/run/`; speed: `speed_rt/cascade/results/` (Cascade alone's fastest process, each pair's slowest) | Cascade; [SPEED-RT](#how-to-verify) |
+| Table II | CoDecoder + Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`), RETEST's reruns in `retest/run/`; speed: `speed_rt/cascade/results/` (Cascade alone's fastest process, each pair's slowest) | Cascade; [SPEED-RT](#how-to-verify) |
 | Table III | the output-head comparison | `head/results/{surface,bb72}/` (`standalone.csv`, `pair_curves.csv`), `head/rule/`, `head/A1_RESULT.md` | output heads |
 | Fig. 4 | where the pairs gain (exploratory) | `results/discordant/` (`X2_RESULT.md`, `data/`) | figures |
 | Fig. 5 | routing frontiers on calibration shots | `results/surface/frontiers/`, `results/r17/policy_d17b5_r787_q08.json`, `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `bb/bb72/ising_compare/data/bb/policies/`, `bb/gross/ising_compare/data/bb/stage3_gross/frontierf_g2_D12k113c10.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md` | figures |
@@ -604,7 +608,7 @@ SPEED-RT, whose outputs the speed entries name ([How the speed was measured](#ho
 | Table XII | provenance of the claims | the plans: `results/r17/PLAN_R17.md`; `bb/bb72/ising_compare/bb/PLAN.md`, `STAGE3_PLAN.md`, `AMENDMENT_S.md`; `bb/gross/ising_compare/bb/STAGE3_GROSS_PLAN.md`; `bb/gross_stage4/ising_compare/bb/STAGE4_GROSS_PLAN.md`; `cascade/bb72/cascade_compare/PHASE_C_PLAN.md`, `phase_d/PHASE_D1_PLAN.md`; `cascade/d13/SURFACE_PLAN.md`; `d9_shallow/PLAN.md`; `cascade_trt_reg/RULES.md`; the test-set manifests in `evaluation/testsets/` | |
 | Table XIII | medians of the shot descriptors (exploratory) | `results/discordant/data/tables.md`, `data/surface/summary.json` | |
 | Fig. 8 | matching's class gap at d = 13 (exploratory) | `results/discordant/data/surface/fig_d13.npz` | figures |
-| Fig. 9 | where ConvLines fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
+| Fig. 9 | where CoDecoder fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
 | Table XIV | names in the paper and in this repository | `weights/networks.csv`, this README | |
 
 ### Weights
@@ -775,11 +779,11 @@ their own licenses.
 ## Citation
 
 ```bibtex
-@misc{guang2026convlines,
+@misc{guang2026codecoder,
   title  = {A Small Network Makes Quantum Decoders Up to 100x Faster and More Accurate},
   author = {Guang, Yicheng and Xiong, Yuliang and Gao, Xun and Chen, Yueqi},
   year   = {2026},
-  note   = {Code, weights and records: \url{https://github.com/a85tract/convlines}}
+  note   = {Code, weights and records: \url{https://github.com/a85tract/CoDecoder}}
 }
 ```
 

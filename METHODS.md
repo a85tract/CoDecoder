@@ -8,7 +8,7 @@ earlier timing sessions.
 
 - A shot is one run of the error-correction circuit. A decoder reads its detector bits and predicts the flip of each
   logical observable.
-- The pair is ConvLines with a strong decoder. The network decodes every shot and gives a confidence; a shot whose
+- The pair is CoDecoder with a strong decoder. The network decodes every shot and gives a confidence; a shot whose
   confidence is below the threshold τ goes to the strong decoder, whose answer replaces the network's. τ is set so that
   a fixed fraction q of calibration shots is routed.
 - A test is registered when its networks, thresholds, test-seed rule and analysis were committed and pushed to GitHub
@@ -114,7 +114,7 @@ statistics with the deployed networks; `results/surface/SURFACE.md` describes th
 - BB72, under a fitted noise model (`depspam_fm`: the uniform noise plus final-measurement flips and depolarizing error
   p after resets and before measurements), chosen to reproduce the failure rates that Cascade's paper reports for
   Tesseract, BP-OSD and Relay-BP (`cascade/bb72/noise_fit/CASCADE_CAL.md`). Our Cascade has 14 blocks of width 512
-  (19,687,937 parameters). In the pair a six-block ConvLines network (841,053 parameters) routes q = 2 % of shots at
+  (19,687,937 parameters). In the pair a six-block CoDecoder network (841,053 parameters) routes q = 2 % of shots at
   p = 0.2 % and 10 % at 0.3 % to it. RETEST drew 11,000,000 and 17,000,000 test shots. Four hypotheses (two p, eager
   and compiled paths) form one Holm family at 0.05; a compiled comparison needs its single-shot and its batched read
   both to be better.

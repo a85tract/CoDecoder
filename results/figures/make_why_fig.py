@@ -27,7 +27,7 @@ import make_figs as mf  # the paper's rcParams, colours and helpers
 
 plt = mf.plt
 BF, ALL = "#4D4D4D", "#9A9A9A"            # both fail, all shots
-CELLS = ((1, "only ConvLines fails", mf.CL), (2, "only correlated PM fails", mf.FB), (3, "both fail", BF))
+CELLS = ((1, "only CoDecoder fails", mf.CL), (2, "only correlated PM fails", mf.FB), (3, "both fail", BF))
 
 
 def wilson(k, n, z=1.96):
@@ -126,7 +126,7 @@ def share_figure(s13, s17, bb):
         mf.plain_log(ax, "x", [1e-2, 1, 100])
         ax.xaxis.set_minor_locator(mf.ticker.LogLocator(base=10, subs=(1.0,), numticks=12))
     axs[0].set_ylim(0, 100)
-    axs[0].set_ylabel("ConvLines' share of\ndiscordant shots (%)", labelpad=2, linespacing=1.0)
+    axs[0].set_ylabel("CoDecoder's share of\ndiscordant shots (%)", labelpad=2, linespacing=1.0)
     out = os.path.join(mf.OUT, "why_pairs_win.pdf")
     fig.savefig(out)
     plt.close(fig)

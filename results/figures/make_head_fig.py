@@ -6,7 +6,7 @@ Failures per million test shots of each pair against the routed fraction q, for 
 comparison: (a) the surface code at d = 9 and p = 0.6 % with correlated PM as the fallback, (b) BB72 at p = 0.3 % with
 full-DEM Relay-BP. Colour and marker name the head, the line style its supervision (solid: the final answer
 alone; dashed: with the line or translate supervision), and the marker fill names the seed (filled: seed 1, hollow:
-seed 2). The visual language is make_figs.py's: STIX serif at 7.5-8 pt, ConvLines' head vermillion, every fallback
+seed 2). The visual language is make_figs.py's: STIX serif at 7.5-8 pt, CoDecoder's head vermillion, every fallback
 blue.
 
 Every number is the re-test's (RETEST_RESULTS.md section 4): retest/run/head/surface/pair_curves.csv and
@@ -32,7 +32,7 @@ plt.rcParams.update({
     "axes.spines.right": False,
 })
 
-CL, FB = "#D55E00", "#0072B2"             # ConvLines' structure-aware head, every fallback
+CL, FB = "#D55E00", "#0072B2"             # CoDecoder's structure-aware head, every fallback
 PO, CE = "#CC79A7", "#009E73"             # pooled head (independent outputs on BB72), centre line
 GRID, INK = "#E6E6E6", "#333333"
 # Okabe-Ito: the four colours pass the dataviz validator (lightness band, chroma floor, all-pairs CVD and the
