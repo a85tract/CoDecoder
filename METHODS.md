@@ -8,7 +8,7 @@ earlier timing sessions.
 
 - A shot is one run of the error-correction circuit. A decoder reads its detector bits and predicts the flip of each
   logical observable.
-- The pair is CoDecoder with a strong decoder. The network decodes every shot and gives a confidence; a shot whose
+- The composition is CoDecoder with a strong decoder. The network decodes every shot and gives a confidence; a shot whose
   confidence is below the threshold τ goes to the strong decoder, whose answer replaces the network's. τ is set so that
   a fixed fraction q of calibration shots is routed.
 - A test is registered when its networks, thresholds, test-seed rule and analysis were committed and pushed to GitHub
@@ -40,7 +40,7 @@ earlier timing sessions.
   at 2026-10-13 02:34:48 UTC (round 6547616), SURF-v2's at 11:49:59 UTC (round 6548726). `README.md` ("Checking a
   registration") checks each step.
 - Failure. A decoder fails on a shot when its predicted logical flip differs from the true one; on BB72 and the gross
-  code, when any of the 12 logical observables is wrong (a block failure). The pair takes the strong decoder's answer
+  code, when any of the 12 logical observables is wrong (a block failure). The composition takes the strong decoder's answer
   on a routed shot and the network's otherwise.
 - Routing. The confidence is |c| for a surface network's output c, and on the BB codes the margin between the two best
   class scores. τ is the q-quantile of the confidence on calibration shots. q and τ (at full float precision) were
@@ -59,7 +59,7 @@ earlier timing sessions.
   two-qubit gates, and measurement and reset flips with probability 2p/3 (`surface_v2/circuits/`, checked by sha256).
 - Shots. Calibration set `sv2cal`: 200,000 per distance (seeds 81,000,000 + 10,000 d + j). Test set `sv2test`:
   2,000,000 at d = 7 and 1,000,000 at each other distance, from the beacon.
-- Decoders, on the same test shots: the new pair (the network retrained on the observable's flip alone, with correlated
+- Decoders, on the same test shots: the new composition (the network retrained on the observable's flip alone, with correlated
   PM as its strong decoder), the network alone, and eight baselines: plain and correlated PyMatching (PM) 2.4.0;
   NVIDIA's pre-decoders Ising M1 (Fast, receptive field 9) and M4 (Accurate, receptive field 13), run by NVIDIA's own
   PyTorch module (fp32, TF32 as NVIDIA's runner sets it) and followed by plain or correlated PM; and BP-OSD from
@@ -73,12 +73,12 @@ earlier timing sessions.
   frozen rule, from the earlier timing sessions (2.8). Frozen: q = 2 % at d = 7, q = 0 at d = 9, 11 and 13 (the
   network decides every shot) and q = 1 % at d = 15 and 17 (`surface_v2/surf_v2/freeze.json`).
 - Statistics. Accuracy against each baseline: McNemar and Newcombe's interval at 97.5 %; "better" when p < 0.025 and the
-  interval lies below zero. Speed against each baseline: the pair's composite time strictly below the baseline's
+  interval lies below zero. Speed against each baseline: the composition's composite time strictly below the baseline's
   registered time, a measured inequality without a statistical test. A distance's claim needs all 16 comparisons to
-  hold, so no multiplicity correction is needed. New against deployed networks, alone and as pairs: McNemar with
+  hold, so no multiplicity correction is needed. New against deployed networks, alone and as compositions: McNemar with
   Holm's correction over the 12 tests of all six distances at 0.05.
 - SURF-v2 judged its speed comparisons on the earlier registered times (2.10). The paper's speed numbers are SPEED-RT's
-  (section 2), under which plain PM is faster than the pair at d = 7 and 9: at those two distances the pair is more
+  (section 2), under which plain PM is faster than the composition at d = 7 and 9: at those two distances the composition is more
   accurate than every baseline but not faster than all of them.
 
 The earlier surface tests (studies 2, 3 and 4 and R17, on test sets T2, T3, T5 and T6) used the same circuits, code and
@@ -114,15 +114,15 @@ statistics with the deployed networks; `results/surface/SURFACE.md` describes th
 - BB72, under a fitted noise model (`depspam_fm`: the uniform noise plus final-measurement flips and depolarizing error
   p after resets and before measurements), chosen to reproduce the failure rates that Cascade's paper reports for
   Tesseract, BP-OSD and Relay-BP (`cascade/bb72/noise_fit/CASCADE_CAL.md`). Our Cascade has 14 blocks of width 512
-  (19,687,937 parameters). In the pair a six-block CoDecoder network (841,053 parameters) routes q = 2 % of shots at
+  (19,687,937 parameters). In the composition a six-block CoDecoder network (841,053 parameters) routes q = 2 % of shots at
   p = 0.2 % and 10 % at 0.3 % to it. RETEST drew 11,000,000 and 17,000,000 test shots. Four hypotheses (two p, eager
   and compiled paths) form one Holm family at 0.05; a compiled comparison needs its single-shot and its batched read
   both to be better.
-- Surface code at d = 13, the circuit of 1.2 at p = 0.6 % and 0.35 %. Our Cascade has 2,531,841 parameters. In the pair
+- Surface code at d = 13, the circuit of 1.2 at p = 0.6 % and 0.35 %. Our Cascade has 2,531,841 parameters. In the composition
   the deployed d = 13 network routes q = 10 % at p = 0.6 % and 1 % at 0.35 % to it. RETEST drew 1,000,000 and
   30,000,000 test shots. The 40 hypotheses (two p, two modes, eight superiority and two non-inferiority tests each)
   form one Holm family at 0.05; non-inferiority is one-sided, with a margin of 10 % of Cascade's failure rate on
-  development shots. At p = 0.6 % the pair was non-inferior to Cascade but not significantly better.
+  development shots. At p = 0.6 % the composition was non-inferior to Cascade but not significantly better.
 - Both read every decoder on one NVIDIA RTX PRO 6000 Blackwell Server Edition; the code refuses other cards. SPEED-RT's
   launchers also admit the H100, for timing only (2.2).
 
@@ -171,7 +171,7 @@ For the surface and BB codes, our composite time per shot is
 
     composite = (a) GPU term + (c) handoff + (b) CPU term on the Grace basis        (per shot)
 
-The GPU term comes from the pod and the CPU term from the workstation, so the stage-2 composites of our pairs, and
+The GPU term comes from the pod and the CPU term from the workstation, so the stage-2 composites of our compositions, and
 Ising's with its PM share, are not measured end to end. CUDA-Q's BP-OSD is measured end to end: host to host on the pod,
 its OSD's host work included (2.3). NVIDIA's Ising paper (arXiv 2604.12841 v1, Section VI.3) estimates the transfer of
 syndrome data between the pre-decoder on the GB300 GPU and PyMatching on the Grace CPU with NVIDIA's NVQLink
@@ -192,7 +192,7 @@ transfers disabled. We use the same setting and keep our host-side handoff in ev
   round trip of one shot's copies, 16.9 to 19.5 µs, is the transfer: it is left out, as in NVIDIA's setting, and
   published beside each composite (`speed_rt/s2/bb/results/numbers.json`, `pairs`). Adding 19.5 µs to every BB composite
   would change no verdict: the smallest margin of a comparison that holds against CUDA-Q is 117 µs (BB72, p = 0.2 %,
-  the accurate pair).
+  the accurate composition).
 - (b) CPU term: the fallback on the routed shots, timed on the workstation one shot at a time, single-threaded and
   pinned (50 untimed warm-up decodes, then `perf_counter` around each decode). The term is the sum of the routed shots'
   times over the number of timing shots, that is, the routed fraction times the mean time of a routed shot, put on the
@@ -223,7 +223,7 @@ transfers disabled. We use the same setting and keep our host-side handoff in ev
 | BP-OSD (min-LLR and BP 60), surface | CUDA-Q QEC 0.8.0 at batch one, 200 host-to-host calls on chunk 0, the fastest of three repetitions, with the pod's host CPU | pod | as measured |
 | sector and full-DEM Relay-BP, ldpc BP-OSD, BB | one decode call per shot on the first shots of timing chunk 0 (2.4), the fastest of three fresh processes | workstation | Grace |
 | CUDA-Q BP-OSD, BB | `nv-qldpc-decoder` at batch one, host to host, its OSD on the pod's host pinned to the timed core, the fastest of three processes | pod | as measured |
-| Cascade alone | in the same job and loop as the pairs, on the same card, the slowest of three processes | each card | as measured |
+| Cascade alone | in the same job and loop as the compositions, on the same card, the slowest of three processes | each card | as measured |
 | gap switching | 2.2; each term the fastest of three processes | workstation | Grace |
 
 The decoders' settings are those of section 1: Relay-BP's `RelayDecoderF32` with 80 pre-iterations and 300 sets of 60
@@ -240,11 +240,11 @@ iterations, or 60 iterations (`STAGE2_bb.md` 1.2 and section 1.2).
 | surface BP-OSD | 200 calls on chunk 0 |
 | BB72 sector Relay-BP and ldpc BP-OSD | the first 10,000 shots of chunk 0, at each p |
 | BB72 full-DEM Relay-BP | the first 2,000 shots of chunk 0, at each p |
-| BB72 pairs' CPU terms | timed, for both pairs: the first 1,000 of 3,886 routed shots at p = 0.3 % and all 740 routed shots at p = 0.2 % (`speed_rt/s2/bb/results/numbers.json`, `pairs`, `slowest_cpu_process`); registered caps: the first 1,000 routed shots (balanced at both p, accurate at p = 0.3 %) and the first 5,000 (accurate at p = 0.2 %); routed fractions over 200,000 (p = 0.3 %) and 300,000 (p = 0.2 %) timing shots |
+| BB72 compositions' CPU terms | timed, for both compositions: the first 1,000 of 3,886 routed shots at p = 0.3 % and all 740 routed shots at p = 0.2 % (`speed_rt/s2/bb/results/numbers.json`, `pairs`, `slowest_cpu_process`); registered caps: the first 1,000 routed shots (balanced at both p, accurate at p = 0.3 %) and the first 5,000 (accurate at p = 0.2 %); routed fractions over 200,000 (p = 0.3 %) and 300,000 (p = 0.2 %) timing shots |
 | gross code sector Relay-BP | the first 1,000 shots of chunk 0 |
 | gross code ldpc BP-OSD | the first 500 shots of chunk 0, cut from 1,000 |
 | gross code full-DEM Relay-BP | the first 75 shots of chunk 0, cut from 300 |
-| gross code pairs' CPU terms | the first 300 of 1,443 routed shots (balanced, cut from 1,000) and the first 25 of 2,998 (accurate, cut from 100); routed fractions over 150,000 timing shots |
+| gross code compositions' CPU terms | the first 300 of 1,443 routed shots (balanced, cut from 1,000) and the first 25 of 2,998 (accurate, cut from 100); routed fractions over 150,000 timing shots |
 | Decoder Switching | 50,000 shots per distance (5 chunks), cut from 200,000 |
 | Cascade | single mode 20,000 shots after 200 untimed ones; batched mode 500,000 shots |
 
@@ -345,7 +345,7 @@ Ising's accuracy comes from SURF-v2's reads with NVIDIA's PyTorch numerics, so n
 - A Grace-basis number is an estimate; we have no GH200 or GB300, and nothing ran on a Grace CPU. Every raw time is
   published beside its converted value, and every verdict is computed on the raw basis as well, as a sensitivity check
   that decides nothing: 45 of 48 surface comparisons hold for each network set on the raw basis (row S4x), and the gross
-  code's balanced pair takes 13.57 ms against CUDA-Q's 13.70 ms (`speed_rt/s2/bb/results/numbers.json`,
+  code's balanced composition takes 13.57 ms against CUDA-Q's 13.70 ms (`speed_rt/s2/bb/results/numbers.json`,
   `sensitivity_raw_xeon`).
 
 ### 2.8 What SPEED-RT left out, and its deviations
