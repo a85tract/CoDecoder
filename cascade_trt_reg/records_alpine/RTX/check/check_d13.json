@@ -1,0 +1,102 @@
+{
+ "net": "d13",
+ "ckpt_sha256": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659",
+ "kind": 12,
+ "chunks": [
+  10,
+  20
+ ],
+ "batch": 16,
+ "n1": 20000,
+ "trt": {
+  "b1": {
+   "trt": "10.16.1.11",
+   "cuda_graph": true,
+   "capture": "torch",
+   "graph_error": null
+  },
+  "bB": {
+   "trt": "10.16.1.11",
+   "cuda_graph": true,
+   "capture": "torch",
+   "graph_error": null
+  }
+ },
+ "processes": "one per engine",
+ "p": {
+  "0.006": {
+   "bB": {
+    "shots": 100000,
+    "decisions_differ": 11,
+    "agreement": 0.99989,
+    "fail_compiled": 481,
+    "fail_trt": 480,
+    "only_compiled_fails": 6,
+    "only_trt_fails": 5,
+    "mcnemar_exact_p": 1.0,
+    "max_abs_diff_logit": 3.65625,
+    "mean_abs_diff": 0.04643413424491882
+   },
+   "b1": {
+    "shots": 20000,
+    "decisions_differ": 0,
+    "agreement": 1.0,
+    "fail_compiled": 90,
+    "fail_trt": 90,
+    "only_compiled_fails": 0,
+    "only_trt_fails": 0,
+    "mcnemar_exact_p": 1.0,
+    "max_abs_diff_logit": 3.25,
+    "mean_abs_diff": 0.04866727441549301
+   },
+   "shots_sha256": "5e6e3b292f638de5fa08659ab75be0e4c8830e94e8e185ca8136ce7ae3137561"
+  },
+  "0.0035": {
+   "bB": {
+    "shots": 100000,
+    "decisions_differ": 0,
+    "agreement": 1.0,
+    "fail_compiled": 8,
+    "fail_trt": 8,
+    "only_compiled_fails": 0,
+    "only_trt_fails": 0,
+    "mcnemar_exact_p": 1.0,
+    "max_abs_diff_logit": 4.25,
+    "mean_abs_diff": 0.05217587947845459
+   },
+   "b1": {
+    "shots": 20000,
+    "decisions_differ": 0,
+    "agreement": 1.0,
+    "fail_compiled": 2,
+    "fail_trt": 2,
+    "only_compiled_fails": 0,
+    "only_trt_fails": 0,
+    "mcnemar_exact_p": 1.0,
+    "max_abs_diff_logit": 3.3125,
+    "mean_abs_diff": 0.05628076195716858
+   },
+   "shots_sha256": "b371567546bc3e10079d03ab5f030888fc88bed5146169dde8e677ff599dd274"
+  }
+ },
+ "total_bB": {
+  "shots": 200000,
+  "decisions_differ": 11,
+  "fail_compiled": 489,
+  "fail_trt": 488,
+  "only_compiled_fails": 6,
+  "only_trt_fails": 5,
+  "agreement": 0.999945,
+  "mcnemar_exact_p": 1.0
+ },
+ "total_b1": {
+  "shots": 40000,
+  "decisions_differ": 0,
+  "fail_compiled": 92,
+  "fail_trt": 92,
+  "only_compiled_fails": 0,
+  "only_trt_fails": 0,
+  "agreement": 1.0,
+  "mcnemar_exact_p": 1.0
+ }
+}

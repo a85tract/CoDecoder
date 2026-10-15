@@ -55,7 +55,8 @@ way. A Cascade time is measured end to end on one card, with the pair and Cascad
 time and in batches. Stage 1's registered analysis took the slowest of three processes on both sides; the Cascade
 speed-ups above are its sensitivity rows, in which Cascade alone takes its fastest process. This lowers no speed-up
 by more than 3.2 % and changes no outcome (`speed_rt/cascade/results/table.json`). With Cascade compiled by TensorRT,
-every pair still took 2.0 to 15.5 times less time per shot than Cascade alone on its faster engine ([CASCADE-TRT-REG](#cascade-trt-reg-cascade-on-tensorrt)).
+every pair the frozen analysis could compare still took 2.3 to 16.3 times less time per shot than Cascade alone on its
+faster engine ([CASCADE-TRT-REG](#cascade-trt-reg-cascade-on-tensorrt)).
 
 On the surface code the registered rule chose q = 0 at d = 11 and 13, so CoDecoder alone decided every shot there. At
 d = 9 the pair is [D9-SHALLOW](#d9-shallow-the-network-at-d--9)'s one-block network with correlated PM at q = 6 %. Against the other
@@ -337,21 +338,26 @@ the records.
 CASCADE-TRT-REG (`cascade_trt_reg/RULES.md`) re-timed every Cascade comparison of stage 1 with Cascade on the faster
 of two engines, stage 1's compiled path and a TensorRT 10.16.1.11 engine (BF16, builder level 3) in a CUDA graph. It
 timed Cascade alone on both engines, three fresh processes each, on an H100 80GB HBM3 SXM and on an RTX PRO 6000
-Blackwell Server Edition, and ran each pair on the engine with the lower Cascade-alone time. A pair is the slowest of
-its three processes and Cascade alone the fastest of its three. The paper's appendix "Our Cascades on TensorRT"
-reports it.
+Blackwell Server Edition of the cluster's partition `artxpro6000`, the host its rules name, and ran each pair on the
+engine with the lower Cascade-alone time. A pair is the slowest of its three processes and Cascade alone the fastest
+of its three. The paper's appendix "Our Cascades on TensorRT" reports it.
 
-- TensorRT ran Cascade alone 3.1 to 4.7 times faster per single shot on BB72 and 1.3 to 1.5 times faster at d = 13.
+- TensorRT ran Cascade alone 3.1 to 4.7 times faster per single shot on BB72 and 1.3 to 1.4 times faster at d = 13.
   In batches it ran the d = 13 Cascade 1.8 and 1.1 times faster on the two cards and the BB72 Cascade at batch 4,096
   slower, so the batched BB72 comparisons keep the compiled path.
-- Every pair still took less time than Cascade alone on its faster engine: per single shot 2.05 to 4.03 times less on
-  the RTX PRO 6000 and 2.38 to 4.33 times less on the H100, and in batches 3.08 to 15.57 and 2.42 to 8.16 times less.
+- Every pair still took less time than Cascade alone on its faster engine: per single shot 2.53 to 4.20 times less on
+  the RTX PRO 6000 and 2.38 to 4.33 times less on the H100, and in batches 3.15 to 16.36 and 2.42 to 8.16 times less.
+- The frozen analysis withholds the three RTX single-shot comparisons at p = 0.3 %, because some of Cascade alone's
+  three TensorRT processes were not established within three attempts (two of the three for the comparisons with the
+  six-block network, one of the three for the three-block network).
 - The engines decide alike: on fresh shots at most 47 of 200,000 batched decisions differ, the failure counts differ
   by at most 3 per comparison, and every exact McNemar p is at least 0.375.
 
-Its registration is in the table of the next section. `cascade_trt_reg/RESULTS.md` and `cascade_trt_reg/results/`
-(`tables.md`, `numbers.json`) give the results by card, the decision checks and the engines' sha256; the frozen
-analysis ran twice on the records with byte-identical outputs.
+Its registration is in the table of the next section. `cascade_trt_reg/RESULTS.md`, `cascade_trt_reg/results_alpine/`
+(`tables.md`, `numbers.json`) and `cascade_trt_reg/records_alpine/` give the results by card, the decision checks and
+the engines' sha256; the frozen analysis ran twice on the records with byte-identical outputs. An earlier RTX PRO 6000
+session on rented RunPod pods, run while the cluster had no free card, stays published in `cascade_trt_reg/records/`
+and `cascade_trt_reg/results/`; the paper does not use it.
 
 ## Registered tests and how to verify them
 
@@ -602,7 +608,7 @@ SPEED-RT, whose outputs the speed entries name ([How the speed was measured](#ho
 | Table VII | decoder settings and timing | the settings in `evaluation/convlines/opponents.py`, `bb/bb72/ising_compare/bb/opp.py` and `route.py`, `cascade/bb72/cascade_compare/phase_c/pc_common.py`, `cascade/d13/surface/sv_common.py`; the timing in `speed_rt/SPEED_RT.md` section 1, `STAGE2_surface.md` and `STAGE2_bb.md` | |
 | Table VIII | the speed-ups of Table II from mean times | `speed_rt/cascade/results/numbers.json` (every repetition) | |
 | Table IX | the first registered test with our Cascade on BB72 | `cascade/bb72/cascade_compare/phase_c/` (`RESULTS.md`, `out/confirm_*.json`, `out/report/`); speed: `speed_rt/cascade/results/` | Cascade |
-| Table X | the registered speed re-test with Cascade on TensorRT | `cascade_trt_reg/results/` (`tables.md`, `numbers.json`), `cascade_trt_reg/RESULTS.md` | |
+| Table X | the registered speed re-test with Cascade on TensorRT | `cascade_trt_reg/results_alpine/` (`tables.md`, `numbers.json`), `cascade_trt_reg/RESULTS.md` | |
 | Fig. 7 | failures of each output-head arm's pair against q | `head/results/{surface,bb72}/pair_curves.csv` | figures |
 | Table XI | every comparison of the output-head study | `head/results/{surface,bb72}/comparisons.csv` | output heads |
 | Table XII | provenance of the claims | the plans: `results/r17/PLAN_R17.md`; `bb/bb72/ising_compare/bb/PLAN.md`, `STAGE3_PLAN.md`, `AMENDMENT_S.md`; `bb/gross/ising_compare/bb/STAGE3_GROSS_PLAN.md`; `bb/gross_stage4/ising_compare/bb/STAGE4_GROSS_PLAN.md`; `cascade/bb72/cascade_compare/PHASE_C_PLAN.md`, `phase_d/PHASE_D1_PLAN.md`; `cascade/d13/SURFACE_PLAN.md`; `d9_shallow/PLAN.md`; `cascade_trt_reg/RULES.md`; the test-set manifests in `evaluation/testsets/` | |

@@ -7,6 +7,29 @@ the lower Cascade-alone time. Abbreviations: compiled = stage 1's registered pat
 TensorRT = a TensorRT 10.16.1.11 engine (BF16, builder level 3) in a CUDA graph; us = microseconds; single = batch 1
 with the host round trip; batched = the registered batch sizes (BB72 4,096, d = 13 16).
 
+## The cluster's RTX PRO 6000 session (added after the results below)
+
+The paper's RTX PRO 6000 numbers come from a session on the cluster's partition `artxpro6000`, the host the rules
+name. The authors queued it again at 13:53 PDT, while the rented pods ran, with B's job body `run/ctrt_rtx.sh` and
+`--nice=0` in place of its `--nice=1000` (queue priority only). At 15:58, while its first round ran and before any of
+its records were analysed, they set the records aside until they decided. They decided to use them after the results
+below were published, the session had ended and the frozen analysis had been run once on its records.
+
+The session ran B's run code with B's seeds on node `gpu-node-06` (driver 590.48.01), one Slurm job per step on one
+whole card, between 15:30 and 16:48 PDT: the engines in AJ42, R4 in AJ43 (48 of 48 slots established), then R1 in AJ44
+(70 of 72), R2 in AJ45 (47 of 48) and the decision check with the build records in AJ46, these three at the same time
+on the node's other cards. The frozen analysis withholds the three comparisons whose TensorRT Cascade-alone slots were
+not all established within their three attempts: R1 at p = 0.3 % single, S = base and S = new (two of the three slots
+not established), and R2 at p = 0.3 % single (one of the three). Nothing was re-run or replaced.
+
+`records_alpine/` holds that session's records (`RTX/`, with the five job logs and the venv's `pip_freeze.txt`) and a
+byte-identical copy of `records/H100/` (`H100/`). `results_alpine/` holds the outputs of `run/analysis_ctrt.py` on
+`records_alpine/`: run twice, byte-identical, and once on the raw records with the same output (`numbers.json` sha256
+1c6885873bc30e2fc80fd7eada717be1c17e3a0bee97d128c6bc139ee7c5e8c9, `tables.md`
+2506e3e3ed9cafab943e80dffc94aae59290c574e340bd9fb11872894ca10619). The paper reports the H100 and this session. The
+rented pod's RTX PRO 6000 session described below stays published in `records/` and `results/`, and the paper does not
+use it.
+
 ## Outcome
 
 On both cards, in both modes and at every p, every pair stays faster than Cascade alone on Cascade's faster engine.
