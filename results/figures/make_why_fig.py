@@ -7,7 +7,9 @@ DATA_DIR (default results/discordant/data) holds the inputs of the exploratory a
 
   surface/fig_d13.npz  sha256 df3846aff25c6dc100eef9c182cd78ae7bd143d2a2c26ca22d7b6f42ce894d95
   surface/fig_d17.npz  sha256 fe37940a8c02226abaeae3ec8e787efd2d4fd6ae9229fd8bbd7be7615ff68387
-  bb/fig.npz           sha256 7fbe367b312155d0105828b80bbafb076113f4b03e2d13128a0be484078e2ec3
+  bb/fig.npz           sha256 7fbe367b312155d0105828b80bbafb076113f4b03e2d13128a0be484078e2ec3 (the first Cascade read)
+The BB panel of why_pairs_win.pdf reads RETEST's re-read in front of our Cascade, as the paper does:
+  retest/run/d1/x2/bb/fig.npz  sha256 287a96dce98d5e808bab8eab9de027481a07295e7b00735f456c08fc5d2174ca
 
 The panels redraw two figures of results/discordant/figures.py in the paper's style. why_pairs_win.pdf (Section VII) shows
 the share of the discordant shots that the network fails, against its confidence (x2_who_fails), with the same bins
@@ -25,7 +27,7 @@ import make_figs as mf  # the paper's rcParams, colours and helpers
 
 plt = mf.plt
 BF, ALL = "#4D4D4D", "#9A9A9A"            # both fail, all shots
-CELLS = ((1, "only the network fails", mf.CL), (2, "only correlated PM fails", mf.FB), (3, "both fail", BF))
+CELLS = ((1, "only ConvLines fails", mf.CL), (2, "only correlated PM fails", mf.FB), (3, "both fail", BF))
 
 
 def wilson(k, n, z=1.96):
@@ -93,7 +95,7 @@ def share_figure(s13, s17, bb):
     """why_pairs_win.pdf (Section VII): the network's share of the discordant shots against its confidence, in front
     of correlated PM on the surface code (a) and of our Cascade on BB72 (b)."""
     fig, axs = plt.subplots(1, 2, figsize=(mf.COL, 1.95), sharey=True)
-    fig.subplots_adjust(left=0.14, right=0.985, top=0.885, bottom=0.215, wspace=0.1)
+    fig.subplots_adjust(left=0.14, right=0.96, top=0.885, bottom=0.215, wspace=0.2)
     panels = ((axs[0], [(s13["pct_nf"], s13["pct_mf"], float(s13["tau_pct"]), 4, "-", "$d$ = 13"),
                         (s17["pct_nf"], s17["pct_mf"], float(s17["tau_pct"]), 4, "--", "$d$ = 17")],
                "(a) surface code"),
@@ -124,7 +126,7 @@ def share_figure(s13, s17, bb):
         mf.plain_log(ax, "x", [1e-2, 1, 100])
         ax.xaxis.set_minor_locator(mf.ticker.LogLocator(base=10, subs=(1.0,), numticks=12))
     axs[0].set_ylim(0, 100)
-    axs[0].set_ylabel("network's share of\ndiscordant shots (%)", labelpad=2, linespacing=1.0)
+    axs[0].set_ylabel("ConvLines' share of\ndiscordant shots (%)", labelpad=2, linespacing=1.0)
     out = os.path.join(mf.OUT, "why_pairs_win.pdf")
     fig.savefig(out)
     plt.close(fig)
@@ -134,7 +136,7 @@ def share_figure(s13, s17, bb):
 def main(data):
     s13 = np.load(os.path.join(data, "surface", "fig_d13.npz"))
     s17 = np.load(os.path.join(data, "surface", "fig_d17.npz"))
-    bb = np.load(os.path.join(data, "bb", "fig.npz"))
+    bb = np.load(os.path.join(os.path.dirname(os.path.dirname(mf.OUT)), "retest", "run", "d1", "x2", "bb", "fig.npz"))
     share_figure(s13, s17, bb)
     gap_figure(s13)
 

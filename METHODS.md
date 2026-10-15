@@ -320,9 +320,10 @@ Ising's accuracy comes from SURF-v2's reads with NVIDIA's PyTorch numerics, so n
   GPU terms of the surface networks and of BB72's, three for the gross code's; for the surface handoff, the largest of
   five at d = 7 and one process at d = 9 to 17), and every baseline the fastest of its three; there are no medians.
   Ising's GPU term is the exception: it is the smallest accepted repetition across all validated plans and both timing
-  methods (2.5), which favours Ising. Stage 1 (`SPEED_RT.md` 1.7): the slowest of three on both sides, the paper's
-  statistic for Cascade, with sensitivity rows that repeat every comparison with Cascade's fastest process and decide
-  nothing.
+  methods (2.5), which favours Ising. Stage 1 (`SPEED_RT.md` 1.7): the registered analysis takes the slowest of three on
+  both sides, with sensitivity rows that repeat every comparison with Cascade's fastest process. The paper reports the
+  sensitivity rows, so that every comparison times our side by its slowest process and the baseline by its fastest;
+  they lower no speed-up by more than 3.2 % and change no outcome.
 - "X takes less time than Y" holds when X's value is strictly below Y's, on the Grace basis for CPU parts. There is no
   statistical test. Speed-up = the baseline's time over ours. Ranges and ratios of times in the prose are rounded
   against us: our times, and our time as a fraction of another decoder's, up; the other decoders' times, and speed-ups

@@ -14,7 +14,8 @@ decodes most shots itself and hands the least confident shots to that decoder. T
 than the strong decoder alone. The paper shows this in front of each strong decoder it tests: correlated PyMatching on
 the rotated surface code, Relay-BP on all detectors of two bivariate-bicycle codes, and two re-implementations of the
 neural decoder Cascade, one for the BB72 code and one for the surface code at d = 13. The strong decoders are fallbacks
-behind the network, not rivals.
+behind the network, not rivals. As in the paper, ConvLines names the network alone and ConvLines + X its pair with the
+strong decoder X, for example ConvLines + correlated PM.
 
 A quantum error-correction decoder reads the detector bits of one shot (one run of the error-correction circuit) and
 decides which logical flip happened. The decoders that fail least, here called strong decoders, are slow. ConvLines
@@ -27,17 +28,19 @@ flips of many shifted copies of the logical operators and decides all logical qu
 
 ## What the paper shows
 
-The accuracy numbers come from the two newest registered tests, SURF-v2 for the surface code and RETEST for the BB
-codes, Cascade and the output heads. Every speed number comes from SPEED-RT, the registered speed re-test ([How the
-speed was measured](#how-the-speed-was-measured-speed-rt)). The table compares each pair with its own strong decoder
-alone. Speed-ups are rounded down.
+The accuracy numbers come from the newest registered tests: SURF-v2 for the surface code, with [D9-SHALLOW](#d9-shallow-the-network-at-d--9) at
+d = 9, and RETEST for the BB codes, Cascade and the output heads. Every speed number comes from SPEED-RT, the
+registered speed re-test ([How the speed was measured](#how-the-speed-was-measured-speed-rt)), except the pair at
+d = 9, which D9-SHALLOW timed in its own registered session. Every comparison times the pair by its slowest process
+and the strong decoder alone by its fastest. The table compares each pair with its own strong decoder alone.
+Percentages and speed-ups are rounded down.
 
 | strong decoder behind the network | code and noise | the pair's failures against the strong decoder alone | the strong decoder's time per shot over the pair's |
 |---|---|---|---|
-| correlated PyMatching (PM) | rotated surface code, d = 7 to 17, p = 0.6 % | 10 % to 31 % fewer (SURF-v2) | 2.2 to 10.3 (SPEED-RT stage 2) |
-| Relay-BP on all detectors (full-DEM Relay-BP) | BB72 [[72,12,6]] at p = 0.3 % and 0.2 %, the gross code [[144,12,12]] at p = 0.4 % | 23 %, 29 % and 50 % fewer (RETEST) | 17.5, 124.9 and 8.9 (stage 2) |
-| our Cascade for BB72 | BB72 under a fitted noise model, p = 0.2 % and 0.3 % | 1.1 % and 0.3 % fewer, each significant (RETEST) | 5.1 to 16.3 on an RTX PRO 6000, 3.1 to 9.2 on an H100 (stage 1) |
-| our Cascade for the surface code | d = 13, p = 0.35 % and 0.6 % | 1.2 % to 1.3 % fewer at 0.35 %, each significant; 0.4 % fewer at 0.6 %, non-inferior but not significantly better (RETEST) | 3.6 to 7.6 on the RTX PRO 6000, 3.3 to 7.2 on the H100 (stage 1) |
+| correlated PyMatching (PM) | rotated surface code, d = 7 to 17, p = 0.6 % | 6.4 % to 31.4 % fewer (SURF-v2; D9-SHALLOW at d = 9) | 2.3 to 10.3 (SPEED-RT stage 2; D9-SHALLOW at d = 9) |
+| Relay-BP on all detectors (full-DEM Relay-BP) | BB72 [[72,12,6]] at p = 0.3 % and 0.2 %, the gross code [[144,12,12]] at p = 0.4 % | 22 %, 29 % and 50 % fewer (RETEST) | 17.5, 124.9 and 8.9 (stage 2) |
+| our Cascade for BB72 | BB72 under a fitted noise model, p = 0.2 % and 0.3 % | 1.1 % and 0.3 % fewer, each significant (RETEST) | 5.1 to 16.3 on an RTX PRO 6000, 3.1 to 9.1 on an H100 (stage 1) |
+| our Cascade for the surface code | d = 13, p = 0.35 % and 0.6 % | 1.2 % to 1.3 % fewer at 0.35 %, each significant; 0.4 % fewer at 0.6 %, non-inferior but not significantly better (RETEST) | 3.6 to 7.6 on the RTX PRO 6000, 3.3 to 7.1 on the H100 (stage 1) |
 
 The speed column comes from `speed_rt/s2/surface/results/table.md` (row S2, SURF-v2's networks),
 `speed_rt/s2/bb/results/table.json` (row B5) and `speed_rt/cascade/results/verdicts.json` (claim H3-cascade, whose
@@ -45,20 +48,24 @@ twelve comparisons are rows C1, C2 and C8 of `table.json`). On the surface and B
 the network's time on an H100 GPU, plus the handoff, plus the strong decoder's time on the routed shots, measured on one
 CPU core and converted to one core of NVIDIA's Grace CPU; the strong decoder alone is measured and converted the same
 way. A Cascade time is measured end to end on one card, with the pair and Cascade alone in the same job, one shot at a
-time and in batches.
+time and in batches. Stage 1's registered analysis took the slowest of three processes on both sides; the Cascade
+speed-ups above are its sensitivity rows, in which Cascade alone takes its fastest process. This lowers no speed-up
+by more than 3.2 % and changes no outcome (`speed_rt/cascade/results/table.json`). With Cascade compiled by TensorRT,
+every pair still took 2.0 to 15.5 times less time per shot than Cascade alone on its faster engine ([CASCADE-TRT-REG](#cascade-trt-reg-cascade-on-tensorrt)).
 
-On the surface code the registered rule chose q = 0 at d = 9, 11 and 13, so the network alone decided every shot there.
-Against the other decoders of SURF-v2 (plain PM, NVIDIA's Ising pre-decoders Fast and Accurate followed by plain or
-correlated PM, and two BP-OSD settings), the pair was more accurate at every distance. It was also faster than each of
-them at every distance except against plain PM at d = 7 and 9, where the pair took 11.942 and 28.927 µs per shot and
-plain PM 11.890 and 26.297 µs, so plain PM took 0.995 and 0.909 of the pair's time. With the deployed networks, which
-SPEED-RT timed as well, the pair took 12.480 and 29.977 µs, and plain PM 0.952 and 0.877 of that. From d = 11 on, plain
-PM took 1.25 to 2.97 times as long as the pair (1.20 to 1.77 with the deployed networks). These numbers are in
-`speed_rt/s2/surface/results/table.md` (rows S1 and S4) and in the `ratio` column of `rows.csv` beside it.
+On the surface code the registered rule chose q = 0 at d = 11 and 13, so ConvLines alone decided every shot there. At
+d = 9 the pair is [D9-SHALLOW](#d9-shallow-the-network-at-d--9)'s one-block network with correlated PM at q = 6 %. Against the other
+decoders (plain PM, NVIDIA's Ising pre-decoders Fast and Accurate followed by plain or correlated PM, and two BP-OSD
+settings), the pair was more accurate at every distance (at d = 9 D9-SHALLOW compared it with plain and correlated
+PM on its own shots; the other decoders' d = 9 counts are SURF-v2's). It was also faster than each of them at every distance
+except against plain PM at d = 7, where the pair took 11.942 µs per shot and plain PM 11.890 µs, 0.995 of the pair's
+time (with the deployed network, which SPEED-RT timed as well, the pair took 12.480 µs and plain PM 0.952 of that). At
+d = 9 the pair took 21.234 µs against plain PM's 26.297 µs. From d = 11 on, plain PM took 1.25 to 2.97 times as long
+as the pair (1.20 to 1.77 with the deployed networks). These numbers are in `speed_rt/s2/surface/results/table.md`
+(rows S1 and S4), the `ratio` column of `rows.csv` beside it and `d9_shallow/results/table.md`.
 
-On BB72 and the gross code the network runs in three modes (Table I): alone, balanced (with sector Relay-BP, which
-decodes one type of check, as the fallback) and accurate (with full-DEM Relay-BP); the table above gives the accurate
-mode. On the Grace basis, CUDA-Q's BP-OSD on the GPU, timed host to host, was the fastest decoder other than ours at all
+On BB72 and the gross code ConvLines runs in three modes (Table I): alone, balanced (ConvLines + sector Relay-BP, which
+decodes one type of check) and accurate (ConvLines + full-DEM Relay-BP); the table above gives the accurate mode. On the Grace basis, CUDA-Q's BP-OSD on the GPU, timed host to host, was the fastest decoder other than ours at all
 three points, and the network alone took less time than it at each: 0.09072 against 0.8909 ms per shot on BB72 at p =
 0.3 %, 0.08941 against 0.5396 ms at 0.2 %, and 0.2555 against 13.70 ms on the gross code, 0.019 of CUDA-Q's time. A pair
 with a fallback is not always faster than CUDA-Q. On the gross code the balanced pair took 20.35 ms per shot against
@@ -85,8 +92,10 @@ and has no verdict (`speed_rt/s2/gapsw/results/gs_tables.md`).
 Most tests were registered: the networks, thresholds, test sets and analyses were fixed before the test shots existed,
 and each test set was drawn once and read once. The three newest registrations fixed in advance that the paper reports
 their numbers, whatever they turned out to be, in place of the earlier ones (`RETEST.md` section 5,
-`surface_v2/surf_v2/REGISTRATION.md` "The paper's rows", `speed_rt/SPEED_RT.md`). The original tests and the earlier
-timing sessions stay in this repository with their plans and records.
+`surface_v2/surf_v2/REGISTRATION.md` "The paper's rows", `speed_rt/SPEED_RT.md`). D9-SHALLOW (`d9_shallow/PLAN.md`)
+fixed in advance that its pair becomes the paper's d = 9 row if its claim holds, and CASCADE-TRT-REG
+(`cascade_trt_reg/RULES.md`) fixed its engines, rules and analysis before any of its timing shots existed. The
+original tests and the earlier timing sessions stay in this repository with their plans and records.
 
 ## How the speed was measured: SPEED-RT
 
@@ -198,9 +207,12 @@ after an earlier host that holds the raw basis). GPU terms, handoffs and CUDA-Q'
   medians (`STAGE2_common.md` C6). Ising's GPU term is the exception: it is the smallest accepted repetition across all
   validated plans and both timing methods (`STAGE2_surface.md` 1.13; [`METHODS.md`](METHODS.md) section 2.5), which
   favours Ising. The Grace reference points take the slowest of three, which gives the smaller factor.
-- Stage 1: the slowest of three on both sides, as the paper's Cascade method did. Sensitivity rows repeat every Cascade
-  comparison with Cascade's fastest process and decide nothing; the lowest speed-up is then 3.63 on the RTX PRO 6000
-  and 3.17 on the H100 (`speed_rt/cascade/results/table.json`).
+- Stage 1: the registered analysis takes the slowest of three on both sides. Its sensitivity rows repeat every Cascade
+  comparison with Cascade's fastest process, and the paper reports these rows, so that every comparison of the paper
+  times our side by its slowest process and the baseline by its fastest. They lower no speed-up by more than 3.2 % and
+  change no outcome; the lowest speed-up is 3.63 on the RTX PRO 6000 and 3.17 on the H100
+  (`speed_rt/cascade/results/table.json`). Mean times on both sides would only raise every speed-up (Table VIII of
+  the paper).
 - "X takes less time than Y" holds when X's value is strictly below Y's. There is no statistical test. Ranges and
   ratios of times in the prose are rounded against us: our times, and our time as a fraction of another decoder's, up;
   the other decoders' times, and speed-ups (another decoder's time over ours, also when below 1), down.
@@ -221,7 +233,9 @@ Surface code: composite time per shot in µs on the Grace basis, with BP-OSD as 
 
 Each network set has 48 registered comparisons (rows S4 and S10): these six baselines and two controls, Ising-Fast and
 Ising-Accurate followed by correlated PM (51.067 to 354.429 µs and 61.907 to 321.348 µs), at six distances. For each
-set 46 hold; the two that do not are plain PM at d = 7 and 9.
+set 46 hold; the two that do not are plain PM at d = 7 and 9. The paper's pair at d = 9 is D9-SHALLOW's, which took
+21.234 µs, below plain PM's 26.297 µs ([D9-SHALLOW](#d9-shallow-the-network-at-d--9)), so there only plain PM at d = 7 is faster
+than the pair.
 
 BB codes: time per shot in ms, with CPU times on the Grace basis and CUDA-Q as timed on the pod
 (`speed_rt/s2/bb/results/table.json`, rows B1 to B3).
@@ -302,6 +316,39 @@ its 18 points. A value whose slot is missing is withheld, never replaced. `speed
 `speed_rt/s2/README.md` say how the records were sanitized for publication; the files whose sha256 the analyses check
 are published byte for byte.
 
+## D9-SHALLOW: the network at d = 9
+
+SPEED-RT found plain PM faster than SURF-v2's three-block network at d = 9, 26.297 against 28.927 µs. At small
+distances the network's depth sets its time, so a one-block network of width 64 (`d9_b1w64_sh`, 90,467 parameters)
+was trained on the same training shots in the same order and chosen by a rule fixed before its results existed.
+D9-SHALLOW (`d9_shallow/PLAN.md`) then registered a test of its pair with correlated PM at q = 6 % against plain and
+correlated PM on 1,000,000 fresh shots, and timed the pair in its own session on an H100 and the same workstation,
+with a Grace factor fitted in that session (1.5423). The pair failed 11,978 times against 27,028 for plain PM and
+12,802 for correlated PM, in 21.234 µs per shot against 26.297 and 63.916 µs (`d9_shallow/RESULTS.md`). Under the
+publication rule frozen in its plan, this pair is the paper's d = 9 row, and SURF-v2's three-block network stays in
+the records.
+
+## CASCADE-TRT-REG: Cascade on TensorRT
+
+CASCADE-TRT-REG (`cascade_trt_reg/RULES.md`) re-timed every Cascade comparison of stage 1 with Cascade on the faster
+of two engines, stage 1's compiled path and a TensorRT 10.16.1.11 engine (BF16, builder level 3) in a CUDA graph. It
+timed Cascade alone on both engines, three fresh processes each, on an H100 80GB HBM3 SXM and on an RTX PRO 6000
+Blackwell Server Edition, and ran each pair on the engine with the lower Cascade-alone time. A pair is the slowest of
+its three processes and Cascade alone the fastest of its three. The paper's appendix "Our Cascades on TensorRT"
+reports it.
+
+- TensorRT ran Cascade alone 3.1 to 4.7 times faster per single shot on BB72 and 1.3 to 1.5 times faster at d = 13.
+  In batches it ran the d = 13 Cascade 1.8 and 1.1 times faster on the two cards and the BB72 Cascade at batch 4,096
+  slower, so the batched BB72 comparisons keep the compiled path.
+- Every pair still took less time than Cascade alone on its faster engine: per single shot 2.05 to 4.03 times less on
+  the RTX PRO 6000 and 2.38 to 4.33 times less on the H100, and in batches 3.08 to 15.57 and 2.42 to 8.16 times less.
+- The engines decide alike: on fresh shots at most 47 of 200,000 batched decisions differ, the failure counts differ
+  by at most 3 per comparison, and every exact McNemar p is at least 0.375.
+
+Its registration is in the table of the next section. `cascade_trt_reg/RESULTS.md` and `cascade_trt_reg/results/`
+(`tables.md`, `numbers.json`) give the results by card, the decision checks and the engines' sha256; the frozen
+analysis ran twice on the records with byte-identical outputs.
+
 ## Registered tests and how to verify them
 
 RETEST and SURF-v2, the two accuracy tests, each fixed everything their results depend on (the networks, their
@@ -323,6 +370,8 @@ beside them. It also registered a secondary comparison with gap switching
 |---|---|---|---|---|---|
 | RETEST | `dd332c5` | `push` to `main` from `ab5cf49` to `dd332c5`, 2026-10-13T02:34:48Z, record 46295757992 | 6547616, released 2026-10-13T02:45:00Z; the record, the seeds and the draw manifests are in `390f2da` | one per test: `7c1aae0`, `d92e011`, `a3bd87d`, `4a85d65`, `87a1742`, `301e9e7`; the summary `3cc1258` | `RETEST_RESULTS.md`; each test's records and analysis outputs in `retest/run/` |
 | SURF-v2 | `f94f4ed` | `branch_creation` of `surf-v2` at `f94f4ed`, 2026-10-13T11:49:59Z, record 46339453746 | 6548726, released 2026-10-13T12:00:00Z; the record and the test manifest are in `ce8780e` | `88d14de`; gap switching `3b41af7` | `surface_v2/surf_v2/analysis/tables.md`, `surface_v2/surf_v2/gapsw/analysis/gapsw_tables.md` |
+| D9-SHALLOW | `31300ee` | `push` to `main`, 2026-10-14T10:17:57Z, record 46454694871 | 6551422; the record and the shot manifests are in `445e693` (`d9_shallow/testsets/beacon_d9s.json`) | `68947ee` | `d9_shallow/RESULTS.md`, `d9_shallow/results/` |
+| CASCADE-TRT-REG | `55a3464` | `push` to `main`, 2026-10-14T17:39:38Z, record 46500379570 | 6552306; the record and the seed manifest are in `3896ac6` (`cascade_trt_reg/beacon_ctrt.json`) | `cc2d76b` | `cascade_trt_reg/RESULTS.md`, `cascade_trt_reg/results/` |
 
 - The push records are GitHub's JSON as its API returned it: `retest/run/github_push_activity.json`, and
   `surface_v2/surf_v2/beacon.json`, which keeps the record together with the whole activity list.
@@ -330,8 +379,9 @@ beside them. It also registered a secondary comparison with gap switching
   deviation, the job shape of the gross-code reads, and corrected or completed several commands and descriptions;
   `git diff dd332c5 3cc1258 -- RETEST.md` shows every change. After `f94f4ed`, SURF-v2's commits only add files.
 - `surface_v2/surf_v2/REGISTRATION.md` names the branch `surf-v2`, to which the freeze was pushed (the
-  `branch_creation` record above). That branch still exists, and `main` now holds the same commits.
-- The plans of the earlier registered tests are listed in the Table IX row of [Tables and figures](#tables-and-figures).
+  `branch_creation` record above). `main` holds all of that branch's commits, and the branch was deleted on 14 October
+  2026; GitHub's activity list keeps the `branch_creation` record that step 1 below reads.
+- The plans of the earlier registered tests are listed in the Table XII row of [Tables and figures](#tables-and-figures).
 - SPEED-RT follows the same beacon rule for its timing shots. Its commits, push records and rounds are in
   [Stages, freezes and beacons](#stages-freezes-and-beacons), and steps 1 to 3 below apply to them as well;
   [How to verify](#how-to-verify) checks its two beacon records offline.
@@ -465,12 +515,14 @@ The earlier surface-code tests also read every timed TensorRT plan for accuracy 
 | `RETEST.md`, `RETEST_RESULTS.md`, `retest/` | RETEST, the registered re-test on fresh shots: its plan, every re-tested number beside its original, and its beacon and seed code, shims, jobs, checks before the freeze (`retest/replay/`) and records (`retest/run/`) |
 | `surface_v2/` | SURF-v2, the registered test of the retrained surface-code networks: the evaluation package it ran from, with the new networks in `weights/`, and `surf_v2/` with the registrations, their code, the freeze and beacon records and both analyses |
 | `speed_rt/` | SPEED-RT, the registered speed re-test: its registrations (`SPEED_RT.md`, `STAGE2_*.md`), its timing code, sets, beacon records and manifests, stage 1's records and outputs (`cascade/records/`, `cascade/results/`) and stage 2's (`s2/<family>/records/`, `s2/<family>/results/`) |
+| `d9_shallow/` | D9-SHALLOW, the registered test of the one-block network at d = 9: its plan, code, freeze, beacon and shot records, reads and results |
+| `cascade_trt_reg/` | CASCADE-TRT-REG, the registered speed re-test with Cascade on TensorRT: its rules, code, beacon and seed records, timing records and results |
 | `SANITIZE.md` | what was replaced before publication |
 
 The frozen trees under `bb/`, `cascade/`, `head/` and `training/` are the programs as they ran, so their own documents
 use the names of the research project: study 2 and 3 are the surface-code tests at d = 7-13 and 15 (test sets T2 and
 T3), study 4 and R17 the two at d = 17 (T5 and T6), stage 3 and 4 are the BB tests, phase C and D1 the two Cascade tests on BB72, W5 the
-comparison at d = 13, A1 the output-head comparison and X2 the analysis of the discordant shots. Table XI of the paper
+comparison at d = 13, A1 the output-head comparison and X2 the analysis of the discordant shots. Table XIV of the paper
 maps every descriptive name to these short names, and `weights/networks.csv` does the same for the networks.
 
 ## Installation
@@ -525,31 +577,35 @@ and each frozen tree runs from its `ising_compare/` directory with `PYTHONPATH=.
 ## Tables and figures
 
 Paths are relative to the repository root. The checks are described below the table. The records here are those of the
-original tests. The paper's surface accuracy comes from SURF-v2, its BB, Cascade and output-head accuracy from RETEST
+original tests. The paper's surface accuracy comes from SURF-v2 (D9-SHALLOW at d = 9), its BB, Cascade and output-head
+accuracy from RETEST
 ([Registered tests and how to verify them](#registered-tests-and-how-to-verify-them)), and every speed number from
 SPEED-RT, whose outputs the speed entries name ([How the speed was measured](#how-the-speed-was-measured-speed-rt)).
 
 | paper | what it shows | records | check |
 |---|---|---|---|
-| Fig. 1, Fig. 2 | the pair; the output-head geometry (diagrams) | | |
-| Fig. 3 | surface code: failure rate against composite time per shot, d = 7-17 | `results/surface/` (`s2_test_eval.csv`, `s3_test_eval.csv`, `s4_test_eval.csv`, `r17_test_eval.csv`, `s2_composite.json`, `results_accuracy_speed_d15.json`, `results_accuracy_speed_d17.json`, `r17_summary.json`, `controls_*`), `results/r17/`; speed: `speed_rt/s2/surface/results/` (rows S1 to S4), `speed_rt/s2/gapsw/results/` | surface code; figures; [SPEED-RT](#how-to-verify) |
-| Table I | BB codes: failures and composite time | `bb/bb72/ising_compare/data/bb/stage3/` (`results.json`, `results_amendment_S.json`), `bb/gross/ising_compare/data/bb/stage3_gross/`, `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`; speed: `speed_rt/s2/bb/results/` (rows B1 to B6) | BB codes; [SPEED-RT](#how-to-verify) |
-| Table II | pairs with our Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`); speed: `speed_rt/cascade/results/` | Cascade; [SPEED-RT](#how-to-verify) |
+| Fig. 1, Fig. 2 | ConvLines and a strong decoder as a pair; the output-head geometry (diagrams) | | |
+| Table I | BB codes: failures and composite time | `bb/bb72/ising_compare/data/bb/stage3/` (`results.json`, `results_amendment_S.json`), `bb/gross/ising_compare/data/bb/stage3_gross/`, `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`, RETEST's reruns in `retest/run/bb/`; speed: `speed_rt/s2/bb/results/` (rows B1 to B6) | BB codes; [SPEED-RT](#how-to-verify) |
+| Fig. 3 | surface code: failure rate against composite time per shot, d = 7-17 | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (rows S1 to S4), `speed_rt/s2/gapsw/results/` | surface code; figures; [SPEED-RT](#how-to-verify) |
+| Table II | ConvLines + Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`), RETEST's reruns in `retest/run/`; speed: `speed_rt/cascade/results/` (Cascade alone's fastest process, each pair's slowest) | Cascade; [SPEED-RT](#how-to-verify) |
 | Table III | the output-head comparison | `head/results/{surface,bb72}/` (`standalone.csv`, `pair_curves.csv`), `head/rule/`, `head/A1_RESULT.md` | output heads |
 | Fig. 4 | where the pairs gain (exploratory) | `results/discordant/` (`X2_RESULT.md`, `data/`) | figures |
 | Fig. 5 | routing frontiers on calibration shots | `results/surface/frontiers/`, `results/r17/policy_d17b5_r787_q08.json`, `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `bb/bb72/ising_compare/data/bb/policies/`, `bb/gross/ising_compare/data/bb/stage3_gross/frontierf_g2_D12k113c10.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md` | figures |
-| Table IV | paired accuracy against the closest baseline | `results/surface/s2_test_eval.csv`, `s3_test_eval.csv`, `s4_test_eval.csv`, `r17_test_eval.csv` | surface code |
+| Table IV | surface code: failures and composite time of every decoder | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (row S1) | surface code; [SPEED-RT](#how-to-verify) |
 | Fig. 6 | BB codes: block failure rate against composite time | the records of Table I; speed: `speed_rt/s2/bb/results/` | figures; [SPEED-RT](#how-to-verify) |
-| Table V | where the composite time goes | `speed_rt/s2/surface/results/table.md` (row S6) and `speed_rt/s2/bb/results/table.json` (row B4); the earlier sessions' in `results/surface/s2_composite.json`, `results_accuracy_speed_d15.json`, `results_accuracy_speed_d17.json`, `results/r17/R17_RESULT.md` and the records of Table I | [SPEED-RT](#how-to-verify) |
-| Table VI | decoder settings and timing | the settings in `evaluation/convlines/opponents.py`, `bb/bb72/ising_compare/bb/opp.py` and `route.py`, `cascade/bb72/cascade_compare/phase_c/pc_common.py`, `cascade/d13/surface/sv_common.py`; the timing in `speed_rt/SPEED_RT.md` section 1, `STAGE2_surface.md` and `STAGE2_bb.md` | |
-| Table VII | the first registered test with our Cascade on BB72 | `cascade/bb72/cascade_compare/phase_c/` (`RESULTS.md`, `out/confirm_*.json`, `out/report/`) | Cascade |
+| Table V | times on the raw and on the Grace basis | `speed_rt/s2/surface/results/table.md` (row S4x), `speed_rt/s2/bb/results/numbers.json` (`sensitivity_raw_xeon`), `d9_shallow/results/table.md` | [SPEED-RT](#how-to-verify) |
+| Table VI | where the composite time goes | `speed_rt/s2/surface/results/table.md` (row S6), `speed_rt/s2/bb/results/table.json` (row B4), `d9_shallow/results/table.md` | [SPEED-RT](#how-to-verify) |
+| Table VII | decoder settings and timing | the settings in `evaluation/convlines/opponents.py`, `bb/bb72/ising_compare/bb/opp.py` and `route.py`, `cascade/bb72/cascade_compare/phase_c/pc_common.py`, `cascade/d13/surface/sv_common.py`; the timing in `speed_rt/SPEED_RT.md` section 1, `STAGE2_surface.md` and `STAGE2_bb.md` | |
+| Table VIII | the speed-ups of Table II from mean times | `speed_rt/cascade/results/numbers.json` (every repetition) | |
+| Table IX | the first registered test with our Cascade on BB72 | `cascade/bb72/cascade_compare/phase_c/` (`RESULTS.md`, `out/confirm_*.json`, `out/report/`); speed: `speed_rt/cascade/results/` | Cascade |
+| Table X | the registered speed re-test with Cascade on TensorRT | `cascade_trt_reg/results/` (`tables.md`, `numbers.json`), `cascade_trt_reg/RESULTS.md` | |
 | Fig. 7 | failures of each output-head arm's pair against q | `head/results/{surface,bb72}/pair_curves.csv` | figures |
-| Table VIII | every comparison of the output-head study | `head/results/{surface,bb72}/comparisons.csv` | output heads |
-| Table IX | provenance of the claims | the plans: `results/r17/PLAN_R17.md`; `bb/bb72/ising_compare/bb/PLAN.md`, `STAGE3_PLAN.md`, `AMENDMENT_S.md`; `bb/gross/ising_compare/bb/STAGE3_GROSS_PLAN.md`; `bb/gross_stage4/ising_compare/bb/STAGE4_GROSS_PLAN.md`; `cascade/bb72/cascade_compare/PHASE_C_PLAN.md`, `phase_d/PHASE_D1_PLAN.md`; `cascade/d13/SURFACE_PLAN.md`; the test-set manifests in `evaluation/testsets/` | |
-| Table X | medians of the shot descriptors (exploratory) | `results/discordant/data/tables.md`, `data/surface/summary.json` | |
+| Table XI | every comparison of the output-head study | `head/results/{surface,bb72}/comparisons.csv` | output heads |
+| Table XII | provenance of the claims | the plans: `results/r17/PLAN_R17.md`; `bb/bb72/ising_compare/bb/PLAN.md`, `STAGE3_PLAN.md`, `AMENDMENT_S.md`; `bb/gross/ising_compare/bb/STAGE3_GROSS_PLAN.md`; `bb/gross_stage4/ising_compare/bb/STAGE4_GROSS_PLAN.md`; `cascade/bb72/cascade_compare/PHASE_C_PLAN.md`, `phase_d/PHASE_D1_PLAN.md`; `cascade/d13/SURFACE_PLAN.md`; `d9_shallow/PLAN.md`; `cascade_trt_reg/RULES.md`; the test-set manifests in `evaluation/testsets/` | |
+| Table XIII | medians of the shot descriptors (exploratory) | `results/discordant/data/tables.md`, `data/surface/summary.json` | |
 | Fig. 8 | matching's class gap at d = 13 (exploratory) | `results/discordant/data/surface/fig_d13.npz` | figures |
-| Fig. 9 | where the network fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
-| Table XI | names in the paper and in this repository | `weights/networks.csv`, this README | |
+| Fig. 9 | where ConvLines fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
+| Table XIV | names in the paper and in this repository | `weights/networks.csv`, this README | |
 
 ### Weights
 
