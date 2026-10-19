@@ -29,6 +29,9 @@ sys.path.insert(0, HERE)
 import srtlib  # noqa: E402
 
 FACTS = srtlib.install_bb()                    # at import: the main process and every spawned worker
+if os.environ.get("SRT_RELMAP") == "1":        # ARB3's timing on the release's tree (relmap.py), also in every worker
+    import relmap  # noqa: E402
+    relmap.install()
 CARD = os.environ.get("SRT_CARD", "rtx").lower()
 H100 = "NVIDIA H100 80GB HBM3"
 if CARD not in ("rtx", "h100"):

@@ -1,0 +1,75 @@
+{
+ "what": "ARB3's unregistered timing of the joint decision (2026-10-19): sets_cas.json's eight sets under new names (srt-cas-* -> arb3-cas-*), so that speed_rt/sets.py's rule gives new seeds from the stage-1 beacon record: TAG 'convlines speed-rt arb3-cas-<...>'. Chunk j of a set replaces chunk j of seed kind 12 as in sets_cas.json. Used through SRT_SETS_FILE.",
+ "sets": {
+  "arb3-cas-uni-p2": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "uniform",
+   "p": 0.002,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R3 nets S55 and C14 (claim-point shots, chunks 0-9); chunks 10-49 feed nothing"
+  },
+  "arb3-cas-uni-p3": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "uniform",
+   "p": 0.003,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R3 nets S55 and C14 (claim-point shots, chunks 0-9); chunks 10-49 feed nothing"
+  },
+  "arb3-cas-uni-p55": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "uniform",
+   "p": 0.0055,
+   "chunks": 10,
+   "chunk_shots": 10000,
+   "feeds": "R3 nets S55 and C14 (screen shots and timing inputs, chunks 0-9)"
+  },
+  "arb3-cas-dfm-p2": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "depspam_fm",
+   "p": 0.002,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R1 (D1-S), R2 (phase C), R3 pipelines, R3 nets S55'-deep and C14' (chunks 0-9), on both cards"
+  },
+  "arb3-cas-dfm-p3": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "depspam_fm",
+   "p": 0.003,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R1, R2, R3 pipelines, R3 nets (chunks 0-9), on both cards"
+  },
+  "arb3-cas-dfm-p55": {
+   "kind": "cascade",
+   "code": "bb72",
+   "family": "depspam_fm",
+   "p": 0.0055,
+   "chunks": 10,
+   "chunk_shots": 10000,
+   "feeds": "R3 nets S55'-deep and C14' (screen shots and timing inputs, chunks 0-9)"
+  },
+  "arb3-cas-d13-p6": {
+   "kind": "cascade",
+   "d": 13,
+   "p": 0.006,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R4 (e7's pipelines at 0.6 %: single = chunks 0-1, batched = chunks 0-49)"
+  },
+  "arb3-cas-d13-p35": {
+   "kind": "cascade",
+   "d": 13,
+   "p": 0.0035,
+   "chunks": 50,
+   "chunk_shots": 10000,
+   "feeds": "R4 (0.35 %)"
+  }
+ }
+}

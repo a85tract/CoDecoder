@@ -106,10 +106,13 @@ def lock_rest_sha256(lock):
 
 
 def set_defs():
-    """{name: entry} of the srt-cas sets: sets_cas.json, which config.json's copies must equal once they are merged."""
-    defs = json.load(open(os.path.join(HERE, "sets_cas.json")))["sets"]
+    """{name: entry} of the srt-cas sets: sets_cas.json, which config.json's copies must equal once they are merged.
+    SRT_SETS_FILE names another sets file of the same sets under other names (sets_arb3.json): the seeds follow the
+    same rule from the same beacon record, with each set's own TAG, so the shots are new (unregistered timings only)."""
+    alt = os.environ.get("SRT_SETS_FILE")             # an unregistered timing's own sets (new names, so new TAGs)
+    defs = json.load(open(alt or os.path.join(HERE, "sets_cas.json")))["sets"]
     cfg = {k: v for k, v in _srt()[0].sets().items() if k.startswith("srt-cas-")} \
-        if os.path.exists(os.path.join(ROOT, "speed_rt", "config.json")) else {}
+        if os.path.exists(os.path.join(ROOT, "speed_rt", "config.json")) and not alt else {}
     if cfg:
         if set(cfg) != set(defs):
             raise SystemExit(f"config.json's srt-cas sets {sorted(cfg)} are not sets_cas.json's {sorted(defs)}")

@@ -30,7 +30,9 @@ Arguments: --tree (the pinned tree: D1_TREE for r1-r3, D13_TREE for r4), --reps 
 r2: --w4-lock (the depspam_fm lock of phase C, locked_depspam_fm.json) and --speed (speed_components.json), r4: --lock (the
 d = 13 lock; on the H100 the derived one), the joint decision (phase_d/joint.py, surface/sv_joint.py): --joint-w
 P=W,P=W (r1: every S -> B slot at p runs with --joint-w W and saves its shots and decisions into its attempt's pipe.npz
-for joint_count.py compare) and --joint-w13 P=W,P=W (r4: every C5 slot at p runs with --joint-w W), dry runs: --only
+for joint_count.py compare) and --joint-w13 P=W,P=W (r4: every C5 slot at p runs with --joint-w W); --joint-both (each
+such composition runs twice, as it is and then with the joint step, slot id + '.joint'); --engines (r1: the S engines of
+the compositions, default base,new; Table I's is base); SRT_SETS_FILE (srtlib.py: other set names, new seeds), dry runs: --only
 SUBSTRING... (the slots whose id contains one), --force-bad
 SUBSTRING=N,... (the first N attempts of those slots report their windows as rejected; needs SRT_DRY=1), --list (the plan
 only)."""
@@ -112,10 +114,17 @@ def plan_r1(a, bbsets, d13sets):
                 args = ["pipeline", "--setting", "depspam_fm", "--config", str(cfg), "--p", str(p), "--mode", mode,
                         "--engine", eng, "--tail-b", "0", "--rep", str(rep), "--n", str(n), "--out", "{rows}",
                         "--group", "{group}"]
+                if cfg >= 0 and eng not in a.engines.split(","):
+                    continue
+                if cfg >= 0 and p in jw and a.joint_both:  # the composition, then its twin with the joint step
+                    out.append(pipe_slot("r1", script, args, rep, "depspam_fm", p, cfg, mode, eng, 0, n, bbsets))
+                    out[-1]["meta"]["joint_w"] = None
                 if cfg >= 0 and p in jw:                 # the composition with the joint step
-                    args += ["--joint-w", repr(jw[p]), "--save", "{savef}"]
+                    args = args + ["--joint-w", repr(jw[p]), "--save", "{savef}"]
                 out.append(pipe_slot("r1", script, args, rep, "depspam_fm", p, cfg, mode, eng, 0, n, bbsets))
                 out[-1]["meta"]["joint_w"] = jw.get(p) if cfg >= 0 else None
+                if cfg >= 0 and p in jw and a.joint_both:
+                    out[-1]["id"] += ".joint"
     return out
 
 
@@ -166,12 +175,15 @@ def plan_r4(a, bbsets, d13sets):
                     n = plan[mode]
                     args = ["pipeline", "--config", c, "--p", str(p), "--mode", mode, "--rep", str(rep), "--lock",
                             a.lock, "--stage", "c7", "--out", "{rows}", "--save", "{save}"]
-                    if c == "C5" and p in jw:            # the composition with the joint step
-                        args += ["--joint-w", repr(jw[p])]
-                    out.append(dict(id=f"r4.rep{rep}.p{p:g}.{c}.{mode}", launcher="srt_d13.py", script=None, args=args,
-                                    windows=1, shots={d13sets[p]: chunks_for(n)},
-                                    meta=dict(round="r4", role="pipeline", config=c, p=p, mode=mode, rep=rep, n=n,
-                                              joint_w=jw.get(p) if c == "C5" else None)))
+                    twins = [None, jw[p]] if c == "C5" and p in jw and a.joint_both else \
+                        [jw.get(p) if c == "C5" else None]
+                    for w in twins:                      # w: the composition with the joint step
+                        sid = f"r4.rep{rep}.p{p:g}.{c}.{mode}" + (".joint" if w is not None and a.joint_both else "")
+                        out.append(dict(id=sid, launcher="srt_d13.py", script=None,
+                                        args=args + (["--joint-w", repr(w)] if w is not None else []),
+                                        windows=1, shots={d13sets[p]: chunks_for(n)},
+                                        meta=dict(round="r4", role="pipeline", config=c, p=p, mode=mode, rep=rep, n=n,
+                                                  joint_w=w)))
     return out
 
 
@@ -269,6 +281,9 @@ def main():
     ap.add_argument("--lock", default="")
     ap.add_argument("--joint-w", default="", help="r1: the joint decision's w per p, e.g. 0.002=6.31,0.003=3.76")
     ap.add_argument("--joint-w13", default="", help="r4: C5's joint w per p, e.g. 0.006=W,0.0035=W")
+    ap.add_argument("--joint-both", action="store_true", help="each composition at a p with a joint w runs twice in the "
+                    "plan: as it is, then with the joint step (slot id + '.joint')")
+    ap.add_argument("--engines", default="base,new", help="r1: the S engines of the compositions (Table I: base)")
     ap.add_argument("--only", nargs="*", default=[])
     ap.add_argument("--force-bad", default="")
     ap.add_argument("--list", action="store_true")
@@ -320,7 +335,8 @@ def main():
                tree_deployed=open(dep).read().strip() if os.path.exists(dep) else None,
                beacon=dict(round=rec["round"], randomness=rec["randomness"], dry=dry),
                seeds_sha256=srtlib.sha256_file(os.environ["SRT_SEEDS"]),
-               sets_sha256=srtlib.sha256_file(os.path.join(HERE, "sets_cas.json")),
+               sets_sha256=srtlib.sha256_file(os.environ.get("SRT_SETS_FILE") or os.path.join(HERE, "sets_cas.json")),
+               sets_file=os.path.basename(os.environ.get("SRT_SETS_FILE") or "sets_cas.json"),
                launchers={n: srtlib.sha256_file(os.path.join(HERE, n)) for n in ("srt_cas.py", "srt_d13.py", "srtlib.py",
                                                                                   "drive.py")},
                args=dict(reps=a.reps, n_single=a.n_single, n_batched=a.n_batched, only=a.only, force_bad=bad),
