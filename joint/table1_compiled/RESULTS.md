@@ -47,7 +47,7 @@ w: 7.86574441929562 at 0.6 % and 13.842311471679352 at 0.35 %, fitted there on t
 (`out/analysis/summary.json`, sha256 bd4e9f3d...). It removes 0.6 to 0.9 % of the composition's failures on Table I's
 shots, with McNemar p from 0.054 to 0.30 against the composition on every path. arb2's evaluation half shows the
 same size (-1.1 % at 0.6 %, p = 0.0002 on 2,000,000 shots; -0.5 % at 0.35 %, p = 0.53 on 15,000,000). By its own
-criterion arb2 carried rule P forward, not J; this note applies J because the task names it.
+criterion arb2 carried rule P forward, not J; this note applies J, the joint decision's rule at d = 13.
 
 ## Do the recomputed Cascade outputs equal the re-test's?
 
