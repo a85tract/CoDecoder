@@ -667,7 +667,8 @@ def bitwise(a):
         single = mode == "single"
         ch = lock["p"][str(p)]["chosen"]
         jw = (m.get("joint") or {}).get("w")
-        if (jw is None) != (a.joint_w is None or cfg != "C5") or (jw is not None and jw != a.joint_w):
+        want_w = {float(k): float(v) for k, v in (x.split("=") for x in (a.joint_w or "").split(",") if x)}.get(p)
+        if (jw is None) != (want_w is None or cfg != "C5") or (jw is not None and jw != want_w):
             raise SystemExit(f"{f}: joint {m.get('joint')}, --joint-w {a.joint_w} (C5 only)")
         if jw is not None:                         # C5 with the joint step (sv_joint.assemble_joint)
             from surface import sv_joint
@@ -745,7 +746,8 @@ def main():
     s.add_argument("--pipes", required=True)
     s.add_argument("--read", required=True)
     s.add_argument("--out", required=True)
-    s.add_argument("--joint-w", type=float, default=None, help="the C5 files' joint weight (sv_joint.assemble_joint)")
+    s.add_argument("--joint-w", default="", help="the C5 files' joint weight per p (sv_joint.assemble_joint), e.g. "
+                   "0.006=W,0.0035=W")
     a = ap.parse_args()
     {"screen": screen, "summarize": summarize, "pipeline": pipeline, "bitwise": bitwise}[a.cmd](a)
 

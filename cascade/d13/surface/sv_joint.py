@@ -176,14 +176,51 @@ def check(a):
     raise SystemExit(0 if rec["pass"] else 1)
 
 
+def count(a):
+    """The joint decision's failures from the reads (no GPU): C5 and C5 with the joint step in each mode whose reads are
+    present (single: S1, B1; batched: SB, BQ5), over the read's chunks, with the lock's tau1 and halves by chunk parity
+    (fit = even chunks) -> JSON."""
+    import json
+    from surface import sv_common as sc
+    lock = json.load(open(a.lock))
+    ch = lock["p"][str(a.p)]["chosen"]
+    rec = {"p": a.p, "w": a.w, "joint": record(a.w), "read": os.path.abspath(a.read), "modes": {}}
+    for mode, comps in (("single", ("S1", "B1")), ("batched", ("SB", "BQ5"))):
+        d = os.path.join(a.read, mode)
+        if not os.path.isdir(d):
+            continue
+        o = sc.load_read(d, a.p, comps, sc.chunk_range(a.chunks) if a.chunks else None)
+        dec, stage, jr = assemble_joint(sc, mode, o, ch, a.w)
+        base = sc.assemble("C5", mode, o, ch)[0]
+        obs = o["obs"].reshape(-1)
+        chunk = np.repeat(np.arange(*o["chunks"]), sc.CHUNK)[:len(obs)]
+        out = {}
+        for h, sel in (("all", np.ones(len(obs), bool)), ("fit", chunk % 2 == 0), ("eval", chunk % 2 == 1)):
+            fc, fj = (base != obs)[sel], (dec != obs)[sel]
+            out[h] = {"shots": int(sel.sum()), "routed": int((stage >= 1)[sel].sum()), "joint_rows": int(jr[sel].sum()),
+                      "fail_C5": int(fc.sum()), "fail_C5_joint": int(fj.sum()), "repairs": int((fc & ~fj).sum()),
+                      "breaks": int((~fc & fj).sum())}
+        rec["modes"][mode] = {"chunks": list(o["chunks"]), "comps": list(comps), **out}
+    with open(a.out, "w") as fh:
+        json.dump(rec, fh, indent=1)
+    print(json.dumps(rec), flush=True)
+
+
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(description=check.__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
+    s = sub.add_parser("count")
+    s.add_argument("--lock", required=True)
+    s.add_argument("--read", required=True, help="the reads' directory: READ/single (S1, B1), READ/batched (SB, BQ5)")
+    s.add_argument("--p", type=float, required=True)
+    s.add_argument("--w", type=float, required=True)
+    s.add_argument("--chunks", default="", help="a-b (default: every part present)")
+    s.add_argument("--out", required=True)
     s = sub.add_parser("check")
     s.add_argument("--lock", required=True)
     s.add_argument("--pipe", required=True)
     s.add_argument("--read", required=True)
     s.add_argument("--out", required=True)
     a = ap.parse_args()
-    check(a)
+    {"check": check, "count": count}[a.cmd](a)
