@@ -35,7 +35,8 @@ if CARD not in ("rtx", "h100"):
     raise SystemExit(f"srt_cas: SRT_CARD={CARD!r}, not rtx or h100")
 # the harnesses' entry points: script stem -> function of the imported module (d1_m2 replaces m2's lock reader on import
 # and leaves m2.main to be called)
-ENTRY = {"pc_speed": lambda m: m.main, "m2": lambda m: m.main, "d1_m2": lambda m: m.m2.main}
+ENTRY = {"pc_speed": lambda m: m.main, "m2": lambda m: m.main, "d1_m2": lambda m: m.m2.main,
+         "joint_read": lambda m: m.main}   # joint_read: the eager read of the timing stream (the joint step's bitwise check)
 
 
 def admit_h100():

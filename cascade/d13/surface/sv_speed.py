@@ -38,6 +38,11 @@ in W_M worker processes with pre-built matchers (decode_batch on bit-packed rows
 the workers. Wall time from the first copy to the last decision, per shot and per round (/ 13). Excluded: Stim
 sampling, matcher construction, graph capture. Each process saves its logits, stages and decisions on its timed shots.
 
+pipeline --joint-w W (C5 only): the joint decision (sv_joint.py) on the routed shots whose two decisions differ, inside
+the timed part: B runs as sv_joint.JointB13 (B's computation on its frozen path, then the joint step, one CUDA graph per
+replay); in batched mode S's logits and decisions queue with the routed rows. The row carries sv_joint.record(W) and
+path_B ends in "+joint"; pred holds the decisions with the joint step and b_log B's logits.
+
 bitwise: every saved pipeline output of a stage (--expect gate: e3, before the lock commit; c7: e7) against the read
 computations on the same shots (sv_read on the pipelines' chunks in a separate job: S1, B1, MS on the single mode's
 shots in READ/single, SB, Bb, BQ1, BQ5, MB on the batched mode's in READ/batched): S's logits against S1 (single) / SB
@@ -392,6 +397,11 @@ def pipeline(a):
     tau_s = {"C1": chs.get("C1", {}).get("tau1"), "C5": chs.get("C5", {}).get("tau1"), "C4": sc.TAU_C4}.get(cfg)
     tau2 = chs.get("C1", {}).get("tau2")
     uses_S, uses_B, uses_M = cfg in ("C1", "C4", "C5"), cfg in ("C1", "C2", "C5"), cfg in ("C1", "C3", "C4")
+    jw = a.joint_w
+    if jw is not None:
+        from surface import sv_joint
+        if cfg != "C5":
+            raise SystemExit(f"--joint-w: the joint decision is C5's (S -> B), not {cfg}'s")
     nets = {}
     t_build = time.time()
     gS = gB = None
@@ -401,7 +411,12 @@ def pipeline(a):
     if uses_B:
         bmod, nets["B"] = sc.load_B(dev)
         path, bb = (fz["B"]["single"] if a.mode == "single" else fz["B"]["amortized"]).split("@")
-        gB = sc.Graph(sc.b_fn(bmod, path), int(bb), Dd, dev)
+        if jw is not None:                        # B and the joint step; single mode reads S's outputs in place
+            one = a.mode == "single"
+            gB = sv_joint.JointB13(sc.b_fn(bmod, path), int(bb), Dd, dev, jw, c_src=gS.logit if one else None,
+                                   ds_src=gS.dec if one else None)
+        else:
+            gB = sc.Graph(sc.b_fn(bmod, path), int(bb), Dd, dev)
     if lock is not None:
         for t, r in nets.items():
             if r["sha256"] != lock["nets"][t]["sha256"]:
@@ -417,7 +432,8 @@ def pipeline(a):
     base = {"role": "pipeline", "stage": a.stage, "config": cfg, "p": a.p, "mode": a.mode, "rep": a.rep,
             "kind_seed": kind, "chunks": [ch.start, ch.start + nch], "shots": n, "digests": digs, "tau_S": tau_s,
             "tau2": tau2 if cfg == "C1" else None, "nets": {t: r["sha256"] for t, r in nets.items()},
-            "path_S": gS and f"engine@{gS.n}", "path_B": gB and f"{path}@{gB.n}",
+            "path_S": gS and f"engine@{gS.n}", "path_B": gB and f"{path}@{gB.n}" + ("+joint" if jw is not None else ""),
+            "joint": sv_joint.record(jw) if jw is not None else None,
             "lock_sha256": sc.sha256_file(a.lock) if a.lock else "", "record": rec, "build_s": round(t_build, 1),
             "job": rec["job"], "host": rec["host"], "pid": os.getpid()}
     s_log = np.full(n, np.nan, np.float32)
@@ -517,14 +533,18 @@ def pipeline(a):
                     gB.replay()
             st.synchronize()
             qr, qi, qn = [], [], 0
+            qc, qd = [], []
             t0 = time.perf_counter()
 
-            def run_b(rows, idx):
+            def run_b(rows, idx, js=None):
                 nonlocal t_b
                 tb = time.perf_counter()
                 m_ = len(idx)
                 gB.x.zero_()
                 gB.x[:m_].copy_(rows)
+                if js is not None:                 # the joint step: S's logits and decisions of the queued rows
+                    gB.c[:m_].copy_(js[0])
+                    gB.ds[:m_].copy_(js[1])
                 gB.replay()
                 hlb.copy_(gB.logit, non_blocking=True)
                 hdb.copy_(gB.dec, non_blocking=True)
@@ -560,15 +580,24 @@ def pipeline(a):
                     to_m(idx)
                     continue
                 stage[idx] = 1
-                qr.append(g0.x[torch.as_tensor(r, device=dev)])
+                rr = torch.as_tensor(r, device=dev)
+                qr.append(g0.x[rr])
+                if jw is not None:
+                    qc.append(g0.logit[rr])
+                    qd.append(g0.dec[rr])
                 qi.append(idx)
                 qn += len(idx)
                 while qn >= gB.n:
                     rows, ii = torch.cat(qr), np.concatenate(qi)
-                    run_b(rows[:gB.n], ii[:gB.n])
+                    if jw is not None:
+                        cc, dd = torch.cat(qc), torch.cat(qd)
+                        run_b(rows[:gB.n], ii[:gB.n], (cc[:gB.n], dd[:gB.n]))
+                        qc, qd = ([cc[gB.n:]], [dd[gB.n:]]) if qn > gB.n else ([], [])
+                    else:
+                        run_b(rows[:gB.n], ii[:gB.n])
                     qr, qi, qn = ([rows[gB.n:]], [ii[gB.n:]], qn - gB.n) if qn > gB.n else ([], [], 0)
             if qn:
-                run_b(torch.cat(qr), np.concatenate(qi))
+                run_b(torch.cat(qr), np.concatenate(qi), (torch.cat(qc), torch.cat(qd)) if jw is not None else None)
             t_gpu = time.perf_counter() - t0
         msecs = 0.0
         for f in pend:
@@ -637,7 +666,14 @@ def bitwise(a):
         oo = {c: {k: v[:n] for k, v in o[c].items()} for c in o if c in sc.COMPS}
         single = mode == "single"
         ch = lock["p"][str(p)]["chosen"]
-        dec, stage = sc.assemble(cfg, mode, oo, ch)
+        jw = (m.get("joint") or {}).get("w")
+        if (jw is None) != (a.joint_w is None or cfg != "C5") or (jw is not None and jw != a.joint_w):
+            raise SystemExit(f"{f}: joint {m.get('joint')}, --joint-w {a.joint_w} (C5 only)")
+        if jw is not None:                         # C5 with the joint step (sv_joint.assemble_joint)
+            from surface import sv_joint
+            dec, stage, _ = sv_joint.assemble_joint(sc, mode, oo, ch, jw)
+        else:
+            dec, stage = sc.assemble(cfg, mode, oo, ch)
         chk = {"decisions": int((z["pred"] != dec).sum()), "stages": int((z["stage"] != stage).sum())}
         if cfg in ("C1", "C4", "C5"):
             s = oo["S1" if single else "SB"]["c"]
@@ -702,12 +738,14 @@ def main():
     s.add_argument("--chunks", default="", help="C3 before the lock")
     s.add_argument("--n", type=int, default=0, help="C3 before the lock")
     s.add_argument("--dry", action="store_true")
+    s.add_argument("--joint-w", type=float, default=None, help="C5: the joint decision's weight w (sv_joint.py)")
     s = sub.add_parser("bitwise")
     s.add_argument("--lock", required=True)
     s.add_argument("--expect", required=True, choices=["gate", "c7"])
     s.add_argument("--pipes", required=True)
     s.add_argument("--read", required=True)
     s.add_argument("--out", required=True)
+    s.add_argument("--joint-w", type=float, default=None, help="the C5 files' joint weight (sv_joint.assemble_joint)")
     a = ap.parse_args()
     {"screen": screen, "summarize": summarize, "pipeline": pipeline, "bitwise": bitwise}[a.cmd](a)
 

@@ -30,6 +30,13 @@ fails (its window line carries the error). Commands:
     python srt_d13.py h100-session --out SESSION.json          the session's record (pod, GPU, venv, code, caches)
     python srt_d13.py h100-lock --lock LOCK --session SESSION.json --out DERIVED.json
     SRT_KCACHE_BUILD=1 (with SRT_DRY=1 only): the cache build's untimed processes; the cache digest check is skipped
+The joint decision (surface/sv_joint.py, drive.py r4 --joint-w13) changes the code digest and adds a kernel to the caches,
+so on either card its pipelines run against a lock derived for the joint tree:
+    SRT_KCACHE_BUILD=1 SRT_DRY=1 (untimed dry passes, any card)  then
+    python srt_d13.py session --out SESSION.json               the session's record on this card (SRT_CARD)
+    python srt_d13.py joint-lock --lock LOCK --session SESSION.json --out DERIVED.json
+joint-lock replaces the lock's code digest and kernel-cache digest with the session's (on the H100 also the card and venv
+fields, as h100-lock) and records joint_derivation (and, on the H100, h100_derivation for the checks below).
 Why the pipeline runs as an imported module: its spawn pools (the PyMatching workers) re-run the parent's __main__ as
 __mp_main__, which here is this file, so each worker patches its own surface_data before it samples."""
 import importlib
@@ -44,7 +51,8 @@ H100 = "NVIDIA H100 80GB HBM3"
 CARD = os.environ.get("SRT_CARD", "rtx").lower()
 if CARD not in ("rtx", "h100"):
     raise SystemExit(f"srt_d13: SRT_CARD={CARD!r}, not rtx or h100")
-HELPER = __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] in ("h100-session", "h100-lock")
+HELPER = __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] in ("h100-session", "h100-lock", "session",
+                                                                           "joint-lock")
 FACTS = None if HELPER else srtlib.install_d13()   # at import: the main process and every spawned worker
 SESSION_FIELDS = ("gpu", "real_executable", "prefix", "packages_sha256")      # the lock's identity keys that name card and venv
 
@@ -106,13 +114,14 @@ def session_record(out):
     of the caches under TRITON_CACHE_DIR / TORCHINDUCTOR_CACHE_DIR (the pipeline's own functions, sv_common.record)."""
     import json
     sc = importlib.import_module("surface.sv_common")
-    sc.GPU = H100
+    if CARD == "h100":
+        sc.GPU = H100
     _, gpu = sc.setup_gpu()
     rec = sc.record(gpu)
     keep = ("gpu", "driver", "torch", "cuda", "cudnn", "triton", "capability", "real_executable", "prefix", "packages",
             "packages_sha256", "code", "kcache", "tree", "cpu", "host", "time")
     res = {k: rec[k] for k in keep}
-    res.update(card="h100", kcache_dirs={v: os.environ.get(v, "") for v in ("TRITON_CACHE_DIR", "TORCHINDUCTOR_CACHE_DIR")})
+    res.update(card=CARD, kcache_dirs={v: os.environ.get(v, "") for v in ("TRITON_CACHE_DIR", "TORCHINDUCTOR_CACHE_DIR")})
     with open(out, "x") as fh:
         json.dump(res, fh, indent=1, sort_keys=True)
     print(f"srt_d13 session: {res['gpu']} driver {res['driver']} torch {res['torch']} code {res['code']['digest']} "
@@ -143,6 +152,33 @@ def derive_lock(lock, session, out):
     print(f"srt_d13 derived lock {out} from {lock}: {SESSION_FIELDS} and kcache {S['kcache']} are the session's", flush=True)
 
 
+def joint_lock(lock, session, out):
+    """The study's lock for the joint decision's tree on the session's card, written once: the session's code digest and
+    kernel caches (on the H100 also its card and venv fields, SESSION_FIELDS) in place of the lock's; everything else
+    (thresholds, frozen paths, nets, plan, torch) is the lock's. Refused unless the session's torch is the lock's."""
+    import copy
+    import json
+    L, S = json.load(open(lock)), json.load(open(session))
+    if L["identity"]["torch"] != S["torch"]:
+        raise SystemExit(f"srt_d13: the session's torch {S['torch']} is not the lock's {L['identity']['torch']}")
+    D = copy.deepcopy(L)
+    repl = ["identity.code", "kcache"]
+    D["identity"]["code"] = S["code"]
+    if S["card"] == "h100":
+        for k in SESSION_FIELDS:
+            D["identity"][k] = S[k]
+        repl += [f"identity.{k}" for k in SESSION_FIELDS]
+        D["h100_derivation"] = dict(lock_sha256=srtlib.sha256_file(lock), session_sha256=srtlib.sha256_file(session),
+                                    replaced=list(srtlib.D13_REPLACED) + ["identity.code"],
+                                    rest_sha256=srtlib.lock_rest_sha256(L), card="h100")
+    D["kcache"] = dict(S["kcache"])
+    D["joint_derivation"] = dict(lock_sha256=srtlib.sha256_file(lock), session_sha256=srtlib.sha256_file(session),
+                                 replaced=sorted(repl), card=S["card"], code=S["code"])
+    with open(out, "x") as fh:
+        json.dump(D, fh, indent=1, sort_keys=True)
+    print(f"srt_d13 joint lock {out} from {lock}: {sorted(repl)} are the session's ({S['card']})", flush=True)
+
+
 def h100_start(argv, sv):
     """Before the pipeline: the H100's checks -> the session record. The lock must be the one derived from SRT_SESSION."""
     import json
@@ -169,8 +205,11 @@ def main(argv):
     if argv == ["--check"]:
         print(f"srt_d13: eval_seed patched for kind {FACTS['kind']} at d = 13: sets {FACTS['sets']}, card {CARD}", flush=True)
         return
-    if argv and argv[0] == "h100-session":
+    if argv and argv[0] in ("h100-session", "session"):
         return session_record(argv[argv.index("--out") + 1])
+    if argv and argv[0] == "joint-lock":
+        v = lambda f: argv[argv.index(f) + 1]                                          # noqa: E731
+        return joint_lock(v("--lock"), v("--session"), v("--out"))
     if argv and argv[0] == "h100-lock":
         v = lambda f: argv[argv.index(f) + 1]
         return derive_lock(v("--lock"), v("--session"), v("--out"))
@@ -185,6 +224,13 @@ def main(argv):
     sys.argv = ["sv_speed"] + list(argv)
     sv = importlib.import_module("surface.sv_speed")
     sess, check_end = h100_start(argv, sv) if CARD == "h100" else (None, False)
+    if CARD != "h100" and os.environ.get("SRT_KCACHE_BUILD") == "1":    # the joint tree's untimed cache build on the RTX
+        if os.environ.get("SRT_DRY") != "1":
+            raise SystemExit("srt_d13: SRT_KCACHE_BUILD is for dry runs (SRT_DRY=1)")
+        import json
+        sc_ = sys.modules["surface.sv_common"]
+        want, real = json.load(open(argv[argv.index("--lock") + 1]))["kcache"], sc_.kcache
+        sc_.kcache = lambda: {**want, "build": real()["digest"]}
     st = install_window(sv, mode, os.environ.get("SRT_TAG", "d13"))
     sv.main()
     tag = os.environ.get("SRT_TAG")

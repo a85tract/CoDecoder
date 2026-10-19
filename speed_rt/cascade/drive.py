@@ -28,7 +28,10 @@ each slot's record and each attempt's.
 Arguments: --tree (the pinned tree: D1_TREE for r1-r3, D13_TREE for r4), --reps (3), --n-single
 (20000), --n-batched (500000), --burn-s (SRT_BURN_S or 0), --gate on|off (default on), --max-attempts (3), --card rtx|h100,
 r2: --w4-lock (the depspam_fm lock of phase C, locked_depspam_fm.json) and --speed (speed_components.json), r4: --lock (the
-d = 13 lock; on the H100 the derived one), dry runs: --only SUBSTRING... (the slots whose id contains one), --force-bad
+d = 13 lock; on the H100 the derived one), the joint decision (phase_d/joint.py, surface/sv_joint.py): --joint-w
+P=W,P=W (r1: every S -> B slot at p runs with --joint-w W and saves its shots and decisions into its attempt's pipe.npz
+for joint_count.py compare) and --joint-w13 P=W,P=W (r4: every C5 slot at p runs with --joint-w W), dry runs: --only
+SUBSTRING... (the slots whose id contains one), --force-bad
 SUBSTRING=N,... (the first N attempts of those slots report their windows as rejected; needs SRT_DRY=1), --list (the plan
 only)."""
 import argparse
@@ -92,8 +95,14 @@ def m2_pipe(rnd, tree, rep, fam, p, cfg, mode, eng, n, bbsets):
     return pipe_slot(rnd, script, args, rep, fam, p, cfg, mode, eng, 0, n, bbsets)
 
 
+def weights(spec):
+    """'0.002=6.31,0.003=3.76' -> {0.002: 6.31, 0.003: 3.76} (empty: {})."""
+    return {float(k): float(v) for k, v in (x.split("=") for x in spec.split(",") if x)}
+
+
 def plan_r1(a, bbsets, d13sets):
     script = f"{a.tree}/cascade_compare/phase_d/d1_m2.py"
+    jw = weights(a.joint_w)
     out = []
     for rep in range(1, a.reps + 1):
         for p, i in ((0.002, 0), (0.003, 1)):
@@ -103,7 +112,10 @@ def plan_r1(a, bbsets, d13sets):
                 args = ["pipeline", "--setting", "depspam_fm", "--config", str(cfg), "--p", str(p), "--mode", mode,
                         "--engine", eng, "--tail-b", "0", "--rep", str(rep), "--n", str(n), "--out", "{rows}",
                         "--group", "{group}"]
+                if cfg >= 0 and p in jw:                 # the composition with the joint step
+                    args += ["--joint-w", repr(jw[p]), "--save", "{savef}"]
                 out.append(pipe_slot("r1", script, args, rep, "depspam_fm", p, cfg, mode, eng, 0, n, bbsets))
+                out[-1]["meta"]["joint_w"] = jw.get(p) if cfg >= 0 else None
     return out
 
 
@@ -145,6 +157,7 @@ def plan_r4(a, bbsets, d13sets):
     if not a.lock:
         raise SystemExit("r4 needs --lock")
     plan = json.load(open(a.lock))["pipes"]["c7"]
+    jw = weights(a.joint_w13)
     out = []
     for rep in range(1, a.reps + 1):
         for p in D13_P:
@@ -153,9 +166,12 @@ def plan_r4(a, bbsets, d13sets):
                     n = plan[mode]
                     args = ["pipeline", "--config", c, "--p", str(p), "--mode", mode, "--rep", str(rep), "--lock",
                             a.lock, "--stage", "c7", "--out", "{rows}", "--save", "{save}"]
+                    if c == "C5" and p in jw:            # the composition with the joint step
+                        args += ["--joint-w", repr(jw[p])]
                     out.append(dict(id=f"r4.rep{rep}.p{p:g}.{c}.{mode}", launcher="srt_d13.py", script=None, args=args,
                                     windows=1, shots={d13sets[p]: chunks_for(n)},
-                                    meta=dict(round="r4", role="pipeline", config=c, p=p, mode=mode, rep=rep, n=n)))
+                                    meta=dict(round="r4", role="pipeline", config=c, p=p, mode=mode, rep=rep, n=n,
+                                              joint_w=jw.get(p) if c == "C5" else None)))
     return out
 
 
@@ -186,7 +202,8 @@ def run_attempt(slot, k, a, out, bad_n):
     for n in ("windows.jsonl", "trace.jsonl"):
         open(f[n], "w").close()
     group = "main" if k == 0 else f"repl{k}"
-    sub = {"{rows}": f["rows.jsonl"], "{group}": group, "{save}": os.path.join(d, "pipes")}
+    sub = {"{rows}": f["rows.jsonl"], "{group}": group, "{save}": os.path.join(d, "pipes"),
+           "{savef}": os.path.join(d, "pipe.npz")}
     args = [sub.get(x, x) for x in slot["args"]]
     cmd = [sys.executable, os.path.join(HERE, slot["launcher"])] + ([slot["script"]] if slot["script"] else []) + args
     env = dict(os.environ, SRT_WINDOWS=f["windows.jsonl"], SRT_TRACE=f["trace.jsonl"], SRT_ATTEMPT=str(k),
@@ -250,6 +267,8 @@ def main():
     ap.add_argument("--w4-lock", default="")
     ap.add_argument("--speed", default="")
     ap.add_argument("--lock", default="")
+    ap.add_argument("--joint-w", default="", help="r1: the joint decision's w per p, e.g. 0.002=6.31,0.003=3.76")
+    ap.add_argument("--joint-w13", default="", help="r4: C5's joint w per p, e.g. 0.006=W,0.0035=W")
     ap.add_argument("--only", nargs="*", default=[])
     ap.add_argument("--force-bad", default="")
     ap.add_argument("--list", action="store_true")

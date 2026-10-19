@@ -613,10 +613,11 @@ class Stream:
     wait and once at the end on the rest (by Tail's rule when lever 2 is on; Cascade alone: its own last batch), B's
     routing to Relay-BP (S -> B -> R: conf < tau2 in float64) handed to relay(indices) -> pred, route (1 = B, 2 = R)."""
 
-    def __init__(self, gS, gB, tail, t_S, tau2, relay, n, alone, keep_conf=False):
+    def __init__(self, gS, gB, tail, t_S, tau2, relay, n, alone, keep_conf=False, js=None):
         import torch
         import pc_speed as ps
         self.gS, self.gB, self.tail, self.t_S, self.tau2, self.relay, self.alone = gS, gB, tail, t_S, tau2, relay, alone
+        self.js = js                     # the joint step (gB a joint.JointB): S's engine's s buffer, rows gathered with x
         self.bS, self.BQ = gS.B, ps.B_Q
         self.hc_s = torch.empty(self.bS).pin_memory()
         self.hb_s = torch.empty(self.bS, pc.K, dtype=torch.uint8).pin_memory()
@@ -638,7 +639,7 @@ class Stream:
                 self.route[ii] = 2
                 self.relay(ii)
 
-    def run_b(self, rows, idx, last=False):
+    def run_b(self, rows, idx, last=False, joint=None):
         tb = time.perf_counter()
         if last and self.tail is not None:
             self.tail.run(rows, len(idx), lambda lo, hi, bits, conf: self.b_out(idx[lo:hi], bits, conf), self.st)
@@ -646,6 +647,10 @@ class Stream:
             gB = self.gB
             gB.x.zero_()
             gB.x[:len(idx)].copy_(rows)
+            if joint is not None:                       # the queued rows' s and S's decisions (padded rows: zero bits)
+                gB.sb.zero_()
+                gB.sb[:len(idx)].copy_(joint[1])
+                gB.s[:len(idx)].copy_(joint[0])
             gB.replay()
             self.hb_b.copy_(gB.bits, non_blocking=True)
             self.hc_b.copy_(gB.conf, non_blocking=True)
@@ -657,6 +662,7 @@ class Stream:
         import torch
         gS, bS, BQ, n = self.gS, self.bS, self.BQ, self.n
         q_rows, q_idx = [], []
+        q_s, q_sb = [], []                              # the joint step's queues (empty without it)
         for j in range(len(H)):
             lo, hi = j * bS, min(n, (j + 1) * bS)
             if self.alone and self.tail is not None and j == len(H) - 1 and hi - lo < bS:
@@ -675,14 +681,24 @@ class Stream:
                 continue
             idx = lo + r
             self.route[idx] = 1
-            q_rows.append(gS.x[torch.as_tensor(r, device=gS.x.device)])
+            rr = torch.as_tensor(r, device=gS.x.device)
+            q_rows.append(gS.x[rr])
+            if self.js is not None:                     # S's s rows and decisions, before S's buffers are reused
+                q_s.append(self.js[rr])
+                q_sb.append(gS.bits[rr])
             q_idx.append(idx)
             while sum(len(x) for x in q_idx) >= BQ:
                 rows, idx = torch.cat(q_rows), np.concatenate(q_idx)
-                self.run_b(rows[:BQ], idx[:BQ])
+                if self.js is None:
+                    self.run_b(rows[:BQ], idx[:BQ])
+                else:
+                    srows, sbits = torch.cat(q_s), torch.cat(q_sb)
+                    self.run_b(rows[:BQ], idx[:BQ], joint=(srows[:BQ], sbits[:BQ]))
+                    q_s, q_sb = [srows[BQ:]], [sbits[BQ:]]
                 q_rows, q_idx = [rows[BQ:]], [idx[BQ:]]
         if q_idx and sum(len(x) for x in q_idx):
-            self.run_b(torch.cat(q_rows), np.concatenate(q_idx), last=True)
+            self.run_b(torch.cat(q_rows), np.concatenate(q_idx), last=True,
+                       joint=(torch.cat(q_s), torch.cat(q_sb)) if self.js is not None else None)
 
 
 # ------------------------------------------------------------------------------------------------------- pipeline
@@ -692,7 +708,12 @@ def pipeline(a):
     process: the same harness, shots (kind 12 from chunk 0), routing (the locked thresholds in float64), queue and
     Relay-BP workers, with S on --engine (base: today's paths, frozen; new: mfused at batch 1 in single mode, at 4,096 in
     batched mode) and, with --tail-b b > 0, lever 2's tail rule (Tail) on B's last batch (Cascade alone: on its last
-    batch) in batched mode -> --out rows (pc_speed's row format plus engine, tail, toolchain)."""
+    batch) in batched mode -> --out rows (pc_speed's row format plus engine, tail, toolchain).
+    --joint-w W (an S -> B configuration, --tail-b 0): the joint decision (phase_d/joint.py) on the routed shots whose
+    two decisions differ, with weight W, inside the timed region: B runs as joint.JointB (Cascade's computation on its
+    frozen path with the logits kept, then the joint step, one CUDA graph per replay); the row carries joint.record(W)
+    and path_B ends in "+joint". --save F (after the clock) writes F.npz: the detector rows, observables, every shot's
+    decision and route, for the bitwise check against the reads (joint_count.py compare)."""
     import torch
     import pc_speed as ps
     from multiprocessing import get_context
@@ -720,12 +741,19 @@ def pipeline(a):
     use_relay = typ == "S-B-R"
     t_S = -np.inf if alone else tau["tau1"]
     engine = None if alone else a.engine
+    jw = a.joint_w
+    if jw is not None:
+        import joint
+        if typ != "S-B" or Bn is None or (a.mode == "batched" and a.tail_b):
+            raise SystemExit(f"--joint-w: an S -> B configuration with --tail-b 0, not {typ} (tail {a.tail_b})")
     base = {"role": "pipeline", "config": a.config, "type": typ, "p": p, "family": fam, "S": c["S"], "B": c.get("B"),
             "q1": c.get("q1"), "r": c.get("r"), "q": c.get("q"), "score": c.get("score"), "mode": a.mode,
             "rep": a.rep, "kind_seed": a.kind, **env, "locked_sha256": pc.sha256_file(locks[a.setting]),
             "speed_sha256": L["speed_sha256"], "shots": len(det), "tree": os.environ.get("PC_TREE", ""),
             "engine": engine, "tail_b": a.tail_b if a.mode == "batched" else 0, "group": a.group,
             "toolchain": toolchain()}
+    if jw is not None:
+        base["joint"] = joint.record(jw)
     D = det.shape[1]
 
     def s_check(gS):
@@ -746,10 +774,28 @@ def pipeline(a):
         b = B or b
         return build_path(pr, tag, engine, path, b, score), f"{path}@{b}" + (f"+{engine}" if path == "fused" else "")
 
+    def joint_b(gS, mode):
+        """B on its frozen path with the joint step (joint.JointB): single mode reads S's buffers in place."""
+        path, b = path_of(c["B"], engine, mode)
+        eng = joint.fused_engine(gS)
+        if mode == "single":
+            s_src = eng.s.view(1, -1) if eng.s.dim() == 1 else eng.s[:1]
+            return joint.build_b(Bn, path, b, eng, jw, s_src=s_src, sb_src=gS.bits), f"{path}@{b}+joint"
+        return joint.build_b(Bn, path, b, eng, jw), f"{path}@{b}+joint"
+
+    def save(pred, route):
+        if a.save:
+            np.savez(a.save, det=np.packbits(det, axis=1, bitorder="little"), obs=np.packbits(obs, axis=1),
+                     pred=np.packbits(pred, axis=1), route=route.astype(np.int8),
+                     meta=np.array(json.dumps({**base, "kind": a.kind, "n": len(det)}, default=str)))
+
     if a.mode == "single":
         gS, base["path_S"] = net(S, c["S"], "single")
         base["S_check"] = s_check(gS)
-        gB, base["path_B"] = net(Bn, c["B"], "single", c.get("score", "minabs")) if Bn is not None else (None, None)
+        if jw is not None:
+            gB, base["path_B"] = joint_b(gS, "single")
+        else:
+            gB, base["path_B"] = net(Bn, c["B"], "single", c.get("score", "minabs")) if Bn is not None else (None, None)
         if use_relay:
             ps.relay_import()
             import pc_relay
@@ -760,6 +806,7 @@ def pipeline(a):
         hb, hc = torch.empty(1, pc.K, dtype=torch.uint8).pin_memory(), torch.empty(1).pin_memory()
         st = torch.cuda.current_stream()
         lat, cat, fail = np.empty(len(det)), np.zeros(len(det), np.int8), np.zeros(len(det), bool)
+        keep = np.zeros((len(det), pc.K), np.uint8) if a.save else None
         stop = gpu_watch()
         for i in range(-200, len(det)):                    # 200 untimed shots first
             j = i % len(det)
@@ -788,18 +835,25 @@ def pipeline(a):
                 lat[i] = 1e6 * (time.perf_counter() - t0)
                 cat[i] = k
                 fail[i] = bool((pred != obs[i]).any())
+                if keep is not None:
+                    keep[i] = pred
         out = {**base, "metric": "single", "latency_us": ps.quant(lat), "clock": stop(),
                "frac_B": float((cat >= 1).mean()), "frac_R": float((cat == 2).mean()), "fail": int(fail.sum())}
         for k, name in ((0, "S_only"), (1, "via_B"), (2, "via_R")):
             if (cat == k).any():
                 out[f"latency_{name}_us"] = ps.quant(lat[cat == k])
+        if keep is not None:
+            save(keep, cat)
         ps.emit(a.out, out)
         return
 
     gS, base["path_S"] = net(S, c["S"], "amortized" if alone else "batched")
     base["S_check"] = s_check(gS)
     bS = gS.B
-    gB, base["path_B"] = net(Bn, c["B"], "batched", c.get("score", "minabs")) if Bn is not None else (None, None)
+    if jw is not None:
+        gB, base["path_B"] = joint_b(gS, "batched")
+    else:
+        gB, base["path_B"] = net(Bn, c["B"], "batched", c.get("score", "minabs")) if Bn is not None else (None, None)
     small = None
     if a.tail_b:                                        # lever 2: the same path at the small batch, beside the full
         tag, pr_ = (c["S"], S) if alone else (c["B"], Bn)
@@ -829,7 +883,8 @@ def pipeline(a):
         for k in range(0, len(ii), ps.RELAY_TASK):
             jj = ii[k:k + ps.RELAY_TASK]
             pending.append(pool.apply_async(ps._relay_one, ((fam, p, jj, det[jj]),)))
-    sm = Stream(gS, gB, tail, t_S, tau.get("tau2"), relay if use_relay else None, len(det), alone)
+    sm = Stream(gS, gB, tail, t_S, tau.get("tau2"), relay if use_relay else None, len(det), alone,
+                js=joint.fused_engine(gS).s if jw is not None else None)
     stop = gpu_watch()
     t0 = time.perf_counter()
     sm.run(H)
@@ -847,6 +902,7 @@ def pipeline(a):
         pool.join()
     secs = np.concatenate(secs) if secs else np.zeros(0)
     fail = (pred != obs).any(1)
+    save(pred, route)
     ps.emit(a.out, {**base, "metric": "batched", "batch_S": bS, "batch_B": ps.B_Q if gB is not None else None,
                     "relay_workers": pc.NCPU_RELAY if pool else 0, "wall_s": wall, "gpu_phase_s": t_gpu,
                     "b_stage_s": t_b, "per_shot_us": 1e6 * wall / len(det),
@@ -1571,6 +1627,8 @@ def main():
     s.add_argument("--group", default="main")
     s.add_argument("--n", type=int, default=500_000)
     s.add_argument("--kind", type=int, default=pc.KIND_SPEED)
+    s.add_argument("--joint-w", type=float, default=None, help="the joint decision's weight w (phase_d/joint.py)")
+    s.add_argument("--save", default="", help="F.npz: the shots, every decision and route (after the clock)")
     s.add_argument("--out", required=True)
     s = sub.add_parser("drive")
     s.add_argument("--what", required=True, choices=("nets", "pipe"))

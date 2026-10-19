@@ -22,6 +22,15 @@ read at p must give that read's every decision and margin bit. Writes OUT/p<p>.n
 routed, bitsR, confR; the bits packed) and OUT/p<p>.json, then OUT/done_<p>. Nothing here computes a failure: the
 analysis (d1_confirm.py) is the only step that compares a decision with the observables.
 
+read --joint (the joint decision, phase_d/joint.py): Cascade's computation keeps its logits (joint.compiled_z, the
+computation of the timed pipelines' joint.JointB) on both paths: Multi runs it at batch 1 (the check against phase C's
+compiled@1 Graph, which has no logits, is unchanged: one differing bit of a decision or confidence and nothing is
+written) and joint.GraphZ at 4,096; the first slice's rows also go through phase C's compiled@4096 Graph, and the
+decisions and confidences that differ from the logit-keeping graph's are counted (z_vs_frozen in the record). Writes
+also z1R (compiled@1's logits on the routed rows, in the order of routed) and zR (compiled@4096's on the routed queue,
+the pipeline's batches), float32. --dry (checks only): admits the dry kind 13 and the speed stream's kind 12 (a read of
+the timed pipelines' own shots) and skips the S anchor; the record says dry.
+
 profile, verify and anchor are the dry run's (PHASE_D1_PLAN.md 5.3): Multi's rate at each K x R against phase C's
 Graph one row at a time; Multi bitwise against phase C's Graph on N rows of the dry kind 13; and the anchor, C14' on
 compiled@1 (Multi) and compiled@4096 on the rows of the first lock's claim-point check (C4b's frozen read), whose
@@ -83,14 +92,15 @@ class Multi:
     and confidence to row r of the graph's output blocks. Each graph is warmed up and captured on its own stream, so
     that every stream has its own cuBLAS workspace."""
 
-    def __init__(self, fn, K, R, dev):
+    def __init__(self, fn, K, R, dev, with_z=False):
         import torch
-        self.K, self.R = K, R
+        self.K, self.R, self.with_z = K, R, with_z
         self.st = [torch.cuda.Stream() for _ in range(K)]
         self.inp = [torch.zeros(R, D, dtype=torch.uint8, device=dev) for _ in range(K)]
         self.x = [torch.zeros(1, D, dtype=torch.uint8, device=dev) for _ in range(K)]
         self.ob = [torch.zeros(R, pc.K, dtype=torch.uint8, device=dev) for _ in range(K)]
         self.oc = [torch.zeros(R, dtype=torch.float32, device=dev) for _ in range(K)]
+        self.oz = [torch.zeros(R, pc.K, dtype=torch.float32, device=dev) for _ in range(K)] if with_z else None
         self.g = []
         torch.cuda.synchronize()
         for k in range(K):
@@ -103,9 +113,11 @@ class Multi:
             with torch.no_grad(), torch.cuda.graph(g, stream=s):
                 for r in range(R):
                     self.x[k].copy_(self.inp[k][r:r + 1])
-                    bits, conf = fn(self.x[k])
-                    self.ob[k][r:r + 1].copy_(bits)
-                    self.oc[k][r:r + 1].copy_(conf)
+                    out = fn(self.x[k])
+                    self.ob[k][r:r + 1].copy_(out[0])
+                    self.oc[k][r:r + 1].copy_(out[1])
+                    if with_z:
+                        self.oz[k][r:r + 1].copy_(out[2])
             self.g.append(g)
         torch.cuda.synchronize()
 
@@ -117,6 +129,7 @@ class Multi:
         m = -(-n // (K * R)) * K * R
         bits = torch.empty(m, pc.K, dtype=torch.uint8, device=dg.device)
         conf = torch.empty(m, dtype=torch.float32, device=dg.device)
+        z = torch.empty(m, pc.K, dtype=torch.float32, device=dg.device) if self.with_z else None
         main = torch.cuda.current_stream()
         for s in self.st:
             s.wait_stream(main)
@@ -132,12 +145,16 @@ class Multi:
                     self.g[k].replay()
                     bits[a:a + R].copy_(self.ob[k])
                     conf[a:a + R].copy_(self.oc[k])
+                    if z is not None:
+                        z[a:a + R].copy_(self.oz[k])
         for s in self.st:
             main.wait_stream(s)
-        return bits[:n], conf[:n]
+        return (bits[:n], conf[:n], z[:n]) if z is not None else (bits[:n], conf[:n])
 
 
-def to_np(bits, conf):
+def to_np(bits, conf, z=None):
+    if z is not None:
+        return bits.cpu().numpy(), conf.float().cpu().numpy(), z.float().cpu().numpy()
     return bits.cpu().numpy(), conf.float().cpu().numpy()
 
 
@@ -153,17 +170,21 @@ def ref_run(ref1, rows_np, dev):
     return to_np(*ref1.run(torch.as_tensor(rows_np, device=dev)))
 
 
-def sliced(fn, det_packed, idx, slice_rows, dev):
-    """fn over the rows det_packed[idx] (idx None: every row), slice by slice on the device -> numpy bits, conf."""
+def sliced(fn, det_packed, idx, slice_rows, dev, with_z=False):
+    """fn over the rows det_packed[idx] (idx None: every row), slice by slice on the device -> numpy bits, conf (and z
+    when fn keeps the logits)."""
     import torch
     n = len(det_packed) if idx is None else len(idx)
     bits, conf = np.empty((n, pc.K), np.uint8), np.empty(n, np.float32)
+    z = np.empty((n, pc.K), np.float32) if with_z else None
     for lo in range(0, n, slice_rows):
         hi = min(n, lo + slice_rows)
         rows = det_packed[lo:hi] if idx is None else det_packed[idx[lo:hi]]
-        b, c = fn(torch.as_tensor(d1.unpack_det(rows), device=dev))
-        bits[lo:hi], conf[lo:hi] = to_np(b, c)
-    return bits, conf
+        out = to_np(*fn(torch.as_tensor(d1.unpack_det(rows), device=dev)))
+        bits[lo:hi], conf[lo:hi] = out[0], out[1]
+        if with_z:
+            z[lo:hi] = out[2]
+    return (bits, conf, z) if with_z else (bits, conf)
 
 
 def s_anchor(dev, L, p):
@@ -202,7 +223,8 @@ def read(a):
     if os.path.exists(done):
         raise SystemExit(f"{done} exists: the compiled read at {p} is done")
     z, meta, idx = pc.load_read(a.read, p)
-    if meta["family"] != L["family"] or meta["kind"] != L["kind_seed"]:
+    if meta["family"] != L["family"] or meta["kind"] not in ((L["kind_seed"], pc.KIND_DRY, pc.KIND_SPEED) if a.dry
+                                                             else (L["kind_seed"],)):
         raise SystemExit(f"{a.read} at {p}: family {meta['family']} kind {meta['kind']}, not the lock's")
     for t in (d1.B, d1.S):
         if t not in idx or meta["models"][idx[t]]["sha256"] != L["nets"][t]:
@@ -214,21 +236,36 @@ def read(a):
         raise SystemExit(f"{a.read} at {p}: the saved detector rows do not match the read's chunk digests")
     t_dig = time.time()
     dev, env = ps.setup()
-    sa = s_anchor(dev, L, p)
-    if not sa["pass"]:
+    sa = {"skipped": "dry"} if a.dry else s_anchor(dev, L, p)
+    if not a.dry and not sa["pass"]:
         raise SystemExit(f"the S anchor failed at {p}: {sa}")
     pr = cascade(dev, L)
+    jz = a.joint
     t0 = time.time()
-    multi = Multi(compiled_fn(pr), K, R, dev)
+    if jz:
+        import joint
+        multi = Multi(joint.compiled_z(pr), K, R, dev, with_z=True)
+        g4 = joint.GraphZ(joint.compiled_z(pr), pc.VERDICT_B)
+    else:
+        multi = Multi(compiled_fn(pr), K, R, dev)
+        g4 = ps.build(pr, "compiled", pc.VERDICT_B)
     ref1 = ps.build(pr, "compiled", 1)
-    g4 = ps.build(pr, "compiled", pc.VERDICT_B)
     t_build = time.time() - t0
     run1 = lambda dg: multi.run(dg)                                       # noqa: E731
     run4 = lambda dg: g4.run(dg)                                          # noqa: E731
 
+    z_vs = None
+    if jz:                                                               # the logit-keeping graph against phase C's
+        g4f = ps.build(pr, "compiled", pc.VERDICT_B)
+        rows_ = torch.as_tensor(d1.unpack_det(det_p[:min(n, SL)]), device=dev)
+        b_z, c_z, _ = to_np(*g4.run(rows_))
+        b_f, c_f = to_np(*g4f.run(rows_))
+        z_vs = dict(bitwise(b_z, c_z, b_f, c_f), path="compiled@4096")
+        del g4f, rows_
+
     t0 = time.time()                                                     # the check before the read
     first = d1.unpack_det(det_p[:min(n, C1)])
-    b_m, c_m = to_np(*multi.run(torch.as_tensor(first, device=dev)))
+    b_m, c_m = to_np(*multi.run(torch.as_tensor(first, device=dev)))[:2]
     b_r, c_r = ref_run(ref1, first, dev)
     chk_first = bitwise(b_m, c_m, b_r, c_r)
     chk_first["secs"] = round(time.time() - t0, 1)
@@ -236,16 +273,19 @@ def read(a):
         raise SystemExit(f"Multi is not bitwise phase C's compiled@1 Graph on the first rows: {chk_first}")
 
     t0 = time.time()
-    bits4, conf4 = sliced(run4, det_p, None, SL, dev)                     # Cascade alone, batched
+    bits4, conf4 = sliced(run4, det_p, None, SL, dev, jz)[:2]             # Cascade alone, batched
     t4 = time.time() - t0
     conf_s = z[f"conf{idx[d1.S]}"].astype(np.float64)
     routed = np.nonzero(conf_s < c["tau"]["tau1"])[0]
     t0 = time.time()
-    bitsR, confR = sliced(run4, det_p, routed, SL, dev)                   # B in D's batched mode
+    outR = sliced(run4, det_p, routed, SL, dev, jz)                        # B in D's batched mode
+    bitsR, confR = outR[:2]
     tR = time.time() - t0
     t0 = time.time()
-    bits1, conf1 = sliced(run1, det_p, None, SL, dev)                     # single: every row
+    out1 = sliced(run1, det_p, None, SL, dev, jz)                         # single: every row
+    bits1, conf1 = out1[:2]
     t1 = time.time() - t0
+    zsave = {"z1R": out1[2][routed], "zR": outR[2]} if jz else {}
 
     t0 = time.time()                                                     # the check after the read
     every = np.arange(0, n, CE)
@@ -264,7 +304,10 @@ def read(a):
            "paths": dict(d1.COMPILED_PATHS), "frozen_paths": L["frozen_paths"][d1.B],
            "impl": {"single": f"Multi: {K} streams x {R} batch-1 calls per graph", "streams": K, "rounds": R,
                     "slice_rows": SL, "batched": "pc_speed.build(C14p, 'compiled', 4096).run"},
-           "check_first": chk_first, "check_every": dict(chk_every, every=CE), "S_anchor": sa,
+           "check_first": chk_first, "check_every": dict(chk_every, every=CE), "S_anchor": sa, "dry": bool(a.dry),
+           "joint": {"logits": "z1R: compiled@1 on the routed rows; zR: compiled@4096 on the routed queue",
+                     "computation": "joint.compiled_z (make_fwd_z under torch.compile)", "joint_py": joint.source(),
+                     "z_vs_frozen": z_vs} if jz else None,
            "cache": cache_counters(), "caches": {k: os.environ.get(k, "") for k in ("TRITON_CACHE_DIR",
                                                                                      "TORCHINDUCTOR_CACHE_DIR")},
            "secs": {"digests": round(t_dig - t_start, 1), "build": round(t_build, 1), "batched": round(t4, 1),
@@ -272,7 +315,7 @@ def read(a):
            "us_per_row": {"single": 1e6 * t1 / n, "batched": 1e6 * t4 / n}}
     np.savez(os.path.join(a.out, f"{pc.p_tag(p)}.npz"), bits1=np.packbits(bits1, axis=1), conf1=conf1,
              bits4=np.packbits(bits4, axis=1), conf4=conf4, routed=routed, bitsR=np.packbits(bitsR, axis=1),
-             confR=confR)
+             confR=confR, **zsave)
     json.dump(rec, open(os.path.join(a.out, f"{pc.p_tag(p)}.json"), "w"), indent=1)
     open(done, "w").close()
     emit(None, {k: v for k, v in rec.items() if k not in ("frozen_paths",)})
@@ -419,6 +462,8 @@ def main():
     s.add_argument("--lock", default=d1.LOCK)
     s.add_argument("--streams", type=int, default=0)
     s.add_argument("--rounds", type=int, default=0)
+    s.add_argument("--joint", action="store_true", help="keep Cascade's logits on both paths (the joint decision)")
+    s.add_argument("--dry", action="store_true", help="checks only: kinds 13 and 12 admitted, no S anchor")
     s = sub.add_parser("profile")
     s.add_argument("--p", type=float, default=0.003)
     s.add_argument("--rows", type=int, default=65_536)
