@@ -17,9 +17,9 @@ earlier timing sessions.
 | paper numbers | accuracy measured by | speed measured by | full rules |
 |---|---|---|---|
 | surface code, d = 7 to 17 | SURF-v2 | SPEED-RT stage 2 | `surface_v2/surf_v2/REGISTRATION.md`; `speed_rt/STAGE2_common.md`, `speed_rt/STAGE2_surface.md` |
-| BB72 and the gross code (Table I) | RETEST, re-running the original BB tests on fresh shots | SPEED-RT stage 2 | `RETEST.md` section 3.1; `bb/BB.md`; `speed_rt/STAGE2_bb.md` |
+| BB72 and the gross code (Table IV) | RETEST, re-running the original BB tests on fresh shots | SPEED-RT stage 2 | `RETEST.md` section 3.1; `bb/BB.md`; `speed_rt/STAGE2_bb.md` |
 | Cascade on BB72 and on the surface code at d = 13 | RETEST, re-running the original Cascade tests | SPEED-RT stage 1, on two cards | `RETEST.md` sections 3.2 and 3.3; `cascade/bb72/CASCADE.md`; `cascade/d13/SURFACE_PLAN.md`; `speed_rt/SPEED_RT.md` section 1 |
-| output heads (Table III) | RETEST | no speed number | `RETEST.md` section 3.4 |
+| output heads (Table II) | RETEST | no speed number | `RETEST.md` section 3.4 |
 | gap switching, our Decoder Switching | SURF-v2's secondary comparison | SPEED-RT stage 2, descriptive | `surface_v2/surf_v2/GAPSW_REGISTRATION.md`; `speed_rt/STAGE2_gapsw.md` |
 
 ## 1. Accuracy
@@ -411,8 +411,8 @@ from SPEED-RT as follows.
 | surface baselines, d = 17 | study 4's registered sessions | H100 | 2026-10-06/07 |
 | matching times on the Grace basis | NVIDIA's published values and the registered extrapolations | Apple M4; AMD EPYC 7713 | with the registered tests |
 | Ising + correlated PM, d = 7 to 15 | the post hoc controls, not registered | H100; Apple M4; AMD EPYC 9534 | after study 3 (M4 part 2026-10-06) |
-| BB72, Table I | the registered sessions, and a later M4 session for amendment S's CPU term | H100; Apple M4 | 2026-10-07 |
-| gross code, Table I | the registered stage-4 sessions | H100; Apple M4 | 2026-10-07 |
+| BB72, Table IV | the registered sessions, and a later M4 session for amendment S's CPU term | H100; Apple M4 | 2026-10-07 |
+| gross code, Table IV | the registered stage-4 sessions | H100; Apple M4 | 2026-10-07 |
 | full-DEM Relay-BP on BB72 at p = 0.2 % | a supplementary session after the BB72 test, not registered | Apple M4 | 2026-10-09 |
 | Cascade on BB72 | D1's registered timing | RTX PRO 6000 | 2026-10-11 |
 | Cascade at d = 13 | the comparison's timing and its repeat | RTX PRO 6000 | 2026-10-12 |

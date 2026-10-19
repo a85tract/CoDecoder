@@ -41,7 +41,7 @@ d = 9 the composition took 21.234 µs against plain PM's 26.297 µs. From d = 11
 as the composition (1.20 to 1.77 with the deployed networks). These numbers are in `speed_rt/s2/surface/results/table.md`
 (rows S1 and S4), the `ratio` column of `rows.csv` beside it and `d9_shallow/results/table.md`.
 
-On BB72 and the gross code CoDecoder runs in three modes (Table I): alone, balanced (CoDecoder + sector Relay-BP, which
+On BB72 and the gross code CoDecoder runs in three modes (Table IV): alone, balanced (CoDecoder + sector Relay-BP, which
 decodes one type of check) and accurate (CoDecoder + full-DEM Relay-BP); the table above gives the accurate mode. On the Grace basis, CUDA-Q's BP-OSD on the GPU, timed host to host, was the fastest decoder other than ours at all
 three points, and the network alone took less time than it at each: 0.09072 against 0.8909 ms per shot on BB72 at p =
 0.3 %, 0.08941 against 0.5396 ms at 0.2 %, and 0.2555 against 13.70 ms on the gross code, 0.019 of CUDA-Q's time. A composition

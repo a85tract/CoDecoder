@@ -1,4 +1,4 @@
-"""The figure of the output-head comparison (Appendix F, Fig. 7), drawn at its printed size as a vector PDF.
+"""The figure of the output-head comparison (Appendix G, Fig. 7), drawn at its printed size as a vector PDF.
 
     python results/figures/make_head_fig.py   (writes head_ablation.pdf next to this file)
 
@@ -10,7 +10,7 @@ seed 2). The visual language is make_figs.py's: STIX serif at 7.5-8 pt, CoDecode
 blue.
 
 Every number is the re-test's (RETEST_RESULTS.md section 4): retest/run/head/surface/pair_curves.csv and
-retest/run/head/bb72/pair_curves.csv (column per_million), the fallbacks alone from the same analyses (12,989 and 5,228 per million, Table III of the paper).
+retest/run/head/bb72/pair_curves.csv (column per_million), the fallbacks alone from the same analyses (12,989 and 5,228 per million, Table II of the paper).
 """
 import os
 

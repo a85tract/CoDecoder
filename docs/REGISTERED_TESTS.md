@@ -49,7 +49,7 @@ of the drand public randomness beacon (mainnet, one round every 30 s) at least 6
 know the test shots when the freeze was made. Each test set was then drawn once, read once by every decoder and analysed
 once by the frozen analysis.
 
-RETEST (`RETEST.md`) re-ran the BB tests of Table I, both Cascade comparisons and the output-head comparison on fresh
+RETEST (`RETEST.md`) re-ran the BB tests of Table IV, both Cascade comparisons and the output-head comparison on fresh
 shots, with the networks, thresholds, decoders and analyses frozen for their original runs; it timed nothing again, and
 SPEED-RT re-timed its speed numbers.
 SURF-v2 (`surface_v2/surf_v2/REGISTRATION.md`) tested the surface-code networks retrained without line supervision

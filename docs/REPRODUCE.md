@@ -84,33 +84,34 @@ original tests. The paper's surface accuracy comes from SURF-v2 (D9-SHALLOW at d
 accuracy from RETEST
 ([Registered tests and how to verify them](REGISTERED_TESTS.md#registered-tests-and-how-to-verify-them)), and every speed number from
 SPEED-RT, whose outputs the speed entries name ([How the speed was measured](SPEED.md#how-the-speed-was-measured-speed-rt)).
-The rows of the joint decision, at the end of the table, number the tables and sections as the paper's version of
-19 October 2026 does, in which the Cascade table is Table I. The rows above them follow an earlier numbering, in which
-it is Table II.
+The table numbers the paper's tables, figures, sections and appendices as its version of 19 October 2026 does, and the
+joint decision's rows are at its end. Frozen documents keep the paper numbering of their date: the plans,
+registrations and analyses frozen before a test, the documents of the frozen trees above, and every file whose sha256
+another record holds. In `RETEST.md`, for example, Table I is the BB table, now Table IV.
 
 | paper | what it shows | records | check |
 |---|---|---|---|
 | Fig. 1, Fig. 2 | CoDecoder and a strong decoder as a composition; the output-head geometry (diagrams) | | |
-| Table I | BB codes: failures and composite time | `bb/bb72/ising_compare/data/bb/stage3/` (`results.json`, `results_amendment_S.json`), `bb/gross/ising_compare/data/bb/stage3_gross/`, `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`, RETEST's reruns in `retest/run/bb/`; speed: `speed_rt/s2/bb/results/` (rows B1 to B6) | BB codes; [SPEED-RT](SPEED.md#how-to-verify) |
 | Fig. 3 | surface code: failure rate against composite time per shot, d = 7-17 | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (rows S1 to S4), `speed_rt/s2/gapsw/results/` | surface code; figures; [SPEED-RT](SPEED.md#how-to-verify) |
-| Table II | CoDecoder + Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`), RETEST's reruns in `retest/run/`; speed: `speed_rt/cascade/results/` (Cascade alone's fastest process, each composition's slowest) | Cascade; [SPEED-RT](SPEED.md#how-to-verify) |
-| Table III | the output-head comparison | `head/results/{surface,bb72}/` (`standalone.csv`, `pair_curves.csv`), `head/rule/`, `head/A1_RESULT.md` | output heads |
-| Fig. 4 | where the compositions gain (exploratory) | `results/discordant/` (`X2_RESULT.md`, `data/`) | figures |
-| Fig. 5 | routing frontiers on calibration shots | `results/surface/frontiers/`, `results/r17/policy_d17b5_r787_q08.json`, `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `bb/bb72/ising_compare/data/bb/policies/`, `bb/gross/ising_compare/data/bb/stage3_gross/frontierf_g2_D12k113c10.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md` | figures |
-| Table IV | surface code: failures and composite time of every decoder | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (row S1) | surface code; [SPEED-RT](SPEED.md#how-to-verify) |
-| Fig. 6 | BB codes: block failure rate against composite time | the records of Table I; speed: `speed_rt/s2/bb/results/` | figures; [SPEED-RT](SPEED.md#how-to-verify) |
+| Fig. 4 | BB codes: block failure rate against composite time | the records of Table IV; speed: `speed_rt/s2/bb/results/` | figures; [SPEED-RT](SPEED.md#how-to-verify) |
+| Table I | CoDecoder + Cascade: BB72 under the fitted noise model, and d = 13 | `cascade/bb72/cascade_compare/phase_d/` (`D1_RESULT.md`, `out/`), `cascade/d13/` (`RESULTS.md`, `out/`), RETEST's reruns in `retest/run/`; speed: `speed_rt/cascade/results/` (Cascade alone's fastest process, each composition's slowest) | Cascade; [SPEED-RT](SPEED.md#how-to-verify) |
+| Table II | the output-head comparison | `head/results/{surface,bb72}/` (`standalone.csv`, `pair_curves.csv`), `head/rule/`, `head/A1_RESULT.md` | output heads |
+| Fig. 5 | where the compositions gain (exploratory) | `results/discordant/` (`X2_RESULT.md`, `data/`) | figures |
+| Fig. 6 | routing frontiers on calibration shots | `results/surface/frontiers/`, `results/r17/policy_d17b5_r787_q08.json`, `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `bb/bb72/ising_compare/data/bb/policies/`, `bb/gross/ising_compare/data/bb/stage3_gross/frontierf_g2_D12k113c10.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md` | figures |
+| Table III | surface code: failures and composite time of every decoder | `surface_v2/surf_v2/analysis/tables.md`, `d9_shallow/results/` (d = 9); speed: `speed_rt/s2/surface/results/` (row S1) | surface code; [SPEED-RT](SPEED.md#how-to-verify) |
+| Table IV | BB codes: failures and composite time | `bb/bb72/ising_compare/data/bb/stage3/` (`results.json`, `results_amendment_S.json`), `bb/gross/ising_compare/data/bb/stage3_gross/`, `bb/gross_stage4/ising_compare/data/bb/stage4_gross/`, RETEST's reruns in `retest/run/bb/`; speed: `speed_rt/s2/bb/results/` (rows B1 to B6) | BB codes; [SPEED-RT](SPEED.md#how-to-verify) |
 | Table V | times on the raw and on the Grace basis | `speed_rt/s2/surface/results/table.md` (row S4x), `speed_rt/s2/bb/results/numbers.json` (`sensitivity_raw_xeon`), `d9_shallow/results/table.md` | [SPEED-RT](SPEED.md#how-to-verify) |
 | Table VI | where the composite time goes | `speed_rt/s2/surface/results/table.md` (row S6), `speed_rt/s2/bb/results/table.json` (row B4), `d9_shallow/results/table.md` | [SPEED-RT](SPEED.md#how-to-verify) |
 | Table VII | decoder settings and timing | the settings in `evaluation/convlines/opponents.py`, `bb/bb72/ising_compare/bb/opp.py` and `route.py`, `cascade/bb72/cascade_compare/phase_c/pc_common.py`, `cascade/d13/surface/sv_common.py`; the timing in `speed_rt/SPEED_RT.md` section 1, `STAGE2_surface.md` and `STAGE2_bb.md` | |
-| Table VIII | the speed-ups of Table II from mean times | `speed_rt/cascade/results/numbers.json` (every repetition) | |
+| Table VIII | the speed-ups of Table I from mean times | `speed_rt/cascade/results/numbers.json` (every repetition) | |
 | Table IX | the first registered test with our Cascade on BB72 | `cascade/bb72/cascade_compare/phase_c/` (`RESULTS.md`, `out/confirm_*.json`, `out/report/`); speed: `speed_rt/cascade/results/` | Cascade |
 | Table X | the registered speed re-test with Cascade on TensorRT | `cascade_trt_reg/results_alpine/` (`tables.md`, `numbers.json`), `cascade_trt_reg/RESULTS.md` | |
-| Fig. 7 | failures of each output-head arm's composition against q | `head/results/{surface,bb72}/pair_curves.csv` | figures |
 | Table XI | every comparison of the output-head study | `head/results/{surface,bb72}/comparisons.csv` | output heads |
 | Table XII | provenance of the claims | the plans: `results/r17/PLAN_R17.md`; `bb/bb72/ising_compare/bb/PLAN.md`, `STAGE3_PLAN.md`, `AMENDMENT_S.md`; `bb/gross/ising_compare/bb/STAGE3_GROSS_PLAN.md`; `bb/gross_stage4/ising_compare/bb/STAGE4_GROSS_PLAN.md`; `cascade/bb72/cascade_compare/PHASE_C_PLAN.md`, `phase_d/PHASE_D1_PLAN.md`; `cascade/d13/SURFACE_PLAN.md`; `d9_shallow/PLAN.md`; `cascade_trt_reg/RULES.md`; the test-set manifests in `evaluation/testsets/` | |
-| Table XIII | medians of the shot descriptors (exploratory) | `results/discordant/data/tables.md`, `data/surface/summary.json` | |
+| Fig. 7 | failures of each output-head arm's composition against q | `head/results/{surface,bb72}/pair_curves.csv` | figures |
 | Fig. 8 | matching's class gap at d = 13 (exploratory) | `results/discordant/data/surface/fig_d13.npz` | figures |
 | Fig. 9 | where CoDecoder fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
+| Table XIII | medians of the shot descriptors (exploratory) | `results/discordant/data/tables.md`, `data/surface/summary.json` | |
 | Table XIV | names in the paper and in this repository | `weights/networks.csv`, this README | |
 | Table I (the Cascade table), rows "CoDecoder + Cascade, joint decision" and note a | the joint decision's failures, times and speed-ups (held out, not registered) | failures: `joint/table1_compiled/out/` (`bb72_counts.json`, `d13_counts.json`) and, at d = 13, `joint/table1/out/table1.json`; times: `joint/timing/` (`timing.json`, `timing_cells.md`, `records/`) | joint decision |
 | Sec. III B, "Joint decision on routed shots" | the rule, and its weight fitted on separate fresh shots and frozen | `joint/README.md`, `joint/fit_bb72/out/analysis/summary.json`, `joint/fit_d13/out/analysis/summary.json` | joint decision |
@@ -202,9 +203,9 @@ own directories for the networks, the sets and the reads. The sets' seeds and di
 ### Figures
 
 ```bash
-python results/figures/make_figs.py        # Figs. 3, 5, 6 and 9
+python results/figures/make_figs.py        # Figs. 3, 4, 6 and 9
 python results/figures/make_head_fig.py    # Fig. 7
-python results/figures/make_why_fig.py     # Figs. 4 and 8, from results/discordant/data
+python results/figures/make_why_fig.py     # Figs. 5 and 8, from results/discordant/data
 ```
 
 Each script writes its PDFs next to itself and names, beside every block of numbers, the record it was copied from.

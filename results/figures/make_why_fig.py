@@ -11,9 +11,9 @@ DATA_DIR (default results/discordant/data) holds the inputs of the exploratory a
 The BB panel of why_pairs_win.pdf reads RETEST's re-read in front of our Cascade, as the paper does:
   retest/run/d1/x2/bb/fig.npz  sha256 287a96dce98d5e808bab8eab9de027481a07295e7b00735f456c08fc5d2174ca
 
-The panels redraw two figures of results/discordant/figures.py in the paper's style. why_pairs_win.pdf (Section VII) shows
+The panels redraw two figures of results/discordant/figures.py in the paper's style. why_pairs_win.pdf (Section VI) shows
 the share of the discordant shots that the network fails, against its confidence (x2_who_fails), with the same bins
-and intervals; that share is conditional on the shot being discordant. why_class_gap.pdf (Appendix H) shows the
+and intervals; that share is conditional on the shot being discordant. why_class_gap.pdf (Appendix I) shows the
 class-gap histograms at d = 13 (x2_gap, panels a and c).
 Colours follow make_figs.py: the network vermillion, the strong decoder (the fallback) blue.
 """
@@ -57,7 +57,7 @@ def share_curve(a, b, tau, below=8, above=4):
 
 
 def gap_figure(s13):
-    """why_class_gap.pdf (Appendix H): matching's class gap at d = 13, plain (a) and correlated (b)."""
+    """why_class_gap.pdf (Appendix I): matching's class gap at d = 13, plain (a) and correlated (b)."""
     fig, axs = plt.subplots(1, 2, figsize=(mf.COL, 2.25))
     fig.subplots_adjust(left=0.14, right=0.985, top=0.735, bottom=0.18, wspace=0.6)
     bins = np.arange(-25, 50.5, 1.0)
@@ -92,7 +92,7 @@ def gap_figure(s13):
 
 
 def share_figure(s13, s17, bb):
-    """why_pairs_win.pdf (Section VII): the network's share of the discordant shots against its confidence, in front
+    """why_pairs_win.pdf (Section VI): the network's share of the discordant shots against its confidence, in front
     of correlated PM on the surface code (a) and of our Cascade on BB72 (b)."""
     fig, axs = plt.subplots(1, 2, figsize=(mf.COL, 1.95), sharey=True)
     fig.subplots_adjust(left=0.14, right=0.96, top=0.885, bottom=0.215, wspace=0.2)

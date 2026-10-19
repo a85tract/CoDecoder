@@ -15,15 +15,15 @@ freeze reached GitHub (2026-10-13T02:34:48Z). Each test's records and analysis o
 
 | test | original | re-test | repeats |
 |---|---|---|---|
-| Table I, BB72 (6 cells, 17 gated comparisons) | every comparison "better"; all 6 claims | every comparison "better"; all 6 claims | yes, all 6 (accuracy confirmed, speed estimated) |
-| Table I, gross code (2 cells, 7 gated comparisons) | every comparison "better"; both claims | every comparison "better"; both claims | yes, both (accuracy confirmed, speed estimated) |
+| Table IV, BB72 (6 cells, 17 gated comparisons) | every comparison "better"; all 6 claims | every comparison "better"; all 6 claims | yes, all 6 (accuracy confirmed, speed estimated) |
+| Table IV, gross code (2 cells, 7 gated comparisons) | every comparison "better"; both claims | every comparison "better"; both claims | yes, both (accuracy confirmed, speed estimated) |
 | Cascade on BB72, D1 (4 comparisons, one Holm family) | all 4 "better"; "more accurate and faster" at 0.2 % and 0.3 % | all 4 "better"; the claim holds at both p on both engines | yes |
 | Cascade on the surface code, d = 13 (40 hypotheses, one Holm family) | 31 rejected; pair better than Cascade alone at both p in both modes | 34 rejected; pair better at 0.35 %, only non-inferior at 0.6 %; new "worse" for C1 and C4 against Cascade alone at 0.35 % | partly: the pair's "better" repeats at 0.35 % in both modes but not at 0.6 %; headline chain C5, P1, P2 and the d = 17 decision repeat; C5 is "faster and more accurate" at 0.35 % only |
 | Output heads, surface code (14 verdicts) | R1 worse, R2 worse, R3 inconclusive, U1 better, U2 inconclusive, W1 worse, W2 inconclusive, at q = 0 and q = 1 % | the same 14 | yes, 14 of 14 |
 | Output heads, BB72 (10 verdicts) | R1 worse, R2 worse, U1 inconclusive, U2 better, W1 worse, at q = 0 and q = 2 % | the same, except U1 at q = 0: worse | 9 of 10; U1 at q = 0 is a new result, so the paper's "a consistent benefit was not established" for the joint class score no longer holds at q = 0 |
 | X2 (exploratory, no verdict) | Figure "why" (b): 68 % and 75 % below the threshold, 18 % and 19 % above | 67 % and 75 %, 8 % and 20 % | reported apart |
 
-## 1. Table I
+## 1. Table IV (Table I in `RETEST.md`)
 
 Cells: BB72-3 and BB72-2 are the fast mode (the network alone) at p = 0.3 % (200,000 shots) and 0.2 % (300,000);
 BB72-3S and BB72-2S the balanced mode (Amendment S); BB72-3F and BB72-2F the accurate mode; G-4R (balanced) and G-4F
