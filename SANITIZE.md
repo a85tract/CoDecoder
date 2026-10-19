@@ -47,3 +47,14 @@ the GPUs' UUIDs `<uuid-1>` to `<uuid-3>` (`GPU-<uuid-N>` where the record keeps 
 `<gpu-serial-1>`, the root file system's UUID `<fs-uuid>` and the BB draw's Slurm job `AJ41`. In the hosts' process
 lists, the process name of a tool that ran the studies became `<tool>`. The files whose sha256 the frozen analyses
 check are published byte for byte, and none of them held an identifier.
+
+The joint decision's studies under `joint/` follow these rules and continue the labels: their Slurm jobs became `AJ47`
+to `AJ56`, in file and directory names too, and two CPU nodes new here became `cpu-node-24` and `cpu-node-25`. The
+files whose sha256 another of their records holds are published byte for byte, and 21 of them keep identifiers.
+Seventeen keep a rented pod's container host name or its home directory (the fits' environment records, setup logs
+and read records, and the pods' d = 13 sessions and locks). Four, `joint/timing/records/RTX/out/d13_rtx/session_0.json`,
+`session_1.json`, `session_settled.json` and `lock_timed_20261019_035343.json`, keep the cluster account in their paths
+and, in the three session files, the RTX node's host name, because the timing session's later records hold their
+sha256; `joint/README.md` names them. One docstring line of `cascade/bb72/cascade_compare/phase_d/scored.py` named
+the workstation and was reworded, so that file's sha256 differs from the digest the joint decision's checks recorded
+(`joint/README.md`).

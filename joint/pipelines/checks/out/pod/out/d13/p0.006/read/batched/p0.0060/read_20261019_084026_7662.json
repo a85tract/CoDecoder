@@ -1,0 +1,137 @@
+{
+ "stage": "speed",
+ "dry": true,
+ "p": 0.006,
+ "kind": 13,
+ "chunks": [
+  0,
+  50
+ ],
+ "shots": 500000,
+ "comps": [
+  "SB",
+  "BQ5"
+ ],
+ "paths": {
+  "SB": "engine@4096",
+  "BQ5": "compiled@16"
+ },
+ "taus": {
+  "BQ1": 9.554975891113282,
+  "BQ5": 5.242445659637451
+ },
+ "nets": {
+  "S": {
+   "net": "S",
+   "name": "d13_b5_r775",
+   "sha256": "cbd2b84a47dd6bf71c62eb0cae4d660e2811db5efb9b55b695dd9337d141f12a",
+   "engine": "timing.engine FROZEN"
+  },
+  "B": {
+   "net": "B",
+   "ckpt": "final",
+   "file": "/workspace/arb3/d13root/ckpt/CS13/final_ema.pt",
+   "sha256": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659",
+   "step": 81130,
+   "status": "no_improvement",
+   "cfg": {
+    "d": 13,
+    "R": 13,
+    "H": 256,
+    "L": 13,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false
+   },
+   "params": 2531841
+  }
+ },
+ "record": {
+  "python": "3.12.14",
+  "executable": "/workspace/arb3/venv/bin/python",
+  "real_executable": "<pod-home>/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+  "prefix": "/workspace/arb3/venv",
+  "torch_file": "/workspace/arb3/venv/lib/python3.12/site-packages/torch/__init__.py",
+  "packages": 43,
+  "packages_sha256": "a5faeb1a9b5026a6551fd053340445e9b16b347bf035c57518fced87fb406399",
+  "container": "",
+  "venv_staged": "",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "driver": "580.126.09",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "triton": "3.6.0",
+  "capability": [
+   9,
+   0
+  ],
+  "code": {
+   "commit": "",
+   "release": "",
+   "clean": false,
+   "files": 82,
+   "digest": "df726c1ecda678ab"
+  },
+  "kcache": {
+   "digest": "46c6069894fa4844",
+   "files": 1248,
+   "real": "a033c95e7a81c98b"
+  },
+  "tree": "",
+  "job": "",
+  "host": "gpu-pod",
+  "pid": 7662,
+  "cpu": "Intel(R) Xeon(R) Platinum 8480+",
+  "time": "2026-10-19T08:40:03+0000"
+ },
+ "kcache_end": {
+  "digest": "46c6069894fa4844",
+  "files": 1248,
+  "real": "a033c95e7a81c98b"
+ },
+ "kcache_parts_changed": [],
+ "complete": true,
+ "lock_sha256": "164746f8498891e62193192048ec2558e5ef27e8f70e9ba7bbd8ebf12c8a5688",
+ "lock_commit": "",
+ "journal": "progress_speed_BQ5+SB_00000-00050.jsonl",
+ "resume": null,
+ "obs": {
+  "created": [
+   "obs_00000-00050.npz"
+  ],
+  "verified": []
+ },
+ "secs": 26.9,
+ "build_s": 8.0,
+ "sample_wait_s": 1.0,
+ "m_tail_s": 0.0,
+ "write_s": 0.1,
+ "stats": {
+  "SB": {
+   "secs": 7.32,
+   "shots": 500000,
+   "fail": 4012,
+   "shots_per_s": 68306.0
+  },
+  "BQ5": {
+   "secs": 6.59,
+   "shots": 49449,
+   "fail": 2277,
+   "shots_per_s": 7503.6
+  },
+  "h2d": {
+   "secs": 0.25
+  }
+ },
+ "batches": {
+  "SB": 123,
+  "BQ5": 3091
+ },
+ "s_reference": {},
+ "files": {
+  "obs_00000-00050.npz": "8e2ff8476cc0f161b1e08ab4a531f605b0b33de40833ce1670c2db6271055a36",
+  "SB_00000-00050.npz": "ef1e7cf5d85e999eb9375b6c651c23e160845031ca4c17a864e2f6039a23f69c",
+  "BQ5_00000-00050.npz": "7f28d0f612586feece7b3d50c471d1cff251141181e0356bccc74f1c1ebf7788"
+ }
+}

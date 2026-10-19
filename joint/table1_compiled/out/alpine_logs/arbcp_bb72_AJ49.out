@@ -1,0 +1,30 @@
+NVIDIA RTX PRO 6000 Blackwell Server Edition, 590.48.01, Disabled, 97887 MiB
+node gpu-node-07 job AJ49 2026-10-19T02:45:47-06:00
+p0.00200: 11,000,000 shots, routed 219,891
+Traceback (most recent call last):
+  File "<cluster-scratch>/qec_arbcp/code/cp_run.py", line 445, in <module>
+    main()
+  File "<cluster-scratch>/qec_arbcp/code/cp_run.py", line 285, in main
+    pr = ce.Predictor(a.c14, dev, "ema", "bf16")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/cascade_compare/phase_c/pc_eval.py", line 28, in _phase_c_init
+    _init(self, path, dev, *args, **kw)
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/ising_compare/bb/cascade_eval.py", line 78, in __init__
+    self.model = cnet.build(cfg)
+                 ^^^^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/ising_compare/bb/cascade_net.py", line 361, in build
+    layout = bbcode.Layout(cfg["code"])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/ising_compare/bb/code.py", line 62, in __init__
+    c = load_circuit(code, p)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/ising_compare/bb/code.py", line 40, in load_circuit
+    return circuits.load(code, "X", p)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/qldpc_neural/qnd/circuits.py", line 92, in load
+    got = sha256(path)
+          ^^^^^^^^^^^^
+  File "<cluster-scratch>/qec_arbcp/keep/freeze/cascade/bb72/qldpc_neural/qnd/circuits.py", line 64, in sha256
+    return hashlib.sha256(open(path, "rb").read()).hexdigest()
+                          ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/<user>/work/relay/tests/testdata/bicycle_bivariate/circuit=bicycle_bivariate_72_12_6_memory_X,distance=6,rounds=6,error_rate=0.003,noise_model=uniform_circuit,basis=CX,A=x^3+y+y^2,B=y^3+x+x^2.stim'

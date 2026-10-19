@@ -1,0 +1,55 @@
+{
+ "p": 0.002,
+ "w": 6.309573444801933,
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "joint": {
+  "w": 6.309573444801933,
+  "w32": 6.309573650360107,
+  "w32_hex": "0x40c9e807",
+  "joint_py": "fba4c42d49c4f548",
+  "triton": "3.6.0",
+  "rule": "argmax_y s_N(y) + w (y . z) on routed shots whose decisions differ; fp32, ties to the lowest class",
+  "impl": "JointB: Cascade's computation + _k_jvote + _k_jtop in one CUDA graph"
+ },
+ "single": {
+  "plain_us": {
+   "mean": 1899.608727172017,
+   "p50": 1854.104921221733,
+   "p99": 1979.6118140220642,
+   "p999": 1983.6055021733046
+  },
+  "joint_agree_us": {
+   "mean": 1897.8036642074585,
+   "p50": 1849.8841673135757,
+   "p99": 1981.0889661312103,
+   "p999": 1989.0138730406768
+  },
+  "joint_differ_us": {
+   "mean": 1892.8883372806013,
+   "p50": 1856.6641956567764,
+   "p99": 1986.7422059178352,
+   "p999": 2131.0412157326937
+  },
+  "added_agree_us": -1.8050629645586014,
+  "added_differ_us": -6.720389891415834,
+  "gpu_ms": {
+   "plain": 1.8284751892089843,
+   "joint": 1.8317547607421876
+  },
+  "differ_flag": 1
+ },
+ "batched": {
+  "plain_ms": 166.47958984375,
+  "joint_ms_frac0": 166.93482421875,
+  "rows_differ_frac0": 0,
+  "joint_ms_frac0.041": 167.0741015625,
+  "rows_differ_frac0.041": 165,
+  "joint_ms_frac1": 168.97060546875,
+  "rows_differ_frac1": 4096,
+  "added_us_per_routed_shot": {
+   "joint_ms_frac0": 0.11114120483398521,
+   "joint_ms_frac0.041": 0.14514446258544894,
+   "joint_ms_frac1": 0.6081581115722628
+  }
+ }
+}

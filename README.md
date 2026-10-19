@@ -46,6 +46,27 @@ Each composition against its own strong decoder alone, on fresh test shots, in r
 - [`METHODS.md`](METHODS.md) states the shots and seeds, the decoders and their settings, the statistics and the
   hardware.
 
+## Joint decision
+
+A routed shot discards the network's prediction, which is already computed. When the fallback also reports logits, as
+our Cascades do, the joint decision lets both decoders decide together the routed shots where their decisions differ
+(paper Section III B). On BB72 it answers the class that maximizes CoDecoder's class score plus w times Cascade's
+log-likelihood of that class, so it can answer a class that neither decoder chose. At d = 13 it answers the sign of the
+network's logit plus w times Cascade's. The weight w was fitted on separate fresh shots and frozen before it was
+applied to the test shots of the Cascade comparisons, so these results are held out, not registered.
+
+- On the same test shots, CoDecoder + Cascade with the joint decision failed 18 % (p = 0.2 %) and 14 % (p = 0.3 %) less
+  often than Cascade alone on BB72, and 1.0 % to 2.0 % less often at d = 13. One Holm procedure over its eight exact
+  McNemar tests against Cascade alone rejected all eight.
+- Timed later on fresh shots by the rules of SPEED-RT's stage 1, the composition took at most 2.4 % longer with the
+  joint decision than without it in 15 of the 16 timings. The 16th ran at a 5 % lower GPU clock, and a separate run of
+  it at equal clock found 0.2 %.
+- On the held-out halves of the fit shots, the joint decision recovered 59 % to 61 % of what a perfect choice between
+  the two answers would recover on BB72, and 2 % to 4 % at d = 13.
+
+[`joint/README.md`](joint/README.md) gives the code, the studies behind each number and how to rerun them.
+`python3 joint/check_paper_numbers.py` prints every number the paper gives for the joint decision, from the records.
+
 ## Quick start
 
 Linux x86-64 with Python 3.12:
@@ -81,6 +102,7 @@ training guide.
 | `results/` | the surface-code records, the figure scripts and the figures |
 | `bb/`, `cascade/`, `head/` | the BB-code tests, the Cascade comparisons and the output-head comparison, each with its records |
 | `retest/`, `surface_v2/`, `speed_rt/`, `d9_shallow/`, `cascade_trt_reg/` | the registered tests RETEST, SURF-v2, SPEED-RT, D9-SHALLOW and CASCADE-TRT-REG |
+| `joint/` | the joint decision of CoDecoder and Cascade: its fits, counts, timing records and checks |
 | `docs/`, `METHODS.md` | the details below; [`docs/REPRODUCE.md`](docs/REPRODUCE.md) has the full layout |
 
 ## Documentation

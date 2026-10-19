@@ -1,0 +1,46 @@
+{
+ "p": 0.006,
+ "w": 1.0,
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "joint": {
+  "w": 1.0,
+  "w32": 1.0,
+  "w32_hex": "0x3f800000",
+  "sv_joint_py": "615166f3d132ebe1",
+  "triton": "3.6.0",
+  "rule": "1 if c + w z > 0, 0 if < 0, B's answer if 0, on routed shots whose decisions differ; fp32",
+  "impl": "JointB13: B's computation + _k_j13 in one CUDA graph"
+ },
+ "single": {
+  "plain_us": {
+   "mean": 452.88842488080263,
+   "p50": 451.5014588832855,
+   "p99": 459.91506427526474,
+   "p999": 465.141972526908
+  },
+  "joint_agree_us": {
+   "mean": 450.6280687637627,
+   "p50": 451.1196166276932,
+   "p99": 456.5567150712013,
+   "p999": 467.1525135636332
+  },
+  "joint_differ_us": {
+   "mean": 450.3634996712208,
+   "p50": 451.13079249858856,
+   "p99": 456.5138556063175,
+   "p999": 463.22895586490637
+  },
+  "added_agree_us": -2.260356117039919,
+  "added_differ_us": -2.524925209581852,
+  "gpu_ms": {
+   "plain": 0.4317692947387695,
+   "joint": 0.42916015625
+  }
+ },
+ "batched": {
+  "batch": 16,
+  "plain_ms": 1.9030807495117188,
+  "joint_ms": 1.9018093872070312,
+  "added_us_per_routed_shot": -0.07946014404297541
+ }
+}

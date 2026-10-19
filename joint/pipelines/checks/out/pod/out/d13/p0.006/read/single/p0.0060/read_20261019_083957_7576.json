@@ -1,0 +1,128 @@
+{
+ "stage": "speed",
+ "dry": true,
+ "p": 0.006,
+ "kind": 13,
+ "chunks": [
+  0,
+  2
+ ],
+ "shots": 20000,
+ "comps": [
+  "S1",
+  "B1"
+ ],
+ "paths": {
+  "S1": "engine@1",
+  "B1": "compiled@1"
+ },
+ "taus": {},
+ "nets": {
+  "S": {
+   "net": "S",
+   "name": "d13_b5_r775",
+   "sha256": "cbd2b84a47dd6bf71c62eb0cae4d660e2811db5efb9b55b695dd9337d141f12a",
+   "engine": "timing.engine FROZEN"
+  },
+  "B": {
+   "net": "B",
+   "ckpt": "final",
+   "file": "/workspace/arb3/d13root/ckpt/CS13/final_ema.pt",
+   "sha256": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659",
+   "step": 81130,
+   "status": "no_improvement",
+   "cfg": {
+    "d": 13,
+    "R": 13,
+    "H": 256,
+    "L": 13,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false
+   },
+   "params": 2531841
+  }
+ },
+ "record": {
+  "python": "3.12.14",
+  "executable": "/workspace/arb3/venv/bin/python",
+  "real_executable": "<pod-home>/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+  "prefix": "/workspace/arb3/venv",
+  "torch_file": "/workspace/arb3/venv/lib/python3.12/site-packages/torch/__init__.py",
+  "packages": 43,
+  "packages_sha256": "a5faeb1a9b5026a6551fd053340445e9b16b347bf035c57518fced87fb406399",
+  "container": "",
+  "venv_staged": "",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "driver": "580.126.09",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "triton": "3.6.0",
+  "capability": [
+   9,
+   0
+  ],
+  "code": {
+   "commit": "",
+   "release": "",
+   "clean": false,
+   "files": 82,
+   "digest": "df726c1ecda678ab"
+  },
+  "kcache": {
+   "digest": "46c6069894fa4844",
+   "files": 1248,
+   "real": "a033c95e7a81c98b"
+  },
+  "tree": "",
+  "job": "",
+  "host": "gpu-pod",
+  "pid": 7576,
+  "cpu": "Intel(R) Xeon(R) Platinum 8480+",
+  "time": "2026-10-19T08:39:43+0000"
+ },
+ "kcache_end": {
+  "digest": "46c6069894fa4844",
+  "files": 1248,
+  "real": "a033c95e7a81c98b"
+ },
+ "kcache_parts_changed": [],
+ "complete": true,
+ "lock_sha256": "164746f8498891e62193192048ec2558e5ef27e8f70e9ba7bbd8ebf12c8a5688",
+ "lock_commit": "",
+ "journal": "progress_speed_B1+S1_00000-00002.jsonl",
+ "resume": null,
+ "obs": {
+  "created": [
+   "obs_00000-00002.npz"
+  ],
+  "verified": []
+ },
+ "secs": 17.1,
+ "build_s": 8.6,
+ "sample_wait_s": 0.7,
+ "m_tail_s": 0.0,
+ "write_s": 0.1,
+ "stats": {
+  "S1": {
+   "secs": 0.43,
+   "shots": 20000,
+   "fail": 163,
+   "shots_per_s": 46511.6
+  },
+  "B1": {
+   "secs": 3.97,
+   "shots": 20000,
+   "fail": 98,
+   "shots_per_s": 5037.8
+  }
+ },
+ "batches": {},
+ "s_reference": {},
+ "files": {
+  "obs_00000-00002.npz": "4061cf0967c005f404d3f7303ca4c0235c2bd26a7699bc9d70247dd1007f44ba",
+  "S1_00000-00002.npz": "fcf107aa6246026352b655a933a95478e55f15a6e320c82f3efc28401a9d55d8",
+  "B1_00000-00002.npz": "a85e0b234f6cdf2ce32ede21f77fbe7af2058ca04c3fec21dc9153a2235ea880"
+ }
+}

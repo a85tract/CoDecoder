@@ -1,0 +1,146 @@
+{
+ "p": 0.003,
+ "tag": "p0.00300",
+ "w": 3.758374042884441,
+ "tau1": 7.60439167022705,
+ "lock_sha256": "e732307df687bb4f2d0f847b1c68b8e78151cc5c7951265770af9c6703b9e6c8",
+ "shots": 17000000,
+ "routed": 1699201,
+ "compiled_json_routed": 1699201,
+ "kept": {
+  "shots": 15300799,
+  "S_fail": 2083
+ },
+ "alone": {
+  "eager": {
+   "fail": 75957,
+   "kept_S_only": 88,
+   "kept_C_only": 345,
+   "kept_both": 1995
+  },
+  "single": {
+   "fail": 75979,
+   "kept_S_only": 90,
+   "kept_C_only": 329,
+   "kept_both": 1993
+  },
+  "batched": {
+   "fail": 75973,
+   "kept_S_only": 90,
+   "kept_C_only": 328,
+   "kept_both": 1993
+  }
+ },
+ "env": {
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "driver": "590.48.01",
+  "torch": "2.11.0+cu128"
+ },
+ "c14": {
+  "path": "<cluster-scratch>/qec_arbcp/keep/freeze/weights/cascade_bb72/C14p.pt",
+  "file_sha256": "ca8039104ccc4011a489b716333b1b26611c8e328f193dff30900079eb642645",
+  "read_sha256": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+  "kind": "cascade"
+ },
+ "cache_after_unmodified": {
+  "async_compile_cache_miss": 120,
+  "async_compile_cache_hit": 80,
+  "fxgraph_cache_hit": 2
+ },
+ "cache_after_with_z": {
+  "async_compile_cache_miss": 240,
+  "async_compile_cache_hit": 160,
+  "fxgraph_cache_hit": 4
+ },
+ "diag": {
+  "rows": 8192,
+  "single_unmodified_vs_saved": {
+   "rows": 8192,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  },
+  "batched_unmodified_vs_saved": {
+   "rows": 8192,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  },
+  "single_with_z_vs_unmodified": {
+   "rows": 8192,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  },
+  "batched_with_z_vs_unmodified": {
+   "rows": 8192,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  }
+ },
+ "check": {
+  "single_vs_bits1": {
+   "rows": 1699201,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  },
+  "batched_vs_bitsR": {
+   "rows": 1699201,
+   "decisions_differ": 0,
+   "conf_bits_differ": 0
+  },
+  "batched_vs_bits4_on_routed": {
+   "decisions_differ": 0
+  },
+  "single_z_consistent": true,
+  "batched_z_consistent": true
+ },
+ "score_rows": 94980,
+ "s55": {
+  "path": "<cluster-scratch>/qec_arbcp/keep/freeze/weights/cascade_bb72/S55p_deep.pt",
+  "file_sha256": "160d598b4f38aaedf9910920ccc68c15b92db6735ee539690f72d7941f3f07a4",
+  "read_sha256": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af",
+  "kind": "convlines"
+ },
+ "scores_check": {
+  "batched_bits_equal_read": true,
+  "batched_margin_equal_read": true,
+  "scored_bits_equal_batched": true,
+  "scored_margin_equal_batched": true,
+  "scored_m1_equal_batched": true,
+  "scored_i1_equal_batched": true,
+  "scored_m2_equal_batched": true,
+  "read_cls_equal_bits": true,
+  "scores_mismatches": {
+   "program_m1": 0,
+   "program_i1": 0,
+   "program_m2": 0,
+   "argmax_cls": 0,
+   "margin": 0
+  },
+  "pass": true
+ },
+ "quick": {
+  "eager": {
+   "composition": 75700,
+   "joint": 65166
+  },
+  "single": {
+   "composition": 75740,
+   "joint": 65189
+  },
+  "batched": {
+   "composition": 75735,
+   "joint": 65185
+  }
+ },
+ "secs": {
+  "load": 10.5,
+  "build": 12.6,
+  "diag": 17.6,
+  "batched": 122.0,
+  "single": 303.7,
+  "scores": 2.5,
+  "a3": 1.0,
+  "total": 482.6
+ },
+ "torch": "2.11.0+cu128",
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+}

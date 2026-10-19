@@ -1,0 +1,260 @@
+{
+ "args": {
+  "force_bad": {},
+  "n_batched": 500000,
+  "n_single": 20000,
+  "only": [
+   "p0.002.c0.single.base"
+  ],
+  "reps": 1
+ },
+ "beacon": {
+  "dry": false,
+  "randomness": "9d299e797282167f01517e71a3906a48e2587e714867d6b194dde3416b88b9be",
+  "round": 6549923
+ },
+ "card": "rtx",
+ "dry": false,
+ "end": 1792405619.0292246,
+ "env": {
+  "BB_PIDNS": "",
+  "M2_CARD": "",
+  "SLURM_JOB_ID": "AJ56",
+  "SRT_CARD": "",
+  "SRT_DRY": "",
+  "SRT_KCACHE_BUILD": "",
+  "SRT_PIDNS": ""
+ },
+ "format": "srt-cas-attempts-1",
+ "gate": {
+  "burn_s": 0.0,
+  "max_attempts": 3,
+  "max_gap_s": 1.0,
+  "on": true,
+  "sm_floor": 0.9
+ },
+ "host": "gpu-node-07",
+ "launchers": {
+  "drive.py": "5cabef1d3ca374702fd901da8a1eb17c5c699d8babb27d33919ee0d56d19f1ff",
+  "srt_cas.py": "f35281f2d47c8f77e66854719aee70bbbcd1f83d226cf9cf37d7417606bee8e4",
+  "srt_d13.py": "d16f2ffd3b407cfd7d1b74fb60b139bd9fbe724587c92ae0bd49eecd0d9c7668",
+  "srtlib.py": "2c26e579cc4d4eb1a612ccc7cb6c0ad3be9aa47edb8d9553d1b4630775ec345e"
+ },
+ "round": "r1",
+ "seeds_sha256": "f016d1641e7ab05d5f12abbc000f009a87ab2a9b69aa06359281b20e70097312",
+ "session_sha256": null,
+ "sets_file": "sets_arb3.json",
+ "sets_sha256": "976424bc9fccb5e6d34c13d32f5a1a9d314f73054fbec5b387d11cf54933911a",
+ "slots": [
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_cas.py",
+      "$TREE/cascade_compare/phase_d/d1_m2.py",
+      "pipeline",
+      "--setting",
+      "depspam_fm",
+      "--config",
+      "0",
+      "--p",
+      "0.002",
+      "--mode",
+      "single",
+      "--engine",
+      "base",
+      "--tail-b",
+      "0",
+      "--rep",
+      "1",
+      "--n",
+      "20000",
+      "--out",
+      "$OUT/slots/r1.rep1.dfm.p0.002.c0.single.base/a0/rows.jsonl",
+      "--group",
+      "main"
+     ],
+     "card": "rtx",
+     "dir": "slots/r1.rep1.dfm.p0.002.c0.single.base/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2853275
+     ],
+     "rows": 1,
+     "secs": 18.836121559143066,
+     "slurm_job": "AJ56",
+     "soft": [],
+     "start": 1792405585.015309,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 35,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9506172839506173,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2310": 35
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2310,
+       "other_pids": [],
+       "pid": 2853275,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 35,
+       "t0": 1792405598.2646775,
+       "t1": 1792405601.8119438,
+       "tag": "r1.rep1.dfm.p0.002.c0.single.base.a0",
+       "window_s": 3.5472662448883057
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r1.rep1.dfm.p0.002.c0.single.base",
+   "meta": {
+    "config": 0,
+    "engine": "base",
+    "family": "depspam_fm",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.002,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r1",
+    "tail_b": 0
+   },
+   "shots": {
+    "arb3-cas-dfm-p2": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_cas.py",
+      "$TREE/cascade_compare/phase_d/d1_m2.py",
+      "pipeline",
+      "--setting",
+      "depspam_fm",
+      "--config",
+      "0",
+      "--p",
+      "0.002",
+      "--mode",
+      "single",
+      "--engine",
+      "base",
+      "--tail-b",
+      "0",
+      "--rep",
+      "1",
+      "--n",
+      "20000",
+      "--out",
+      "$OUT/slots/r1.rep1.dfm.p0.002.c0.single.base.joint/a0/rows.jsonl",
+      "--group",
+      "main",
+      "--joint-w",
+      "6.309573444801933",
+      "--save",
+      "$OUT/slots/r1.rep1.dfm.p0.002.c0.single.base.joint/a0/pipe.npz"
+     ],
+     "card": "rtx",
+     "dir": "slots/r1.rep1.dfm.p0.002.c0.single.base.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2853357
+     ],
+     "rows": 1,
+     "secs": 15.17394495010376,
+     "slurm_job": "AJ56",
+     "soft": [],
+     "start": 1792405603.8535004,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 35,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9506172839506173,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2310": 35
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2310,
+       "other_pids": [],
+       "pid": 2853357,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 35,
+       "t0": 1792405613.7780216,
+       "t1": 1792405617.3337798,
+       "tag": "r1.rep1.dfm.p0.002.c0.single.base.joint.a0",
+       "window_s": 3.555758237838745
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r1.rep1.dfm.p0.002.c0.single.base.joint",
+   "meta": {
+    "config": 0,
+    "engine": "base",
+    "family": "depspam_fm",
+    "joint_w": 6.309573444801933,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.002,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r1",
+    "tail_b": 0
+   },
+   "shots": {
+    "arb3-cas-dfm-p2": 2
+   },
+   "status": "established",
+   "windows": 1
+  }
+ ],
+ "start": 1792405585.0141926,
+ "stopped_early": false,
+ "summary": {
+  "established": 2,
+  "failed": 0,
+  "not established": 0,
+  "pending": 0,
+  "recorded, flagged": 0
+ },
+ "tree_deployed": "convlines_public 94aaaa7 + arb-prod 116f979 (ARB3 timing, release tree)"
+}

@@ -16,6 +16,11 @@ Part of the [CoDecoder release](../README.md).
   offline check, stage 1's seeds file was re-derived byte for byte, and every output of the four analyses was
   byte-identical to the published one.
 - The verification of this repository's first commit from a fresh clone (next section).
+- The joint decision's records, on 19 October 2026: `joint/check_paper_numbers.py` matched every number that the
+  paper's version of that day gives for the joint decision; `joint/timing/summarize.py` rebuilt the timing session's
+  summary and stage 1's byte for byte; the seeds of the fits and of the timing session were derived again and equal
+  their files; and with the code of the joint decision in place, the commands of [How to verify](SPEED.md#how-to-verify)
+  still reproduced SPEED-RT's outputs byte for byte (`joint/README.md`, "Checking").
 
 ## Verification of this repository
 
@@ -57,6 +62,9 @@ Research Computing) and checked there with the commands above.
 - SPEED-RT's timing shots. Stage 2's are rebuilt from the beacon's seeds and checked against the manifests in
   `speed_rt/testsets/`, `speed_rt/bb/` and `speed_rt/gapsw/`; stage 1's processes sampled their chunks during the run
   and recorded each chunk's seed and sha256.
+- The joint decision's per-shot files: the fits' reads, the network's class scores and the counts' per-routed-shot
+  arrays. [`joint/README.md`](../joint/README.md#what-is-not-included) lists them, with their sha256 where they were
+  recorded, and each study's README says how to rebuild them.
 - The fp32 module of the d = 17 surface network: it is released as its deploy tables, which the deployed engine reads.
 - NVIDIA's Ising-Decoding code and checkpoints, and Relay-BP's repository: fetch them from their public releases.
 - The research project's internal plans that the frozen trees cite but that no result depends on, the review texts,

@@ -1,0 +1,27 @@
+== dry read 0.006 2026-10-19T07:39:49+00:00
+arb2_shim: eval_seed patched for kind 11 at d = 13: sets {'arb-d13-0.006': 400, 'arb-d13-0.0035': 3000}; first seeds {'arb-d13-0.006': 7125939203913419922, 'arb-d13-0.0035': 5068027980986011364}; seeds /workspace/arb2/seeds/arb2_seeds.json
+arb2_read: p 0.006 part 0-1 written (16 s)
+arb2_read: p 0.006 part 1-2 written (16 s)
+arb2_read: {"p": 0.006, "chunks": [0, 2], "from_chunk": 0, "secs": 16.0, "timings": {"sample_wait_s": 0.7, "S_s": 0.3, "B_s": 4.1, "eager_check_s": 5.1, "write_s": 0.0, "h2d_s": 0.0}, "eager_check": {"shots": 20000, "z_differ": 0, "dec_differ": 0}, "fails_alone": {"S": 165, "B": 103, "shots": 20000}, "complete": true}
+== dry seedcheck 0.006 2026-10-19T07:40:06+00:00
+arb2_shim: eval_seed patched for kind 11 at d = 13: sets {'arb-d13-0.006': 400, 'arb-d13-0.0035': 3000}; first seeds {'arb-d13-0.006': 7125939203913419922, 'arb-d13-0.0035': 5068027980986011364}; seeds /workspace/arb2/seeds/arb2_seeds.json
+{"p": 0.006, "set": "arb-d13-0.006", "n_chunks": 2, "pass": true, "secs": 1.8, "trace": {"records": 4, "main_pids": 1, "worker_pids": 2, "attempts": 1, "every_record_has_arbs_seed": true, "main_called_every_chunk": true, "a_worker_drew_every_chunk": true, "main_once_per_chunk": true, "worker_once_per_chunk": true, "at_least_2_workers_if_16_chunks": true}, "sampled": [0, 1], "cluster_digest_reproduced": [true, true], "old_all": {}}
+== dry read 0.0035 2026-10-19T07:40:08+00:00
+arb2_shim: eval_seed patched for kind 11 at d = 13: sets {'arb-d13-0.006': 400, 'arb-d13-0.0035': 3000}; first seeds {'arb-d13-0.006': 7125939203913419922, 'arb-d13-0.0035': 5068027980986011364}; seeds /workspace/arb2/seeds/arb2_seeds.json
+arb2_read: p 0.0035 part 0-1 written (11 s)
+arb2_read: p 0.0035 part 1-2 written (11 s)
+arb2_read: {"p": 0.0035, "chunks": [0, 2], "from_chunk": 0, "secs": 11.4, "timings": {"sample_wait_s": 0.5, "S_s": 0.3, "B_s": 4.0, "eager_check_s": 5.0, "write_s": 0.0, "h2d_s": 0.0}, "eager_check": {"shots": 20000, "z_differ": 0, "dec_differ": 0}, "fails_alone": {"S": 4, "B": 2, "shots": 20000}, "complete": true}
+== dry seedcheck 0.0035 2026-10-19T07:40:21+00:00
+arb2_shim: eval_seed patched for kind 11 at d = 13: sets {'arb-d13-0.006': 400, 'arb-d13-0.0035': 3000}; first seeds {'arb-d13-0.006': 7125939203913419922, 'arb-d13-0.0035': 5068027980986011364}; seeds /workspace/arb2/seeds/arb2_seeds.json
+{"p": 0.0035, "set": "arb-d13-0.0035", "n_chunks": 2, "pass": true, "secs": 0.9, "trace": {"records": 4, "main_pids": 1, "worker_pids": 2, "attempts": 1, "every_record_has_arbs_seed": true, "main_called_every_chunk": true, "a_worker_drew_every_chunk": true, "main_once_per_chunk": true, "worker_once_per_chunk": true, "at_least_2_workers_if_16_chunks": true}, "sampled": [0, 1], "cluster_digest_reproduced": [true, true], "old_all": {}}
+Traceback (most recent call last):
+  File "/workspace/arb2/code/arb2_analysis.py", line 427, in <module>
+    main()
+  File "/workspace/arb2/code/arb2_analysis.py", line 405, in main
+    summ["j_common_w"] = common_w(per_p)
+                         ^^^^^^^^^^^^^^^
+  File "/workspace/arb2/code/arb2_analysis.py", line 367, in common_w
+    m = np.mean([gain_of(j_switch(r["_cache"]["cd"], r["_cache"]["zd"], w), r["_cache"]["g"], r["_cache"]["h"])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ZeroDivisionError: division by zero
+DRY_FAILED analysis

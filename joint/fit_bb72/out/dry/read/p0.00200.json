@@ -1,0 +1,92 @@
+{
+ "p": 0.002,
+ "kind": 14,
+ "chunks": [
+  6433102,
+  6433104
+ ],
+ "code": "bb72",
+ "family": "depspam_fm",
+ "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+ "models": [
+  {
+   "path": "/workspace/arb/release/weights/cascade_bb72/C14p.pt",
+   "sha256": "ca8039104ccc4011a489b716333b1b26611c8e328f193dff30900079eb642645",
+   "kind": "cascade",
+   "weights": "ema",
+   "prec": "bf16",
+   "batch": 8192,
+   "cfg": {
+    "code": "bb72",
+    "H": 512,
+    "L": 14,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false,
+    "conv_impl": "triton"
+   },
+   "step": null,
+   "samples": null,
+   "status": null,
+   "driver": "580.159.04",
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": ""
+  },
+  {
+   "path": "/workspace/arb/release/weights/cascade_bb72/S55p_deep.pt",
+   "sha256": "160d598b4f38aaedf9910920ccc68c15b92db6735ee539690f72d7941f3f07a4",
+   "kind": "convlines",
+   "weights": "state",
+   "prec": "fused",
+   "batch": 4096,
+   "cfg": {
+    "arch": "convlines_bb",
+    "code": "bb72",
+    "p": 0.0055,
+    "width": 128,
+    "bott": 32,
+    "blocks": 6,
+    "heads": 4,
+    "mlp": 2
+   },
+   "step": null,
+   "samples": null,
+   "status": null,
+   "driver": "580.159.04",
+   "fused": {
+    "engine": "fused (bb.fused's kernels batched by pc_fused.Batched)",
+    "batch": 4096,
+    "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+    "triton": "3.6.0",
+    "src": {
+     "bb/fused.py": "195afee3087c0ee4",
+     "pc_fused.py": "257561171055fba4"
+    }
+   },
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": ""
+  }
+ ],
+ "chunk_meta": [
+  {
+   "chunk": 6433102,
+   "seed": 7800278565957140538,
+   "det_sha256": "a8d47293c7127102"
+  },
+  {
+   "chunk": 6433103,
+   "seed": 8578532583791533151,
+   "det_sha256": "857522b43c5cac41"
+  }
+ ]
+}

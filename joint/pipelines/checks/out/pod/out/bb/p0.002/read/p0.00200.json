@@ -1,0 +1,332 @@
+{
+ "p": 0.002,
+ "kind": 13,
+ "chunks": [
+  0,
+  50
+ ],
+ "code": "bb72",
+ "family": "depspam_fm",
+ "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+ "models": [
+  {
+   "path": "/workspace/arb3/release/weights/cascade_bb72/C14p.pt",
+   "sha256": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+   "kind": "cascade",
+   "weights": "ema",
+   "prec": "bf16",
+   "batch": 8192,
+   "cfg": {
+    "code": "bb72",
+    "H": 512,
+    "L": 14,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false,
+    "conv_impl": "triton"
+   },
+   "step": null,
+   "samples": null,
+   "status": null,
+   "driver": "580.126.09",
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA H100 80GB HBM3",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": ""
+  },
+  {
+   "path": "/workspace/arb3/release/weights/cascade_bb72/S55p_deep.pt",
+   "sha256": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af",
+   "kind": "convlines",
+   "weights": "state",
+   "prec": "fused",
+   "batch": 4096,
+   "cfg": {
+    "arch": "convlines_bb",
+    "code": "bb72",
+    "p": 0.0055,
+    "width": 128,
+    "bott": 32,
+    "blocks": 6,
+    "heads": 4,
+    "mlp": 2
+   },
+   "step": null,
+   "samples": null,
+   "status": null,
+   "driver": "580.126.09",
+   "fused": {
+    "engine": "fused (bb.fused's kernels batched by pc_fused.Batched)",
+    "batch": 4096,
+    "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+    "triton": "3.6.0",
+    "src": {
+     "bb/fused.py": "195afee3087c0ee4",
+     "pc_fused.py": "257561171055fba4"
+    }
+   },
+   "circuit_sha256": "dcaae19e2cebf3ce4fd0b3851061d88c093974e879b8b66e29f92413a815628d",
+   "gpu": "NVIDIA H100 80GB HBM3",
+   "torch": "2.11.0+cu128",
+   "cuda": "12.8",
+   "tf32": false,
+   "cudnn_deterministic": true,
+   "tree": ""
+  }
+ ],
+ "chunk_meta": [
+  {
+   "chunk": 0,
+   "seed": 41158817018963968,
+   "det_sha256": "bd8957f1e479e519"
+  },
+  {
+   "chunk": 1,
+   "seed": 41158817018963969,
+   "det_sha256": "37eb5047b92f4c84"
+  },
+  {
+   "chunk": 2,
+   "seed": 41158817018963970,
+   "det_sha256": "daf884f86f02cd43"
+  },
+  {
+   "chunk": 3,
+   "seed": 41158817018963971,
+   "det_sha256": "68b3a34ee65f04fd"
+  },
+  {
+   "chunk": 4,
+   "seed": 41158817018963972,
+   "det_sha256": "27b794cf436ee22b"
+  },
+  {
+   "chunk": 5,
+   "seed": 41158817018963973,
+   "det_sha256": "1c07031225bd2719"
+  },
+  {
+   "chunk": 6,
+   "seed": 41158817018963974,
+   "det_sha256": "24f2cbb1b4816644"
+  },
+  {
+   "chunk": 7,
+   "seed": 41158817018963975,
+   "det_sha256": "4e1bb24c57614e0b"
+  },
+  {
+   "chunk": 8,
+   "seed": 41158817018963976,
+   "det_sha256": "a51f286928e1f2ff"
+  },
+  {
+   "chunk": 9,
+   "seed": 41158817018963977,
+   "det_sha256": "40ed156630b52ad2"
+  },
+  {
+   "chunk": 10,
+   "seed": 41158817018963978,
+   "det_sha256": "e62f7ea9fe1e6bd4"
+  },
+  {
+   "chunk": 11,
+   "seed": 41158817018963979,
+   "det_sha256": "b70349c545092000"
+  },
+  {
+   "chunk": 12,
+   "seed": 41158817018963980,
+   "det_sha256": "b7f479e4bcbc1331"
+  },
+  {
+   "chunk": 13,
+   "seed": 41158817018963981,
+   "det_sha256": "b1363f28fa91f315"
+  },
+  {
+   "chunk": 14,
+   "seed": 41158817018963982,
+   "det_sha256": "c3c16dc238bc1745"
+  },
+  {
+   "chunk": 15,
+   "seed": 41158817018963983,
+   "det_sha256": "854395b268798d36"
+  },
+  {
+   "chunk": 16,
+   "seed": 41158817018963984,
+   "det_sha256": "b85ba92b8635667f"
+  },
+  {
+   "chunk": 17,
+   "seed": 41158817018963985,
+   "det_sha256": "fa40bd8018fcb315"
+  },
+  {
+   "chunk": 18,
+   "seed": 41158817018963986,
+   "det_sha256": "96710dd8adbe3a72"
+  },
+  {
+   "chunk": 19,
+   "seed": 41158817018963987,
+   "det_sha256": "b46c0dee6ecd096a"
+  },
+  {
+   "chunk": 20,
+   "seed": 41158817018963988,
+   "det_sha256": "f81a9711c538860e"
+  },
+  {
+   "chunk": 21,
+   "seed": 41158817018963989,
+   "det_sha256": "bfcf2b0a2a20645a"
+  },
+  {
+   "chunk": 22,
+   "seed": 41158817018963990,
+   "det_sha256": "6cb526b40b571221"
+  },
+  {
+   "chunk": 23,
+   "seed": 41158817018963991,
+   "det_sha256": "1dd9eecaefec3e7d"
+  },
+  {
+   "chunk": 24,
+   "seed": 41158817018963992,
+   "det_sha256": "4dc5054cf820d4b4"
+  },
+  {
+   "chunk": 25,
+   "seed": 41158817018963993,
+   "det_sha256": "351aab8bee2e290b"
+  },
+  {
+   "chunk": 26,
+   "seed": 41158817018963994,
+   "det_sha256": "0331d0c0872fc1ad"
+  },
+  {
+   "chunk": 27,
+   "seed": 41158817018963995,
+   "det_sha256": "dbd102aa9d931c99"
+  },
+  {
+   "chunk": 28,
+   "seed": 41158817018963996,
+   "det_sha256": "13a6f7c7e98f704d"
+  },
+  {
+   "chunk": 29,
+   "seed": 41158817018963997,
+   "det_sha256": "f2cd60e95bc973f1"
+  },
+  {
+   "chunk": 30,
+   "seed": 41158817018963998,
+   "det_sha256": "8dcb7bf9ce19d94b"
+  },
+  {
+   "chunk": 31,
+   "seed": 41158817018963999,
+   "det_sha256": "85d83c5854bc08b8"
+  },
+  {
+   "chunk": 32,
+   "seed": 41158817018964000,
+   "det_sha256": "85e897258c30489e"
+  },
+  {
+   "chunk": 33,
+   "seed": 41158817018964001,
+   "det_sha256": "6c9c1581c1c3d936"
+  },
+  {
+   "chunk": 34,
+   "seed": 41158817018964002,
+   "det_sha256": "1c973efebc5d9665"
+  },
+  {
+   "chunk": 35,
+   "seed": 41158817018964003,
+   "det_sha256": "bf7155880035d7ca"
+  },
+  {
+   "chunk": 36,
+   "seed": 41158817018964004,
+   "det_sha256": "a60e5472c0fe47fc"
+  },
+  {
+   "chunk": 37,
+   "seed": 41158817018964005,
+   "det_sha256": "c85bc0ee18cff40f"
+  },
+  {
+   "chunk": 38,
+   "seed": 41158817018964006,
+   "det_sha256": "51b1cb0fc5b47b0c"
+  },
+  {
+   "chunk": 39,
+   "seed": 41158817018964007,
+   "det_sha256": "c229c82858abf73c"
+  },
+  {
+   "chunk": 40,
+   "seed": 41158817018964008,
+   "det_sha256": "f29c4a88ae328d89"
+  },
+  {
+   "chunk": 41,
+   "seed": 41158817018964009,
+   "det_sha256": "0d9ff820c2b1009d"
+  },
+  {
+   "chunk": 42,
+   "seed": 41158817018964010,
+   "det_sha256": "680971875b348065"
+  },
+  {
+   "chunk": 43,
+   "seed": 41158817018964011,
+   "det_sha256": "963045c8662fb48c"
+  },
+  {
+   "chunk": 44,
+   "seed": 41158817018964012,
+   "det_sha256": "ee5948271f9b65ff"
+  },
+  {
+   "chunk": 45,
+   "seed": 41158817018964013,
+   "det_sha256": "20de691f5a69ee6f"
+  },
+  {
+   "chunk": 46,
+   "seed": 41158817018964014,
+   "det_sha256": "6bef4e0eeb0a6626"
+  },
+  {
+   "chunk": 47,
+   "seed": 41158817018964015,
+   "det_sha256": "73dffe2452291ac6"
+  },
+  {
+   "chunk": 48,
+   "seed": 41158817018964016,
+   "det_sha256": "683eb139cbd3dd1c"
+  },
+  {
+   "chunk": 49,
+   "seed": 41158817018964017,
+   "det_sha256": "63fd0b09d6b75fde"
+  }
+ ]
+}

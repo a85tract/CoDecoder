@@ -1,0 +1,55 @@
+{
+ "p": 0.002,
+ "w": 6.309573444801933,
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "joint": {
+  "w": 6.309573444801933,
+  "w32": 6.309573650360107,
+  "w32_hex": "0x40c9e807",
+  "joint_py": "fba4c42d49c4f548",
+  "triton": "3.6.0",
+  "rule": "argmax_y s_N(y) + w (y . z) on routed shots whose decisions differ; fp32, ties to the lowest class",
+  "impl": "JointB: Cascade's computation + _k_jvote + _k_jtop in one CUDA graph"
+ },
+ "single": {
+  "plain_us": {
+   "mean": 1806.934309238568,
+   "p50": 1807.2579987347126,
+   "p99": 1809.7219290211797,
+   "p999": 1812.525018118322
+  },
+  "joint_agree_us": {
+   "mean": 1809.2192582087591,
+   "p50": 1809.2909594997764,
+   "p99": 1812.3859772458673,
+   "p999": 1819.565088255331
+  },
+  "joint_differ_us": {
+   "mean": 1818.988479935797,
+   "p50": 1819.535973481834,
+   "p99": 1821.748181246221,
+   "p999": 1824.8530505225062
+  },
+  "added_agree_us": 2.2849489701911807,
+  "added_differ_us": 12.054170697228983,
+  "gpu_ms": {
+   "plain": 1.791865234375,
+   "joint": 1.8045387268066406
+  },
+  "differ_flag": 1
+ },
+ "batched": {
+  "plain_ms": 292.89931640625,
+  "joint_ms_frac0": 293.52720703125,
+  "rows_differ_frac0": 0,
+  "joint_ms_frac0.041": 293.69982421875,
+  "rows_differ_frac0.041": 165,
+  "joint_ms_frac1": 295.629375,
+  "rows_differ_frac1": 4096,
+  "added_us_per_routed_shot": {
+   "joint_ms_frac0": 0.15329360961913174,
+   "joint_ms_frac0.041": 0.19543647766112615,
+   "joint_ms_frac1": 0.6665182113647361
+  }
+ }
+}

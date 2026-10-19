@@ -1,0 +1,56 @@
+{
+ "p": 0.003,
+ "tau1": 7.60439167022705,
+ "shots": 500000,
+ "routed": 50116,
+ "rows": 2722,
+ "differ_per_path": {
+  "eager": 2705,
+  "compiled@1": 2706,
+  "compiled@4096": 2706
+ },
+ "paths": [
+  "compiled@1",
+  "compiled@4096",
+  "eager"
+ ],
+ "compiled": "/workspace/arb3/out/bb/p0.003/cread",
+ "checks": {
+  "batched_bits_equal_read": true,
+  "batched_margin_equal_read": true,
+  "scored_bits_equal_batched": true,
+  "scored_margin_equal_batched": true,
+  "scored_m1_equal_batched": true,
+  "scored_i1_equal_batched": true,
+  "scored_m2_equal_batched": true,
+  "read_cls_equal_bits": true,
+  "scores_mismatches": {
+   "program_m1": 0,
+   "program_i1": 0,
+   "program_m2": 0,
+   "argmax_cls": 0,
+   "margin": 0,
+   "jvote_scores": 0
+  }
+ },
+ "pass": true,
+ "ckpt": "/workspace/arb3/release/weights/cascade_bb72/S55p_deep.pt",
+ "ckpt_sha256": "051370c37d5aef08880d55a89490b3de2109a66c800635dc97583edcf4e281af",
+ "engine": {
+  "engine": "fused (bb.fused's kernels batched by pc_fused.Batched)",
+  "batch": 4096,
+  "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+  "triton": "3.6.0",
+  "src": {
+   "bb/fused.py": "195afee3087c0ee4",
+   "pc_fused.py": "257561171055fba4",
+   "scored.py": "04e1370b2ac76065"
+  }
+ },
+ "joint_py": "fba4c42d49c4f548",
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "torch": "2.11.0+cu128",
+ "scores_sha256": "09e51374064ffcb8e297a4d3a265e0a62d0a9cb45f447baa7886ff319be49295",
+ "rows_sha256": "0a8c53e1da192bd261d727008fadb4158682ec3d6550cdcecc4dfe073c759dcb",
+ "secs": 2.6
+}

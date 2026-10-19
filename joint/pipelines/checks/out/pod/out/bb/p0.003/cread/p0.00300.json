@@ -1,0 +1,91 @@
+{
+ "p": 0.003,
+ "family": "depspam_fm",
+ "kind": 13,
+ "chunks": [
+  0,
+  50
+ ],
+ "shots": 500000,
+ "n_chunks": 50,
+ "digests_ok": true,
+ "config": 1,
+ "tau1": 7.60439167022705,
+ "routed": 50116,
+ "net": "C14p",
+ "sha256": "dd0c3b1488eed58d02a1a54a7ac3a77d5d3521162c9f7db7da49fb0085c2e80a",
+ "gpu": "NVIDIA H100 80GB HBM3",
+ "driver": "580.126.09",
+ "torch": "2.11.0+cu128",
+ "tree_sha": "",
+ "tree": "",
+ "read": "/workspace/arb3/out/bb/p0.003/read",
+ "read_json_sha256": "248b4c618f626880d8568617669f96d322acb65fcad131b532bcf13e1d59d02f",
+ "lock": "/workspace/arb3/release/cascade/bb72/cascade_compare/phase_d/d1_locked_depspam_fm.json",
+ "lock_sha256": "e732307df687bb4f2d0f847b1c68b8e78151cc5c7951265770af9c6703b9e6c8",
+ "paths": {
+  "single": "compiled@1",
+  "batched": "compiled@4096"
+ },
+ "frozen_paths": {
+  "single": "compiled@1",
+  "amortized": "compiled@4096",
+  "batched": "compiled@4096"
+ },
+ "impl": {
+  "single": "Multi: 32 streams x 16 batch-1 calls per graph",
+  "streams": 32,
+  "rounds": 16,
+  "slice_rows": 1048576,
+  "batched": "pc_speed.build(C14p, 'compiled', 4096).run"
+ },
+ "check_first": {
+  "rows": 20000,
+  "differ": 0,
+  "conf_bits_differ": 0,
+  "secs": 44.6
+ },
+ "check_every": {
+  "rows": 500,
+  "differ": 0,
+  "conf_bits_differ": 0,
+  "secs": 1.0,
+  "every": 1000
+ },
+ "S_anchor": {
+  "skipped": "dry"
+ },
+ "dry": true,
+ "joint": {
+  "logits": "z1R: compiled@1 on the routed rows; zR: compiled@4096 on the routed queue",
+  "computation": "joint.compiled_z (make_fwd_z under torch.compile)",
+  "joint_py": "fba4c42d49c4f548",
+  "z_vs_frozen": {
+   "rows": 500000,
+   "differ": 0,
+   "conf_bits_differ": 0,
+   "path": "compiled@4096"
+  }
+ },
+ "cache": {
+  "async_compile_cache_miss": 160,
+  "async_compile_cache_hit": 80,
+  "fxgraph_cache_hit": 4
+ },
+ "caches": {
+  "TRITON_CACHE_DIR": "/workspace/arb3/cache/triton",
+  "TORCHINDUCTOR_CACHE_DIR": "/workspace/arb3/cache/inductor"
+ },
+ "secs": {
+  "digests": 0.1,
+  "build": 17.1,
+  "batched": 20.6,
+  "routed": 2.2,
+  "single": 120.7,
+  "total": 251.0
+ },
+ "us_per_row": {
+  "single": 241.4879150390625,
+  "batched": 41.194796562194824
+ }
+}

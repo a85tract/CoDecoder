@@ -1,0 +1,43 @@
+{
+ "p": 0.002,
+ "tau1": 7.3331888389587405,
+ "shots": 11000000,
+ "routed": 220654,
+ "rows": 9037,
+ "checks": {
+  "batched_bits_equal_read": true,
+  "batched_margin_equal_read": true,
+  "scored_bits_equal_batched": true,
+  "scored_margin_equal_batched": true,
+  "scored_m1_equal_batched": true,
+  "scored_i1_equal_batched": true,
+  "scored_m2_equal_batched": true,
+  "read_cls_equal_bits": true,
+  "scores_mismatches": {
+   "program_m1": 0,
+   "program_i1": 0,
+   "program_m2": 0,
+   "argmax_cls": 0,
+   "margin": 0
+  }
+ },
+ "pass": true,
+ "ckpt": "/workspace/arb/release/weights/cascade_bb72/S55p_deep.pt",
+ "ckpt_sha256": "160d598b4f38aaedf9910920ccc68c15b92db6735ee539690f72d7941f3f07a4",
+ "engine": {
+  "engine": "fused (bb.fused's kernels batched by pc_fused.Batched)",
+  "batch": 4096,
+  "precision": "fp16 matmul inputs with fp32 accumulation; fp32 residual stream, LayerNorm, gates, vote and margin",
+  "triton": "3.6.0",
+  "src": {
+   "bb/fused.py": "195afee3087c0ee4",
+   "pc_fused.py": "257561171055fba4",
+   "arb_fused.py": "7f21b15ae92c3cd2"
+  }
+ },
+ "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+ "torch": "2.11.0+cu128",
+ "scores_sha256": "cfae7a6333d89bf1e48363213e70c81e3e4600f33c4a9f6d03d9356cfce77bae",
+ "rows_sha256": "8ab14973b3a93f5b7a20bcb573005b4b40e6b97e839fe333da604170d1d5eeca",
+ "secs": 3.4
+}

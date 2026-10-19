@@ -1,0 +1,3430 @@
+{
+ "args": {
+  "force_bad": {},
+  "n_batched": 500000,
+  "n_single": 20000,
+  "only": [
+   ".C5.",
+   ".C2."
+  ],
+  "reps": 3
+ },
+ "beacon": {
+  "dry": false,
+  "randomness": "9d299e797282167f01517e71a3906a48e2587e714867d6b194dde3416b88b9be",
+  "round": 6549923
+ },
+ "card": "rtx",
+ "dry": false,
+ "end": 1792404642.248484,
+ "env": {
+  "BB_PIDNS": "",
+  "M2_CARD": "",
+  "SLURM_JOB_ID": "AJ54",
+  "SRT_CARD": "rtx",
+  "SRT_DRY": "",
+  "SRT_KCACHE_BUILD": "",
+  "SRT_PIDNS": ""
+ },
+ "format": "srt-cas-attempts-1",
+ "gate": {
+  "burn_s": 0.0,
+  "max_attempts": 3,
+  "max_gap_s": 1.0,
+  "on": true,
+  "sm_floor": 0.9
+ },
+ "host": "gpu-node-07",
+ "launchers": {
+  "drive.py": "5cabef1d3ca374702fd901da8a1eb17c5c699d8babb27d33919ee0d56d19f1ff",
+  "srt_cas.py": "f35281f2d47c8f77e66854719aee70bbbcd1f83d226cf9cf37d7417606bee8e4",
+  "srt_d13.py": "d16f2ffd3b407cfd7d1b74fb60b139bd9fbe724587c92ae0bd49eecd0d9c7668",
+  "srtlib.py": "2c26e579cc4d4eb1a612ccc7cb6c0ad3be9aa47edb8d9553d1b4630775ec345e"
+ },
+ "round": "r4",
+ "seeds_sha256": "f016d1641e7ab05d5f12abbc000f009a87ab2a9b69aa06359281b20e70097312",
+ "session_sha256": null,
+ "sets_file": "sets_arb3.json",
+ "sets_sha256": "976424bc9fccb5e6d34c13d32f5a1a9d314f73054fbec5b387d11cf54933911a",
+ "slots": [
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847238
+     ],
+     "rows": 1,
+     "secs": 12.178278923034668,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403625.4771633,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 21,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 16,
+        "2302": 3,
+        "2310": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2847238,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 21,
+       "t0": 1792403633.15612,
+       "t1": 1792403635.3503442,
+       "tag": "r4.rep1.p0.006.C5.single.a0",
+       "window_s": 2.1942241191864014
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847319
+     ],
+     "rows": 1,
+     "secs": 12.541022062301636,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403637.6612072,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 21,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 17,
+        "2302": 3,
+        "2310": 1
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2847319,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 21,
+       "t0": 1792403645.9669898,
+       "t1": 1792403648.1609938,
+       "tag": "r4.rep1.p0.006.C5.single.joint.a0",
+       "window_s": 2.1940040588378906
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847408
+     ],
+     "rows": 1,
+     "secs": 26.516345024108887,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403650.2045684,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 7,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9411522633744855,
+       "forced": false,
+       "gap_max_s": 0.10399985313415527,
+       "hist": {
+        "2287": 2,
+        "2295": 2,
+        "2317": 3,
+        "2377": 2,
+        "2392": 2,
+        "2400": 110,
+        "2407": 27
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2287,
+       "other_pids": [],
+       "pid": 2847408,
+       "power_capped": 9,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 148,
+       "t0": 1792403659.2473576,
+       "t1": 1792403674.4265969,
+       "tag": "r4.rep1.p0.006.C5.batched.a0",
+       "window_s": 15.179239273071289
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847502
+     ],
+     "rows": 1,
+     "secs": 26.569754362106323,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403676.7237508,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 2,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9658436213991769,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2347": 2,
+        "2392": 2,
+        "2400": 114,
+        "2407": 31
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2347,
+       "other_pids": [],
+       "pid": 2847502,
+       "power_capped": 15,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 149,
+       "t0": 1792403685.7295322,
+       "t1": 1792403700.9506872,
+       "tag": "r4.rep1.p0.006.C5.batched.joint.a0",
+       "window_s": 15.221154928207397
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847591
+     ],
+     "rows": 1,
+     "secs": 17.068812370300293,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403703.3020036,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 72,
+        "2415": 2,
+        "2422": 3
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2847591,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 77,
+       "t0": 1792403710.1308382,
+       "t1": 1792403717.9118657,
+       "tag": "r4.rep1.p0.006.C2.single.a0",
+       "window_s": 7.781027555465698
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.006.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.006.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847678
+     ],
+     "rows": 1,
+     "secs": 78.9676125049591,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403720.373386,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 6,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10300016403198242,
+       "hist": {
+        "2295": 2,
+        "2302": 1,
+        "2347": 3,
+        "2377": 431,
+        "2385": 227
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2847678,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 664,
+       "t0": 1792403728.8524022,
+       "t1": 1792403796.6956306,
+       "tag": "r4.rep1.p0.006.C2.batched.a0",
+       "window_s": 67.84322834014893
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.006.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847793
+     ],
+     "rows": 1,
+     "secs": 11.197968006134033,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403799.3441763,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9938271604938271,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2415": 9,
+        "2422": 4
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2415,
+       "other_pids": [],
+       "pid": 2847793,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 13,
+       "t0": 1792403806.2113156,
+       "t1": 1792403807.572135,
+       "tag": "r4.rep1.p0.0035.C5.single.a0",
+       "window_s": 1.3608193397521973
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2847968
+     ],
+     "rows": 1,
+     "secs": 11.12476921081543,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403810.5450428,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 3,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9473251028806584,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2302": 3,
+        "2370": 3,
+        "2415": 8
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2302,
+       "other_pids": [],
+       "pid": 2847968,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 14,
+       "t0": 1792403817.346099,
+       "t1": 1792403818.7521727,
+       "tag": "r4.rep1.p0.0035.C5.single.joint.a0",
+       "window_s": 1.406073808670044
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848054
+     ],
+     "rows": 1,
+     "secs": 20.419885635375977,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403821.6736405,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 2,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9691358024691358,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2355": 2,
+        "2377": 3,
+        "2415": 81
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2355,
+       "other_pids": [],
+       "pid": 2848054,
+       "power_capped": 14,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 86,
+       "t0": 1792403830.4577658,
+       "t1": 1792403839.3207378,
+       "tag": "r4.rep1.p0.0035.C5.batched.a0",
+       "window_s": 8.862972021102905
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848349
+     ],
+     "rows": 1,
+     "secs": 20.586927890777588,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403842.0966973,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9814814814814815,
+       "forced": false,
+       "gap_max_s": 0.10300016403198242,
+       "hist": {
+        "2385": 3,
+        "2415": 81,
+        "2422": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2385,
+       "other_pids": [],
+       "pid": 2848349,
+       "power_capped": 26,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 86,
+       "t0": 1792403850.8601997,
+       "t1": 1792403859.7301028,
+       "tag": "r4.rep1.p0.0035.C5.batched.joint.a0",
+       "window_s": 8.869903087615967
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848438
+     ],
+     "rows": 1,
+     "secs": 17.182687759399414,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403862.686485,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 72,
+        "2415": 3,
+        "2422": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2848438,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 77,
+       "t0": 1792403869.4593472,
+       "t1": 1792403877.2417026,
+       "tag": "r4.rep1.p0.0035.C2.single.a0",
+       "window_s": 7.782355308532715
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "1",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep1.p0.0035.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep1.p0.0035.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848620
+     ],
+     "rows": 1,
+     "secs": 78.73696565628052,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403879.8983815,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 5,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9473251028806584,
+       "forced": false,
+       "gap_max_s": 0.14299988746643066,
+       "hist": {
+        "2302": 2,
+        "2325": 3,
+        "2377": 256,
+        "2385": 402
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2302,
+       "other_pids": [],
+       "pid": 2848620,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 663,
+       "t0": 1792403888.1890857,
+       "t1": 1792403956.010221,
+       "tag": "r4.rep1.p0.0035.C2.batched.a0",
+       "window_s": 67.82113528251648
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep1.p0.0035.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 1,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848889
+     ],
+     "rows": 1,
+     "secs": 26.36313033103943,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403958.6434667,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 5,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 2,
+        "2355": 3,
+        "2407": 16
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2848889,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 21,
+       "t0": 1792403977.656863,
+       "t1": 1792403979.7939658,
+       "tag": "r4.rep2.p0.006.C5.single.a0",
+       "window_s": 2.1371028423309326
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2848980
+     ],
+     "rows": 1,
+     "secs": 11.925226926803589,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403985.0176973,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 9,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 2,
+        "2302": 2,
+        "2340": 3,
+        "2347": 2,
+        "2377": 5,
+        "2385": 2,
+        "2392": 3,
+        "2407": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2848980,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 21,
+       "t0": 1792403992.456646,
+       "t1": 1792403994.6359599,
+       "tag": "r4.rep2.p0.006.C5.single.joint.a0",
+       "window_s": 2.179313898086548
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849061
+     ],
+     "rows": 1,
+     "secs": 31.49867868423462,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792403996.9479187,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9753086419753086,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "2370": 2,
+        "2377": 3,
+        "2400": 131,
+        "2407": 12
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2370,
+       "other_pids": [],
+       "pid": 2849061,
+       "power_capped": 9,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 148,
+       "t0": 1792404010.5965595,
+       "t1": 1792404025.764066,
+       "tag": "r4.rep2.p0.006.C5.batched.a0",
+       "window_s": 15.167506456375122
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849180
+     ],
+     "rows": 1,
+     "secs": 26.56214714050293,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404028.989723,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 2,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9596707818930041,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "2332": 2,
+        "2400": 141,
+        "2407": 4,
+        "2422": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2332,
+       "other_pids": [],
+       "pid": 2849180,
+       "power_capped": 23,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 149,
+       "t0": 1792404038.0101383,
+       "t1": 1792404053.23927,
+       "tag": "r4.rep2.p0.006.C5.batched.joint.a0",
+       "window_s": 15.229131698608398
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849273
+     ],
+     "rows": 1,
+     "secs": 17.014160633087158,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404055.555761,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 73,
+        "2415": 2,
+        "2422": 2
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2849273,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 77,
+       "t0": 1792404062.178163,
+       "t1": 1792404069.9601533,
+       "tag": "r4.rep2.p0.006.C2.single.a0",
+       "window_s": 7.78199028968811
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.006.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.006.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849365
+     ],
+     "rows": 1,
+     "secs": 79.38416528701782,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404072.577634,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 4,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.12199997901916504,
+       "hist": {
+        "2295": 2,
+        "2310": 2,
+        "2377": 482,
+        "2385": 177
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2849365,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 663,
+       "t0": 1792404081.4609149,
+       "t1": 1792404149.3095565,
+       "tag": "r4.rep2.p0.006.C2.batched.a0",
+       "window_s": 67.84864163398743
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.006.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849595
+     ],
+     "rows": 1,
+     "secs": 11.148960590362549,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404151.965665,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 3,
+        "2415": 6,
+        "2422": 4
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2849595,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 13,
+       "t0": 1792404158.7233994,
+       "t1": 1792404160.1016521,
+       "tag": "r4.rep2.p0.0035.C5.single.a0",
+       "window_s": 1.3782527446746826
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849676
+     ],
+     "rows": 1,
+     "secs": 11.16629934310913,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404163.1194916,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 5,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 2,
+        "2310": 3,
+        "2415": 9
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2849676,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 14,
+       "t0": 1792404169.9105446,
+       "t1": 1792404171.31796,
+       "tag": "r4.rep2.p0.0035.C5.single.joint.a0",
+       "window_s": 1.4074153900146484
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849762
+     ],
+     "rows": 1,
+     "secs": 20.27666449546814,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404174.289456,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 1,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2295": 1,
+        "2385": 3,
+        "2392": 2,
+        "2415": 81
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2849762,
+       "power_capped": 1,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 87,
+       "t0": 1792404183.0708585,
+       "t1": 1792404191.9346483,
+       "tag": "r4.rep2.p0.0035.C5.batched.a0",
+       "window_s": 8.863789796829224
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849854
+     ],
+     "rows": 1,
+     "secs": 20.948710203170776,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404194.5721657,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 2,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9658436213991769,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2347": 2,
+        "2392": 2,
+        "2415": 82
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2347,
+       "other_pids": [],
+       "pid": 2849854,
+       "power_capped": 5,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 86,
+       "t0": 1792404203.4330223,
+       "t1": 1792404212.3017387,
+       "tag": "r4.rep2.p0.0035.C5.batched.joint.a0",
+       "window_s": 8.868716478347778
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2849945
+     ],
+     "rows": 1,
+     "secs": 17.21945285797119,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404215.5242338,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 4,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10199999809265137,
+       "hist": {
+        "2295": 2,
+        "2302": 2,
+        "2362": 3,
+        "2385": 7,
+        "2407": 66
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2849945,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 80,
+       "t0": 1792404222.2242765,
+       "t1": 1792404230.3045254,
+       "tag": "r4.rep2.p0.0035.C2.single.a0",
+       "window_s": 8.080248832702637
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "2",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep2.p0.0035.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep2.p0.0035.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850029
+     ],
+     "rows": 1,
+     "secs": 78.86085915565491,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404232.7495544,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 5,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10300016403198242,
+       "hist": {
+        "2295": 3,
+        "2310": 2,
+        "2377": 510,
+        "2385": 149
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2850029,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 664,
+       "t0": 1792404241.1379766,
+       "t1": 1792404308.973337,
+       "tag": "r4.rep2.p0.0035.C2.batched.a0",
+       "window_s": 67.83536028862
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep2.p0.0035.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 2,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850146
+     ],
+     "rows": 1,
+     "secs": 11.129441738128662,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404311.614717,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 16,
+        "2415": 2,
+        "2422": 3
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2850146,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 21,
+       "t0": 1792404318.3660588,
+       "t1": 1792404320.4776006,
+       "tag": "r4.rep3.p0.006.C5.single.a0",
+       "window_s": 2.111541748046875
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850227
+     ],
+     "rows": 1,
+     "secs": 11.192566394805908,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404322.75207,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 12,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9473251028806584,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2302": 3,
+        "2325": 3,
+        "2347": 2,
+        "2355": 4,
+        "2362": 5,
+        "2370": 5
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2302,
+       "other_pids": [],
+       "pid": 2850227,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 22,
+       "t0": 1792404329.5917277,
+       "t1": 1792404331.7754562,
+       "tag": "r4.rep3.p0.006.C5.single.joint.a0",
+       "window_s": 2.1837284564971924
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850313
+     ],
+     "rows": 1,
+     "secs": 26.60018515586853,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404333.9585967,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 1,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2295": 1,
+        "2362": 2,
+        "2370": 3,
+        "2400": 130,
+        "2407": 12
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2850313,
+       "power_capped": 2,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 148,
+       "t0": 1792404343.0882478,
+       "t1": 1792404358.2433095,
+       "tag": "r4.rep3.p0.006.C5.batched.a0",
+       "window_s": 15.155061721801758
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "7.86574441929562"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850404
+     ],
+     "rows": 1,
+     "secs": 26.443506717681885,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404360.5668397,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9720164609053498,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "2362": 2,
+        "2392": 3,
+        "2400": 122,
+        "2407": 21
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2362,
+       "other_pids": [],
+       "pid": 2850404,
+       "power_capped": 3,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 148,
+       "t0": 1792404369.4042022,
+       "t1": 1792404384.6320655,
+       "tag": "r4.rep3.p0.006.C5.batched.joint.a0",
+       "window_s": 15.227863311767578
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 7.86574441929562,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850492
+     ],
+     "rows": 1,
+     "secs": 16.945173978805542,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404387.0170631,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 4,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9473251028806584,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2302": 2,
+        "2325": 2,
+        "2407": 73
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2302,
+       "other_pids": [],
+       "pid": 2850492,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 77,
+       "t0": 1792404393.7254298,
+       "t1": 1792404401.5182624,
+       "tag": "r4.rep3.p0.006.C2.single.a0",
+       "window_s": 7.792832612991333
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.006",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.006.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.006.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850606
+     ],
+     "rows": 1,
+     "secs": 79.06788992881775,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404403.965998,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 6,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2295": 3,
+        "2332": 3,
+        "2377": 533,
+        "2385": 125
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2850606,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 664,
+       "t0": 1792404412.5837545,
+       "t1": 1792404480.443818,
+       "tag": "r4.rep3.p0.006.C2.batched.a0",
+       "window_s": 67.86006355285645
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.006.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.006,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p6": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C5.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850840
+     ],
+     "rows": 1,
+     "secs": 11.134066820144653,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404483.0380735,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 0,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9905349794238684,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2407": 1,
+        "2415": 10,
+        "2422": 3
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2407,
+       "other_pids": [],
+       "pid": 2850840,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 14,
+       "t0": 1792404489.8312387,
+       "t1": 1792404491.2018468,
+       "tag": "r4.rep3.p0.0035.C5.single.a0",
+       "window_s": 1.3706080913543701
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C5.single",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.single.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C5.single.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2850924
+     ],
+     "rows": 1,
+     "secs": 11.15699028968811,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404494.1797743,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 14,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 14
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2850924,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 14,
+       "t0": 1792404500.97993,
+       "t1": 1792404502.3888636,
+       "tag": "r4.rep3.p0.0035.C5.single.joint.a0",
+       "window_s": 1.4089336395263672
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C5.single.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C5.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2851005
+     ],
+     "rows": 1,
+     "secs": 20.78165602684021,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404505.3427749,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 3,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "2295": 1,
+        "2347": 2,
+        "2370": 3,
+        "2415": 81
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2851005,
+       "power_capped": 1,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x4",
+       "samples": 87,
+       "t0": 1792404514.1058517,
+       "t1": 1792404522.9665465,
+       "tag": "r4.rep3.p0.0035.C5.batched.a0",
+       "window_s": 8.860694885253906
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C5.batched",
+   "meta": {
+    "config": "C5",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C5",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.joint/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C5.batched.joint/a0/pipes",
+      "--joint-w",
+      "13.842311471679352"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C5.batched.joint/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2851096
+     ],
+     "rows": 1,
+     "secs": 20.244974851608276,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404526.1298063,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 1,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10400009155273438,
+       "hist": {
+        "2295": 1,
+        "2377": 2,
+        "2415": 83
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2851096,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 86,
+       "t0": 1792404534.7959285,
+       "t1": 1792404543.6647427,
+       "tag": "r4.rep3.p0.0035.C5.batched.joint.a0",
+       "window_s": 8.86881422996521
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C5.batched.joint",
+   "meta": {
+    "config": "C5",
+    "joint_w": 13.842311471679352,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "single",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.single/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C2.single/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2851187
+     ],
+     "rows": 1,
+     "secs": 16.949431657791138,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404546.3796844,
+     "trace_lines": 2,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 26,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9444444444444444,
+       "forced": false,
+       "gap_max_s": 0.10100007057189941,
+       "hist": {
+        "2295": 3,
+        "2302": 3,
+        "2310": 2,
+        "2332": 3,
+        "2340": 2,
+        "2347": 8,
+        "2355": 5,
+        "2370": 4,
+        "2407": 50
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2295,
+       "other_pids": [],
+       "pid": 2851187,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 80,
+       "t0": 1792404553.1021342,
+       "t1": 1792404561.2138186,
+       "tag": "r4.rep3.p0.0035.C2.single.a0",
+       "window_s": 8.111684322357178
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C2.single",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "single",
+    "n": 20000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 2
+   },
+   "status": "established",
+   "windows": 1
+  },
+  {
+   "accepted_attempt": 0,
+   "attempts": [
+    {
+     "accepted": true,
+     "argv": [
+      "$python",
+      "$srt_d13.py",
+      "pipeline",
+      "--config",
+      "C2",
+      "--p",
+      "0.0035",
+      "--mode",
+      "batched",
+      "--rep",
+      "3",
+      "--lock",
+      "$lock_timed_20261019_035343.json",
+      "--stage",
+      "c7",
+      "--out",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched/a0/rows.jsonl",
+      "--save",
+      "$OUT/slots/r4.rep3.p0.0035.C2.batched/a0/pipes"
+     ],
+     "card": "rtx",
+     "dir": "slots/r4.rep3.p0.0035.C2.batched/a0",
+     "group": "main",
+     "hard": [],
+     "host": "gpu-node-07",
+     "k": 0,
+     "rc": 0,
+     "row_pids": [
+      2851272
+     ],
+     "rows": 1,
+     "secs": 78.90917301177979,
+     "slurm_job": "AJ54",
+     "soft": [],
+     "start": 1792404563.3339312,
+     "trace_lines": 50,
+     "windows": [
+      {
+       "accepted": true,
+       "below": 6,
+       "burn_s": 0.0,
+       "clock_min_ratio": 0.9411522633744855,
+       "forced": false,
+       "gap_max_s": 0.10500001907348633,
+       "hist": {
+        "2287": 3,
+        "2295": 1,
+        "2317": 2,
+        "2377": 500,
+        "2385": 157
+       },
+       "low_uncapped": 0,
+       "max_mhz": 2430,
+       "min_mhz": 2287,
+       "other_pids": [],
+       "pid": 2851272,
+       "power_capped": 0,
+       "power_default_w": 600.0,
+       "power_limit_w": 600.0,
+       "reason": "",
+       "reasons": "0x0",
+       "samples": 663,
+       "t0": 1792404571.7848365,
+       "t1": 1792404639.6301284,
+       "tag": "r4.rep3.p0.0035.C2.batched.a0",
+       "window_s": 67.84529185295105
+      }
+     ]
+    }
+   ],
+   "card": "rtx",
+   "id": "r4.rep3.p0.0035.C2.batched",
+   "meta": {
+    "config": "C2",
+    "joint_w": null,
+    "mode": "batched",
+    "n": 500000,
+    "p": 0.0035,
+    "rep": 3,
+    "role": "pipeline",
+    "round": "r4"
+   },
+   "shots": {
+    "arb3-cas-d13-p35": 50
+   },
+   "status": "established",
+   "windows": 1
+  }
+ ],
+ "start": 1792403625.4745686,
+ "stopped_early": false,
+ "summary": {
+  "established": 36,
+  "failed": 0,
+  "not established": 0,
+  "pending": 0,
+  "recorded, flagged": 0
+ },
+ "tree_deployed": null
+}

@@ -1,0 +1,30 @@
+{
+ "pipe": "/workspace/arb3/out/bb/p0.002/pipe_single_base.npz",
+ "mode": "single",
+ "path": "compiled@1",
+ "p": 0.002,
+ "w": 6.309573444801933,
+ "shots": 20000,
+ "pipe_joint": {
+  "w": 6.309573444801933,
+  "w32": 6.309573650360107,
+  "w32_hex": "0x40c9e807",
+  "joint_py": "fba4c42d49c4f548",
+  "triton": "3.6.0",
+  "rule": "argmax_y s_N(y) + w (y . z) on routed shots whose decisions differ; fp32, ties to the lowest class",
+  "impl": "JointB: Cascade's computation + _k_jvote + _k_jtop in one CUDA graph"
+ },
+ "pipe_path_B": "compiled@1+joint",
+ "pipe_path_S": "fused@1+base",
+ "det_equal": true,
+ "route_differ": 0,
+ "decision_differ": 0,
+ "differ_rows": [],
+ "joint_rows": 15,
+ "changed_by_joint": 3,
+ "pipe_fail": 12,
+ "read_fail_joint": 12,
+ "read_fail_comp": 14,
+ "pass": true,
+ "secs": 0.4
+}

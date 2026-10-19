@@ -1,0 +1,43 @@
+{
+ "p": 0.0035,
+ "tau1": 8.111059150695802,
+ "shots": 30000000,
+ "chunks": [
+  0,
+  3000
+ ],
+ "routed_single": 300924,
+ "routed_batched": 300924,
+ "checks": {
+  "S1_equals_SB_bitwise": true,
+  "S_dec_is_c_gt_0": true,
+  "B1_dec_is_z_gt_0": true,
+  "Bb_dec_is_z_gt_0": true,
+  "BQ5_exactly_on_routed": true,
+  "BQ5_dec_is_z_gt_0": true,
+  "BQ5_vs_Bb_on_routed": {
+   "decisions_differ": 0,
+   "logit_bits_differ": 0
+  },
+  "B1_vs_BQ5_on_routed": {
+   "decisions_differ": 29,
+   "logit_bits_differ": 138281
+  }
+ },
+ "modes": {
+  "single": {
+   "S_fail_kept": 61,
+   "alone_fail": 2354,
+   "kept_S_only": 0,
+   "kept_C_only": 29,
+   "kept_both": 61
+  },
+  "batched": {
+   "S_fail_kept": 61,
+   "alone_fail": 2352,
+   "kept_S_only": 0,
+   "kept_C_only": 30,
+   "kept_both": 61
+  }
+ }
+}

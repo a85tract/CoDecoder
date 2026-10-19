@@ -1,0 +1,146 @@
+{
+ "p": 0.0035,
+ "kind": 11,
+ "chunks": [
+  0,
+  2
+ ],
+ "from_chunk": 0,
+ "first_position": 0,
+ "shots_this_process": 20000,
+ "head": {
+  "p": 0.0035,
+  "kind": 11,
+  "chunks": [
+   0,
+   2
+  ],
+  "part": 1,
+  "s_batch": 4096,
+  "b_batch": 16,
+  "b_path": "graph",
+  "check_eager": 10000,
+  "nets": {
+   "S": "cbd2b84a47dd6bf71c62eb0cae4d660e2811db5efb9b55b695dd9337d141f12a",
+   "B": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659"
+  },
+  "seeds": {
+   "kind": 11,
+   "d": 13,
+   "sets": {
+    "arb-d13-0.006": 400,
+    "arb-d13-0.0035": 3000
+   },
+   "first_seed": {
+    "arb-d13-0.006": 7125939203913419922,
+    "arb-d13-0.0035": 5068027980986011364
+   },
+   "seeds_file": "/workspace/arb2/seeds/arb2_seeds.json",
+   "release": "/workspace/arb2/release"
+  },
+  "identity": {
+   "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+   "torch": "2.11.0+cu128",
+   "real_executable": "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+   "prefix": "/workspace/arb2/venv",
+   "packages_sha256": "6fd0f5933f01c59c288002bd9e9c623e718068be18c143b78995bb6c0f24a964",
+   "code": {
+    "commit": "",
+    "release": "",
+    "clean": false,
+    "files": 81,
+    "digest": "eac850662a380d3f"
+   }
+  }
+ },
+ "record": {
+  "python": "3.12.14",
+  "executable": "/workspace/arb2/venv/bin/python",
+  "real_executable": "/root/.local/share/uv/python/cpython-3.12.14-linux-x86_64-gnu/bin/python3.12",
+  "prefix": "/workspace/arb2/venv",
+  "torch_file": "/workspace/arb2/venv/lib/python3.12/site-packages/torch/__init__.py",
+  "packages": 44,
+  "packages_sha256": "6fd0f5933f01c59c288002bd9e9c623e718068be18c143b78995bb6c0f24a964",
+  "container": "",
+  "venv_staged": "",
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "driver": "580.159.04",
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "triton": "3.6.0",
+  "capability": [
+   12,
+   0
+  ],
+  "code": {
+   "commit": "",
+   "release": "",
+   "clean": false,
+   "files": 81,
+   "digest": "eac850662a380d3f"
+  },
+  "kcache": {
+   "digest": "a3c7ddbb62f324e7",
+   "files": 37
+  },
+  "tree": "",
+  "job": "",
+  "host": "9e500d768c52",
+  "pid": 1227,
+  "cpu": "AMD EPYC 9554 64-Core Processor",
+  "time": "2026-10-19T07:40:09+0000"
+ },
+ "nets": {
+  "S": {
+   "net": "S",
+   "name": "d13_b5_r775",
+   "sha256": "cbd2b84a47dd6bf71c62eb0cae4d660e2811db5efb9b55b695dd9337d141f12a",
+   "engine": "timing.engine FROZEN"
+  },
+  "B": {
+   "net": "B",
+   "ckpt": "final",
+   "file": "/workspace/arb2/cascade_root/ckpt/CS13/final_ema.pt",
+   "sha256": "5351b27b449145ae6c461260b6320925cebba56d2b0449f5a23884d9f787a659",
+   "step": 81130,
+   "status": "no_improvement",
+   "cfg": {
+    "d": 13,
+    "R": 13,
+    "H": 256,
+    "L": 13,
+    "res": "skip",
+    "act_ckpt": false,
+    "resid_bf16": false
+   },
+   "params": 2531841
+  }
+ },
+ "files": {
+  "part_00000-00001.npz": "0b0c25af58fad60f66e92398d58af7c2387aed59b6aa5de4b5f05766062b11c4",
+  "part_00001-00002.npz": "917b651a55f3297d72f5fc1f73a71f12789c76a742ffeb62ee2cbf61af742495"
+ },
+ "secs": 11.4,
+ "build_s": 1.2,
+ "timings": {
+  "sample_wait_s": 0.5,
+  "S_s": 0.3,
+  "B_s": 4.0,
+  "eager_check_s": 5.0,
+  "write_s": 0.0,
+  "h2d_s": 0.0
+ },
+ "eager_check": {
+  "shots": 20000,
+  "z_differ": 0,
+  "dec_differ": 0
+ },
+ "fails_alone": {
+  "S": 4,
+  "B": 2,
+  "shots": 20000
+ },
+ "S_batches": 5,
+ "complete": true
+}

@@ -1,0 +1,34 @@
+{
+ "pipe": "/workspace/arb3/out/d13/p0.0035/pipes_joint/C5_single_p0.0035_rep1.npz",
+ "config": "C5",
+ "mode": "single",
+ "p": 0.0035,
+ "shots": 20000,
+ "w": 1.0,
+ "joint": {
+  "w": 1.0,
+  "w32": 1.0,
+  "w32_hex": "0x3f800000",
+  "sv_joint_py": "615166f3d132ebe1",
+  "triton": "3.6.0",
+  "rule": "1 if c + w z > 0, 0 if < 0, B's answer if 0, on routed shots whose decisions differ; fp32",
+  "impl": "JointB13: B's computation + _k_j13 in one CUDA graph"
+ },
+ "path_B": "compiled@1+joint",
+ "routed": 183,
+ "joint_rows": 2,
+ "changed_by_joint": 1,
+ "fail_C5": 1,
+ "fail_C5_joint": 2,
+ "fail_pipe": 2,
+ "decisions": 0,
+ "stages": 0,
+ "S_logits": 0,
+ "B_logits": 0,
+ "gpu_vs_np": 0,
+ "pass": true,
+ "timing": {
+  "value": 83.68693077936769,
+  "p999": 579.2295653373005
+ }
+}

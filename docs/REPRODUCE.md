@@ -18,13 +18,15 @@ Part of the [CoDecoder release](../README.md).
 | `speed_rt/` | SPEED-RT, the registered speed re-test: its registrations (`SPEED_RT.md`, `STAGE2_*.md`), its timing code, sets, beacon records and manifests, stage 1's records and outputs (`cascade/records/`, `cascade/results/`) and stage 2's (`s2/<family>/records/`, `s2/<family>/results/`) |
 | `d9_shallow/` | D9-SHALLOW, the registered test of the one-block network at d = 9: its plan, code, freeze, beacon and shot records, reads and results |
 | `cascade_trt_reg/` | CASCADE-TRT-REG, the registered speed re-test with Cascade on TensorRT: its rules, code, beacon and seed records, timing records and results |
+| `joint/` | the joint decision of CoDecoder and Cascade, held out and not registered: the fits of its weight on fresh shots, its counts on the test shots of the Cascade comparisons, the records of its timing session, the checks of the timed pipelines, an exploratory joint decision for the surface code, and `check_paper_numbers.py` |
 | `SANITIZE.md` | what was replaced before publication |
 
 The frozen trees under `bb/`, `cascade/`, `head/` and `training/` are the programs as they ran, so their own documents
 use the names of the research project: study 2 and 3 are the surface-code tests at d = 7-13 and 15 (test sets T2 and
 T3), study 4 and R17 the two at d = 17 (T5 and T6), stage 3 and 4 are the BB tests, phase C and D1 the two Cascade tests on BB72, W5 the
 comparison at d = 13, A1 the output-head comparison and X2 the analysis of the discordant shots. Table XIV of the paper
-maps every descriptive name to these short names, and `weights/networks.csv` does the same for the networks.
+maps every descriptive name to these short names, and `weights/networks.csv` does the same for the networks. The
+joint decision's studies under `joint/` use names of their own, which `joint/README.md` maps.
 
 ## Installation
 
@@ -82,6 +84,9 @@ original tests. The paper's surface accuracy comes from SURF-v2 (D9-SHALLOW at d
 accuracy from RETEST
 ([Registered tests and how to verify them](REGISTERED_TESTS.md#registered-tests-and-how-to-verify-them)), and every speed number from
 SPEED-RT, whose outputs the speed entries name ([How the speed was measured](SPEED.md#how-the-speed-was-measured-speed-rt)).
+The rows of the joint decision, at the end of the table, number the tables and sections as the paper's version of
+19 October 2026 does, in which the Cascade table is Table I. The rows above them follow an earlier numbering, in which
+it is Table II.
 
 | paper | what it shows | records | check |
 |---|---|---|---|
@@ -107,6 +112,14 @@ SPEED-RT, whose outputs the speed entries name ([How the speed was measured](SPE
 | Fig. 8 | matching's class gap at d = 13 (exploratory) | `results/discordant/data/surface/fig_d13.npz` | figures |
 | Fig. 9 | where CoDecoder fails, on shots read before any test | `bb/bb72/ising_compare/data/bb/fullroute/bb72_cal.json`, `policies/bb72_p0.003_rep2.json`, `bb/gross_stage4/ising_compare/bb/GROSS_FULLDEM_CAL.md`, `results/surface/development/a2_summary.json` | figures |
 | Table XIV | names in the paper and in this repository | `weights/networks.csv`, this README | |
+| Table I (the Cascade table), rows "CoDecoder + Cascade, joint decision" and note a | the joint decision's failures, times and speed-ups (held out, not registered) | failures: `joint/table1_compiled/out/` (`bb72_counts.json`, `d13_counts.json`) and, at d = 13, `joint/table1/out/table1.json`; times: `joint/timing/` (`timing.json`, `timing_cells.md`, `records/`) | joint decision |
+| Sec. III B, "Joint decision on routed shots" | the rule, and its weight fitted on separate fresh shots and frozen | `joint/README.md`, `joint/fit_bb72/out/analysis/summary.json`, `joint/fit_d13/out/analysis/summary.json` | joint decision |
+| Sec. IV D, "A joint decision recovers routed failures" | the joint decision against Cascade alone, and the time it adds | `joint/table1_compiled/out/`, `joint/timing/` (`timing.json`; the equal-clock run in `records/RTX/out/order_rtx_AJ56/`) | joint decision |
+| Sec. VI A | the joint decision's repairs and breaks, and its answers that neither decoder chose | `joint/table1_compiled/out/` | joint decision |
+| App. E, "The joint decision." and "Timing the joint decision." | the fits, the share of shots whose decisions differ, the held-out recovery, the Holm procedure; the timing session | `joint/fit_bb72/`, `joint/fit_d13/`, `joint/table1_compiled/out/`, `joint/timing/` (`timing.json`, `stage1.json`) | joint decision |
+| Sec. VIII, "Better scores for the joint decision" and "Training the network for its fallback" | exploratory: a joint decision scored by matching's complementary gap; a perfect choice between the two answers at d = 13 | `joint/soft_output_pm/out/arb5_results.json`, `joint/fit_d13/out/analysis/summary.json` | joint decision |
+| Table XII, row "Joint decision on the routed shots" | its status: held out, not registered | `joint/README.md`, `joint/fit_bb72/PLAN.md`, `joint/fit_d13/PLAN.md` | |
+| abstract, Sec. IX, Sec. X | 14-18 % fewer failures than Cascade alone on BB72 with the joint decision | `joint/table1_compiled/out/bb72_counts.json` | joint decision |
 
 ### Weights
 
@@ -164,6 +177,17 @@ time it was written (CPU, under a minute). `cascade/bb72/CASCADE.md` describes t
 each number comes from, the per-shot files and the GPU check of the networks (`cascade/bb72/repro/check_networks.py`).
 `cascade/d13/RESULTS.md` and `cascade/d13/SURFACE_PLAN.md` do the same for d = 13. The speed numbers of both comparisons
 in the paper come from SPEED-RT's stage 1 (`speed_rt/cascade/results/`), not from these records.
+
+### Joint decision
+
+```bash
+python3 joint/check_paper_numbers.py        # every number the paper prints about the joint decision, from joint/
+```
+
+The script reads only the records in `joint/` and compares each number with the paper's text (standard library, under
+a second). `joint/README.md` describes the rule, the code that carries it (commits 824afab, 0e9321e, 5462f4e and
+f03266d), the seven studies behind the numbers, the commands that rebuild their outputs, and what is not included.
+Each study's own README says which numbers it backs and how to rerun it.
 
 ### Output heads
 
