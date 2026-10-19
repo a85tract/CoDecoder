@@ -36,7 +36,9 @@ so on either card its pipelines run against a lock derived for the joint tree:
     python srt_d13.py session --out SESSION.json               the session's record on this card (SRT_CARD)
     python srt_d13.py joint-lock --lock LOCK --session SESSION.json --out DERIVED.json
 joint-lock replaces the lock's code digest and kernel-cache digest with the session's (on the H100 also the card and venv
-fields, as h100-lock) and records joint_derivation (and, on the H100, h100_derivation for the checks below).
+fields, as h100-lock) and records joint_derivation (and, on the H100, h100_derivation for the checks below). With
+SRT_JOINT_VENV=1 it also takes the session's venv fields on the RTX PRO 6000 (ARB3's unregistered timing, 2026-10-19: the
+study's venv and container had been removed from the cluster, so the timing ran in a new venv with the same pins).
 Why the pipeline runs as an imported module: its spawn pools (the PyMatching workers) re-run the parent's __main__ as
 __mp_main__, which here is this file, so each worker patches its own surface_data before it samples."""
 import importlib
@@ -164,6 +166,10 @@ def joint_lock(lock, session, out):
     D = copy.deepcopy(L)
     repl = ["identity.code", "kcache"]
     D["identity"]["code"] = S["code"]
+    if S["card"] != "h100" and os.environ.get("SRT_JOINT_VENV") == "1":   # ARB3's timing: the study's venv is gone
+        for k in SESSION_FIELDS[1:]:                                     # the venv's fields, not the card's
+            D["identity"][k] = S[k]
+        repl += [f"identity.{k}" for k in SESSION_FIELDS[1:]]
     if S["card"] == "h100":
         for k in SESSION_FIELDS:
             D["identity"][k] = S[k]
