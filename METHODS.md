@@ -4,7 +4,8 @@ This document states how the paper's accuracy and speed numbers were measured: t
 what was timed and on which hardware. It summarises; the registration documents it names hold the full rules and govern
 where the two differ. Paths are relative to the repository root. The accuracy numbers come from SURF-v2 and RETEST
 (section 1), and every speed number from SPEED-RT, the registered speed re-test (section 2), which supersedes the
-earlier timing sessions.
+earlier timing sessions. The exceptions are the times of three sessions of their own, which section 2 names:
+D9-SHALLOW's, CASCADE-TRT-REG's and the joint decision's (not registered).
 
 - A shot is one run of the error-correction circuit. A decoder reads its detector bits and predicts the flip of each
   logical observable.
@@ -128,7 +129,11 @@ statistics with the deployed networks; `results/surface/SURFACE.md` describes th
 
 ## 2. Speed (SPEED-RT)
 
-Every speed number of the paper comes from SPEED-RT, the registered speed re-test, except the few values listed in 2.8.
+Every speed number of the paper comes from SPEED-RT, the registered speed re-test, except the few values listed in 2.8
+and the times of three sessions of their own. D9-SHALLOW timed the composition at d = 9 in its registered session
+(`d9_shallow/`). Cascade on TensorRT (Table X) was timed by CASCADE-TRT-REG, a registered speed re-test of its own
+(`cascade_trt_reg/`). The joint decision's times, in Table I's rows "CoDecoder + Cascade, joint decision", come from a
+session that was not registered and follows stage 1's rules on fresh timing shots (`joint/timing/`).
 SPEED-RT timed again every speed number that this release can run, on fresh timing shots drawn after its rules were
 public, and it registered in advance that the paper reports its numbers in place of the earlier ones, whatever they
 are (`speed_rt/SPEED_RT.md`). The registrations govern where this summary differs from them: stage 1 is section 1 of
