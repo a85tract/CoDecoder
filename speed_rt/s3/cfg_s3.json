@@ -1,0 +1,63 @@
+{
+ "what": "SPEED-RT stage 3 CPU harness config (speed_rt/cpu_ws/harness.py's Linux host mode, called by speed_rt/s3/win3.py); paths in the stage's tmpfs",
+ "host": "linux",
+ "timed_ccd": 0,
+ "root": "/dev/shm/srt3_box",
+ "python": "/dev/shm/srt3_box/venv/bin/python",
+ "vars": {
+  "code": "/dev/shm/srt3_box/code",
+  "data": "/dev/shm/srt3_box/data",
+  "relay": "/dev/shm/srt3_box/relay",
+  "handoff": "/dev/shm/srt3_box/handoff"
+ },
+ "env": {
+  "LD_LIBRARY_PATH": "{root}/lib",
+  "LC_ALL": "C.UTF-8",
+  "TZ": "UTC0"
+ },
+ "ref": {
+  "cwd": "{code}",
+  "env": {
+   "PYTHONPATH": "{code}/surface_v2:{code}",
+   "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "argv": [
+   "{py}",
+   "-m",
+   "timing.cpu_term",
+   "ref",
+   "--plain",
+   "--d",
+   "9",
+   "--val",
+   "{data}/val",
+   "--rep",
+   "{rep}",
+   "--core",
+   "{core}",
+   "--out",
+   "{out}"
+  ]
+ },
+ "filler": {
+  "cwd": "{code}",
+  "env": {
+   "PYTHONPATH": "{code}/surface_v2:{code}",
+   "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "argv": [
+   "{py}",
+   "{root}/cpu_ws/filler.py",
+   "{data}/val"
+  ]
+ },
+ "slots": "auto",
+ "max_attempts": 3,
+ "save_to": "",
+ "handoff_from": "",
+ "limits": {
+  "ref_rel": 1.1,
+  "ref_spread": 1.06,
+  "slots_max": 8
+ }
+}
