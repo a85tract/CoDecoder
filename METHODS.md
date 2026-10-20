@@ -22,6 +22,7 @@ D9-SHALLOW's, CASCADE-TRT-REG's and the joint decision's (not registered).
 | Cascade on BB72 and on the surface code at d = 13 | RETEST, re-running the original Cascade tests | SPEED-RT stage 1, on two cards | `RETEST.md` sections 3.2 and 3.3; `cascade/bb72/CASCADE.md`; `cascade/d13/SURFACE_PLAN.md`; `speed_rt/SPEED_RT.md` section 1 |
 | output heads (Table II) | RETEST | no speed number | `RETEST.md` section 3.4 |
 | gap switching, our Decoder Switching | SURF-v2's secondary comparison | SPEED-RT stage 2, descriptive | `surface_v2/surf_v2/GAPSW_REGISTRATION.md`; `speed_rt/STAGE2_gapsw.md` |
+| batched costs of the Figs. 3 and 4 decoders (Section VII B, Appendix D) | the registered tests above | SPEED-RT stage 3, throughput mode | `speed_rt/STAGE3_batched.md` |
 
 ## 1. Accuracy
 
@@ -147,6 +148,7 @@ history; SPEED-RT supersedes them.
 |---|---|---|---|---|---|---|
 | 1 | the Cascade comparisons, on an RTX PRO 6000 and on an H100 | `73ca9f9`, pushed 2026-10-13T21:48:15Z | 6549923, released 21:58:30Z | `6609d14`, pushed 22:01:23Z | `56e2023`; correction `2ce2e49` | `speed_rt/cascade/results/` |
 | 2 | the surface comparisons with Ising, BB72 and the gross code, and Decoder Switching | `7988e04`, pushed 2026-10-14T04:00:56Z | 6550668, released 04:11:00Z | `ea1525c` | `e0a9377`; amendment `54d9eec` | `speed_rt/s2/surface/results/`, `speed_rt/s2/bb/results/`, `speed_rt/s2/gapsw/results/` |
+| 3 | the decoders of Figs. 3 and 4 in throughput mode, at 1 and 8 CPU processes | `3842ad8`, pushed 2026-10-19T22:58:25Z | 6567343, released 23:08:30Z | `217dced`, pushed 23:11:24Z | `561a0d7`; correction `25463ac` | `speed_rt/s3/results/` |
 
 - F_k holds the stage's registration, code and timing sets, and was pushed to GitHub before any timing shot existed. T_k
   is the time of GitHub's earliest activity record whose `after` is F_k, and the beacon is the first drand mainnet round
