@@ -179,7 +179,7 @@ On BB72 the network alone at p = 0.3 % is the first of the two networks; the sec
 
 Stage 3, throughput mode, cost per syndrome round on the Grace basis (`speed_rt/s3/results/table.md`, which also gives
 the raw basis and every speed-up): CoDecoder + correlated PM takes 0.187, 0.698 and 0.822 µs at d = 7, 9 and 11 with one
-CPU process and 0.0856, 0.187 and 0.822 µs with eight, against 3.22, 6.45 and 10.9 µs (one process) and 0.399, 0.833 and
+CPU process and 0.0856, 0.187 and 0.822 µs with eight, against 3.22, 6.45 and 10.8 µs (one process) and 0.399, 0.833 and
 1.51 µs (eight) for correlated PM alone. From d = 13 the network alone takes 1.154 to 2.156 µs per round on the H100. On
 BB72 at p = 0.2 %, CoDecoder + sector Relay-BP takes 4.50 µs per round with one process and 1.12 µs with eight. Every
 composition of the stage costs less than its fallback alone, at both N and on both bases.
