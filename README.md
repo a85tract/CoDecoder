@@ -1,8 +1,9 @@
 # CoDecoder: code, weights and records
 
 This repository holds the artifacts of the paper "CoDecoder: Make Quantum Decoders Up to 100× Faster and Even More
-Accurate" by Yicheng Guang, Yuliang Xiong, Xun Gao and Yueqi Chen (University of Colorado Boulder): the training code,
-the trained networks, the test sets and the records behind every table and figure.
+Accurate" by Yicheng Guang, Yuliang Xiong, Xun Gao and Yueqi Chen (University of Colorado Boulder),
+[arXiv:2610.28748](https://arxiv.org/abs/2610.28748): the training code, the trained networks, the test sets and the
+records behind every table and figure.
 
 ## What CoDecoder is
 
@@ -18,20 +19,38 @@ study documents and records keep that name, because the frozen commands, seeds a
 
 ## Main results
 
-Each composition against its own strong decoder alone, on fresh test shots, in registered tests:
+Each composition against its own strong decoder alone, on the same fresh test shots (paper Section IV and Table I):
 
 | strong decoder X | code and noise | failures of CoDecoder + X | time of X over CoDecoder + X |
 |---|---|---|---|
 | correlated PyMatching (PM) | rotated surface code, d = 7 to 17, p = 0.6 % | 6.4 % to 31.4 % fewer | 2.3 to 10.3 |
 | full-DEM Relay-BP | BB72 [[72,12,6]] at p = 0.2 % and 0.3 %, gross code [[144,12,12]] at p = 0.4 % | 22 % to 50 % fewer | 8.9 to 124 |
-| our Cascade for BB72 | BB72 under a fitted noise model, p = 0.2 % and 0.3 % | 1.1 % and 0.3 % fewer | 5.1 to 16.3 (RTX PRO 6000), 3.1 to 9.1 (H100) |
-| our Cascade for the surface code | d = 13, p = 0.35 % and 0.6 % | 0.4 % to 1.3 % fewer | 3.6 to 7.6 (RTX PRO 6000), 3.3 to 7.1 (H100) |
+| our Cascade for BB72, joint decision | BB72 under a fitted noise model, p = 0.2 % and 0.3 % | 18 % and 14 % fewer | 5.14 to 10.08 (RTX PRO 6000), 3.05 to 9.68 (H100) |
+| our Cascade for the surface code, joint decision | d = 13, p = 0.35 % and 0.6 % | 1.0 % to 2.0 % fewer | 3.56 to 7.65 (RTX PRO 6000), 3.30 to 7.06 (H100) |
 
-- Every speed-up compares the slowest run of the composition with the fastest run of the strong decoder alone.
+- Every speed-up compares the slowest run of the composition with the fastest run of the strong decoder alone. The
+  Cascade ranges cover single shots and batches.
+- The Cascade rows use the [joint decision](#joint-decision) on the routed shots. Its weight was fitted on separate
+  fresh shots and frozen before the test shots, so these rows are held out, not registered, and they were timed in a
+  later session against Cascade alone timed again there. Without the joint decision, the composition is better than
+  Cascade alone or non-inferior to it in all four settings and 3.17 to 10.23 (BB72) and 3.33 to 7.66 (d = 13) times
+  faster.
 - With Cascade compiled by TensorRT, every composition still took 2.3 to 16.3 times less time per shot than Cascade
   alone ([CASCADE-TRT-REG](docs/REGISTERED_TESTS.md#cascade-trt-reg-cascade-on-tensorrt)).
 - On BB72, the same network with a conventional output head fails 3.8 to 5.0 times as often.
 - Cascade's code and trained networks are not public, so we re-implemented it from its paper.
+
+### Below 1 µs per syndrome round
+
+In batches of 4,096 shots:
+
+- CoDecoder + correlated PM decodes the surface code at p = 0.6 % in 0.187, 0.698 and 0.822 µs per round at d = 7, 9
+  and 11, about the round period of current superconducting processors, against 3.22, 6.45 and 10.8 µs for correlated
+  PM alone (one CPU process on the Grace basis; registered SPEED-RT stage 3, [`docs/SPEED.md`](docs/SPEED.md)).
+- CoDecoder + Cascade on the multi-shot engine decodes BB72 at p = 0.2 % in 0.733 and 0.891 µs per round on an
+  RTX PRO 6000 and an H100, against 12.00 and 7.34 µs for Cascade alone (paper Section VII B).
+- To our knowledge, CoDecoder is the first open-source design that brings a strong decoder below 1 µs per round at a
+  physical error rate as high as 0.6 % while reducing its failures.
 
 [`docs/RESULTS.md`](docs/RESULTS.md) gives every number with its source file.
 
@@ -127,10 +146,13 @@ their own licenses.
 
 ```bibtex
 @misc{guang2026codecoder,
-  title  = {CoDecoder: Make Quantum Decoders Up to 100x Faster and Even More Accurate},
-  author = {Guang, Yicheng and Xiong, Yuliang and Gao, Xun and Chen, Yueqi},
-  year   = {2026},
-  note   = {Code, weights and records: \url{https://github.com/a85tract/CoDecoder}}
+  title         = {CoDecoder: Make Quantum Decoders Up to 100x Faster and Even More Accurate},
+  author        = {Guang, Yicheng and Xiong, Yuliang and Gao, Xun and Chen, Yueqi},
+  year          = {2026},
+  eprint        = {2610.28748},
+  archivePrefix = {arXiv},
+  primaryClass  = {quant-ph},
+  note          = {Code, weights and records: \url{https://github.com/a85tract/CoDecoder}}
 }
 ```
 
