@@ -44,8 +44,9 @@ def test_layout(d):
     check("layout_layers", lay.R == d and lay.per_layer == want, R=lay.R, per_layer=lay.per_layer[:3])
     sup = lay.support
     line_r = len(np.unique(sup[:, 0])) == 1
-    root = sl.release_root()
-    g = np.load(f"{root}/weights/grid_d{d}.npz")
+    sl.release_root()
+    from convlines import circuits as rc
+    g = np.load(f"{rc.WEIGHTS}/grid_d{d}.npz")                # the same grid file that sl.Layout reads
     off = g["line_off"][:, 0].astype(int)                # the release's signed distance to logical line 0
     axis = lay.i if line_r else lay.j
     k0 = int(sup[0, 0] if line_r else sup[0, 1])
