@@ -40,6 +40,29 @@ Each composition against its own strong decoder alone, on the same fresh test sh
 - On BB72, the same network with a conventional output head fails 3.8 to 5.0 times as often.
 - Cascade's code and trained networks are not public, so we re-implemented it from its paper. [Our Cascade against the published one](#our-cascade-against-the-published-one) compares the two.
 
+### CoDecoder alone already beats the usual fallbacks
+
+**Without any fallback, the small network is already more accurate and faster than the decoders that earlier
+hierarchical designs fall back on.** Pre-decoders such as Clique, Promatch, LATTE, NVIDIA's Ising and Chongder pass
+their remaining shots to minimum-weight matching, which is PyMatching in our tests. From the paper's surface-code
+table (p = 0.6 %) and BB-code table:
+
+| compared with | CoDecoder alone |
+|---|---|
+| PyMatching, surface code d = 7 to 17 | 1.5 to 4.8 times fewer failures at every distance (3,296 against 15,726 at d = 17), in 1.1 to 3.5 times less time per shot |
+| NVIDIA's Ising-Accurate pre-decoder + PyMatching, d = 11 to 17 | 2.2 to 2.5 times fewer failures |
+| correlated PyMatching, d = 11, 13 and 15 | 8 to 26 % fewer failures |
+| sector Relay-BP and BP-OSD (ldpc and CUDA-Q), BB72 at p = 0.2 % and 0.3 % | 49 to 69 % fewer failures, in 6 to 37 times less time |
+| full-DEM Relay-BP, BB72 at p = 0.2 % | level with it (269 against 288 failures in 300,000 shots, p = 0.33), in 1/590 of its time |
+
+So the fallback does not rescue a weak frontend. The frontend is itself a strong decoder, and the fallback sees only
+the at most 10 % of shots it is least sure of. Where the network alone is not ahead (correlated PyMatching at d = 7, 9
+and 17, full-DEM Relay-BP at p = 0.3 %, sector Relay-BP on the gross code), its composition with that decoder is. At
+d = 9 the row uses the one-block network of the second d = 9 test, as the paper's table does. The counts are in
+[`surface_v2/surf_v2/analysis/tables.md`](surface_v2/surf_v2/analysis/tables.md),
+[`d9_shallow/RESULTS.md`](d9_shallow/RESULTS.md) and [`RETEST_RESULTS.md`](RETEST_RESULTS.md), and the times in
+[`docs/SPEED.md`](docs/SPEED.md) and [`speed_rt/s2/`](speed_rt/s2/).
+
 ### Below 1 µs per syndrome round
 
 In batches of 4,096 shots:
