@@ -38,7 +38,7 @@ Each composition against its own strong decoder alone, on the same fresh test sh
 - With Cascade compiled by TensorRT, every composition still took 2.3 to 16.3 times less time per shot than Cascade
   alone ([CASCADE-TRT-REG](docs/REGISTERED_TESTS.md#cascade-trt-reg-cascade-on-tensorrt)).
 - On BB72, the same network with a conventional output head fails 3.8 to 5.0 times as often.
-- Cascade's code and trained networks are not public, so we re-implemented it from its paper.
+- Cascade's code and trained networks are not public, so we re-implemented it from its paper. [Our Cascade against the published one](#our-cascade-against-the-published-one) compares the two.
 
 ### Below 1 µs per syndrome round
 
@@ -53,6 +53,50 @@ In batches of 4,096 shots:
   physical error rate as high as 0.6 % while reducing its failures.
 
 [`docs/RESULTS.md`](docs/RESULTS.md) gives every number with its source file.
+
+### Our Cascade against the published one
+
+Both of our Cascades follow its paper (A. Gu, J. P. Bonilla Ataides, M. D. Lukin and S. F. Yelin,
+[arXiv:2604.08358](https://arxiv.org/abs/2604.08358)). Where the paper gives a setting we used it, and where it does not,
+the table says what we chose.
+
+| | Cascade's paper | our re-implementation |
+|---|---|---|
+| BB72 network | its largest model has L = 14 blocks of width H = 512 (stated for the [[144,12,12]] code), no BB72-specific size | 14 blocks of width 512, 19,687,937 parameters |
+| surface-code network | L ≈ d blocks, width not stated (256 in its scaling and ablation examples, 128 called deployment-sized) | d = 13: 13 blocks of width 256, 2.53 million parameters |
+| training | batch 3,328, Muon and Lion, a three-stage error-rate curriculum up to p = 0.7 % on surface codes, convergence within 3 × 10^8 examples | the same batch, optimizers and curriculum, and the d = 13 network stopped at 81,130 steps, about 2.7 × 10^8 shots |
+| precision | bfloat16 training, FP8 inference | BF16 |
+| single-shot time per round, surface code | about 40 µs per cycle on an H200 | 29.6 µs on an RTX PRO 6000 and 33.1 µs on an H100 at d = 13 |
+
+On BB72 the paper does not fully specify its noise model, so we fitted one (`depspam_fm`: extra depolarizing noise
+after resets and before measurements, and a noisy final measurement) to the baseline failure rates the paper reports.
+The rates below are logical errors per logical qubit per round (the paper's Eq. 1). The paper's values are read off its
+Fig. 2(a), and ours carry 95 % intervals.
+
+| p | decoder | Cascade's paper | ours |
+|---|---|---|---|
+| 0.2 % | Tesseract | 8.13e-06 | 8.17e-06 (5.29e-06 to 1.26e-05) |
+| 0.2 % | Relay-BP | 2.00e-05 | 1.74e-05 (1.18e-05 to 2.56e-05) |
+| 0.2 % | BP-OSD | 3.14e-04 | 3.59e-04 (2.96e-04 to 4.36e-04) |
+| 0.3 % | Tesseract | 4.73e-05 | 4.73e-05 (2.95e-05 to 7.58e-05) |
+| 0.3 % | Relay-BP | 9.50e-05 | 1.14e-04 (8.43e-05 to 1.55e-04) |
+| 0.3 % | BP-OSD | 1.30e-03 | 1.31e-03 (1.07e-03 to 1.61e-03) |
+| 0.1 % | Cascade | 8.17e-07 | 7.79e-07 (7.17e-07 to 8.46e-07) |
+| 0.2 % | Cascade | 1.04e-05 | 9.74e-06 (9.04e-06 to 1.05e-05) |
+| 0.3 % | Cascade | 6.58e-05 | 6.42e-05 (6.16e-05 to 6.69e-05) |
+| 0.4 % | Cascade | 2.19e-04 | 2.69e-04 (2.62e-04 to 2.76e-04) |
+
+- Every published value lies inside our 95 % interval except Cascade at 0.4 %, where the published rate is 19 % below
+  ours. The Cascade rows are phase C's confirmation read. Pooled over all our reads (paper Appendix E), the published
+  rates lie 3.7, 2.0 and 5.2 % above ours at p = 0.1, 0.2 and 0.3 %.
+- Under our plain uniform circuit noise, Tesseract failed only 0.54 to 0.59 times as often as the paper reports, which
+  is why the comparison uses the fitted model. The fit rests on 17 to 20 Tesseract failures.
+- Our Cascades are not the authors' networks, and each was trained once per setting. A matching curve does not show
+  that our network makes the same errors as theirs. At d = 13 the width is our choice and the circuit is our
+  registered test's, so the paper has no d = 13 accuracy to compare with.
+- Sources: [`cascade/bb72/noise_fit/table.md`](cascade/bb72/noise_fit/table.md) for the baselines,
+  [`cascade/bb72/cascade_compare/phase_c/RESULTS.md`](cascade/bb72/cascade_compare/phase_c/RESULTS.md) for the
+  Cascade rates and [`cascade/d13/`](cascade/d13/) for the surface-code network.
 
 ## How the numbers were measured
 
